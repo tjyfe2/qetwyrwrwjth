@@ -29,7 +29,7 @@ alternative is introduced.
 ## Specification
 If `block.number >= FORK_BLOCK`, accept transactions of the shape:
 
-```json
+```
 {
     nonce,
     gasPrice,
@@ -57,9 +57,9 @@ greater than `value + gasPrice * gasLimit`
 ## Rationale
 
 Smart contracts regularly use `CALLER (0x33)` to authenticate a call. Meta-transactions force
-devlopers to support authentication via both `CALLER` and EIP-1271. This burden leads to more
+developers to support authentication via both `CALLER` and EIP-1271. This burden leads to more
 expensive transactions and contract deployments. This EIP is a **primitive** that can be used to create
-a more interoperable meta-transaction system that is resiliant to changes in the gas schedule.
+a more interoperable meta-transaction system that is resilient to changes in the gas schedule.
 
 Here is one example of how it might be used in practice.
 
