@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1613: Gas stations network</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1613.md" />
+<meta property="og:title" content="EIP-1613: Gas stations network" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1613 (EIP-1613): Gas stations network"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1613 (EIP-1613): Gas stations network"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1613.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1613 (EIP 1613): Gas stations network" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1613: Gas stations network
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:yoav@tabookey.com">Yoav Weiss</a>,
+        
+    
+        
+        
+            <a href="mailto:dror@tabookey.com">Dror Tirosh</a>,
+        
+    
+        
+        
+            <a href="mailto:alex@tabookey.com">Alex Forshtat</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;yoav-tabookey&#x2F;EIPs&#x2F;issues&#x2F;1">https:&#x2F;&#x2F;github.com&#x2F;yoav-tabookey&#x2F;EIPs&#x2F;issues&#x2F;1</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-11-18</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>1077</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Make smart contracts (e.g. dapps) accessible to non-ether users by allowing contracts to accept &quot;<a href="https://en.wikipedia.org/wiki/Collect_call">collect-calls</a>&quot;, paying for incoming calls. 
+Let contracts &quot;listen&quot; on publicly accessible channels (e.g. web URL or a whisper address). 
+Incentivize nodes to run &quot;gas stations&quot; to facilitate this. 
+Require no network changes, and minimal contract changes.</p>
+<h2 id="abstract">Abstract</h2>
+<p>Communicating with dapps currently requires paying ETH for gas, which limits dapp adoption to ether users. 
+Therefore, contract owners may wish to pay for the gas to increase user acquisition, or let their users pay for gas with fiat money. 
+Alternatively, a 3rd party may wish to subsidize the gas costs of certain contracts. 
+Solutions such as described in <a href="https://eips.ethereum.org/EIPS/eip-1077">EIP-1077</a> could allow transactions from addresses that hold no ETH.</p>
+<p>The gas stations network is an <a href="https://eips.ethereum.org/EIPS/eip-1077">EIP-1077</a> compliant effort to solve the problem by creating an incentive for nodes to run gas stations, where gasless transactions can be &quot;fueled up&quot;. 
+It abstracts the implementation details from both the dapp maintainer and the user, making it easy to convert existing dapps to accept &quot;collect-calls&quot;.</p>
+<p>The network consists of a single public contract trusted by all participating dapp contracts, and a decentralized network of relay nodes (gas stations) incentivized to listen on non-ether interfaces such as web or whisper, 
+pay for transactions and get compensated by that contract. The trusted contract can be verified by anyone, and the system is otherwise trustless. 
+Gas stations cannot censor transactions as long as there's at least one honest gas station. Attempts to undermine the system can be proven on-chain and offenders can be penalized.</p>
+<h2 id="motivation">Motivation</h2>
+<ul>
+<li>Increase user adoption of smart contracts by:
+<ul>
+<li>Removing the user hassle of acquiring ETH. Transactions are still paid by ETH but costs can be borne by the dapp or paid by the user through other means.</li>
+<li>Removing the need to interact directly with the blockchain, while maintaining decentralization and censorship-resistance. 
+Contracts can &quot;listen&quot; on multiple public channels, and users can interact with the contracts through common protocols that are generally permitted even in restrictive environments.</li>
+</ul>
+</li>
+<li>Ethereum nodes get a revenue source without requiring mining equipment. The entire network benefits from having more nodes.</li>
+<li>No protocol changes required. The gas station network is self-organized via a smart contract, and dapps interact with the network by implementing an interface.</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<p>The system consists of a <code>RelayHub</code> singleton contract, participating contracts inheriting the <code>RelayRecipient</code> contract, a decentralized network of <code>Relay</code> nodes, a.k.a. Gas Stations, 
+and user applications (e.g. mobile or web) interacting with contracts via relays.</p>
+<p>Roles of the <code>RelayHub</code>:</p>
+<ul>
+<li>Maintain a list of active relays. Senders select a <code>Relay</code> from this list for each transaction. The selection process is discussed below.</li>
+<li>Mediate all communication between relays and contracts.</li>
+<li>Provide contracts with trusted versions of the real msg.sender and msg.data.</li>
+<li>Hold ETH stakes placed by relays. A minimum stake size is enforced.  Stake can be withdrawn after a relay unregisters and waits for a cooldown period.</li>
+<li>Hold ETH prepayments made by contracts and use them to compensate relays.</li>
+<li>Penalize provably-offensive relays by giving their stakes to an address providing the proof, thus keeping relays honest.</li>
+<li>Provide a free way for relays to know whether they'll be compensated for a future transaction.</li>
+</ul>
+<p>Roles of a <code>Relay</code> node:</p>
+<ul>
+<li>Maintain a hot wallet with a small amount of ETH, to pay for gas.</li>
+<li>Provide a public interface for user apps to send gasless transactions via channels such as https or whisper.</li>
+<li>Publish it's public interfaces and its price (as a multiplier of the actual transaction gas cost) in <code>RelayHub</code>.</li>
+<li>Optionally monitor reverted transactions of other relays through RelayHub, catching offending relays and claiming their stakes. This can be done by anyone, not just a relay.</li>
+</ul>
+<p>Implementing a <code>RelayRecipient</code> contract:</p>
+<ul>
+<li>
+<p>Know the address of <code>RelayHub</code> and trust it to provide information about the transaction.</p>
+</li>
+<li>
+<p>Maintain a small balance of ETH gas prepayment deposit in <code>RelayHub</code>. Can be paid directly by the <code>RelayRecipient</code> contract, or by the dapp's owner on behalf of the <code>RelayRecipient</code> address. 
+The dapp owner is responsible for ensuring sufficient balance for the next transactions, and can stop depositing if something goes wrong, thus limiting the potential for abuse of system bugs. In DAO usecases it will be up to the DAO logic to maintain a sufficient deposit.</p>
+</li>
+<li>
+<p>Use <code>getSender()</code> and <code>getMessageData()</code> instead of <code>msg.sender</code> and <code>msg.data</code>, everywhere. <code>RelayRecipient</code> provides these functions and gets the information from <code>RelayHub</code>.</p>
+</li>
+<li>
+<p>Implement a <code>acceptRelayedCall(address relay, address from, bytes memory encodedFunction, uint gasPrice, uint transactionFee, bytes memory approval)</code> view function that returns <strong>zero</strong> if and only if it is willing to accept a transaction and pay for it. 
+<code>acceptRelayedCall</code> is called by <code>RelayHub</code> as a view function when a <code>Relay</code> inquires it, and also during the actual transaction. Transactions are reverted if <strong>non-zero</strong>, and <code>Relay</code> only gets compensated for transactions (whether successful or reverted) if <code>acceptRelayedCall</code> returns <strong>zero</strong>. Some examples of <code>acceptRelayedCall()</code> implementations:</p>
+<ul>
+<li>Whitelist of trusted dapp members.</li>
+<li>Balance sheet of registered users, maintained by the dapp owner. Users pay the dapp with a credit card or other non-ETH means, and are credited in the <code>RelayRecipient</code> balance sheet. 
+Users can never cost the dapp more than they were credited for.</li>
+<li>A dapp can provide off-chain a signed message called <code>approval</code> to a transaction sender and validate it.</li>
+<li>Whitelist of known transactions used for onboarding new users. This allows certain anonymous calls and is subject to Sybil attacks. 
+Therefore it should be combined with a restricted gasPrice, and a whitelist of trusted relays, to reduce the incentive for relays to create bogus transactions and rob the dapp's prepaid gas deposit. 
+Dapps allowing anonymous onboarding transactions might benefit from registering their own <code>Relay</code> and accepting anonymous transactions only from that <code>Relay</code>, whereas other transactions can be accepted from any relay. 
+Alternatively, dapps may use the balance sheet method for onboarding as well, by applying the methods suggested in the attacks/mitigations section below.</li>
+</ul>
+</li>
+<li>
+<p>Implement <code>preRelayedCall(address relay, address from, bytes memory encodedFunction, uint transactionFee) returns (bytes32)</code>. This method is called before a transaction is relayed. By default, it does nothing.</p>
+</li>
+<li>
+<p>Implement <code>postRelayedCall(ddress relay, address from, bytes memory encodedFunction, bool success, uint usedGas, uint transactionFee, bytes32 preRetVal)</code>. This method is called after a transaction is relayed. By default, it does nothing.</p>
+<p>These two methods can be used to charge the user in dapp-specific manner. </p>
+</li>
+</ul>
+<p>Glossary of terms used in the processes below:</p>
+<ul>
+<li><code>RelayHub</code> - the RelayHub singleton contract, used by everyone.</li>
+<li><code>Recipient</code> - a contract implementing <code>RelayRecipient</code>, accepting relayed transactions from the RelayHub contract and paying for the incoming transactions.</li>
+<li><code>Sender</code> - an external address with a valid key pair but no ETH to pay for gas.</li>
+<li><code>Relay</code> - a node holding ETH in an external address, listed in RelayHub and relaying transactions from Senders to RelayHub for a fee.</li>
+</ul>
+<p><img src="/assets/eip-1613/sequence.png" alt="Sequence Diagram" /></p>
+<p>The process of registering/refreshing a <code>Relay</code>:</p>
+<ul>
+<li>Relay starts listening as a web app (or on some other communication channel).</li>
+<li>If starting for the first time (no key yet), generate a key pair for Relay's address.</li>
+<li>If Relay's address doesn't hold sufficient funds for gas (e.g. because it was just generated), Relay stays inactive until its owner funds it.</li>
+<li>Relay's owner funds it.</li>
+<li>Relay's owner sends the required stake to <code>RelayHub</code> by calling <code>RelayHub.stake(address relay, uint unstakeDelay)</code>.</li>
+<li><code>RelayHub</code> puts the <code>owner</code> and <code>unstake delay</code> in the relays map, indexed by <code>relay</code> address.</li>
+<li>Relay calls <code>RelayHub.registerRelay(uint transactionFee, string memory url)</code> with the relay's <code>transaction fee</code> (as a multiplier on transaction gas cost), and a URL for incoming transactions. </li>
+<li><code>RelayHub</code> ensures that Relay has a sufficient stake.</li>
+<li><code>RelayHub</code> puts the <code>transaction fee</code> in the relays map.</li>
+<li><code>RelayHub</code> emits an event, <code>RelayAdded(Relay, owner, transactionFee, relayStake, unstakeDelay, url)</code>.</li>
+<li>Relay starts a timer to perform a <code>keepalive</code> transaction every 6000 blocks.</li>
+<li><code>Relay</code> goes to sleep and waits for signing requests.</li>
+</ul>
+<p>The process of sending a relayed transaction:</p>
+<ul>
+<li><code>Sender</code> selects a live <code>Relay</code> from RelayHub's list by looking at <code>RelayAdded</code> events from <code>RelayHub</code>, and sorting based on its own criteria. Selection may be based on a mix of:
+<ul>
+<li>Relay published transaction fees.</li>
+<li>Relay stake size and lock-up time.</li>
+<li>Recent relay transactions (visible through <code>TransactionRelayed</code> events from <code>RelayHub</code>).</li>
+<li>Optionally, reputation/blacklist/whitelist held by the sender app itself, or its backend, on per-app basis (not part of the gas stations network).</li>
+</ul>
+</li>
+<li>Sender prepares the transaction with Sender's address, the recipient address, the actual transaction data, Relay's transaction fee, gas price, gas limit, its current nonce from <code>RelayHub.nonces</code>, RelayHub's address, and Relay's address, and then signs it.</li>
+<li>Sender verifies that <code>RelayHub.balances[recipient]</code> holds enough ETH to pay Relay's fee.</li>
+<li>Sender verifies that <code>Relay.balance</code> has enough eth to send the transaction</li>
+<li>Sender reads the Relay's current <code>nonce</code> value and decides on the <code>max_nonce</code> parameter.</li>
+<li>Sender sends the signed transaction amd metadata to Relay's web interface.</li>
+<li><code>Relay</code> wraps the transaction with a transaction to <code>RelayHub</code>, with zero ETH value.</li>
+<li><code>Relay</code> signs the wrapper transaction with its key in order to pay for gas.</li>
+<li><code>Relay</code> verifies that:
+<ul>
+<li>The transaction's recipient contract will accept this transaction when submitted, by calling <code>RelayHub.canRelay()</code>, a view function, 
+which checks the recipient's <code>acceptRelayedCall</code>, also a view function, stating whether it's willing to accept the charges).</li>
+<li>The transaction nonce matches <code>RelayHub.nonces[sender]</code>.</li>
+<li>The relay address in the transaction matches Relay's address.</li>
+<li>The transaction's recipient has enough ETH deposited in <code>RelayHub</code> to pay the transaction fee.</li>
+<li>Relay has enough ETH to pay for the gas required by the transaction.</li>
+<li>Value of <code>max_nonce</code> is higher than current Relay's <code>nonce</code></li>
+</ul>
+</li>
+<li>If any of Relay's checks fail, it returns an error to sender, and doesn't proceed.</li>
+<li>Relay submits the signed wrapped transaction to the blockchain.</li>
+<li>Relay immediately returns the signed wrapped transaction to the sender.  This step is discussed below, in attacks/mitigations.</li>
+<li><code>Sender</code> receives the wrapped transaction and verifies that:
+<ul>
+<li>It's a valid relay call to <code>RelayHub</code>. from Relay's address.</li>
+<li>The transaction's ethereum nonce matches Relay's current nonce.</li>
+<li>The transaction's ethereum nonce is lower than or equal to <code>max_nonce</code>.</li>
+<li><code>Relay</code> is sufficiently funded to pay for it.</li>
+<li>The wrapped transaction is valid and signed by <code>sender</code>.</li>
+<li>Recipient contract has sufficient funds in <code>RelayHub.balances</code> to pay for Relay's fee as stated in the transaction.</li>
+</ul>
+</li>
+<li>If any of sender's checks fails, it goes back to selecting a new Relay. Sender may also file a report on the unresponsive relay to its backend or save it locally, to down-sort this relay in future transactions.</li>
+<li><code>Sender</code> may also submit the raw wrapped transaction to the blockchain without paying for gas, through any Ethereum node. 
+This submission is likely ignored because an identical transaction is already in the network's pending transactions, but no harm in putting it twice, to ensure that it happens. 
+This step is not strictly necessary, for reasons discussed below in attacks/mitigations, but may speed things up.</li>
+<li><code>Sender</code> monitors the blockchain, waiting for the transaction to be mined. 
+The transaction was verified, with Relay's current nonce, so mining must be successful unless Relay submitted another (different) transaction with the same nonce. 
+If mining fails due to such attack, sender may call <code>RelayHub.penalizeRepeatedNonce</code> through another relay, to collect his reward and burn the remainder of the offending relay's stake, and then go back to selecting a new Relay for the transaction. 
+See discussion in the attacks/mitigations section below.</li>
+<li><code>RelayHub</code> receives the transaction:
+<ul>
+<li>Records <code>gasleft()</code> as <code>initialGas</code> for later payment.</li>
+<li>Verifies the transaction is sent from a registered relay.</li>
+<li>Verifies that the signature of the internal transaction matches its stated origin (sender's key).</li>
+<li>Verifies that the relay address written in the transaction matches msg.sender.</li>
+<li>Verifies that the transaction's <code>nonce</code> matches the stated origin's nonce in <code>RelayHub.nonces</code>.</li>
+<li>Calls recipient's <code>acceptRelayedCall</code> function, asking whether it's going to accept the transaction. If not, the <code>TransactionRelayed</code> will be emitted with status <code>CanRelayFailed</code>, and <code>chargeOrCanRelayStatus</code> will contain the return value of <code>acceptRelayedCall</code>. In this case, Relay doesn't get paid, as it was its responsibility to check <code>RelayHub.canRelay</code> before releasing the transaction.</li>
+<li>Calls recipient's <code>preRelayedCall</code> function. If this call reverts the <code>TransactionRelayed</code> will be emitted with status <code>PreRelayedFailed</code>.</li>
+<li>Sends the transaction to the recipient.  If this call reverts the <code>TransactionRelayed</code> will be emitted with status <code>RelayedCallFailed</code>.
+When passing gas to <code>call()</code>, enough gas is preserved by <code>RelayHub</code>, for post-call handling. Recipient may run out of gas, but <code>RelayHub</code> never does. 
+<code>RelayHub</code> also sends sender's address at the end of <code>msg.data</code>, so <code>RelayRecipient.getSender()</code> will be able to extract the real sender, and trust it because the transaction came from the known <code>RelayHub</code> address.</li>
+</ul>
+</li>
+<li>Recipient contract handles the transaction.</li>
+<li><code>RelayHub</code> calls recipient's <code>postRelayedCall</code>.</li>
+<li><code>RelayHub</code> checks call's return value of call, and emits <code>TransactionRelayed(address relay, address from, address to, bytes4 selector, uint256 status, uint256 chargeOrCanRelayStatus)</code>.</li>
+<li><code>RelayHub</code> increases <code>RelayHub.nonces[sender]</code>.</li>
+<li><code>RelayHub</code> transfers ETH balance from recipient to <code>Relay.owner</code>, to pay the transaction fee, based on the measured transaction cost. 
+Note on relay payment: The relay gets paid for actual gas used, regardless of whether the recipient reverted. 
+The only case where the relay sustains a loss, is if <code>canRelay</code> returns non-zero, since the relay was responsible to verify this view function prior to submitting. 
+Any other revert is caught and paid for. See attacks/mitigations below.</li>
+<li><code>Relay</code> keeps track of transactions it sent, and waits for <code>TransactionRelayed</code> events to see the charge. 
+If a transaction reverts and goes unpaid, which means the recipient's <code>acceptRelayedCall()</code> function was inconsistent, <code>Relay</code> refuses service to that recipient for a while (or blacklists it indefinitely, if it happens often). 
+See attacks/mitigations below.</li>
+</ul>
+<p>The process of winding a <code>Relay</code> down:</p>
+<ul>
+<li>Relay's owner (the address that initially funded it) calls <code>RelayHub.removeRelayByOwner(Relay)</code>.</li>
+<li><code>RelayHub</code> ensures that the sender is indeed Relay's owner, then removes <code>Relay</code>, and emits <code>RelayRemoved(Relay)</code>.</li>
+<li><code>RelayHub</code> starts the countdown towards releasing the owner's stake.</li>
+<li><code>Relay</code> receives its <code>RelayRemoved</code> event.</li>
+<li><code>Relay</code> sends all its remaining ETH to its owner.</li>
+<li><code>Relay</code> shuts down.</li>
+<li>Once the owner's unstake delay is over, owner calls <code>RelayHub.unstake()</code>, and withdraws the stake.</li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<p>The rationale for the gas stations network design is a combination of two sets of requirements: Easy adoption, and robustness.</p>
+<p>For easy adoption, the design goals are:</p>
+<ul>
+<li>No network changes.</li>
+<li>Minimal changes to contracts, apps and frameworks.</li>
+</ul>
+<p>The robustness requirement translates to decentralization and attack resistance. The gas stations network is decentralized, and we have to assume that any entity may attack other entities in the system.</p>
+<p>Specifically we've considered the following types of attacks:</p>
+<ul>
+<li>Denial-of-service attacks against individual senders, i.e. transactions censorship.</li>
+<li>Denial-of-service and financial attacks against individual relays.</li>
+<li>Denial-of-service and financial attacks against individual contracts.</li>
+<li>Denial-of-service attacks against the entire network, either by attacking existing entities, or by introducing any number of malicious entities.</li>
+</ul>
+<h4 id="attacks-and-mitigations">Attacks and mitigations</h4>
+<h5 id="attack-relay-attempts-to-censor-a-transaction-by-not-signing-it-or-otherwise-ignoring-a-user-request">Attack: Relay attempts to censor a transaction by not signing it, or otherwise ignoring a user request.</h5>
+<p>Relay is expected to return the signed transaction to the sender, immediately. 
+Sender doesn't need to wait for the transaction to be mined, and knows immediately whether it's request has been served. 
+If a relay doesn't return a signed transaction within a couple of seconds, sender cancels the operation, drops the connection, and switches to another relay. 
+It also marks Relay as unresponsive in its private storage to avoid using it in the near future.</p>
+<p>Therefore, the maximal damage a relay can cause with such attack, is a one-time delay of a couple of seconds. After a while, senders will avoid it altogether.</p>
+<h5 id="attack-relay-attempts-to-censor-a-transaction-by-signing-it-returning-it-to-the-sender-but-never-putting-it-on-the-blockchain">Attack: Relay attempts to censor a transaction by signing it, returning it to the sender, but never putting it on the blockchain.</h5>
+<p>This attack will backfire and not censor the transaction. 
+The sender can submit the transaction signed by Relay to the blockchain as a raw transaction through any node, so the transaction does happen, 
+but Relay may be unaware and therefore be stuck with a bad nonce which will break its next transaction.</p>
+<h5 id="attack-relay-attempts-to-censor-a-transaction-by-signing-it-but-publishing-a-different-transaction-with-the-same-nonce">Attack: Relay attempts to censor a transaction by signing it, but publishing a different transaction with the same nonce.</h5>
+<p>Reusing the nonce is the only DoS performed by a Relay, that cannot be detected within a couple of seconds during the http request. 
+It will only be detected when the malicious transaction with the same nonce gets mined and triggers the <code>RelayHub.TransactionRelayed</code> event. 
+However, the attack will backfire and cost Relay its entire stake.</p>
+<p>Sender has a signed transaction from Relay with nonce N, and also gets a mined transaction from the blockchain with nonce N, also signed by Relay. 
+This proves that Relay performed a DoS attack against the sender. 
+The sender calls <code>RelayHub.penalizeRepeatedNonce(bytes transaction1, bytes transaction2)</code>, which verifies the attack, confiscates Relay's stake, 
+and sends half of it to the sender who delivered the <code>penalizeRepeatedNonce</code> call. The other half of the stake is burned by sending it to <code>address(0)</code>. Burning is done to prevent cheating relays from effectively penalizing themselves and getting away without any loss.
+The sender then proceeds to select a new relay and send the original transaction.</p>
+<p>The result of such attack is a delay of a few blocks in sending the transaction (until the attack is detected) but the relay gets removed and loses its entire stake. 
+Scaling such attack would be prohibitively expensive, and actually quite profitable for senders and honest relays.</p>
+<h5 id="attack-relay-attempts-to-censor-a-transaction-by-signing-it-but-using-a-nonce-higher-than-it-s-current-nonce">Attack: Relay attempts to censor a transaction by signing it, but using a nonce higher than it's current nonce.</h5>
+<p>In this attack, the Relay did create and return a perfectly valid transaction, but it will not be mined until this Relay fills the gap in the nonce with 'missing' transactions.
+This may delay the relaying of some transactions indefinitely. In order to mitigate that, the sender includes a <code>max_nonce</code> parameter with it's signing request.
+It is suggested to be higher by 2-3 from current nonce, to allow the relay process several transactions.</p>
+<p>When the sender receives a transaction signed by a Relay he validates that the nonce used is valid, and if it is not, the client will ignore the given relay and use other relays to relay given transaction. Therefore, there will be no actual delay introduced by such attack.</p>
+<h5 id="attack-dapp-attempts-to-burn-relays-funds-by-implementing-an-inconsistent-acceptrelayedcall-and-using-multiple-sender-addresses-to-generate-expensive-transactions-thus-performing-a-dos-attack-on-relays-and-reducing-their-profitability">Attack: Dapp attempts to burn relays funds by implementing an inconsistent acceptRelayedCall() and using multiple sender addresses to generate expensive transactions, thus performing a DoS attack on relays and reducing their profitability.</h5>
+<p>In this attack, a contract sets an inconsistent acceptRelayedCall (e.g. return zero for even blocks, nonzero for odd blocks), and uses it to exhaust relay resources through unpaid transactions. 
+Relays can easily detect it after the fact. 
+If a transaction goes unpaid, the relay knows that the recipient contract's acceptRelayedCall has acted inconsistently, because the relay has verified its view function before sending the transaction. 
+It might be the result of a rare race condition where the contract's state has changed between the view call and the transaction, but if it happens too frequently, relays will blacklist this contract and refuse to serve transactions to it. 
+Each offending contract can only cause a small damage (e.g. the cost of 2-3 transactions) to a relay, before getting blacklisted.</p>
+<p>Relays may also look at recipients' history on the blockchain, looking for past unpaid transactions (reverted by RelayHub without pay), and denying service to contracts with a high failure rate. 
+If a contract caused this minor loss to a few relays, all relays will stop serving it, so it can't cause further damage.</p>
+<p>This attack doesn't scale because the cost of creating a malicious contract is in the same order of magnitude as the damage it can cause to the network. 
+Causing enough damage to exhaust the resources of all relays, would be prohibitively expensive.</p>
+<p>The attack can be made even more impractical by setting RelayHub to require a stake from dapps before they can be served, and enforcing an unstaking delay, 
+so that attackers will have to raise a vast amount of ETH in order to simultaneously create enough malicious contracts and attack relays. 
+This protection is probably an overkill, since the attack doesn't scale regardless.</p>
+<h5 id="attack-user-attempts-to-rob-dapps-by-registering-its-own-relay-and-sending-expensive-transactions-to-dapps">Attack: User attempts to rob dapps by registering its own relay and sending expensive transactions to dapps.</h5>
+<p>If a malicious sender repeatedly abuses a recipient by sending meaningless/reverted transactions and causing the recipient to pay a relay for nothing, 
+it is the recipient's responsibility to blacklist that sender and have its acceptRelayedCall function return nonzero for that sender. 
+Collect calls are generally not meant for anonymous senders unknown to the recipient. 
+Dapps that utilize the gas station networks should have a way to blacklist malicious users in their system and prevent Sybil attacks.</p>
+<p>A simple method that mitigates such Sybil attack, is that the dapp lets users buy credit with a credit card, and credit their account in the dapp contract, 
+so acceptRelayedCall() only returns zero for users that have enough credit, and deduct the amount paid to the relay from the user's balance, whenever a transaction is relayed for the user. 
+With this method, the attacker can only burn its own resources, not the dapp's.</p>
+<p>A variation of this method, for free dapps (that don't charge the user, and prefer to pay for their users transactions) is to require a captcha during user creation in their web interface, 
+or to login with a Google/Facebook account, which limits the rate of the attack to the attacker's ability to open many Google/Facebook accounts. 
+Only a user that passed that process is given credit in RelayRecipient. The rate of such Sybil attack would be too low to cause any real damage.</p>
+<h5 id="attack-attacker-attempts-to-reduce-network-availability-by-registering-many-unreliable-relays">Attack: Attacker attempts to reduce network availability by registering many unreliable relays.</h5>
+<p>Registering a relay requires placing a stake in RelayHub, and the stake can only be withdrawn after the relay is unregistered and a long cooldown period has passed, e.g. a month.</p>
+<p>Each unreliable relay can only cause a couple of seconds delay to senders, once, and then it gets blacklisted by them, as described in the first attack above. 
+After it caused this minor delay and got blacklisted, the attacker must wait a month before reusing the funds to launch another unreliable relay. 
+Simultaneously bringing up a number of unreliable relays, large enough to cause a noticeable network delay, would be prohibitively expensive due to the required stake, 
+and even then, all those relays will get blacklisted within a short time.</p>
+<h5 id="attack-attacker-attempts-to-replay-a-relayed-transaction">Attack: Attacker attempts to replay a relayed transaction.</h5>
+<p>Transactions include a nonce. RelayHub maintains a nonce (counter) for each sender. Transactions with bad nonces get reverted by RelayHub. Each transaction can only be relayed once.</p>
+<h5 id="attack-user-does-not-execute-the-raw-transaction-received-from-the-relayer-therefore-blocking-the-execution-of-all-further-transactions-signed-by-this-relayer">Attack: User does not execute the raw transaction received from the Relayer, therefore blocking the execution of all further transactions signed by this relayer</h5>
+<p>The user doesn't really have to execute the raw transaction. It's enough that the user can. The relationship between relay and sender is mutual distrust. The process described above incentivizes the relay to execute the transaction, so the user doesn't need to wait for actual mining to know that the transaction has been executed.</p>
+<p>Once relay returns the signed transaction, which should happen immediately, the relay is incentivized to also execute it on chain, so that it can advance its nonce and serve the next transaction. The user can (but doesn't have to) also execute the transaction. To understand why the attack isn't viable, consider the four possible scenarios after the signed transaction was returned to the sender:</p>
+<ol>
+<li>Relay executes the transaction, and the user doesn't. In this scenario the transaction is executed, so no problem. This is the case described in this attack.</li>
+<li>Relay doesn't execute the transaction, but the user does. Similarly to 1, the transaction is executed, so no problem.</li>
+<li>Both of them execute the transaction. The transactions are identical in the pending transactions pool, so the transaction gets executed once. No problem.</li>
+<li>None of them execute the transaction. In this case the transaction doesn't get executed, but the relay is stuck. It can't serve the next transaction with the next nonce, because its nonce hasn't been advanced on-chain. It also can't serve the next transaction with the current nonce, as this can be proven by the user, having two different transactions signed by the same relay, with the same nonce. The user could use this to take the relay's nonce. So the relay is stuck unless it executes the transaction.</li>
+</ol>
+<p>As this matrix shows, the relay is <strong>always</strong> incentivized to execute the transaction, once it returned it to the user, in order to end up in #1 or #3, and avoid the risk of #4. It's just a way to commit the relay to do its work, without requiring the user to wait for on-chain confirmation.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>The gas stations network is implemented as smart contracts and external entities, and does not require any network changes.</p>
+<p>Dapps adding gas station network support remain backwards compatible with their existing apps/users. The added methods apply on top of the existing ones, so no changes are required for existing apps.</p>
+<h2 id="implementation">Implementation</h2>
+<p>A working implementation of the <a href="https://github.com/tabookey-dev/tabookey-gasless"><strong>gas stations network</strong></a> is being developed by <strong>TabooKey</strong>. It consists of <code>RelayHub</code>, <code>RelayRecipient</code>, <code>web3 hooks</code>, an implementation of a gas station inside <code>geth</code>, and sample dapps using the gas stations network.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

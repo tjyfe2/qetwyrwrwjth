@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1967: Standard Proxy Storage Slots</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1967.md" />
+<meta property="og:title" content="EIP-1967: Standard Proxy Storage Slots" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1967 (EIP-1967): Standard Proxy Storage Slots"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1967 (EIP-1967): Standard Proxy Storage Slots"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1967.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1967 (EIP 1967): Standard Proxy Storage Slots" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1967: Standard Proxy Storage Slots
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/spalladino">Santiago Palladino</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1967-standard-proxy-storage-slots&#x2F;3185">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1967-standard-proxy-storage-slots&#x2F;3185</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-04-24</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>Standardise how proxies store the address of the logic contract they delegate to, and other proxy specific information.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>Delegating <strong>proxy contracts</strong> are widely used for both upgradeability and gas savings. These proxies rely on a <strong>logic contract</strong> (also known as implementation contract or master copy) that is called using <code>delegatecall</code>. This allows proxies to keep a persistent state (storage and balance) while the code is delegated to the logic contract. </p>
+<p>To avoid clashes in storage usage between the proxy and logic contract, the address of the logic contract is typically saved in a <a href="https://blog.zeppelinos.org/upgradeability-using-unstructured-storage/">specific storage slot</a> guaranteed to be never allocated by a compiler. This EIP proposes a set of standard slots to store proxy information. This allows clients like block explorers to properly extract and show this information to end users, and logic contracts to optionally act upon it.</p>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>Delegating proxies are widely in use, as a means to both support upgrades and reduce gas costs of deployments. Examples of these proxies are found in <a href="https://blog.zeppelinos.org/the-transparent-proxy-pattern/">ZeppelinOS</a>, <a href="https://medium.com/terminaldotco/escape-hatch-proxy-efb681de108d">Terminal</a>, <a href="https://blog.gnosis.pm/solidity-delegateproxy-contracts-e09957d0f201">Gnosis</a>, <a href="https://github.com/aragon/aragonOS/blob/dev/contracts/common/DelegateProxy.sol">AragonOS</a>, <a href="https://github.com/melonproject/melon-mail/blob/782aeff9418ac8cdd80875fd6c400bf96f3b03b3/solidity/contracts/DelegateProxy.sol">Melonport</a>, <a href="https://github.com/LimeChain/UpgradeableSolidityContract/blob/14bcabc338130fb2aba2ce8bd27b885305566fce/contracts/Upgradeability/Forwardable.sol">Limechain</a>, <a href="https://github.com/windingtree/upgradeable-token-labs/blob/af3b66096091d8282d5c9c55c33365315d85f3e1/contracts/upgradable/DelegateProxy.sol">WindingTree</a>, <a href="https://github.com/decentraland/land/blob/5154046844f6f94a5074e82abe01381e6fd7c39d/contracts/upgradable/DelegateProxy.sol">Decentraland</a>, and many others.</p>
+<p>However, the lack of a common interface for obtaining the logic address for a proxy makes it impossible to build common tools that act upon this information.</p>
+<p>A classic example of this is a block explorer. Here, the end user wants to interact with the underlying logic contract and not the proxy itself. Having a common way to retrieve the logic contract address from a proxy would allow a block explorer, among other things, to show the ABI of the logic contract and not that of the proxy (see <a href="https://etherscan.io/token/0x00fdae9174357424a78afaad98da36fd66dd9e03#readContract">this proxy</a> for an example). The explorer should check the storage of the contract at the distinguished slots to determine if it is indeed a proxy, in which case it should show information on both the proxy and the logic contract.</p>
+<p>Another example are logic contracts that explicitly act upon the fact that they are being proxied. This allows them to potentially trigger a code update as part of their logic, as is the case of <a href="https://eips.ethereum.org/EIPS/eip-1822">Universal Upgradeable Proxy Standard (EIP1822)</a>. A common storage slot allows these use cases independently of the specific proxy implementation being used.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<p>The main requirement for the storage slots chosen is that they must never be picked by the compiler to store any contract state variable. Otherwise, a logic contract could inadvertently overwrite this information on the proxy when writing to a variable of its own.</p>
+<p><a href="https://solidity.readthedocs.io/en/v0.4.21/miscellaneous.html#layout-of-state-variables-in-storage">Solidity</a> maps variables to storage based on the order in which they were declared, after the contract inheritance chain is linearized: the first variable is assigned the first slot, and so on. The exception are values in dynamic arrays and mappings, which are stored in the hash of the concatenation of the key and the storage slot. The Solidity development team has <a href="https://twitter.com/ethchris/status/1073692785176444928">confirmed</a> that the storage layout is to be preserved among new versions. Vyper seems to <a href="https://github.com/ethereum/vyper/issues/769">follow the same strategy as Solidity</a>. Note that contracts written in other languages, or directly in assembly, may incur in clashes.</p>
+<p>As such, the proposed storage slots for proxy-specific information are the following. They are chosen in such a way so they are guaranteed to not clash with state variables allocated by the compiler, since they depend on the hash of a string that does not start with a storage index. Furthermore, a <code>-1</code> offset is added so the preimage of the hash cannot be known, further reducing the chances of a possible attack.</p>
+<p>More slots for additional information can be added in subsequent ERCs as needed.</p>
+<h3 id="logic-contract-address">Logic contract address</h3>
+<p>Storage slot <code>0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</code>
+(obtained as <code>bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1)</code>).</p>
+<p>Holds the address of the logic contract that this proxy delegates to.</p>
+<h3 id="admin-address">Admin address</h3>
+<p>Storage slot <code>0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103</code>
+(obtained as <code>bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1)</code>).</p>
+<p>Holds the address that is allowed to upgrade the logic contract address for this proxy (optional).</p>
+<h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<p>This EIP standardises the <strong>storage slot</strong> for the logic contract address, instead of a public method on the proxy contract as <a href="https://eips.ethereum.org/EIPS/eip-897">DelegateProxy (EIP897)</a> does. The rationale for this is that proxies should never expose functions to end users that could potentially clash with those of the logic contract. </p>
+<p>Note that a clash may occur even among functions with different names, since the ABI relies on just four bytes for the function selector. This can lead to unexpected errors, or even exploits, where a call to a proxied contract returns a different value than expected, since the proxy intercepts the call and answers with a value of its own. </p>
+<p>From <a href="https://medium.com/nomic-labs-blog/malicious-backdoors-in-ethereum-proxies-62629adf3357"><em>Malicious backdoors in Ethereum proxies</em></a> by Nomic Labs:</p>
+<blockquote>
+<p>Any function in the Proxy contract whose selector matches with one in the implementation contract will be called directly, completely skipping the implementation code.</p>
+<p>Because the function selectors use a fixed amount of bytes, there will always be the possibility of a clash. This isn’t an issue for day to day development, given that the Solidity compiler will detect a selector clash within a contract, but this becomes exploitable when selectors are used for cross-contract interaction. Clashes can be abused to create a seemingly well-behaved contract that’s actually concealing a backdoor.</p>
+</blockquote>
+<p>The fact that proxy public functions are potentially exploitable makes it necessary to standardise the logic contract address in a different way. This approach is also used as part of <a href="https://eips.ethereum.org/EIPS/eip-1822">Universal Upgradeable Proxy Standard (EIP1822)</a>, which could become a specialization of this EIP.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>Sample proxy implementations that follow this standard can be found in the <a href="https://github.com/zeppelinos/zos/blob/dc9e4ed/packages/lib/contracts/upgradeability/BaseUpgradeabilityProxy.sol">ZeppelinOS repository</a>, albeit with a different set of slots.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

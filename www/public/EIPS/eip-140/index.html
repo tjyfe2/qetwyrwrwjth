@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-140: REVERT instruction</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-140.md" />
+<meta property="og:title" content="EIP-140: REVERT instruction" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 140 (EIP-140): REVERT instruction"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 140 (EIP-140): REVERT instruction"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-140.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 140 (EIP 140): REVERT instruction" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-140: REVERT instruction
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>,
+        
+    
+        
+        
+            <a href="mailto:nikolai@nexusdev.us">Nikolai Mushegian</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-02-06</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>The <code>REVERT</code> instruction provides a way to stop execution and revert state changes, without consuming all provided gas and with the ability to return a reason.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The <code>REVERT</code> instruction will stop execution, roll back all state changes done so far and provide a pointer to a memory section, which can be interpreted as an error code or message. While doing so, it will not consume all the remaining gas.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Currently this is not possible. There are two practical ways to revert a transaction from within a contract: running out of gas or executing an invalid instruction. Both of these options will consume all remaining gas. Additionally, reverting an EVM execution means that all changes, including LOGs, are lost and there is no way to convey a reason for aborting an EVM execution.</p>
+<h2 id="specification">Specification</h2>
+<p>On blocks with <code>block.number &gt;= BYZANTIUM_FORK_BLKNUM</code>, the <code>REVERT</code> instruction is introduced at <code>0xfd</code>. It expects two stack items, the top item is the <code>memory_offset</code> followed by <code>memory_length</code>. It does not produce any stack elements because it stops execution.</p>
+<p>The semantics of <code>REVERT</code> with respect to memory and memory cost are identical to those of <code>RETURN</code>. The sequence of bytes given by <code>memory_offset</code> and <code>memory_length</code> is called &quot;error message&quot; in the following.</p>
+<p>The effect of <code>REVERT</code> is that execution is aborted, considered as failed, and state changes are rolled back. The error message will be available to the caller in the returndata buffer and will also be copied to the output area, i.e. it is handled in the same way as the regular return data is handled.</p>
+<p>The cost of the <code>REVERT</code> instruction equals to that of the <code>RETURN</code> instruction, i.e. the rollback itself does not consume all gas, the contract only has to pay for memory.</p>
+<p>In case there is not enough gas left to cover the cost of <code>REVERT</code> or there is a stack underflow, the effect of the <code>REVERT</code> instruction will equal to that of a regular out of gas exception, i.e. it will consume all gas.</p>
+<p>In the same way as all other failures, the calling opcode returns <code>0</code> on the stack following a <code>REVERT</code> opcode in the callee.</p>
+<p>In case <code>REVERT</code> is used in the context of a <code>CREATE</code> or <code>CREATE2</code> call, no code is deployed, <code>0</code> is put on the stack and the error message is available in the returndata buffer.</p>
+<p>The content of the optionally provided memory section is not defined by this EIP, but is a candidate for another Informational EIP.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This change has no effect on contracts created in the past unless they contain <code>0xfd</code> as an instruction.</p>
+<h2 id="test-cases">Test Cases</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">6c726576657274656420646174616000557f726576657274206d657373616765000000000000000000000000000000000000600052600e6000fd
+</span></code></pre>
+<p>should:</p>
+<ul>
+<li>return <code>0x726576657274206d657373616765</code> as <code>REVERT</code> data,</li>
+<li>the storage at key <code>0x0</code> should be left as unset and</li>
+<li>use 20024 gas in total.</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

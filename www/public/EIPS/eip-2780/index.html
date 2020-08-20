@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2780: Reduce intrinsic transaction gas</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2780.md" />
+<meta property="og:title" content="EIP-2780: Reduce intrinsic transaction gas" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2780 (EIP-2780): Reduce intrinsic transaction gas"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2780 (EIP-2780): Reduce intrinsic transaction gas"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2780.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2780 (EIP 2780): Reduce intrinsic transaction gas" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2780: Reduce intrinsic transaction gas
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/lightclient">Matt Garnett</a>,
+        
+    
+        
+        
+            <a href="https://github.com/uriklarman"> Uri Klarman</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2780-reduce-intrinsic-cost-of-transactions&#x2F;4413">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2780-reduce-intrinsic-cost-of-transactions&#x2F;4413</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-07-11</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>Reduce the intrinsic cost of a transaction from <code>21,000</code> to <code>7,000</code> gas.</p>
+<h2 id="motivation">Motivation</h2>
+<p>The current <code>21,000</code> gas intrinsic cost of a transaction makes sending ETH very costly, often times prohibitively costly for small amounts (tens of USD).
+While broad changes to the gas price and first price auction are being considerted in other EIPs (like EIP-1559),
+substantially reducing the cost of sending ETH and enabling higher volumes of such transactions would be a net positive if done in a safe manner,
+and without imposing negative externalities, as outlined below.</p>
+<h2 id="specification">Specification</h2>
+<p>After <code>block.number &gt;= FORK_BLOCK</code>, enforce an intrinsic gas cost of <code>7,000</code>.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The proliferation of calls to DeFi smart-contracts had substantially increased the cost of making transactions,
+since such calls are usually both time sensitive and involve large sums of money.
+While the utilization of the chain's capacity by the most valuable transactions is by design,
+the high cost of sending transactionsz is limiting Ethereum's the use-cases,
+create a terribel user experience,
+decreases the actual value created (and captured) by ETH,
+and pushes users to seek alternatives in other, less-congested chains.</p>
+<p>Note on Layer-2: It is true that the high cost might push users to try using L2 solutions,
+however forcing users to utilize L2 by allowing the UX of using L1 to deteriorate is a losing strategy (see BTC / Lightning),
+and the safety of many L2 solutions hinges on the ability to use L1 if needed.
+If L2 are to gain significant traction they must achieve it by providing superior properties (e.g., finality, cost, UX),
+not by imposing artificial restrictions to encourage it. </p>
+<p>Reducing the intrinsic cost of a transaction from <code>21,000</code> to <code>7,000</code> gas will make sending transactions cheaper,
+is easily achievable, and does not incur technical debt.
+However, such a change should only be made after it is determined that it does not impose non-negligble externalities, specifically:</p>
+<ul>
+<li>
+<p>Increases uncle-rate.</p>
+</li>
+<li>
+<p>Increases the pace at which the state-size of Ethereum grows.</p>
+</li>
+<li>
+<p>Enhance gas-manipulation technices (gas-token).</p>
+</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is backward compatible as well as compatible with other approaches pursued in other EIPs.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>While the benefits of reducing transactions' intrinsic cost are appearant,
+such a change should be applied if it impose no negative externalities,
+or if such effects are negligible.</p>
+<h4 id="increased-uncle-rate">Increased Uncle Rate</h4>
+<p>Historically, periods of high transaction counts has correlated with
+higher-than-average uncle blocks being mined. It must be determined that the
+new intrinsic cost <code>7,000</code> will not adversely affect uncle rate.</p>
+<p>A testnet applying this change should be deployed to test the effect of this change on uncle rate.</p>
+<p>details TBD.</p>
+<h2 id="implementation">Implementation</h2>
+<p>TBD</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<h4 id="increased-state-size-growth">Increased State Size Growth</h4>
+<p>The growth of Ethereum's state size continues to raise concerns among members of the community.
+However, an analysis of Ethereum accounts shows that their effect on stat size is negligible.</p>
+<p>Looking at the first half of 2020, the number of accounts on the Ethereum chain had grown from 84,127,955 to 103,485,373 - an increase of 19,357,418. Since the <em>creation</em> of each new account adds 20 bytes to the chain state, these new accounts had added ~369 MB to the state.
+At the same time, the chain had grown from ~117 GB to ~147 GB - an increase of 30 GB.
+The creation of new accounts had therefore accounted for only a very small percentage (1.2%) of the chain’s growth.</p>
+<p>Even under the very aggressive assumption that reducing the intrinsic cost of transactions from <code>21,000</code> to <code>7,000</code> gas would translate to x3 more new accounts being created, if this change was implemented on 1/1/2020, the state size would have only been 0.49% larger than it is today (see below)</p>
+<p>While the sate-size remains an open issue which needs solving - reducing the intrinsic cost of transactions would hardly affect the rate at which the state-size grows, and would significantly improve the chain’s usability.</p>
+<h4 id="enhancing-gas-manipulation-gas-token">Enhancing Gas-Manipulation (gas-token)</h4>
+<p>Gas Token (https://gastoken.io/) is an Ethereum smart-contracts which leverages the storage refund mechanism by storing data (V.1) or creating accounts (V.2) using a low gas price, and then free (V.1) or self-destruct (V.2) them in a later transaction which utilizes a higher gas price. This mechanism is only economical when the high gas price redeeming the tokens is more than twice as high as the low gas price used to mint them.
+Gas Tokens do not actually increase the state-size lon-term, as they release all the data they store in order to benefit from their gas boost.
+However, they do manipulate the gas price auction.</p>
+<p>There had been concerns that reducing the intrinsic cost of transactions from <code>21,000</code> to <code>7,000</code> would boost the savings achiieved using gas tokens, however these concerns are unfounded.
+Due to some overhead of using the smart contract, minting and freeing a single gas-token is uneconomical, but the effect of the overhead diminishes the more tokens are minted and freed. 
+This is also the reason why their efficiency is hardly affected by the intrinsic cost of transactions - the gas token is designed to spread the transaction cost among many tokens.</p>
+<p>The creators of gas tokens outline the maximal potential savings when minting very large number of tokens (up to x2.97 for V.1, and up to 3.49 for V.2). These numbers are <em>unaffected</em> by the proposed change. In a more realistic scenario where 100 gas tokens are minted, the proposed change increases the saving multiplier by a minuscule amount, generally smaller than the increase achieved by minting 200 tokens instead of 100.
+The table below captures the effect of this proposal on the savings multiplier in a </p>
+<table><thead><tr><th>Version</th><th>free_gas_price / mint_gas_price</th><th>old savings multiplier</th><th>new savings multiplier</th><th>saving multiplier of 200 tokens</th></tr></thead><tbody>
+<tr><td>V.1</td><td>10</td><td>2.075</td><td>2.077</td><td>2.1</td></tr>
+<tr><td>V.1</td><td>100</td><td>2.780</td><td>2.781</td><td>2.819</td></tr>
+<tr><td>V.2</td><td>10</td><td>2.243</td><td>2.275</td><td>2.261</td></tr>
+<tr><td>V.2</td><td>100</td><td>3.251</td><td>3.315</td><td>3.316</td></tr>
+</tbody></table>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

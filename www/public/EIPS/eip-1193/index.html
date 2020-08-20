@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1193: Ethereum Provider JavaScript API</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1193.md" />
+<meta property="og:title" content="EIP-1193: Ethereum Provider JavaScript API" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1193 (EIP-1193): Ethereum Provider JavaScript API"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1193 (EIP-1193): Ethereum Provider JavaScript API"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1193.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1193 (EIP 1193): Ethereum Provider JavaScript API" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1193: Ethereum Provider JavaScript API
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/frozeman">Fabian Vogelsteller</a>,
+        
+    
+        
+        
+            <a href="https://github.com/ryanio"> Ryan Ghods</a>,
+        
+    
+        
+        
+            <a href="https://github.com/MaiaVictor"> Victor Maia</a>,
+        
+    
+        
+        
+            <a href="https://github.com/marcgarreau"> Marc Garreau</a>,
+        
+    
+        
+        
+            <a href="https://github.com/rekmarks"> Erik Marks</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2319">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2319</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Last Call
+                
+                  <strong>(review ends 2020-06-04)</strong>
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Interface</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-06-30</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>155, 695</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="summary">Summary</h2>
+<p>A JavaScript Ethereum Provider API for consistency across clients and applications.</p>
+<h2 id="abstract">Abstract</h2>
+<p>A common convention in the Ethereum web application (&quot;dapp&quot;) ecosystem is for key management software (&quot;wallets&quot;) to expose their API via a JavaScript object in the web page.
+This object is called &quot;the Provider&quot;.</p>
+<p>Historically, Provider implementations have exhibited conflicting interfaces and behaviors between wallets.
+This EIP formalizes an Ethereum Provider API to promote wallet interoperability.
+The API is designed to be minimal, event-driven, and agnostic of transport and RPC protocols.
+Its functionality is easily extended by defining new RPC methods and <code>message</code> event types.</p>
+<p>Historically, Providers have been made available as <code>window.ethereum</code> in web browsers, but this convention is not part of the specification.</p>
+<h2 id="specification">Specification</h2>
+<p>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC-2119</a>.</p>
+<blockquote>
+<p>Comments like this are non-normative.</p>
+</blockquote>
+<h3 id="definitions">Definitions</h3>
+<p><em>This section is non-normative.</em></p>
+<ul>
+<li>Provider
+<ul>
+<li>A JavaScript object made available to a consumer, that provides access to Ethereum by means of a Client.</li>
+</ul>
+</li>
+<li>Client
+<ul>
+<li>An endpoint that receives Remote Procedure Call (RPC) requests from the Provider, and returns their results.</li>
+</ul>
+</li>
+<li>Wallet
+<ul>
+<li>An end-user application that manages private keys, performs signing operations, and acts as a middleware between the Provider and the Client.</li>
+</ul>
+</li>
+<li>Remote Procedure Call (RPC)
+<ul>
+<li>A Remote Procedure Call (RPC), is any request submitted to a Provider for some procedure that is to be processed by a Provider, its Wallet, or its Client.</li>
+</ul>
+</li>
+</ul>
+<h3 id="connectivity">Connectivity</h3>
+<p>The Provider is said to be &quot;connected&quot; when it can service RPC requests to at least one chain.</p>
+<p>The Provider is said to be &quot;disconnected&quot; when it cannot service RPC requests to any chain at all.</p>
+<blockquote>
+<p>To service an RPC request, the Provider must successfully submit the request to the remote location, and receive a response.
+In other words, if the Provider is unable to communicate with its Client, for example due to network issues, the Provider is disconnected.</p>
+</blockquote>
+<h3 id="api">API</h3>
+<blockquote>
+<p>The Provider API is specified using TypeScript.
+The authors encourage implementers to declare their own types and interfaces, using the ones in this section as a basis.</p>
+<p>For consumer-facing API documentation, see <a href="https://eips.ethereum.com/EIPS/eip-1193/#appendix-i-consumer-facing-api-documentation">Appendix I</a></p>
+</blockquote>
+<p>The Provider <strong>MUST</strong> implement and expose the API defined in this section.
+All API entities <strong>MUST</strong> adhere to the types and interfaces defined in this section.</p>
+<h4 id="request">request</h4>
+<blockquote>
+<p>The <code>request</code> method is intended as a transport- and protocol-agnostic wrapper function for Remote Procedure Calls (RPCs).</p>
+</blockquote>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">interface </span><span style="color:#c0c5ce;">RequestArguments {
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">method</span><span style="color:#c0c5ce;">: string;
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">?: </span><span style="color:#b48ead;">readonly </span><span style="color:#c0c5ce;">unknown[] | object;
+}
+
+</span><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">request</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">args</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">RequestArguments</span><span style="color:#c0c5ce;">): </span><span style="color:#ebcb8b;">Promise</span><span style="color:#c0c5ce;">&lt;</span><span style="color:#bf616a;">unknown</span><span style="color:#c0c5ce;">&gt;;
+</span></code></pre>
+<p>The Provider <strong>MUST</strong> identify the requested RPC method by the value of <code>RequestArguments.method</code>.</p>
+<p>If the requested RPC method takes any parameters, the Provider <strong>MUST</strong> accept them as the value of <code>RequestArguments.params</code>.</p>
+<p>RPC requests <strong>MUST</strong> be handled such that the returned Promise either resolves with a value per the requested RPC method's specification, or rejects with an error.</p>
+<p>If resolved, the Promise <strong>MUST</strong> resolve with a result per the RPC method's specification. The Promise <strong>MUST NOT</strong> resolve with any RPC protocol-specific response objects, unless the RPC method's return type is so defined.</p>
+<p>If the returned Promise rejects, it <strong>MUST</strong> reject with a <code>ProviderRpcError</code> as specified in the <a href="https://eips.ethereum.com/EIPS/eip-1193/#rpc-errors">RPC Errors</a> section below.</p>
+<p>The returned Promise <strong>MUST</strong> reject if any of the following conditions are met:</p>
+<ul>
+<li>An error is returned for the RPC request.
+<ul>
+<li>If the returned error is compatible with the <code>ProviderRpcError</code> interface, the Promise <strong>MAY</strong> reject with that error directly.</li>
+</ul>
+</li>
+<li>The Provider encounters an error or fails to process the request for any reason.</li>
+</ul>
+<blockquote>
+<p>If the Provider implements any kind of authorization logic, the authors recommend rejecting with a <code>4100</code> error in case of authorization failures.</p>
+</blockquote>
+<p>The returned Promise <strong>SHOULD</strong> reject if any of the following conditions are met:</p>
+<ul>
+<li>The Provider is disconnected.
+<ul>
+<li>If rejecting for this reason, the Promise rejection error <code>code</code> <strong>MUST</strong> be <code>4900</code>.</li>
+</ul>
+</li>
+<li>The RPC request is directed at a specific chain, and the Provider is not connected to that chain, but is connected to at least one other chain.
+<ul>
+<li>If rejecting for this reason, the Promise rejection error <code>code</code> <strong>MUST</strong> be <code>4901</code>.</li>
+</ul>
+</li>
+</ul>
+<p>See the section <a href="https://eips.ethereum.com/EIPS/eip-1193/#connectivity">Connectivity</a> for the definitions of &quot;connected&quot; and &quot;disconnected&quot;.</p>
+<h3 id="supported-rpc-methods">Supported RPC Methods</h3>
+<p>A &quot;supported RPC method&quot; is any RPC method that may be called via the Provider.</p>
+<p>All supported RPC methods <strong>MUST</strong> be identified by unique strings.</p>
+<p>Providers <strong>MAY</strong> support whatever RPC methods required to fulfill their purpose, standardized or otherwise.</p>
+<p>If an RPC method defined in a finalized EIP is not supported, it <strong>SHOULD</strong> be rejected with a <code>4200</code> error per the <a href="https://eips.ethereum.com/EIPS/eip-1193/#provider-errors">Provider Errors</a> section below, or an appropriate error per the RPC method's specification.</p>
+<h4 id="rpc-errors">RPC Errors</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">interface </span><span style="color:#c0c5ce;">ProviderRpcError </span><span style="color:#b48ead;">extends </span><span style="color:#ebcb8b;">Error </span><span style="color:#c0c5ce;">{
+  </span><span style="color:#bf616a;">code</span><span style="color:#c0c5ce;">: number;
+  </span><span style="color:#bf616a;">data</span><span style="color:#c0c5ce;">?: unknown;
+}
+</span></code></pre>
+<ul>
+<li><code>message</code>
+<ul>
+<li><strong>MUST</strong> be a human-readable string</li>
+<li><strong>SHOULD</strong> adhere to the specifications in the <a href="https://eips.ethereum.com/EIPS/eip-1193/#error-standards">Error Standards</a> section below</li>
+</ul>
+</li>
+<li><code>code</code>
+<ul>
+<li><strong>MUST</strong> be an integer number</li>
+<li><strong>SHOULD</strong> adhere to the specifications in the <a href="https://eips.ethereum.com/EIPS/eip-1193/#error-standards">Error Standards</a> section below</li>
+</ul>
+</li>
+<li><code>data</code>
+<ul>
+<li><strong>SHOULD</strong> contain any other useful information about the error</li>
+</ul>
+</li>
+</ul>
+<h5 id="error-standards">Error Standards</h5>
+<p><code>ProviderRpcError</code> codes and messages <strong>SHOULD</strong> follow these conventions, in order of priority:</p>
+<ol>
+<li>
+<p>The errors in the <a href="https://eips.ethereum.com/EIPS/eip-1193/#provider-errors">Provider Errors</a> section below</p>
+</li>
+<li>
+<p>Any errors mandated by the erroring RPC method's specification</p>
+</li>
+<li>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent#Status_codes"><code>CloseEvent</code> status codes</a></p>
+</li>
+</ol>
+<h4 id="provider-errors">Provider Errors</h4>
+<table><thead><tr><th>Status code</th><th>Name</th><th>Description</th></tr></thead><tbody>
+<tr><td>4001</td><td>User Rejected Request</td><td>The user rejected the request.</td></tr>
+<tr><td>4100</td><td>Unauthorized</td><td>The requested method and/or account has not been authorized by the user.</td></tr>
+<tr><td>4200</td><td>Unsupported Method</td><td>The Provider does not support the requested method.</td></tr>
+<tr><td>4900</td><td>Disconnected</td><td>The Provider is disconnected from all chains.</td></tr>
+<tr><td>4901</td><td>Chain Disconnected</td><td>The Provider is not connected to the requested chain.</td></tr>
+</tbody></table>
+<blockquote>
+<p><code>4900</code> is intended to indicate that the Provider is disconnected from all chains, while <code>4901</code> is intended to indicate that the Provider is disconnected from a specific chain only.
+In other words, <code>4901</code> implies that the Provider is connected to other chains, just not the requested one.</p>
+</blockquote>
+<h3 id="events">Events</h3>
+<p>The Provider <strong>MUST</strong> implement the following event handling methods:</p>
+<ul>
+<li><code>on</code></li>
+<li><code>removeListener</code></li>
+</ul>
+<p>These methods <strong>MUST</strong> be implemented per the Node.js <a href="https://nodejs.org/api/events.html"><code>EventEmitter</code> API</a>.</p>
+<blockquote>
+<p>To satisfy these requirements, Provider implementers should consider simply extending the Node.js <code>EventEmitter</code> class and bundling it for the target environment.</p>
+</blockquote>
+<h4 id="message">message</h4>
+<blockquote>
+<p>The <code>message</code> event is intended for arbitrary notifications not covered by other events.</p>
+</blockquote>
+<p>When emitted, the <code>message</code> event <strong>MUST</strong> be emitted with an object argument of the following form:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">interface </span><span style="color:#c0c5ce;">ProviderMessage {
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">type</span><span style="color:#c0c5ce;">: string;
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">data</span><span style="color:#c0c5ce;">: unknown;
+}
+</span></code></pre><h5 id="subscriptions">Subscriptions</h5>
+<p>If the Provider supports Ethereum RPC subscriptions, e.g. <a href="https://geth.ethereum.org/docs/rpc/pubsub"><code>eth_subscribe</code></a>, the Provider <strong>MUST</strong> emit the <code>message</code> event when it receives a subscription notification.</p>
+<p>If the Provider receives a subscription message from e.g. an <code>eth_subscribe</code> subscription, the Provider <strong>MUST</strong> emit a <code>message</code> event with a <code>ProviderMessage</code> object of the following form:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">interface </span><span style="color:#c0c5ce;">EthSubscription </span><span style="color:#b48ead;">extends </span><span style="color:#a3be8c;">ProviderMessage </span><span style="color:#c0c5ce;">{
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">type</span><span style="color:#c0c5ce;">: &#39;</span><span style="color:#a3be8c;">eth_subscription</span><span style="color:#c0c5ce;">&#39;;
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">data</span><span style="color:#c0c5ce;">: {
+    </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">subscription</span><span style="color:#c0c5ce;">: string;
+    </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">result</span><span style="color:#c0c5ce;">: unknown;
+  };
+}
+</span></code></pre><h4 id="connect">connect</h4>
+<p>See the section <a href="https://eips.ethereum.com/EIPS/eip-1193/#connectivity">Connectivity</a> for the definition of &quot;connected&quot;.</p>
+<p>If the Provider becomes connected, the Provider <strong>MUST</strong> emit the event named <code>connect</code>.</p>
+<p>This includes when:</p>
+<ul>
+<li>The Provider first connects to a chain after initialization.</li>
+<li>The Provider connects to a chain after the <code>disconnect</code> event was emitted.</li>
+</ul>
+<p>This event <strong>MUST</strong> be emitted with an object of the following form:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">interface </span><span style="color:#c0c5ce;">ProviderConnectInfo {
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">chainId</span><span style="color:#c0c5ce;">: string;
+}
+</span></code></pre>
+<p><code>chainId</code> <strong>MUST</strong> specify the integer ID of the connected chain as a hexadecimal string, per the <a href="https://eips.ethereum.org/EIPS/eip-695"><code>eth_chainId</code></a> Ethereum RPC method.</p>
+<h4 id="disconnect">disconnect</h4>
+<p>See the section <a href="https://eips.ethereum.com/EIPS/eip-1193/#connectivity">Connectivity</a> for the definition of &quot;disconnected&quot;.</p>
+<p>If the Provider becomes disconnected from all chains, the Provider <strong>MUST</strong> emit the event named <code>disconnect</code> with value <code>error: ProviderRpcError</code>, per the interfaced defined in the <a href="https://eips.ethereum.com/EIPS/eip-1193/#rpc-errors">RPC Errors</a> section. The value of the error's <code>code</code> property <strong>MUST</strong> follow the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent#Status_codes">status codes for <code>CloseEvent</code></a>.</p>
+<h4 id="chainchanged">chainChanged</h4>
+<p>If the chain the Provider is connected to changes, the Provider <strong>MUST</strong> emit the event named <code>chainChanged</code> with value <code>chainId: string</code>, specifying the integer ID of the new chain as a hexadecimal string, per the <a href="https://eips.ethereum.org/EIPS/eip-695"><code>eth_chainId</code></a> Ethereum RPC method.</p>
+<h4 id="accountschanged">accountsChanged</h4>
+<p>If the accounts available to the Provider change, the Provider <strong>MUST</strong> emit the event named <code>accountsChanged</code> with value <code>accounts: string[]</code>, containing the account addresses per the <code>eth_accounts</code> Ethereum RPC method.</p>
+<p>The &quot;accounts available to the Provider&quot; change when the return value of <code>eth_accounts</code> changes.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The purpose of a Provider is to <em>provide</em> a consumer with access to Ethereum.
+In general, a Provider must enable an Ethereum web application to do two things:</p>
+<ul>
+<li>Make Ethereum RPC requests</li>
+<li>Respond to state changes in the Provider's Ethereum chain, Client, and Wallet</li>
+</ul>
+<p>The Provider API specification consists of a single method and five events.
+The <code>request</code> method and the <code>message</code> event alone, are sufficient to implement a complete Provider.
+They are designed to make arbitrary RPC requests and communicate arbitrary messages, respectively.</p>
+<p>The remaining four events can be separated into two categories:</p>
+<ul>
+<li>Changes to the Provider's ability to make RPC requests
+<ul>
+<li><code>connect</code></li>
+<li><code>disconnect</code></li>
+</ul>
+</li>
+<li>Common Client and/or Wallet state changes that any non-trivial application must handle
+<ul>
+<li><code>chainChanged</code></li>
+<li><code>accountsChanged</code></li>
+</ul>
+</li>
+</ul>
+<p>These events are included due to the widespread production usage of related patterns, at the time of writing.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>Many Providers adopted a draft version of this specification before it was finalized.
+The current API is designed to be a strict superset of the legacy version, and this specification is in that sense fully backwards compatible.
+See <a href="https://eips.ethereum.com/EIPS/eip-1193/#appendix-iii-legacy-provider-api">Appendix III</a> for the legacy API.</p>
+<p>Providers that only implement this specification will not be compatible with Ethereum web applications that target the legacy API.</p>
+<h2 id="implementations">Implementations</h2>
+<p>At the time of writing, the following projects have working implementations:</p>
+<ul>
+<li><a href="https://github.com/nomiclabs/buidler/pull/608">buidler.dev</a></li>
+<li><a href="https://github.com/MetaMask/inpage-provider">MetaMask</a></li>
+<li><a href="https://web3js.readthedocs.io/">web3.js</a></li>
+<li><a href="https://github.com/WalletConnect/walletconnect-monorepo/blob/master/packages/providers/web3-provider/">WalletConnect</a></li>
+</ul>
+<h2 id="security-considerations">Security Considerations</h2>
+<p>The Provider is intended to pass messages between an Ethereum Client and an Ethereum application.
+It is <em>not</em> responsible for private key or account management; it merely processes RPC messages and emits events.
+Consequently, account security and user privacy need to be implemented in middlewares between the Provider and its Ethereum Client.
+In practice, we call these middleware applications &quot;Wallets,&quot; and they usually manage the user's private keys and accounts.
+The Provider can be thought of as an extension of the Wallet, exposed in an untrusted environment, under the control of some third party (e.g. a website).</p>
+<h3 id="handling-adversarial-behavior">Handling Adversarial Behavior</h3>
+<p>Since it is a JavaScript object, consumers can generally perform arbitrary operations on the Provider, and all its properties can be read or overwritten.
+Therefore, it is best to treat the Provider object as though it is controlled by an adversary.
+It is paramount that the Provider implementer protects the user, Wallet, and Client by ensuring that:</p>
+<ul>
+<li>The Provider does not contain any private user data.</li>
+<li>The Provider and Wallet programs are isolated from each other.</li>
+<li>The Wallet and/or Client rate-limit requests from the Provider.</li>
+<li>The Wallet and/or Client validate all data sent from the Provider.</li>
+</ul>
+<h3 id="chain-changes">Chain Changes</h3>
+<p>Since all Ethereum operations are directed at a particular chain, it's important that the Provider accurately reflects the Client's configured chain, per the <code>eth_chainId</code> Ethereum RPC method (see <a href="https://eips.ethereum.org/EIPS/eip-155">EIP-695</a>).</p>
+<p>This includes ensuring that <code>eth_chainId</code> has the correct return value, and that the <code>chainChanged</code> event is emitted whenever that value changes.</p>
+<h3 id="user-account-exposure-and-account-changes">User Account Exposure and Account Changes</h3>
+<p>Many Ethereum write operations (e.g. <code>eth_sendTransaction</code>) require a user account to be specified.
+Provider consumers access these accounts via the <code>eth_accounts</code> RPC method, and by listening for the <code>accountsChanged</code> event.</p>
+<p>As with <code>eth_chainId</code>, it is critical that <code>eth_accounts</code> has the correct return value, and that the <code>accountsChanged</code> event is emitted whenever that value changes.</p>
+<p>The return value of <code>eth_accounts</code> is ultimately controlled by the Wallet or Client.
+In order to protect user privacy, the authors recommend not exposing any accounts by default.
+Instead, Providers should support RPC methods for explicitly requesting account access, such as <code>eth_requestAccounts</code> (see <a href="https://eips.ethereum.org/EIPS/eip-1102">EIP-1102</a>) or <code>wallet_requestPermissions</code> (see <a href="https://eips.ethereum.org/EIPS/eip-2255">EIP-2255</a>).</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/ethereum/interfaces/issues/16">Initial discussion in <code>ethereum/interfaces</code></a></li>
+<li><a href="https://ethereum-magicians.org/t/eip-1193-ethereum-provider-javascript-api/640">Deprecated Ethereum Magicians thread</a></li>
+<li><a href="https://github.com/ethereum/EIPs/issues/2319">Continuing discussion</a></li>
+<li>Related EIPs
+<ul>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1102">EIP-1102: Opt-in Account Exposure</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1474">EIP-1474: Remote Procedure Call Specification</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1767">EIP-1767: GraphQL Interface to Ethereum Node Data</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-2255">EIP-2255: Wallet Permissions</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+<h2 id="appendix-i-consumer-facing-api-documentation">Appendix I: Consumer-Facing API Documentation</h2>
+<h3 id="request-1">request</h3>
+<p>Makes an Ethereum RPC method call.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">interface </span><span style="color:#c0c5ce;">RequestArguments {
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">method</span><span style="color:#c0c5ce;">: string;
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">?: </span><span style="color:#b48ead;">readonly </span><span style="color:#c0c5ce;">unknown[] | object;
+}
+
+</span><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">request</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">args</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">RequestArguments</span><span style="color:#c0c5ce;">): </span><span style="color:#ebcb8b;">Promise</span><span style="color:#c0c5ce;">&lt;</span><span style="color:#bf616a;">unknown</span><span style="color:#c0c5ce;">&gt;;
+</span></code></pre>
+<p>The returned Promise resolves with the method's result or rejects with a <a href="https://eips.ethereum.com/EIPS/eip-1193/#errors"><code>ProviderRpcError</code></a>. For example:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#ebcb8b;">Provider</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">request</span><span style="color:#c0c5ce;">({ method: &#39;</span><span style="color:#a3be8c;">eth_accounts</span><span style="color:#c0c5ce;">&#39; })
+  .</span><span style="color:#bf616a;">then</span><span style="color:#c0c5ce;">((accounts) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">console.</span><span style="color:#96b5b4;">log</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">accounts</span><span style="color:#c0c5ce;">))
+  .</span><span style="color:#bf616a;">catch</span><span style="color:#c0c5ce;">((error) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">console.</span><span style="color:#96b5b4;">error</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">));
+</span></code></pre>
+<p>Consult each Ethereum RPC method's documentation for its <code>params</code> and return type.
+You can find a list of common methods <a href="https://eips.ethereum.org/EIPS/eip-1474">here</a>.</p>
+<h4 id="rpc-protocols">RPC Protocols</h4>
+<p>Multiple RPC protocols may be available. For examples, see:</p>
+<ul>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1474">EIP-1474</a>, the Ethereum JSON-RPC API</li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1767">EIP-1767</a>, the Ethereum GraphQL schema</li>
+</ul>
+<h3 id="events-1">Events</h3>
+<p>Events follow the conventions of the Node.js <a href="https://nodejs.org/api/events.html"><code>EventEmitter</code> API</a>.</p>
+<h4 id="connect-1">connect</h4>
+<p>The Provider emits <code>connect</code> when it:</p>
+<ul>
+<li>first connects to a chain after being initialized.</li>
+<li>first connects to a chain, after the <code>disconnect</code> event was emitted.</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">interface </span><span style="color:#c0c5ce;">ProviderConnectInfo {
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">chainId</span><span style="color:#c0c5ce;">: string;
+}
+
+</span><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">on</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">connect</span><span style="color:#c0c5ce;">&#39;, </span><span style="color:#bf616a;">listener</span><span style="color:#c0c5ce;">: (</span><span style="color:#bf616a;">connectInfo</span><span style="color:#c0c5ce;">: ProviderConnectInfo) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">void): </span><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">;
+</span></code></pre>
+<p>The event emits an object with a hexadecimal string <code>chainId</code> per the <code>eth_chainId</code> Ethereum RPC method, and other properties as determined by the Provider.</p>
+<h4 id="disconnect-1">disconnect</h4>
+<p>The Provider emits <code>disconnect</code> when it becomes disconnected from all chains.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">on</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">disconnect</span><span style="color:#c0c5ce;">&#39;, </span><span style="color:#bf616a;">listener</span><span style="color:#c0c5ce;">: (</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">: ProviderRpcError) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">void): </span><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">;
+</span></code></pre>
+<p>This event emits a <a href="https://eips.ethereum.com/EIPS/eip-1193/#errors"><code>ProviderRpcError</code></a>. The error <code>code</code> follows the table of <a href="https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent#Status_codes"><code>CloseEvent</code> status codes</a>.</p>
+<h4 id="chainchanged-1">chainChanged</h4>
+<p>The Provider emits <code>chainChanged</code> when connecting to a new chain.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">on</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">chainChanged</span><span style="color:#c0c5ce;">&#39;, </span><span style="color:#bf616a;">listener</span><span style="color:#c0c5ce;">: (</span><span style="color:#bf616a;">chainId</span><span style="color:#c0c5ce;">: string) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">void): </span><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">;
+</span></code></pre>
+<p>The event emits a hexadecimal string <code>chainId</code> per the <code>eth_chainId</code> Ethereum RPC method.</p>
+<h4 id="accountschanged-1">accountsChanged</h4>
+<p>The Provider emits <code>accountsChanged</code> if the accounts returned from the Provider (<code>eth_accounts</code>) change.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">on</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">accountsChanged</span><span style="color:#c0c5ce;">&#39;, </span><span style="color:#bf616a;">listener</span><span style="color:#c0c5ce;">: (</span><span style="color:#bf616a;">accounts</span><span style="color:#c0c5ce;">: string[]) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">void): </span><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">;
+</span></code></pre>
+<p>The event emits with <code>accounts</code>, an array of account addresses, per the <code>eth_accounts</code> Ethereum RPC method.</p>
+<h4 id="message-1">message</h4>
+<p>The Provider emits <code>message</code> to communicate arbitrary messages to the consumer.
+Messages may include JSON-RPC notifications, GraphQL subscriptions, and/or any other event as defined by the Provider.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">interface </span><span style="color:#c0c5ce;">ProviderMessage {
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">type</span><span style="color:#c0c5ce;">: string;
+  </span><span style="color:#b48ead;">readonly </span><span style="color:#bf616a;">data</span><span style="color:#c0c5ce;">: unknown;
+}
+
+</span><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">on</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&#39;, </span><span style="color:#bf616a;">listener</span><span style="color:#c0c5ce;">: (</span><span style="color:#bf616a;">message</span><span style="color:#c0c5ce;">: ProviderMessage) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">void): </span><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">;
+</span></code></pre><h5 id="subscriptions-1">Subscriptions</h5>
+<p><a href="https://geth.ethereum.org/docs/rpc/pubsub"><code>eth_</code> subscription methods</a> and <a href="https://github.com/ethereum/go-ethereum/wiki/Whisper-v6-RPC-API#shh_subscribe"><code>shh_</code> subscription methods</a> rely on this event to emit subscription updates.</p>
+<p>For e.g. <code>eth_subscribe</code> subscription updates, <code>ProviderMessage.type</code> will equal the string <code>'eth_subscription'</code>, and the subscription data will be the value of <code>ProviderMessage.data</code>.</p>
+<h3 id="errors">Errors</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">interface </span><span style="color:#c0c5ce;">ProviderRpcError </span><span style="color:#b48ead;">extends </span><span style="color:#ebcb8b;">Error </span><span style="color:#c0c5ce;">{
+  </span><span style="color:#bf616a;">message</span><span style="color:#c0c5ce;">: string;
+  </span><span style="color:#bf616a;">code</span><span style="color:#c0c5ce;">: number;
+  </span><span style="color:#bf616a;">data</span><span style="color:#c0c5ce;">?: unknown;
+}
+</span></code></pre><h2 id="appendix-ii-examples">Appendix II: Examples</h2>
+<p>These examples assume a web browser environment.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;">// Most Providers are available as window.ethereum on page load.
+// This is only a convention, not a standard, and may not be the case in practice.
+// Please consult the Provider implementation&#39;s documentation.
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">ethereum </span><span style="color:#c0c5ce;">= window.ethereum;
+
+</span><span style="color:#65737e;">// Example 1: Log chainId
+</span><span style="color:#bf616a;">ethereum
+  </span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">request</span><span style="color:#c0c5ce;">({ method: &#39;</span><span style="color:#a3be8c;">eth_chainId</span><span style="color:#c0c5ce;">&#39; })
+  .</span><span style="color:#bf616a;">then</span><span style="color:#c0c5ce;">((chainId) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+    console.</span><span style="color:#96b5b4;">log</span><span style="color:#c0c5ce;">(`</span><span style="color:#a3be8c;">hexadecimal string: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">chainId</span><span style="color:#c0c5ce;">}`);
+    console.</span><span style="color:#96b5b4;">log</span><span style="color:#c0c5ce;">(`</span><span style="color:#a3be8c;">decimal number: </span><span style="color:#c0c5ce;">${</span><span style="color:#96b5b4;">parseInt</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">chainId</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">)}`);
+  })
+  .</span><span style="color:#bf616a;">catch</span><span style="color:#c0c5ce;">((error) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+    console.</span><span style="color:#96b5b4;">error</span><span style="color:#c0c5ce;">(`</span><span style="color:#a3be8c;">Error fetching chainId: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.code}</span><span style="color:#a3be8c;">: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.message}`);
+  });
+
+</span><span style="color:#65737e;">// Example 2: Log last block
+</span><span style="color:#bf616a;">ethereum
+  </span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">request</span><span style="color:#c0c5ce;">({
+    method: &#39;</span><span style="color:#a3be8c;">eth_getBlockByNumber</span><span style="color:#c0c5ce;">&#39;,
+    params: [&#39;</span><span style="color:#a3be8c;">latest</span><span style="color:#c0c5ce;">&#39;, &#39;</span><span style="color:#a3be8c;">true</span><span style="color:#c0c5ce;">&#39;],
+  })
+  .</span><span style="color:#bf616a;">then</span><span style="color:#c0c5ce;">((block) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+    console.</span><span style="color:#96b5b4;">log</span><span style="color:#c0c5ce;">(`</span><span style="color:#a3be8c;">Block </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">block</span><span style="color:#c0c5ce;">.number}</span><span style="color:#a3be8c;">:</span><span style="color:#c0c5ce;">`, </span><span style="color:#bf616a;">block</span><span style="color:#c0c5ce;">);
+  })
+  .</span><span style="color:#bf616a;">catch</span><span style="color:#c0c5ce;">((error) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+    console.</span><span style="color:#96b5b4;">error</span><span style="color:#c0c5ce;">(
+      `</span><span style="color:#a3be8c;">Error fetching last block: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.message}</span><span style="color:#a3be8c;">.
+       Code: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.code}</span><span style="color:#a3be8c;">. Data: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.data}`
+    );
+  });
+
+</span><span style="color:#65737e;">// Example 3: Log available accounts
+</span><span style="color:#bf616a;">ethereum
+  </span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">request</span><span style="color:#c0c5ce;">({ method: &#39;</span><span style="color:#a3be8c;">eth_accounts</span><span style="color:#c0c5ce;">&#39; })
+  .</span><span style="color:#bf616a;">then</span><span style="color:#c0c5ce;">((accounts) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+    console.</span><span style="color:#96b5b4;">log</span><span style="color:#c0c5ce;">(`</span><span style="color:#a3be8c;">Accounts:</span><span style="color:#96b5b4;">\n</span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">accounts</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">join</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#96b5b4;">\n</span><span style="color:#c0c5ce;">&#39;)}`);
+  })
+  .</span><span style="color:#bf616a;">catch</span><span style="color:#c0c5ce;">((error) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+    console.</span><span style="color:#96b5b4;">error</span><span style="color:#c0c5ce;">(
+      `</span><span style="color:#a3be8c;">Error fetching accounts: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.message}</span><span style="color:#a3be8c;">.
+       Code: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.code}</span><span style="color:#a3be8c;">. Data: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.data}`
+    );
+  });
+
+</span><span style="color:#65737e;">// Example 4: Log new blocks
+</span><span style="color:#bf616a;">ethereum
+  </span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">request</span><span style="color:#c0c5ce;">({
+    method: &#39;</span><span style="color:#a3be8c;">eth_subscribe</span><span style="color:#c0c5ce;">&#39;,
+    params: [&#39;</span><span style="color:#a3be8c;">newHeads</span><span style="color:#c0c5ce;">&#39;],
+  })
+  .</span><span style="color:#bf616a;">then</span><span style="color:#c0c5ce;">((subscriptionId) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#bf616a;">ethereum</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">on</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&#39;, (message) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+      </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">message</span><span style="color:#c0c5ce;">.type === &#39;</span><span style="color:#a3be8c;">eth_subscription</span><span style="color:#c0c5ce;">&#39;) {
+        </span><span style="color:#b48ead;">const </span><span style="color:#c0c5ce;">{ </span><span style="color:#bf616a;">data </span><span style="color:#c0c5ce;">} = </span><span style="color:#bf616a;">message</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">data</span><span style="color:#c0c5ce;">.subscription === </span><span style="color:#bf616a;">subscriptionId</span><span style="color:#c0c5ce;">) {
+          </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">(typeof </span><span style="color:#bf616a;">data</span><span style="color:#c0c5ce;">.result === &#39;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&#39; &amp;&amp; </span><span style="color:#bf616a;">data</span><span style="color:#c0c5ce;">.result) {
+            </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">block </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">data</span><span style="color:#c0c5ce;">.result;
+            console.</span><span style="color:#96b5b4;">log</span><span style="color:#c0c5ce;">(`</span><span style="color:#a3be8c;">New block </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">block</span><span style="color:#c0c5ce;">.number}</span><span style="color:#a3be8c;">:</span><span style="color:#c0c5ce;">`, </span><span style="color:#bf616a;">block</span><span style="color:#c0c5ce;">);
+          } </span><span style="color:#b48ead;">else </span><span style="color:#c0c5ce;">{
+            console.</span><span style="color:#96b5b4;">error</span><span style="color:#c0c5ce;">(`</span><span style="color:#a3be8c;">Something went wrong: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">data</span><span style="color:#c0c5ce;">.result}`);
+          }
+        }
+      }
+    });
+  })
+  .</span><span style="color:#bf616a;">catch</span><span style="color:#c0c5ce;">((error) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+    console.</span><span style="color:#96b5b4;">error</span><span style="color:#c0c5ce;">(
+      `</span><span style="color:#a3be8c;">Error making newHeads subscription: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.message}</span><span style="color:#a3be8c;">.
+       Code: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.code}</span><span style="color:#a3be8c;">. Data: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">error</span><span style="color:#c0c5ce;">.data}`
+    );
+  });
+
+</span><span style="color:#65737e;">// Example 5: Log when accounts change
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">logAccounts </span><span style="color:#c0c5ce;">= (accounts) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+  console.</span><span style="color:#96b5b4;">log</span><span style="color:#c0c5ce;">(`</span><span style="color:#a3be8c;">Accounts:</span><span style="color:#96b5b4;">\n</span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">accounts</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">join</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#96b5b4;">\n</span><span style="color:#c0c5ce;">&#39;)}`);
+};
+</span><span style="color:#bf616a;">ethereum</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">on</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">accountsChanged</span><span style="color:#c0c5ce;">&#39;, </span><span style="color:#bf616a;">logAccounts</span><span style="color:#c0c5ce;">);
+</span><span style="color:#65737e;">// to unsubscribe
+</span><span style="color:#bf616a;">ethereum</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">removeListener</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">accountsChanged</span><span style="color:#c0c5ce;">&#39;, </span><span style="color:#bf616a;">logAccounts</span><span style="color:#c0c5ce;">);
+
+</span><span style="color:#65737e;">// Example 6: Log if connection ends
+</span><span style="color:#bf616a;">ethereum</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">on</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">disconnect</span><span style="color:#c0c5ce;">&#39;, (code, reason) </span><span style="color:#b48ead;">=&gt; </span><span style="color:#c0c5ce;">{
+  console.</span><span style="color:#96b5b4;">log</span><span style="color:#c0c5ce;">(`</span><span style="color:#a3be8c;">Ethereum Provider connection closed: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">reason</span><span style="color:#c0c5ce;">}</span><span style="color:#a3be8c;">. Code: </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">code</span><span style="color:#c0c5ce;">}`);
+});
+</span></code></pre><h2 id="appendix-iii-legacy-provider-api">Appendix III: Legacy Provider API</h2>
+<p>This section documents the legacy Provider API, which is extensively used in production at the time of writing.
+As it was never fully standardized, significant deviations occur in practice.
+The authors recommend against implementing it except to support legacy Ethereum applications.</p>
+<h3 id="sendasync-deprecated">sendAsync (DEPRECATED)</h3>
+<p>This method is superseded by <a href="https://eips.ethereum.com/EIPS/eip-1193/#request"><code>request</code></a>.</p>
+<p><code>sendAsync</code> is like <code>request</code>, but with JSON-RPC objects and a callback.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">sendAsync</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">request</span><span style="color:#c0c5ce;">: </span><span style="color:#ebcb8b;">Object</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">callback</span><span style="color:#c0c5ce;">: </span><span style="color:#ebcb8b;">Function</span><span style="color:#c0c5ce;">): void;
+</span></code></pre>
+<p>Historically, the request and response object interfaces have followed the <a href="https://eips.ethereum.org/EIPS/eip-1474">Ethereum JSON-RPC specification</a>.</p>
+<h3 id="send-deprecated">send (DEPRECATED)</h3>
+<p>This method is superseded by <a href="https://eips.ethereum.com/EIPS/eip-1193/#request"><code>request</code></a>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">Provider</span><span style="color:#c0c5ce;">.</span><span style="color:#96b5b4;">send</span><span style="color:#c0c5ce;">(...</span><span style="color:#bf616a;">args</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">unknown</span><span style="color:#c0c5ce;">[]): </span><span style="color:#bf616a;">unknown</span><span style="color:#c0c5ce;">;
+</span></code></pre><h3 id="legacy-events">Legacy Events</h3>
+<h4 id="close-deprecated">close (DEPRECATED)</h4>
+<p>This event is superseded by <a href="https://eips.ethereum.com/EIPS/eip-1193/#disconnect"><code>disconnect</code></a>.</p>
+<h4 id="networkchanged-deprecated">networkChanged (DEPRECATED)</h4>
+<p>The event <code>networkChanged</code> is superseded by <a href="https://eips.ethereum.com/EIPS/eip-1193/#chainchanged"><code>chainChanged</code></a>.</p>
+<p>For details, see <a href="https://eips.ethereum.org/EIPS/eip-155">EIP-155: Simple replay attack protection</a> and <a href="https://eips.ethereum.org/EIPS/eip-695">EIP-695: Create eth_chainId method for JSON-RPC</a>.</p>
+<h4 id="notification-deprecated">notification (DEPRECATED)</h4>
+<p>This event is superseded by <a href="https://eips.ethereum.com/EIPS/eip-1193/#message"><code>message</code></a>.</p>
+<p>Historically, this event has been emitted with e.g. <code>eth_subscribe</code> subscription updates of the form <code>{ subscription: string, result: unknown }</code>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

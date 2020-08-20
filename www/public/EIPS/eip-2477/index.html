@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2477: Token Metadata Integrity</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2477.md" />
+<meta property="og:title" content="EIP-2477: Token Metadata Integrity" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2477 (EIP-2477): Token Metadata Integrity"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2477 (EIP-2477): Token Metadata Integrity"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2477.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2477 (EIP 2477): Token Metadata Integrity" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2477: Token Metadata Integrity
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/xpepermint">Kristijan Sedlak</a>,
+        
+    
+        
+        
+            <a href="mailto:github.com@phor.net">William Entriken</a>,
+        
+    
+        
+        
+            <a href="mailto:witek@enjin.io">Witek Radomski</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2483">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2483</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-01-02</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>165, 721, 1155</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>This specification defines a mechanism by which clients may verify that a fetched token metadata document has been delivered without unexpected manipulation.</p>
+<p>This is the Web3 counterpart of the W3C Subresource Integrity (SRI) specification.</p>
+<h2 id="abstract">Abstract</h2>
+<p>An interface <code>ERC2477</code> with two functions <code>tokenURIIntegrity</code> and <code>tokenURISchemaIntegrity</code> are specified for smart contracts and a narrative is provided to explain how this improves the integrity of the token metadata documents.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Tokens are being used in many applications to represent, trace and provide access to assets off-chain. These assets include in-game digital items in mobile apps, luxury watches and products in our global supply chain, among many other creative uses.</p>
+<p>Several token standards allow attaching metadata to specific tokens using a URI (RFC 3986) and these are supported by the applications mentioned above. These metadata standards are:</p>
+<ul>
+<li>ERC-721 metadata extension (<code>ERC721Metadata</code>)</li>
+<li>ERC-1155 metadata extension (<code>ERC1155Metadata_URI</code>)</li>
+<li>ERC-1046 (DRAFT) ERC-20 Metadata Extension</li>
+</ul>
+<p>Although all these standards allow storing the metadata entirely on-chain (using the &quot;data&quot; URI, RFC 2397), or using a content-addressable system (e.g. IPFS's Content IDentifiers [sic]), nearly every implementation we have found is using Uniform Resource Locators (the exception is The Sandbox which uses IPFS URIs). These URLs provide no guarantees of content correctness or immutability. This standard adds such guarantees.</p>
+<h2 id="design">Design</h2>
+<p><strong>Approach A:</strong> A token contract may reference metadata by using its URL. This provides no integrity protection because  the referenced metadata and/or schema could change at any time if the hosted content is mutable. This is the world before EIP-2477: </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">┌───────────────────────┐       ┌────────┐      ┌────────┐
+│        TokenID        │──────▶│Metadata│─────▶│ Schema │
+└───────────────────────┘       └────────┘      └────────┘
+</span></code></pre>
+<p>Note: according to the JSON Schema project, a metadata document referencing a schema using a URI in the <code>$schema</code> key is a known approach, but it is not standardized.</p>
+<p><strong>Approach B:</strong> EIP-2477 provides mechanisms to establish integrity for these references. In one approach, there is integrity for the metadata document. Here, the on-chain data includes a hash of the metadata document. The metadata may or may not reference a schema. In this approach, changing the metadata document will require updating on-chain <code>tokenURIIntegrity</code>:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">┌───────────────────────┐       ┌────────┐      ┌ ─ ─ ─ ─ 
+│        TokenID        │──────▶│Metadata│─ ─ ─▶  Schema │
+└───────────────────────┘       └────────┘      └ ─ ─ ─ ─ 
+┌───────────────────────┐            ▲                    
+│   tokenURIIntegrity   │════════════╝                    
+└───────────────────────┘                                 
+</span></code></pre>
+<p><strong>Approach C:</strong> In a stronger approach, the schema is referenced by the metadata using an extension to JSON Schema, providing integrity. In this approach, changing the metadata document or the schema will require updating on-chain <code>tokenURIIntegrity</code> and the metadata document, additionally changing the schema requires updating the on-chain <code>tokenURISchemaIntegrity</code>:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">┌───────────────────────┐       ┌────────┐      ┌────────┐
+│        TokenID        │──────▶│Metadata│═════▶│ Schema │
+└───────────────────────┘       └────────┘      └────────┘
+┌───────────────────────┐            ▲                    
+│   tokenURIIntegrity   │════════════╝                    
+└───────────────────────┘                                 
+</span></code></pre>
+<p><strong>Approach D:</strong> Equally strong, the metadata can make a normal reference (no integrity protection) to the schema and on-chain data also includes a hash of the schema document. In this approach, changing the metadata document will require updating on-chain <code>tokenURIIntegrity</code> and updating the schema document will require updating the <code>tokenURISchemaIntegrity</code>:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">┌───────────────────────┐       ┌────────┐      ┌────────┐
+│        TokenID        │──────▶│Metadata│─────▶│ Schema │
+└───────────────────────┘       └────────┘      └────────┘
+┌───────────────────────┐            ▲               ▲    
+│   tokenURIIntegrity   │════════════╝               ║    
+└───────────────────────┘                            ║    
+┌───────────────────────┐                            ║    
+│tokenURISchemaIntegrity│════════════════════════════╝    
+└───────────────────────┘
+</span></code></pre>
+<p><strong>Approach E:</strong> Lastly, the schema can be referenced with integrity from the metadata and also using on-chain data. In this approach, changing the metadata document or the schema will require updating on-chain <code>tokenURIIntegrity</code> and the metadata document, additionally changing the schema requires updating the on-chain <code>tokenURISchemaIntegrity</code>:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">┌───────────────────────┐       ┌────────┐      ┌────────┐
+│        TokenID        │──────▶│Metadata│═════▶│ Schema │
+└───────────────────────┘       └────────┘      └────────┘
+┌───────────────────────┐            ▲               ▲    
+│   tokenURIIntegrity   │════════════╝               ║    
+└───────────────────────┘                            ║    
+┌───────────────────────┐                            ║    
+│tokenURISchemaIntegrity│════════════════════════════╝    
+└───────────────────────┘                                 
+</span></code></pre><h2 id="specification">Specification</h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+<h3 id="smart-contracts">Smart contracts</h3>
+<p><strong>Smart contracts implementing the ERC-2477 standard MUST implement the <code>ERC2477</code> interface.</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.6.0;
+
+/// @title ERC-2477 Token Metadata Integrity
+/// @dev See https://eips.ethereum.org/EIPS/eip-2477
+/// @dev The ERC-165 identifier for this interface is 0x#######. //TODO: FIX THIS
+interface ERC2477 /* is ERC165 */ {
+    /**
+     * @notice Get the cryptographic hash of the specified tokenID&#39;s metadata
+     * @param tokenId Identifier for a specific token
+     * @return digest Bytes returned from the hash algorithm, or &quot;&quot; if not available
+     * @return hashAlgorithm The name of the cryptographic hash algorithm, or &quot;&quot; if not available
+     */
+    function tokenURIIntegrity(uint256 tokenId) external view returns(bytes memory digest, string memory hashAlgorithm);
+    
+    /**
+     * @notice Get the cryptographic hash for the specified tokenID&#39;s metadata schema
+     * @param tokenId Id of the Xcert.
+     * @return digest Bytes returned from the hash algorithm, or &quot;&quot; if not available
+     * @return hashAlgorithm The name of the cryptographic hash algorithm, or &quot;&quot; if not available
+     */
+    function tokenURISchemaIntegrity(uint256 tokenId) external view returns(bytes memory digest, string memory hashAlgorithm);
+}
+</span></code></pre>
+<p>The returned cryptographic hashes correspond to the token's metadata document and that metadata document's schema, respectively.</p>
+<p>For example, with ERC-721 <code>tokenURIIntegrity(21)</code> would correspond to <code>tokenURI(21)</code>. With ERC-1155, <code>tokenURIIntegrity(16)</code> would correspond to <code>uri(16)</code>. In both cases, <code>tokenURISchemaIntegrity(32)</code> would correspond to the schema of the document matched by <code>tokenURIIntegrity(32)</code>.</p>
+<p><strong>Smart contracts implementing the ERC-2477 standard MUST implement the ERC-165 standard, including the interface identifiers above.</strong></p>
+<p>Smart contracts implementing the ERC-2477 standard MAY use any hashing or content integrity scheme.</p>
+<p>Smart contracts implementing the ERC-2477 standard MAY use or omit a mechanism to notify when the integrity is updated (e.g. an Ethereum logging operation).</p>
+<p>Smart contracts implementing the ERC-2477 standard MAY use any mechanism to provide schemas for metadata documents and SHOULD use JSON-LD on the metadata document for this purpose (i.e.  <code>&quot;@schema&quot;:...</code>).</p>
+<h3 id="metadata">Metadata</h3>
+<p>A metadata document MAY use this schema to provide referential integrity to its schema document.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+    &quot;</span><span style="color:#a3be8c;">title</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">EIP-2477 JSON Object With Refererential Integrity to Schema</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">properties</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">$schema</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">format</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">uri</span><span style="color:#c0c5ce;">&quot;
+        },
+        &quot;</span><span style="color:#a3be8c;">$schemaIntegrity</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">properties</span><span style="color:#c0c5ce;">&quot;: {
+			    &quot;</span><span style="color:#a3be8c;">digest</span><span style="color:#c0c5ce;">&quot;: {
+                  	&quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;
+                },
+			    &quot;</span><span style="color:#a3be8c;">hashAlgorithm</span><span style="color:#c0c5ce;">&quot;: {
+                  	&quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;
+                }
+            },
+            &quot;</span><span style="color:#a3be8c;">required</span><span style="color:#c0c5ce;">&quot;: [
+              	&quot;</span><span style="color:#a3be8c;">digest</span><span style="color:#c0c5ce;">&quot;,
+                &quot;</span><span style="color:#a3be8c;">hashAlgorithm</span><span style="color:#c0c5ce;">&quot;
+            ]
+        }
+    },
+    &quot;</span><span style="color:#a3be8c;">required</span><span style="color:#c0c5ce;">&quot;: [
+        &quot;</span><span style="color:#a3be8c;">$schema</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">$schemaIntegrity</span><span style="color:#c0c5ce;">&quot;
+    ]
+}
+</span></code></pre><h3 id="clients">Clients</h3>
+<p>A client implementing the ERC-2477 standard MUST support at least the <code>sha256</code> hash algorithm and MAY support other algorithms.</p>
+<h3 id="caveats">Caveats</h3>
+<ul>
+<li>This EIP metadata lists ERC-721 and ERC-1155 as &quot;required&quot; for implementation, due to a technical limitation of EIP metadata. In actuality, this standard is usable with any token implementation that has a <code>tokenURI(uint id)</code> or similar function. </li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<p><strong>Function and parameter naming</strong></p>
+<p>The W3C Subresource Integrity (SRI) specification uses the attribute &quot;integrity&quot; to perform integrity verification. This ERC-2477 standard provides a similar mechanism and reuses the integrity name so as to be familiar to people that have seen SRI before.</p>
+<p><strong>Function return tuple</strong></p>
+<p>The SRI integrity attribute encodes elements of the tuple $$(cryptographic\ hash\ function, digest, options)$$. This ERC-2477 standard returns a digest and hash function name and omits forward-compatibility options.</p>
+<p>Currently, the SRI specification does not make use of options. So we cannot know what format they might be when implemented. This is the motivation to exclude this parameter.</p>
+<p>The digest return value is first, this is an optimization because we expect on-chain implementations will be more likely to use this return value if they will only be using one of the two.</p>
+<p><strong>Function return types</strong></p>
+<p>The digest is a byte array and supports various hash lengths. This is consistent with SRI. Whereas SRI uses base64 encoding to target an HTML document, we use a byte array because Ethereum already allows this encoding.</p>
+<p>:warning: TODO: WE NEED TO SPECIFY ENDIANNESS ABOVE AND PROVIDE TEST CASES BELOW. AND JUSTIFY THAT HERE.</p>
+<p>The hash function name is a string. Currently there is no universal taxonomy of hash function names. SRI recognizes the names <code>sha256</code>, <code>sha384</code> and <code>sha512</code> with case-insensitive matching. We are aware of two authorities which provide taxonomies and canonical names for hash functions: ETSI Object Identifiers and NIST Computer Security Objects Register. However, SRI's approach is easier to follow and we have adopted this here.</p>
+<p><strong>Function return type — hash length</strong></p>
+<p>Clients must support the SHA-256 algorithm and may optionally support others. This is a departure from the SRI specification where SHA-256, SHA-384 and SHA-512 are all required. The rationale for this less-secure requirement is because we expect some clients to be on-chain. Currently SHA-256 is simple and cheap to do on Ethereum whereas SHA-384 and SHA-512 are more expensive and cumbersome.</p>
+<p>The most popular hash function size below 256 bits in current use is SHA-1 at 160 bits. Multiple collisions (the &quot;Shattered&quot; PDF file, the 320 byte file, the chosen prefix) have been published and a recipe is given to generate infinitely more collisions. SHA-1 is broken. The United States National Institute of Standards and Technology (NIST) has first deprecated SHA-1 for certain use cases in November 2015 and has later further expanded this deprecation.</p>
+<p>The most popular hash function size above 256 bits in current use is SHA-384 as specified by NIST.</p>
+<p>The United States National Security Agency requires a hash length of 384 or more bits for the SHA-2 (CNSA Suite Factsheet) algorithm suite for use on TOP SECRET networks. (No unclassified documents are currently available to specify use cases at higher classification networks.)</p>
+<p>We suspect that SHA-256 and the 0xcert Asset Certification will be popular choices to secure token metadata for the foreseeable future.</p>
+<p><strong>In-band signaling</strong></p>
+<p>One possible way to achieve strong content integrity with the existing token standards would be to include, for example, a <code>?integrity=XXXXX</code> at the end of all URLs. This approach is not used by any existing implementations we know about. There are a few reasons we have not chosen this approach. The strongest reason is that the World Wide Web has the same problem and they chose to use the Sub-Resource Integrity approach, which is a separate data field than the URL.</p>
+<p>Other supplementary reasons are:</p>
+<ul>
+<li>
+<p>For on-chain consumers of data, it is easier to parse a direct hash field than to perform string operations</p>
+</li>
+<li>
+<p>Maybe there are some URIs which are not amenable to being modified in that way, therefore limiting the generalizability of that approach</p>
+</li>
+</ul>
+<p>This design justification also applies to <code>tokenURISchemaIntegrity</code>. The current JSON-LD specification allows a JSON document to link to a schema document. But it does not provide integrity. Rather than changing how JSON-LD works, or changing JSON Schemas, we have the <code>tokenURISchemaIntegrity</code> property to just provide the integrity.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>Both ERC-721 and ERC-1155 provide compatible token metadata specifications that use URIs and JSON schemas. The ERC-2477 standard is compatible with both, and all specifications are additive. Therefore, there are no backward compatibility regressions.</p>
+<p>ERC-1523 Standard for Insurance Policies as ERC-721 Non Fungible Tokens (DRAFT) proposes an extension to ERC-721 which also tightens the requirements on metadata. Because it is wholly an extension of ERC-721, ERC-1523 is automatically supported by ERC-2477 (since this standard already supports ERC-721).</p>
+<p>ERC-1046 (DRAFT) ERC-20 Metadata Extension proposes a comparate extension for ERC-20. Such a concept is outside the scope of this ERC-2477 standard. Should ERC-1046 (DRAFT) be finalized, we will welcome a new ERC which copies ERC-2477 and removes the <code>tokenId</code> parameter.</p>
+<p>Similarly, ERC-918 (DRAFT) Mineable Token Standard proposes an extension for ERC-20 and also includes metadata. The same comment applies here as ERC-1046.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>Following is a token metadata document which is simultaneously compatible with ERC-721, ERC-1155 and ERC-2477 standards.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+    &quot;</span><span style="color:#a3be8c;">$schema</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">https://URL_TO_SCHEMA_DOCUMENT</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Asset Name</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Lorem ipsum...</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">image</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">https:</span><span style="color:#96b5b4;">\/\/</span><span style="color:#a3be8c;">s3.amazonaws.com</span><span style="color:#96b5b4;">\/</span><span style="color:#a3be8c;">your-bucket</span><span style="color:#96b5b4;">\/</span><span style="color:#a3be8c;">images</span><span style="color:#96b5b4;">\/</span><span style="color:#a3be8c;">{id}.png</span><span style="color:#c0c5ce;">&quot;,
+}
+</span></code></pre>
+<p>This above example shows how JSON-LD is employed to reference the schema document (<code>$schema</code>).</p>
+<p>Following is a corresponding schema document which is accessible using the URI <code>&quot;https://URL_TO_SCHEMA_DOCUMENT&quot;</code> above.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">properties</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Identifies the asset to which this NFT represents</span><span style="color:#c0c5ce;">&quot;
+        },
+        &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Describes the asset to which this NFT represents</span><span style="color:#c0c5ce;">&quot;
+        },
+        &quot;</span><span style="color:#a3be8c;">image</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">A URI pointing to a resource with mime type image/* representing the asset to which this NFT represents. Consider making any images at a width between 320 and 1080 pixels and aspect ratio between 1.91:1 and 4:5 inclusive.</span><span style="color:#c0c5ce;">&quot;
+        }
+    }
+}
+</span></code></pre>
+<p>Assume that the metadata and schema above apply to a token with identifier 1234. (In ERC-721 this would be a specific token, in ERC-1155 this would be a token type.) Then these two function calls MAY have the following output:</p>
+<ul>
+<li><code>function tokenURIIntegrity(1234)</code>
+<ul>
+<li><code>bytes digest </code>: <code>3fc58b72faff20684f1925fd379907e22e96b660</code></li>
+<li><code>string hashAlgorithm</code>: <code>sha256</code></li>
+</ul>
+</li>
+<li><code>function tokenURISchemaIntegrity(1234)</code>
+<ul>
+<li><code>bytes digest </code>: <code>ddb61583d82e87502d5ee94e3f2237f864eeff72</code></li>
+<li><code>string hashAlgorithm</code>: <code>sha256</code></li>
+</ul>
+</li>
+</ul>
+<p>To avoid doubt: the previous paragraph specifies &quot;MAY&quot; have that output because other hash functions are also acceptable.</p>
+<h2 id="implementation">Implementation</h2>
+<p>TODO: ADD IMPLEMENTATIONS WITH 0XCERT ENJIN, NIKE, AZURE/MICROSOFT</p>
+<h2 id="reference">Reference</h2>
+<p>Normative standard references</p>
+<ol>
+<li>RFC 2119 Key words for use in RFCs to Indicate Requirement Levels. https://www.ietf.org/rfc/rfc2119.txt</li>
+<li>ERC-165 Standard Interface Detection. https://eips.ethereum.org/EIPS/eip-165</li>
+<li>ERC-721 Non-Fungible Token Standard. https://eips.ethereum.org/EIPS/eip-721</li>
+<li>ERC-1155 Multi Token Standard. https://eips.ethereum.org/EIPS/eip-1155</li>
+<li>JSON-LD. https://www.w3.org/TR/json-ld/</li>
+<li>Secure Hash Standard (SHS). https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf</li>
+</ol>
+<p>Other standards</p>
+<ol>
+<li>ERC-1046 ERC-20 Metadata Extension (DRAFT). https://eips.ethereum.org/EIPS/eip-1046</li>
+<li>ERC-918 Mineable Token Standard (DRAFT). https://eips.ethereum.org/EIPS/eip-918</li>
+<li>ERC-1523 Standard for Insurance Policies as ERC-721 Non Fungible Tokens (DRAFT). https://eips.ethereum.org/EIPS/eip-1523</li>
+<li>W3C Subresource Integrity (SRI). https://www.w3.org/TR/SRI/</li>
+<li>The &quot;data&quot; URL scheme. https://tools.ietf.org/html/rfc2397</li>
+<li>Uniform Resource Identifier (URI): Generic Syntax. https://tools.ietf.org/html/rfc3986</li>
+<li>CID [Specification] (DRAFT). https://github.com/multiformats/cid</li>
+</ol>
+<p>Discussion</p>
+<ol>
+<li>JSON-LD discussion of referential integrity. https://lists.w3.org/Archives/Public/public-json-ld-wg/2020Feb/0003.html</li>
+<li>JSON Schema use of <code>$schema</code> key for documents. https://github.com/json-schema-org/json-schema-spec/issues/647#issuecomment-417362877</li>
+</ol>
+<p>Other</p>
+<ol>
+<li>[Shattered] The first collision for full SHA-1. https://shattered.io/static/shattered.pdf</li>
+<li>[320 byte file] The second SHA Collision. https://privacylog.blogspot.com/2019/12/the-second-sha-collision.html</li>
+<li>[Chosen prefix] https://sha-mbles.github.io</li>
+<li>Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths. (Rev. 1. Superseded.) https://csrc.nist.gov/publications/detail/sp/800-131a/rev-1/archive/2015-11-06</li>
+<li>Commercial National Security Algorithm (CNSA) Suite Factsheet. https://apps.nsa.gov/iaarchive/library/ia-guidance/ia-solutions-for-classified/algorithm-guidance/commercial-national-security-algorithm-suite-factsheet.cfm</li>
+<li>ETSI Assigned ASN.1 Object Identifiers. https://portal.etsi.org/pnns/oidlist</li>
+<li>Computer Security Objects Register. https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration</li>
+<li>The Sandbox implementation. https://github.com/pixowl/sandbox-smart-contracts/blob/7022ce38f81363b8b75a64e6457f6923d91960d6/src/Asset/ERC1155ERC721.sol</li>
+</ol>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

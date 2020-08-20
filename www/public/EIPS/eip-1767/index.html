@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1767: GraphQL interface to Ethereum node data</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1767.md" />
+<meta property="og:title" content="EIP-1767: GraphQL interface to Ethereum node data" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1767 (EIP-1767): GraphQL interface to Ethereum node data"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1767 (EIP-1767): GraphQL interface to Ethereum node data"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1767.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1767 (EIP 1767): GraphQL interface to Ethereum node data" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1767: GraphQL interface to Ethereum node data
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/arachnid">Nick Johnson</a>,
+        
+    
+        
+        
+            <a href="https://github.com/raulk"> Raúl Kripalani</a>,
+        
+    
+        
+        
+            <a href="https://github.com/kshinn"> Kris Shinn</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;graphql-interface-to-ethereum-node-data&#x2F;2710">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;graphql-interface-to-ethereum-node-data&#x2F;2710</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Interface</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-02-14</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This EIP specifies a GraphQL schema for accessing data stored on an Ethereum node. It aims to provide a complete replacement to the read-only information exposed via the present JSON-RPC interface, while improving on usability, consistency, efficiency, and future-proofing.</p>
+<h2 id="motivation">Motivation</h2>
+<p>The current JSON-RPC interface for Ethereum nodes has a number of shortcomings. It's informally and incompletely specified in areas, which has led to incompatibilities around issues such as representation of empty byte strings (&quot;&quot; vs &quot;0x&quot; vs &quot;0x0&quot;), and it has to make educated guesses about the data a user will request, which often leads to unnecessary work.</p>
+<p>For example, the <code>totalDifficulty</code> field is stored separately from the block header in common Ethereum node implementations, and many callers do not require this field. However, every call to <code>eth_getBlock</code> still retrieves this field, requiring a separate disk read, because the RPC server has no way of knowing if the user requires this field or not.</p>
+<p>Similarly, transaction receipts in go-ethereum are stored on disk as a single binary blob for each block. Fetching a receipt for a single transaction requires fetching and deserializing this blob, then finding the relevant entry and returning it; this is accomplished by the <code>eth_getTransactionReceipt</code> API call. A common task for API consumers is to fetch all the receipts in a block; as a result, node implementations end up fetching and deserializing the same data repeatedly, leading to <code>O(n^2)</code> effort to fetch all transaction receipts from a block instead of <code>O(n)</code>.</p>
+<p>Some of these issues could be fixed with changes to the existing JSON-RPC interface, at the cost of complicating the interface somewhat. Instead, we propose adopting a standard query language, GraphQL, which facilitates more efficient API implementations, while also increasing flexibility.</p>
+<h2 id="prior-art">Prior Art</h2>
+<p>Nick Johnson and <a href="https://github.com/ConsenSys/ethql">EthQL</a> independently developed a GraphQL schema for node data. Once the parties were made aware of the shared effort, they made efforts to bring their schemas into alignment. The current schema proposed in this EIP is derived primarily from the EthQL schema.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="node-api">Node API</h3>
+<p>Compatible nodes MUST provide a GraphQL endpoint available over HTTP. This SHOULD be offered on port 8547 by default. The path to the GraphQL endpoint SHOULD be '/graphql'.</p>
+<p>Compatible nodes MAY offer a GraphiQL interactive query explorer on the root path ('/').</p>
+<h3 id="schema">Schema</h3>
+<p>The GraphQL schema for this service is defined as follows:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;"># Bytes32 is a 32 byte binary string, represented as 0x-prefixed hexadecimal.
+scalar Bytes32
+# Address is a 20 byte Ethereum address, represented as 0x-prefixed hexadecimal.
+scalar Address
+# Bytes is an arbitrary length binary string, represented as 0x-prefixed hexadecimal.
+# An empty byte string is represented as &#39;0x&#39;. Byte strings must have an even number of hexadecimal nybbles.
+scalar Bytes
+# BigInt is a large integer. Input is accepted as either a JSON number or as a string.
+# Strings may be either decimal or 0x-prefixed hexadecimal. Output values are all
+# 0x-prefixed hexadecimal.
+scalar BigInt
+# Long is a 64 bit unsigned integer.
+scalar Long
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+# Account is an Ethereum account at a particular block.
+type Account {
+    # Address is the address owning the account.
+    address: Address!
+    # Balance is the balance of the account, in wei.
+    balance: BigInt!
+    # TransactionCount is the number of transactions sent from this account,
+    # or in the case of a contract, the number of contracts created. Otherwise
+    # known as the nonce.
+    transactionCount: Long!
+    # Code contains the smart contract code for this account, if the account
+    # is a (non-self-destructed) contract.
+    code: Bytes!
+    # Storage provides access to the storage of a contract account, indexed
+    # by its 32 byte slot identifier.
+    storage(slot: Bytes32!): Bytes32!
+}
+
+# Log is an Ethereum event log.
+type Log {
+    # Index is the index of this log in the block.
+    index: Int!
+    # Account is the account which generated this log - this will always
+    # be a contract account.
+    account(block: Long): Account!
+    # Topics is a list of 0-4 indexed topics for the log.
+    topics: [Bytes32!]!
+    # Data is unindexed data for this log.
+    data: Bytes!
+    # Transaction is the transaction that generated this log entry.
+    transaction: Transaction!
+}
+
+# Transaction is an Ethereum transaction.
+type Transaction {
+    # Hash is the hash of this transaction.
+    hash: Bytes32!
+    # Nonce is the nonce of the account this transaction was generated with.
+    nonce: Long!
+    # Index is the index of this transaction in the parent block. This will
+    # be null if the transaction has not yet been mined.
+    index: Int
+    # From is the account that sent this transaction - this will always be
+    # an externally owned account.
+    from(block: Long): Account!
+    # To is the account the transaction was sent to. This is null for
+    # contract-creating transactions.
+    to(block: Long): Account
+    # Value is the value, in wei, sent along with this transaction.
+    value: BigInt!
+    # GasPrice is the price offered to miners for gas, in wei per unit.
+    gasPrice: BigInt!
+    # Gas is the maximum amount of gas this transaction can consume.
+    gas: Long!
+    # InputData is the data supplied to the target of the transaction.
+    inputData: Bytes!
+    # Block is the block this transaction was mined in. This will be null if
+    # the transaction has not yet been mined.
+    block: Block
+
+    # Status is the return status of the transaction. This will be 1 if the
+    # transaction succeeded, or 0 if it failed (due to a revert, or due to
+    # running out of gas). If the transaction has not yet been mined, this
+    # field will be null.
+    status: Long
+    # GasUsed is the amount of gas that was used processing this transaction.
+    # If the transaction has not yet been mined, this field will be null.
+    gasUsed: Long
+    # CumulativeGasUsed is the total gas used in the block up to and including
+    # this transaction. If the transaction has not yet been mined, this field
+    # will be null.
+    cumulativeGasUsed: Long
+    # CreatedContract is the account that was created by a contract creation
+    # transaction. If the transaction was not a contract creation transaction,
+    # or it has not yet been mined, this field will be null.
+    createdContract(block: Long): Account
+    # Logs is a list of log entries emitted by this transaction. If the
+    # transaction has not yet been mined, this field will be null.
+    logs: [Log!]
+}
+
+# BlockFilterCriteria encapsulates log filter criteria for a filter applied
+# to a single block.
+input BlockFilterCriteria {
+    # Addresses is list of addresses that are of interest. If this list is
+    # empty, results will not be filtered by address.
+    addresses: [Address!]
+    # Topics list restricts matches to particular event topics. Each event has a list
+  # of topics. Topics matches a prefix of that list. An empty element array matches any
+  # topic. Non-empty elements represent an alternative that matches any of the
+  # contained topics.
+  #
+  # Examples:
+  #  - [] or nil          matches any topic list
+  #  - [[A]]              matches topic A in first position
+  #  - [[], [B]]          matches any topic in first position, B in second position
+  #  - [[A], [B]]         matches topic A in first position, B in second position
+  #  - [[A, B]], [C, D]]  matches topic (A OR B) in first position, (C OR D) in second position
+    topics: [[Bytes32!]!]
+}
+
+# Block is an Ethereum block.
+type Block {
+    # Number is the number of this block, starting at 0 for the genesis block.
+    number: Long!
+    # Hash is the block hash of this block.
+    hash: Bytes32!
+    # Parent is the parent block of this block.
+    parent: Block
+    # Nonce is the block nonce, an 8 byte sequence determined by the miner.
+    nonce: Bytes!
+    # TransactionsRoot is the keccak256 hash of the root of the trie of transactions in this block.
+    transactionsRoot: Bytes32!
+    # TransactionCount is the number of transactions in this block. if
+    # transactions are not available for this block, this field will be null.
+    transactionCount: Int
+    # StateRoot is the keccak256 hash of the state trie after this block was processed.
+    stateRoot: Bytes32!
+    # ReceiptsRoot is the keccak256 hash of the trie of transaction receipts in this block.
+    receiptsRoot: Bytes32!
+    # Miner is the account that mined this block.
+    miner(block: Long): Account!
+    # ExtraData is an arbitrary data field supplied by the miner.
+    extraData: Bytes!
+    # GasLimit is the maximum amount of gas that was available to transactions in this block.
+    gasLimit: Long!
+    # GasUsed is the amount of gas that was used executing transactions in this block.
+    gasUsed: Long!
+    # Timestamp is the unix timestamp at which this block was mined.
+    timestamp: BigInt!
+    # LogsBloom is a bloom filter that can be used to check if a block may
+    # contain log entries matching a filter.
+    logsBloom: Bytes!
+    # MixHash is the hash that was used as an input to the PoW process.
+    mixHash: Bytes32!
+    # Difficulty is a measure of the difficulty of mining this block.
+    difficulty: BigInt!
+    # TotalDifficulty is the sum of all difficulty values up to and including
+    # this block.
+    totalDifficulty: BigInt!
+    # OmmerCount is the number of ommers (AKA uncles) associated with this
+    # block. If ommers are unavailable, this field will be null.
+    ommerCount: Int
+    # Ommers is a list of ommer (AKA uncle) blocks associated with this block.
+    # If ommers are unavailable, this field will be null. Depending on your
+    # node, the transactions, transactionAt, transactionCount, ommers,
+    # ommerCount and ommerAt fields may not be available on any ommer blocks.
+    ommers: [Block]
+    # OmmerAt returns the ommer (AKA uncle) at the specified index. If ommers
+    # are unavailable, or the index is out of bounds, this field will be null.
+    ommerAt(index: Int!): Block
+    # OmmerHash is the keccak256 hash of all the ommers (AKA uncles)
+    # associated with this block.
+    ommerHash: Bytes32!
+    # Transactions is a list of transactions associated with this block. If
+    # transactions are unavailable for this block, this field will be null.
+    transactions: [Transaction!]
+    # TransactionAt returns the transaction at the specified index. If
+    # transactions are unavailable for this block, or if the index is out of
+    # bounds, this field will be null.
+    transactionAt(index: Int!): Transaction
+    # Logs returns a filtered set of logs from this block.
+    logs(filter: BlockFilterCriteria!): [Log!]!
+    # Account fetches an Ethereum account at the current block&#39;s state.
+    account(address: Address!): Account
+    # Call executes a local call operation at the current block&#39;s state.
+    call(data: CallData!): CallResult
+    # EstimateGas estimates the amount of gas that will be required for
+    # successful execution of a transaction at the current block&#39;s state.
+    estimateGas(data: CallData!): Long!
+}
+
+# CallData represents the data associated with a local contract call.
+# All fields are optional.
+input CallData {
+    # From is the address making the call.
+    from: Address
+    # To is the address the call is sent to.
+    to: Address
+    # Gas is the amount of gas sent with the call.
+    gas: Long
+    # GasPrice is the price, in wei, offered for each unit of gas.
+    gasPrice: BigInt
+    # Value is the value, in wei, sent along with the call.
+    value: BigInt
+    # Data is the data sent to the callee.
+    data: Bytes
+}
+
+# CallResult is the result of a local call operation.
+type CallResult {
+    # Data is the return data of the called contract.
+    data: Bytes!
+    # GasUsed is the amount of gas used by the call, after any refunds.
+    gasUsed: Long!
+    # Status is the result of the call - 1 for success or 0 for failure.
+    status: Long!
+}
+
+# FilterCriteria encapsulates log filter criteria for searching log entries.
+input FilterCriteria {
+    # FromBlock is the block at which to start searching, inclusive. Defaults
+    # to the latest block if not supplied.
+    fromBlock: Long
+    # ToBlock is the block at which to stop searching, inclusive. Defaults
+    # to the latest block if not supplied.
+    toBlock: Long
+    # Addresses is a list of addresses that are of interest. If this list is
+    # empty, results will not be filtered by address.
+    addresses: [Address!]
+    # Topics list restricts matches to particular event topics. Each event has a list
+  # of topics. Topics matches a prefix of that list. An empty element array matches any
+  # topic. Non-empty elements represent an alternative that matches any of the
+  # contained topics.
+  #
+  # Examples:
+  #  - [] or nil          matches any topic list
+  #  - [[A]]              matches topic A in first position
+  #  - [[], [B]]          matches any topic in first position, B in second position
+  #  - [[A], [B]]         matches topic A in first position, B in second position
+  #  - [[A, B]], [C, D]]  matches topic (A OR B) in first position, (C OR D) in second position
+    topics: [[Bytes32!]!]
+}
+
+# SyncState contains the current synchronisation state of the client.
+type SyncState{
+    # StartingBlock is the block number at which synchronisation started.
+    startingBlock: Long!
+    # CurrentBlock is the point at which synchronisation has presently reached.
+    currentBlock: Long!
+    # HighestBlock is the latest known block number.
+    highestBlock: Long!
+    # PulledStates is the number of state entries fetched so far, or null
+    # if this is not known or not relevant.
+    pulledStates: Long
+    # KnownStates is the number of states the node knows of so far, or null
+    # if this is not known or not relevant.
+    knownStates: Long
+}
+
+# Pending represents the current pending state.
+type Pending {
+  # TransactionCount is the number of transactions in the pending state.
+  transactionCount: Int!
+  # Transactions is a list of transactions in the current pending state.
+  transactions: [Transaction!]
+  # Account fetches an Ethereum account for the pending state.
+  account(address: Address!): Account
+  # Call executes a local call operation for the pending state.
+  call(data: CallData!): CallResult
+  # EstimateGas estimates the amount of gas that will be required for
+  # successful execution of a transaction for the pending state.
+  estimateGas(data: CallData!): Long!  
+}
+
+type Query {
+    # Block fetches an Ethereum block by number or by hash. If neither is
+    # supplied, the most recent known block is returned.
+    block(number: Long, hash: Bytes32): Block
+    # Blocks returns all the blocks between two numbers, inclusive. If
+    # to is not supplied, it defaults to the most recent known block.
+    blocks(from: Long!, to: Long): [Block!]!
+    # Pending returns the current pending state.
+    pending: Pending!
+    # Transaction returns a transaction specified by its hash.
+    transaction(hash: Bytes32!): Transaction
+    # Logs returns log entries matching the provided filter.
+    logs(filter: FilterCriteria!): [Log!]!
+    # GasPrice returns the node&#39;s estimate of a gas price sufficient to
+    # ensure a transaction is mined in a timely fashion.
+    gasPrice: BigInt!
+    # ProtocolVersion returns the current wire protocol version number.
+    protocolVersion: Int!
+    # Syncing returns information on the current synchronisation state.
+    syncing: SyncState
+}
+
+type Mutation {
+    # SendRawTransaction sends an RLP-encoded transaction to the network.
+    sendRawTransaction(data: Bytes!): Bytes32!
+}
+</span></code></pre>
+<p>Nodes MAY offer a superset of this schema, by adding new fields or types. Experimental or client-specific fields MUST be prefixed with '<em>client</em>' (eg, '<em>geth</em>' or '<em>parity</em>'). Unprefixed fields MUST be specified in a new EIP that extends this one.</p>
+<h2 id="rationale">Rationale</h2>
+<p>Ethereum nodes have been moving away from providing read-write functionality such as transaction and message signing, and from other services such as code compilation, in favor of a more 'unix-like' approach where each task is performed by a dedicated process. We have thus specified a core set of types and fields that reflects this trend, leaving out functionality that is presently, or intended to be, deprecated:</p>
+<ul>
+<li><code>eth_compile*</code> calls are deprecated, and hence not provided here.</li>
+<li><code>eth_accounts</code>, <code>eth_sign</code>, and <code>eth_sendTransaction</code> are considered by many to be deprecated, and are not provided here; callers should use local accounts or a separate signing daemon instead.</li>
+</ul>
+<p>Further, two areas of the current API interface have been omitted for simplicity in this initial standard, with the intention that they will be defined in a later EIP:</p>
+<ul>
+<li>Filters will require use of GraphQL subscriptions, and require careful consideration around the desire for nodes without local per-caller state.</li>
+<li>Mining functionality is less-used and benefits less from reimplementation in GraphQL, and should be specified in a separate EIP.</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This schema implements the bulk of the current read-only functionality provided by the JSON-RPC node interface. Existing RPC calls can be mapped to GraphQL queries as follows:</p>
+<table><thead><tr><th>RPC</th><th>Status</th><th>Description</th></tr></thead><tbody>
+<tr><td>eth_blockNumber</td><td>IMPLEMENTED</td><td><code>{ block { number } }</code></td></tr>
+<tr><td>eth_call</td><td>IMPLEMENTED</td><td><code>{ call(data: { to: &quot;0x...&quot;, data: &quot;0x...&quot; }) { data status gasUsed } }</code></td></tr>
+<tr><td>eth_estimateGas</td><td>IMPLEMENTED</td><td><code>{ estimateGas(data: { to: &quot;0x...&quot;, data: &quot;0x...&quot; }) }</code></td></tr>
+<tr><td>eth_gasPrice</td><td>IMPLEMENTED</td><td><code>{ gasPrice }</code></td></tr>
+<tr><td>eth_getBalance</td><td>IMPLEMENTED</td><td><code>{ account(address: &quot;0x...&quot;) { balance } }</code></td></tr>
+<tr><td>eth_getBlockByHash</td><td>IMPLEMENTED</td><td><code>{ block(hash: &quot;0x...&quot;) { ... } }</code></td></tr>
+<tr><td>eth_getBlockByNumber</td><td>IMPLEMENTED</td><td><code>{ block(number: 123) { ... } }</code></td></tr>
+<tr><td>eth_getBlockTransactionCountByHash</td><td>IMPLEMENTED</td><td><code>{ block(hash: &quot;0x...&quot;) { transactionCount } }</code></td></tr>
+<tr><td>eth_getBlockTransactionCountByNumber</td><td>IMPLEMENTED</td><td><code>{ block(number: x) { transactionCounnt } }</code></td></tr>
+<tr><td>eth_getCode</td><td>IMPLEMENTED</td><td><code>{ account(address: &quot;0x...&quot;) { code } }</code></td></tr>
+<tr><td>eth_getLogs</td><td>IMPLEMENTED</td><td><code>{ logs(filter: { ... }) { ... } }</code> or <code>{ block(...) { logs(filter: { ... }) { ... } } }</code></td></tr>
+<tr><td>eth_getStorageAt</td><td>IMPLEMENTED</td><td><code>{ account(address: &quot;0x...&quot;) { storage(slot: &quot;0x...&quot;) } }</code></td></tr>
+<tr><td>eth_getTransactionByBlockHashAndIndex</td><td>IMPLEMENTED</td><td><code>{ block(hash: &quot;0x...&quot;) { transactionAt(index: x) { ... } } }</code></td></tr>
+<tr><td>eth_getTransactionByBlockNumberAndIndex</td><td>IMPLEMENTED</td><td><code>{ block(number: n) { transactionAt(index: x) { ... } } }</code></td></tr>
+<tr><td>eth_getTransactionByHash</td><td>IMPLEMENTED</td><td><code>{ transaction(hash: &quot;0x...&quot;) { ... } }</code></td></tr>
+<tr><td>eth_getTransactionCount</td><td>IMPLEMENTED</td><td><code>{ account(address: &quot;0x...&quot;) { transactionCount } }</code></td></tr>
+<tr><td>eth_getTransactionReceipt</td><td>IMPLEMENTED</td><td><code>{ transaction(hash: &quot;0x...&quot;) { ... } }</code></td></tr>
+<tr><td>eth_getUncleByBlockHashAndIndex</td><td>IMPLEMENTED</td><td><code>{ block(hash: &quot;0x...&quot;) { ommerAt(index: x) { ... } } }</code></td></tr>
+<tr><td>eth_getUncleByBlockNumberAndIndex</td><td>IMPLEMENTED</td><td><code>{ block(number: n) { ommerAt(index: x) { ... } } }</code></td></tr>
+<tr><td>eth_getUncleCountByBlockHash</td><td>IMPLEMENTED</td><td><code>{ block(hash: &quot;0x...&quot;) { ommerCount } }</code></td></tr>
+<tr><td>eth_getUncleCountByBlockNumber</td><td>IMPLEMENTED</td><td><code>{ block(number: x) { ommerCount } }</code></td></tr>
+<tr><td>eth_protocolVersion</td><td>IMPLEMENTED</td><td><code>{ protocolVersion }</code></td></tr>
+<tr><td>eth_sendRawTransaction</td><td>IMPLEMENTED</td><td><code>mutation { sendRawTransaction(data: data) }</code></td></tr>
+<tr><td>eth_syncing</td><td>IMPLEMENTED</td><td><code>{ syncing { ... } }</code></td></tr>
+<tr><td>eth_getCompilers</td><td>NOT IMPLEMENTED</td><td>Compiler functionality is deprecated in JSON-RPC.</td></tr>
+<tr><td>eth_compileLLL</td><td>NOT IMPLEMENTED</td><td>Compiler functionality is deprecated in JSON-RPC.</td></tr>
+<tr><td>eth_compileSolidity</td><td>NOT IMPLEMENTED</td><td>Compiler functionality is deprecated in JSON-RPC.</td></tr>
+<tr><td>eth_compileSerpent</td><td>NOT IMPLEMENTED</td><td>Compiler functionality is deprecated in JSON-RPC.</td></tr>
+<tr><td>eth_newFilter</td><td>NOT IMPLEMENTED</td><td>Filter functionality may be specified in a future EIP.</td></tr>
+<tr><td>eth_newBlockFilter</td><td>NOT IMPLEMENTED</td><td>Filter functionality may be specified in a future EIP.</td></tr>
+<tr><td>eth_newPendingTransactionFilter</td><td>NOT IMPLEMENTED</td><td>Filter functionality may be specified in a future EIP.</td></tr>
+<tr><td>eth_uninstallFilter</td><td>NOT IMPLEMENTED</td><td>Filter functionality may be specified in a future EIP.</td></tr>
+<tr><td>eth_getFilterChanges</td><td>NOT IMPLEMENTED</td><td>Filter functionality may be specified in a future EIP.</td></tr>
+<tr><td>eth_getFilterLogs</td><td>NOT IMPLEMENTED</td><td>Filter functionality may be specified in a future EIP.</td></tr>
+<tr><td>eth_accounts</td><td>NOT IMPLEMENTED</td><td>Accounts functionality is not part of the core node API.</td></tr>
+<tr><td>eth_sign</td><td>NOT IMPLEMENTED</td><td>Accounts functionality is not part of the core node API.</td></tr>
+<tr><td>eth_sendTransaction</td><td>NOT IMPLEMENTED</td><td>Accounts functionality is not part of the core node API.</td></tr>
+<tr><td>eth_coinbase</td><td>NOT IMPLEMENTED</td><td>Mining functionality to be defined separately.</td></tr>
+<tr><td>eth_getWork</td><td>NOT IMPLEMENTED</td><td>Mining functionality to be defined separately.</td></tr>
+<tr><td>eth_hashRate</td><td>NOT IMPLEMENTED</td><td>Mining functionality to be defined separately.</td></tr>
+<tr><td>eth_mining</td><td>NOT IMPLEMENTED</td><td>Mining functionality to be defined separately.</td></tr>
+<tr><td>eth_submitHashrate</td><td>NOT IMPLEMENTED</td><td>Mining functionality to be defined separately.</td></tr>
+<tr><td>eth_submitWork</td><td>NOT IMPLEMENTED</td><td>Mining functionality to be defined separately.</td></tr>
+</tbody></table>
+<p>For specific reasoning behind omitted functionality, see the Rationale section.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>TBD.</p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>Implemented and released in <a href="https://github.com/ethereum/go-ethereum/releases/tag/v1.9.0">Go-ethereum 1.9.0</a></li>
+<li>Implemented and released in <a href="https://github.com/PegaSysEng/pantheon/blob/master/CHANGELOG.md#111">Pantheon 1.1.1</a></li>
+<li>Work in progress in <a href="https://github.com/ethereum/trinity/issues/302">Trinity</a></li>
+<li>Work in progress in <a href="https://github.com/paritytech/parity-ethereum/issues/10933">Parity</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

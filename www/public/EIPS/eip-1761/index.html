@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1761: ERC-1761 Scoped Approval Interface</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1761.md" />
+<meta property="og:title" content="EIP-1761: ERC-1761 Scoped Approval Interface" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1761 (EIP-1761): ERC-1761 Scoped Approval Interface"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1761 (EIP-1761): ERC-1761 Scoped Approval Interface"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1761.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1761 (EIP 1761): ERC-1761 Scoped Approval Interface" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1761: ERC-1761 Scoped Approval Interface
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:witek@enjin.io">Witek Radomski</a>,
+        
+    
+        
+        
+            <a href="mailto:ac0dem0nk3y@gmail.com">Andrew Cooke</a>,
+        
+    
+        
+        
+            <a href="mailto:james@enjin.io">James Therien</a>,
+        
+    
+        
+        
+            <a href="mailto:eric@enjin.io">Eric Binet</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1761">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1761</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-02-18</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>165</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard interface to permit restricted approval in token contracts by defining &quot;scopes&quot; of one or more Token IDs.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This interface is designed for use with token contracts that have an &quot;ID&quot; domain, such as ERC-1155 or ERC-721. This enables restricted approval of one or more Token IDs to a specific &quot;scope&quot;. When considering a smart contract managing tokens from multiple different domains, it makes sense to limit approvals to those domains. Scoped approval is a generalization of this idea. Implementors can define scopes as needed.</p>
+<p>Sample use cases for scopes:</p>
+<ul>
+<li>A company may represent its fleet of vehicles on the blockchain and it could create a scope for each regional office.</li>
+<li>Game developers could share an <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md">ERC-1155</a> contract where each developer manages tokens under a specified scope.</li>
+<li>Tokens of different value could be split into separate scopes. High-value tokens could be kept in smaller separate scopes while low-value tokens might be kept in a shared scope. Users would approve the entire low-value token scope to a third-party smart contract, exchange, or other application without concern about losing their high-value tokens in the event of a problem.</li>
+</ul>
+<h2 id="motivation">Motivation</h2>
+<p>It may be desired to restrict approval in some applications. Restricted approval can prevent losses in cases where users do not audit the contracts they're approving. No standard API is supplied to manage scopes as this is implementation specific. Some implementations may opt to offer a fixed number of scopes, or assign a specific set of scopes to certain types. Other implementations may open up scope configuration to its users and offer methods to create scopes and assign IDs to them.</p>
+<h1 id="specification">Specification</h1>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.5.2;
+
+/**
+    Note: The ERC-165 identifier for this interface is 0x30168307.
+*/
+interface ScopedApproval {
+    /**
+        @dev MUST emit when approval changes for scope.
+    */
+    event ApprovalForScope(address indexed _owner, address indexed _operator, bytes32 indexed _scope, bool _approved);
+
+    /**
+        @dev MUST emit when the token IDs are added to the scope.
+        By default, IDs are in no scope.
+        The range is inclusive: _idStart, _idEnd, and all IDs in between have been added to the scope.
+        _idStart must be lower than or equal to _idEnd.
+    */
+    event IdsAddedToScope(uint256 indexed _idStart, uint256 indexed _idEnd, bytes32 indexed _scope);
+
+    /**
+        @dev MUST emit when the token IDs are removed from the scope.
+        The range is inclusive: _idStart, _idEnd, and all IDs in between have been removed from the scope.
+        _idStart must be lower than or equal to _idEnd.
+    */
+    event IdsRemovedFromScope(uint256 indexed _idStart, uint256 indexed _idEnd, bytes32 indexed _scope);
+
+    /** @dev MUST emit when a scope URI is set or changes.
+        URIs are defined in RFC 3986.
+        The URI MUST point a JSON file that conforms to the &quot;Scope Metadata JSON Schema&quot;.
+    */
+    event ScopeURI(string _value, bytes32 indexed _scope);
+
+    /**
+        @notice     Returns the number of scopes that contain _id.
+        @param _id  The token ID
+        @return     The number of scopes containing the ID
+    */
+    function scopeCountForId(uint256 _id) public view returns (uint32);
+
+    /**
+        @notice             Returns a scope that contains _id.
+        @param _id          The token ID
+        @param _scopeIndex  The scope index to  query (valid values are 0 to scopeCountForId(_id)-1)
+        @return             The Nth scope containing the ID
+    */
+    function scopeForId(uint256 _id, uint32 _scopeIndex) public view returns (bytes32);
+
+    /**
+        @notice Returns a URI that can be queried to get scope metadata. This URI should return a JSON document containing, at least the scope name and description. Although supplying a URI for every scope is recommended, returning an empty string &quot;&quot; is accepted for scopes without a URI.
+        @param  _scope  The queried scope
+        @return         The URI describing this scope.
+    */
+    function scopeUri(bytes32 _scope) public view returns (string memory);
+
+    /**
+        @notice Enable or disable approval for a third party (&quot;operator&quot;) to manage the caller&#39;s tokens in the specified scope.
+        @dev MUST emit the ApprovalForScope event on success.
+        @param _operator    Address to add to the set of authorized operators
+        @param _scope       Approval scope (can be identified by calling scopeForId)
+        @param _approved    True if the operator is approved, false to revoke approval
+    */
+    function setApprovalForScope(address _operator, bytes32 _scope, bool _approved) external;
+
+    /**
+        @notice Queries the approval status of an operator for a given owner, within the specified scope.
+        @param _owner       The owner of the Tokens
+        @param _operator    Address of authorized operator
+        @param _scope       Scope to test for approval (can be identified by calling scopeForId)
+        @return             True if the operator is approved, false otherwise
+    */
+    function isApprovedForScope(address _owner, address _operator, bytes32 _scope) public view returns (bool);
+}
+</span></code></pre><h2 id="scope-metadata-json-schema">Scope Metadata JSON Schema</h2>
+<p>This schema allows for localization. <code>{id}</code> and <code>{locale}</code> should be replaced with the appropriate values by clients.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+    &quot;</span><span style="color:#a3be8c;">title</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Scope Metadata</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">required</span><span style="color:#c0c5ce;">&quot;: [&quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;],
+    &quot;</span><span style="color:#a3be8c;">properties</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Identifies the scope in a human-readable way.</span><span style="color:#c0c5ce;">&quot;,
+        },
+        &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Describes the scope to allow users to make informed approval decisions.</span><span style="color:#c0c5ce;">&quot;,
+        },
+        &quot;</span><span style="color:#a3be8c;">localization</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">required</span><span style="color:#c0c5ce;">&quot;: [&quot;</span><span style="color:#a3be8c;">uri</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">default</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">locales</span><span style="color:#c0c5ce;">&quot;],
+            &quot;</span><span style="color:#a3be8c;">properties</span><span style="color:#c0c5ce;">&quot;: {
+                &quot;</span><span style="color:#a3be8c;">uri</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+                    &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">The URI pattern to fetch localized data from. This URI should contain the substring `{locale}` which will be replaced with the appropriate locale value before sending the request.</span><span style="color:#c0c5ce;">&quot;
+                },
+                &quot;</span><span style="color:#a3be8c;">default</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+                    &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">The locale of the default data within the base JSON</span><span style="color:#c0c5ce;">&quot;
+                },
+                &quot;</span><span style="color:#a3be8c;">locales</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">array</span><span style="color:#c0c5ce;">&quot;,
+                    &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">The list of locales for which data is available. These locales should conform to those defined in the Unicode Common Locale Data Repository (http://cldr.unicode.org/).</span><span style="color:#c0c5ce;">&quot;
+                }
+            }
+        }
+    }
+}
+</span></code></pre><h3 id="localization">Localization</h3>
+<p>Metadata localization should be standardized to increase presentation uniformity across all languages. As such, a simple overlay method is proposed to enable localization. If the metadata JSON file contains a <code>localization</code> attribute, its content may be used to provide localized values for fields that need it. The <code>localization</code> attribute should be a sub-object with three attributes: <code>uri</code>, <code>default</code> and <code>locales</code>. If the string <code>{locale}</code> exists in any URI, it MUST be replaced with the chosen locale by all client software.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The initial design was proposed as an extension to ERC-1155: <a href="https://github.com/ethereum/EIPs/issues/1155#issuecomment-459505728">Discussion Thread - Comment 1</a>. After some discussion: <a href="https://github.com/ethereum/EIPs/issues/1155#issuecomment-460603439">Comment 2</a> and suggestions by the community to implement this approval mechanism in an external contract <a href="https://github.com/ethereum/EIPs/issues/1155#issuecomment-461758755">Comment 3</a>, it was decided that as an interface standard, this design would allow many different token standards such as ERC-721 and ERC-1155 to implement scoped approvals without forcing the system into all implementations of the tokens.</p>
+<h3 id="metadata-json">Metadata JSON</h3>
+<p>The Scope Metadata JSON Schema was added in order to support human-readable scope names and descriptions in more than one language.</p>
+<h2 id="references">References</h2>
+<p><strong>Standards</strong></p>
+<ul>
+<li><a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md">ERC-1155 Multi Token Standard</a></li>
+<li><a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md">ERC-165 Standard Interface Detection</a></li>
+<li><a href="https://json-schema.org/">JSON Schema</a></li>
+</ul>
+<p><strong>Implementations</strong></p>
+<ul>
+<li><a href="https://enjincoin.io">Enjin Coin</a> (<a href="https://github.com/enjin">github</a>)</li>
+</ul>
+<p><strong>Articles &amp; Discussions</strong></p>
+<ul>
+<li><a href="https://github.com/ethereum/EIPs/issues/1761">GitHub - Original Discussion Thread</a></li>
+<li><a href="https://github.com/ethereum/EIPs/issues/1155">GitHub - ERC-1155 Discussion Thread</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

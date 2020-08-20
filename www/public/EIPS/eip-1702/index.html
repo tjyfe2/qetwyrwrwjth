@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1702: Generalized Account Versioning Scheme</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1702.md" />
+<meta property="og:title" content="EIP-1702: Generalized Account Versioning Scheme" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1702 (EIP-1702): Generalized Account Versioning Scheme"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1702 (EIP-1702): Generalized Account Versioning Scheme"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1702.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1702 (EIP 1702): Generalized Account Versioning Scheme" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1702: Generalized Account Versioning Scheme
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/sorpaas">Wei Tang</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;sorpaas&#x2F;EIPs&#x2F;issues&#x2F;2">https:&#x2F;&#x2F;github.com&#x2F;sorpaas&#x2F;EIPs&#x2F;issues&#x2F;2</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-12-30</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Introduce account versioning for smart contracts so upgrading the VM
+or introducing new VMs can be easier.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This defines a method of hard forking while maintaining the exact
+functionality of existing account by allowing multiple versions of the
+virtual machines to execute in the same block. This is also useful to
+define future account state structures when we introduce the on-chain
+WebAssembly virtual machine.</p>
+<h2 id="motivation">Motivation</h2>
+<p>By allowing account versioning, we can execute different virtual
+machine for contracts created at different times. This allows breaking
+features to be implemented while making sure existing contracts work
+as expected.</p>
+<p>Note that this specification might not apply to all hard forks. We
+have emergency hard forks in the past due to network attacks. Whether
+they should maintain existing account compatibility should be
+evaluated in individual basis. If the attack can only be executed once
+against some particular contracts, then the scheme defined here might
+still be applicable. Otherwise, having a plain emergency hard fork
+might still be a good idea.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="account-state">Account State</h3>
+<p>Re-define account state stored in the world state trie to have 5
+items: <code>nonce</code>, <code>balance</code>, <code>storageRoot</code>, <code>codeHash</code>, and
+<code>version</code>. The newly added field <code>version</code> is a 256-bit <strong>scalar</strong>. We
+use the definition of &quot;scalar&quot; from Yellow Paper. Note that this is
+the same type as <code>nonce</code> and <code>balance</code>, and it is equivalent to a RLP
+variable-sized byte array with no leading zero, of maximum length 32.</p>
+<p>When <code>version</code> is zero, the account is RLP-encoded with the first 4
+items. When <code>version</code> is not zero, the account is RLP-encoded with 5
+items.</p>
+<p>Account versions can also optionally define additional account state
+RLP fields, whose meaning are specified through its <code>version</code>
+field. In those cases, the parsing strategy is defined in &quot;Additional
+Fields in Account State RLP&quot; section.</p>
+<h3 id="contract-execution">Contract Execution</h3>
+<p>When fetching an account code from state, we always fetch the
+associated version field together. We refer to this as the <em>code's
+version</em> below. The code of the account is always executed in the
+<em>code's version</em>.</p>
+<p>In particular, this means that for <code>DELEGATECALL</code> and <code>CALLCODE</code>, the
+version of the execution call frame is the same as
+delegating/receiving contract's version.</p>
+<h3 id="contract-deployment">Contract Deployment</h3>
+<p>In Ethereum, a contract has a deployment method, either by a contract
+creation transaction, or by another contract. If we regard this
+deployment method a contract's <em>parent</em>, then we find them forming a
+family of contracts, with the <em>root</em> being a contract creation
+transaction.</p>
+<p>We let a family of contracts to always have the same <code>version</code>. That
+is, <code>CREATE</code> and <code>CREATE2</code> will always deploy contract that has the
+same <code>version</code> as the <em>code's version</em>.</p>
+<p>In other words, <code>CREATE</code> and <code>CREATE2</code> will execute the init code
+using the current <em>code's version</em>, and deploy the contract of the
+current <em>code's version</em>. This holds even if the to-be-deployed code
+is empty.</p>
+<h3 id="validation">Validation</h3>
+<p>A new phrase, <em>validation</em> is added to contract deployment (by
+<code>CREATE</code> / <code>CREATE2</code> opcodes, or by contract creation
+transaction). When <code>version</code> is <code>0</code>, the phrase does nothing and
+always succeeds. Future VM versions can define additional validation
+that has to be passed.</p>
+<p>If the validation phrase fails, deployment does not proceed and return
+out-of-gas.</p>
+<h3 id="contract-creation-transaction">Contract Creation Transaction</h3>
+<p>Define <code>LATEST_VERSION</code> in a hard fork to be the latest supported VM
+version. A contract creation transaction is always executed in
+<code>LATEST_VERSION</code> (which means the <em>code's version</em> is
+<code>LATEST_VERSION</code>), and deploys contracts of <code>LATEST_VERSION</code>. Before a
+contract creation transaction is executed, run <em>validation</em> on the
+contract creation code. If it does not pass, return out-of-gas.</p>
+<h3 id="precompiled-contract-and-externally-owned-address">Precompiled Contract and Externally-owned Address</h3>
+<p>Precompiled contracts and externally-owned addresses do not have
+<code>version</code>. If a message-call transaction or <code>CALL</code> / <code>CALLCODE</code> /
+<code>STATICCALL</code> / <code>DELEGATECALL</code> touches a new externally-owned address
+or a non-existing precompiled contract address, it is always created
+with <code>version</code> field being <code>0</code>.</p>
+<h3 id="additional-fields-in-account-state-rlp">Additional Fields in Account State RLP</h3>
+<p>In the future we may need to associate more information into an
+account, and we already have some EIPs that define new additional
+fields in the account state RLP. In this section, we define the
+parsing strategy when additional fields are added.</p>
+<ul>
+<li>Check the RLP list length, if it is 4, then set account version to
+<code>0</code>, and do not parse any additional fields.</li>
+<li>If the RLP list length more than 4, set the account version to the
+scalar at position <code>4</code> (counting from <code>0</code>).
+<ul>
+<li>Check version specification for the number of additional fields
+defined <code>N</code>, if the RLP list length is not equal to <code>5 + N</code>,
+return parse error.</li>
+<li>Parse RLP position <code>5</code> to <code>4 + N</code> as the meaning specified in
+additional fields.</li>
+</ul>
+</li>
+</ul>
+<h2 id="extensions">Extensions</h2>
+<p>In relation to the above &quot;Specification&quot; section, we have defined the
+base account versioning layer. The base account versioning layer is
+already useful by itself and can handle most EVM improvements. Below
+we define two specifications that can be deployed separately, which
+improves functionality of base layer account versioning.</p>
+<p>Note that this section is provided only for documentation
+purpose. When &quot;enabling EIP-1702&quot;, those extensions should not be
+enabled unless the extension specification is also included.</p>
+<ul>
+<li><a href="https://specs.corepaper.org/44-vertxn/">44-VERTXN: Account Versioning Extension for Contract Creation
+Transaction</a></li>
+<li><a href="https://specs.corepaper.org/45-verop/">45-VEROP: Account Versioning Extension for CREATE and
+CREATE2</a></li>
+</ul>
+<h2 id="usage-template">Usage Template</h2>
+<p>This section defines how other EIPs might use this account
+versioning specification. Note that currently we only define the usage
+template for base layer.</p>
+<p>Account versioning is usually applied directly to a hard fork
+meta. EIPs in the hard fork are grouped by the virtual machine
+type, for example, EVM and eWASM. For each of them, we define:</p>
+<ul>
+<li><strong>Version</strong>: a non-zero scalar less than <code>2^256</code> that uniquely
+identifies this version. Note that it does not need to be
+sequential.</li>
+<li><strong>Parent version</strong>: the base that all new features derived
+from. With parent version of <code>0</code> we define the base to be legacy
+VM. Note that once a version other than <code>0</code> is defined, the legacy
+VM's feature set must be frozen. When defining an entirely new VM
+(such as eWASM), parent version does not apply.</li>
+<li><strong>Features</strong>: all additional features that are enabled upon this
+version.</li>
+</ul>
+<p>If a meta EIP includes EIPs that provide additional account state RLP
+fields, we also define:</p>
+<ul>
+<li><strong>Account fields</strong>: all account fields up to the end of this meta
+EIP, excluding the basic 5 fields (<code>nonce</code>, <code>balance</code>,
+<code>storageRoot</code>, <code>codeHash</code> and <code>version</code>). If EIPs included that are
+specific to modifying account fields do not modify VM execution
+logic, it is recommended that we specify an additional version whose
+execution logic is the same as previous version, but only the
+account fields are changed.</li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<p>This introduces account versioning via a new RLP item in account
+state. The design above gets account versioning by making the contract
+<em>family</em> always have the same version. In this way, versions are only
+needed to be provided by contract creation transaction, and there is
+no restrictions on formats of code for any version. If we want to
+support multiple newest VMs (for example, EVM and WebAssembly running
+together), then this will requires extensions such as 44-VERTXN and
+45-VEROP.</p>
+<p>Alternatively, account versioning can also be done through:</p>
+<ul>
+<li><strong><a href="https://specs.corepaper.org/26-ver/">26-VER</a></strong> and
+<strong><a href="https://specs.corepaper.org/40-unused/">40-UNUSED</a></strong>: This makes an
+account's versioning soly dependent on its code header prefix. If
+with only 26-VER, it is not possible to certify any code is valid,
+because current VM allows treating code as data. This can be fixed
+by 40-UNUSED, but the drawback is that it's potentially backward
+incompatible.</li>
+<li><strong>EIP-1891</strong>: Instead of writing version field into account RLP
+state, we write it in a separate contract. This can accomplish the
+same thing as this EIP and potentially reduces code complexity, but
+the drawback is that every code execution will require an additional
+trie traversal, which impacts performance.</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>Account versioning is fully backwards compatible, and it does not
+change how current contracts are executed.</p>
+<h2 id="discussions">Discussions</h2>
+<h3 id="performance">Performance</h3>
+<p>Currently nearly all full node implementations uses config parameters
+to decide which virtual machine version to use. Switching virtual
+machine version is simply an operation that changes a pointer using a
+different set of config parameters. As a result, this scheme has
+nearly zero impact to performance.</p>
+<h3 id="webassembly">WebAssembly</h3>
+<p>This scheme can also be helpful when we deploy on-chain WebAssembly
+virtual machine. In that case, WASM contracts and EVM contracts can
+co-exist and the execution boundary and interaction model are clearly
+defined as above.</p>
+<h2 id="test-cases-and-implementations">Test Cases and Implementations</h2>
+<p>To be added.</p>
+<h2 id="references">References</h2>
+<p>The source of this specification can be found at 
+<a href="https://specs.corepaper.org/43-ver/">43-VER</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

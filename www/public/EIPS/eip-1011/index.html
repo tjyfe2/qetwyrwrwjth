@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1011: Hybrid Casper FFG</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1011.md" />
+<meta property="og:title" content="EIP-1011: Hybrid Casper FFG" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1011 (EIP-1011): Hybrid Casper FFG"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1011 (EIP-1011): Hybrid Casper FFG"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1011.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1011 (EIP 1011): Hybrid Casper FFG" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1011: Hybrid Casper FFG
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/djrtwo">Danny Ryan</a>,
+        
+    
+        
+        
+            <a href="https://github.com/ChihChengLiang"> Chih-Cheng Liang</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;djrtwo&#x2F;EIPs&#x2F;issues&#x2F;5">https:&#x2F;&#x2F;github.com&#x2F;djrtwo&#x2F;EIPs&#x2F;issues&#x2F;5</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-04-20</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Specification of the first step to transition Ethereum main net from Proof of Work (PoW) to Proof of Stake (PoS). The resulting consensus model is a PoW/PoS hybrid.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This EIP specifies a hybrid PoW/PoS consensus model for Ethereum main net. Existing PoW mechanics are used for new block creation, and a novel PoS mechanism called Casper the Friendly Finality Gadget (FFG) is layered on top using a smart contract.</p>
+<p>Through the use of Ether deposits, slashing conditions, and a modified fork choice, FFG allows the underlying PoW blockchain to be finalized.  As network security is greatly shifted from PoW to PoS, PoW block rewards are reduced.</p>
+<p>This EIP does not contain safety and liveness proofs or validator implementation details, but these can be found in the <a href="https://arxiv.org/abs/1710.09437">Casper FFG paper</a> and <a href="https://github.com/ethereum/casper/blob/master/VALIDATOR_GUIDE.md">Validator Implementation Guide</a> respectively.</p>
+<h2 id="glossary">Glossary</h2>
+<ul>
+<li><strong>epoch</strong>: The span of blocks between checkpoints. Epochs are numbered starting at the hybrid casper fork, incrementing by one at the start of each epoch.</li>
+<li><strong>finality</strong>: The point at which a block has been decided upon by a client to <em>never</em> revert. Proof of Work does not have the concept of finality, only of further deep block confirmations.</li>
+<li><strong>checkpoint</strong>: The block/hash under consideration for finality for a given epoch. This block is the <em>last</em> block of the previous epoch. Rather than dealing with every block, Casper FFG only considers checkpoints for finalization. When a checkpoint is explicitly finalized, all ancestor blocks of the checkpoint are implicitly finalized.</li>
+<li><strong>validator</strong>: A participant in the Casper FFG consensus that has deposited ether in the casper contract and has the responsibility to vote and finalize checkpoints.</li>
+<li><strong>validator set</strong>: The set of validators in the casper contract at any given time.</li>
+<li><strong>dynasty</strong>: The number of finalized checkpoints in the chain from root to the parent of a block. The dynasty is used to define when a validator starts and ends validating. The current dynasty only increments when a checkpoint is finalized as opposed to epoch numbers that increment regardless of finality.</li>
+<li><strong>slash</strong>: The burning of some amount of a validator's deposit along with an immediate logout from the validator set. Slashing occurs when a validator signs two conflicting <code>vote</code> messages that violate a slashing condition. For an in-depth discussion of slashing conditions, see the <a href="https://arxiv.org/abs/1710.09437">Casper FFG Paper</a>.</li>
+</ul>
+<h2 id="motivation">Motivation</h2>
+<p>Transitioning the Ethereum network from PoW to PoS has been on the roadmap and in the <a href="https://github.com/ethereum/yellowpaper">Yellow Paper</a> since the launch of the protocol. Although effective in coming to a decentralized consensus, PoW consumes an incredible amount of energy, has no economic finality, and has no effective strategy in resisting cartels. Excessive energy consumption, issues with equal access to mining hardware, mining pool centralization, and an emerging market of ASICs each provide a distinct motivation to make the transition as soon as possible.</p>
+<p>Until recently, the proper way to make this transition was still an open area of research. In October of 2017 <a href="https://arxiv.org/abs/1710.09437">Casper the Friendly Finality Gadget</a> was published, solving open questions of economic finality through validator deposits and crypto-economic incentives. For a detailed discussion and proofs of &quot;accountable safety&quot; and &quot;plausible liveness&quot;, see the <a href="https://arxiv.org/abs/1710.09437">Casper FFG</a> paper.</p>
+<p>The Casper FFG contract can be layered on top of any block proposal mechanism, providing finality to the underlying chain. This EIP proposes layering FFG on top of the existing PoW block proposal mechanism as a conservative step-wise approach in the transition to full PoS. The new FFG staking mechanism requires minimal changes to the protocol, allowing the Ethereum network to fully test and evaluate Casper FFG on top of PoW before moving to a validator based block proposal mechanism.</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>HYBRID_CASPER_FORK_BLKNUM</code>: TBD</li>
+<li><code>CASPER_ADDR</code>: TBD</li>
+<li><code>CASPER_CODE</code>: see below</li>
+<li><code>CASPER_BALANCE</code>: 1.25e24 wei (1,250,000 ETH)</li>
+<li><code>MSG_HASHER_ADDR</code>: TBD</li>
+<li><code>MSG_HASHER_CODE</code>: see below</li>
+<li><code>PURITY_CHECKER_ADDR</code>: TBD</li>
+<li><code>PURITY_CHECKER_CODE</code>: see below</li>
+<li><code>NULL_SENDER</code>: <code>2**160 - 1</code></li>
+<li><code>NEW_BLOCK_REWARD</code>: 6e17 wei (0.6 ETH)</li>
+<li><code>REWARD_STEPDOWN_BLOCK_COUNT</code>: 5.5e5 blocks (~3 months)</li>
+<li><code>CASPER_INIT_DATA</code>: TBD</li>
+<li><code>VOTE_BYTES</code>: <code>0xe9dc0614</code></li>
+<li><code>INITIALIZE_EPOCH_BYTES</code>: <code>0x5dcffc17</code></li>
+<li><code>NON_REVERT_MIN_DEPOSIT</code>: amount in wei configurable by client</li>
+</ul>
+<h3 id="casper-contract-parameters">Casper Contract Parameters</h3>
+<ul>
+<li><code>EPOCH_LENGTH</code>: 50 blocks</li>
+<li><code>WARM_UP_PERIOD</code>: 1.8e5 blocks (~1 month)</li>
+<li><code>WITHDRAWAL_DELAY</code>: 1.5e4 epochs</li>
+<li><code>DYNASTY_LOGOUT_DELAY</code>: 700 dynasties</li>
+<li><code>BASE_INTEREST_FACTOR</code>: 7e-3</li>
+<li><code>BASE_PENALTY_FACTOR</code>: 2e-7</li>
+<li><code>MIN_DEPOSIT_SIZE</code>: 1.5e21 wei (1500 ETH)</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<h4 id="deploying-casper-contract">Deploying Casper Contract</h4>
+<p>If <code>block.number == HYBRID_CASPER_FORK_BLKNUM</code>, then when processing the block before processing any transactions:</p>
+<ul>
+<li>set the code of <code>MSG_HASHER_ADDR</code> to <code>MSG_HASHER_CODE</code></li>
+<li>set the code of <code>PURITY_CHECKER_ADDR</code> to <code>PURITY_CHECKER_CODE</code></li>
+<li>set the code of <code>CASPER_ADDR</code> to <code>CASPER_CODE</code></li>
+<li>set balance of <code>CASPER_ADDR</code> to <code>CASPER_BALANCE</code></li>
+</ul>
+<p>Then execute a <code>CALL</code> with the following parameters before executing any normal block transactions:</p>
+<ul>
+<li><code>SENDER</code>: <code>NULL_SENDER</code></li>
+<li><code>GAS</code>: 3141592</li>
+<li><code>TO</code>: <code>CASPER_ADDR</code></li>
+<li><code>VALUE</code>: 0</li>
+<li><code>NONCE</code>: 0</li>
+<li><code>GASPRICE</code>: 0</li>
+<li><code>DATA</code>: <code>CASPER_INIT_DATA</code></li>
+</ul>
+<p>This <code>CALL</code> utilizes no gas and does not increment the nonce of <code>NULL_SENDER</code></p>
+<h4 id="initialize-epochs">Initialize Epochs</h4>
+<p>If <code>block.number &gt;= (HYBRID_CASPER_FORK_BLKNUM + WARM_UP_PERIOD)</code> and <code>block.number % EPOCH_LENGTH == 0</code>, execute a <code>CALL</code> with the following parameters before executing any normal block transactions:</p>
+<ul>
+<li><code>SENDER</code>: <code>NULL_SENDER</code></li>
+<li><code>GAS</code>: 3141592</li>
+<li><code>TO</code>: <code>CASPER_ADDR</code></li>
+<li><code>VALUE</code>: 0</li>
+<li><code>NONCE</code>: 0</li>
+<li><code>GASPRICE</code>: 0</li>
+<li><code>DATA</code>: <code>INITIALIZE_EPOCH_BYTES</code> followed by the 32-byte encoding of <code>floor(block.number / EPOCH_LENGTH)</code></li>
+</ul>
+<p>This <code>CALL</code> utilizes no gas and does not increment the nonce of <code>NULL_SENDER</code></p>
+<h4 id="casper-votes">Casper Votes</h4>
+<p>A <code>vote</code> transaction is defined as a transaction with the following parameters:</p>
+<ul>
+<li><code>TO</code>: <code>CASPER_ADDR</code></li>
+<li><code>DATA</code>: Begins with <code>VOTE_BYTES</code></li>
+</ul>
+<p>If <code>block.number &gt;= HYBRID_CASPER_FORK_BLKNUM</code>, then:</p>
+<ul>
+<li>A valid <code>vote</code> transaction to <code>CASPER_ADDR</code> must satisfy each of the following:
+<ul>
+<li>Must have the following signature <code>(CHAIN_ID, 0, 0)</code> (ie. <code>r = s = 0, v = CHAIN_ID</code>)</li>
+<li>Must have <code>value == nonce == gasprice == 0</code></li>
+</ul>
+</li>
+<li>When producing and validating a block, when handling <code>vote</code> transactions to <code>CASPER_ADDR</code>:
+<ul>
+<li>Only include &quot;valid&quot; <code>vote</code> transactions as defined above</li>
+<li>Place all <code>vote</code> transactions at the end of the block</li>
+<li>Track cumulative gas used by votes separately from cumulative gas used by normal transactions via <code>vote_gas_used</code></li>
+<li>Total <code>vote_gas_used</code> of <code>vote</code> transactions cannot exceed the <code>block_gas_limit</code>, independent of gas used by normal block transactions</li>
+</ul>
+</li>
+<li>When applying <code>vote</code> transactions to <code>CASPER_ADDR</code> to vm state:
+<ul>
+<li>Set sender to <code>NULL_SENDER</code></li>
+<li>Count gas of <code>vote</code> toward <code>vote_gas_used</code></li>
+<li>Do not count gas of <code>vote</code> toward the normal <code>gas_used</code>. For all <code>vote</code> transaction receipts, cumulative gas used is equal to last non-<code>vote</code> transaction receipt</li>
+<li>Do not increment the nonce of <code>NULL_SENDER</code></li>
+</ul>
+</li>
+<li>All unsuccessful <code>vote</code> transactions to <code>CASPER_ADDR</code> are invalid and must not be included in the block</li>
+</ul>
+<h4 id="fork-choice-and-finalization">Fork Choice and Finalization</h4>
+<p>If <code>block.number &gt;= HYBRID_CASPER_FORK_BLKNUM</code>, the fork choice rule is the logic represented by the following pseudocode. Note that options <code>--casper-fork-choice</code> and <code>--exclude</code> are discussed below in &quot;Client Settings&quot;.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">handle_block</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">new_block</span><span style="color:#c0c5ce;">):
+    </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">not </span><span style="color:#bf616a;">is_new_head</span><span style="color:#c0c5ce;">(new_block):
+        </span><span style="color:#b48ead;">return
+
+    </span><span style="color:#bf616a;">set_head</span><span style="color:#c0c5ce;">(new_block)
+    </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">--casper-fork-choice is on:
+        </span><span style="color:#bf616a;">check_and_finalize_new_checkpoint</span><span style="color:#c0c5ce;">(new_block)
+
+
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">is_new_head</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">new_block</span><span style="color:#c0c5ce;">):
+    </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">--casper-fork-choice is off
+        </span><span style="color:#65737e;"># old pure PoW chain scoring rule
+        </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">new_block.total_difficuty &gt; current_head.total_difficulty
+
+    </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">new_block is in --exclude list or one of its descendants
+        </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">false
+
+    </span><span style="color:#65737e;"># don&#39;t revert finalized blocks
+    </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">db.last_finalized_block is not in new_block.ancestors:
+        </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">false
+
+    </span><span style="color:#65737e;"># new casper chain scoring rule
+    </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">highest_justified_epoch</span><span style="color:#c0c5ce;">(new_block) * </span><span style="color:#d08770;">10</span><span style="color:#c0c5ce;">**</span><span style="color:#d08770;">40 </span><span style="color:#c0c5ce;">+ new_block.total_difficuty &gt;
+        </span><span style="color:#bf616a;">highest_justified_epoch</span><span style="color:#c0c5ce;">(current_head) * </span><span style="color:#d08770;">10</span><span style="color:#c0c5ce;">**</span><span style="color:#d08770;">40 </span><span style="color:#c0c5ce;">+ current_head.total_difficulty
+
+
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">highest_justified_epoch</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">block</span><span style="color:#c0c5ce;">):
+    casper = block.post_state.casper_contract
+    </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">casper.</span><span style="color:#bf616a;">highest_justified_epoch</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">NON_REVERT_MIN_DEPOSITS</span><span style="color:#c0c5ce;">)
+
+
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">check_and_finalize_new_checkpoint</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">new_block</span><span style="color:#c0c5ce;">):
+    casper = new_block.post_state.casper_contract
+
+    </span><span style="color:#65737e;"># If no finalized blocks, db.last_finalized_epoch initialized to -1
+
+    </span><span style="color:#c0c5ce;">finalized_epoch = casper.</span><span style="color:#bf616a;">highest_finalized_epoch</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">NON_REVERT_MIN_DEPOSITS</span><span style="color:#c0c5ce;">)
+    </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">finalized_epoch &gt; db.last_finalized_epoch:
+        finalized_hash = casper.</span><span style="color:#bf616a;">checkpoint_hashes</span><span style="color:#c0c5ce;">(finalized_epoch)
+
+        </span><span style="color:#65737e;"># ensure not trivially finalized
+        </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">finalized_hash == </span><span style="color:#b48ead;">b</span><span style="color:#c0c5ce;">&#39;</span><span style="color:#96b5b4;">\x00</span><span style="color:#c0c5ce;">&#39; * </span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">:
+            </span><span style="color:#b48ead;">return
+
+        </span><span style="color:#c0c5ce;">db.last_finalized_epoch = finalized_epoch
+        db.last_finalized_block = finalized_hash
+</span></code></pre>
+<p>The new chain scoring rule queries the casper contract to find the highest justified epoch that meets the client's minimum deposit requirement (<code>NON_REVERT_MIN_DEPOSITS</code>). The <code>10**40</code> multiplier ensures that the justified epoch takes precedence over block mining difficulty. <code>total_difficulty</code> only serves as a tie breaker if the two blocks in question have an equivalent <code>highest_justified_epoch</code>.</p>
+<p><em>Note</em>: If the client has no justified checkpoints, the contract returns <code>highest_justified_epoch</code> as <code>0</code> essentially reverting the fork choice rule to pure PoW.</p>
+<p>When assessing a new block as the chain's head, clients must <em>never revert finalized blocks</em> as seen by the code commented as &quot;don't revert finalized blocks&quot;.</p>
+<p>When a new block is added as the chain's head, clients then check for a new finalized block. This is handled by the <code>check_and_finalized_new_checkpoint(new_block)</code> method above. If the highest finalized epoch in the casper contract is greater than the previous finalized epoch, then the client finalizes the block with the hash <code>casper.checkpoint_hashes(finalized_epoch)</code>, storing this block and the related epoch number in the client database as finalized.</p>
+<p>Clients only consider checkpoints justified or finalized if deposits were greater than <code>NON_REVERT_MIN_DEPOSIT</code> <em>during the epoch in question</em>. This logic is encapsulated in <code>casper.highest_justified_epoch(NON_REVERT_MIN_DEPOSIT)</code> and <code>casper.highest_finalized_epoch(NON_REVERT_MIN_DEPOSIT)</code>, respectively.</p>
+<h4 id="block-reward">Block Reward</h4>
+<p>If <code>block.number &gt;= HYBRID_CASPER_FORK_BLKNUM</code>, then <code>block_reward</code> is defined by the following logic and utilizes the same formulas for ommer rewards but with the updated <code>block_reward</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">block.number &lt; </span><span style="color:#bf616a;">HYBRID_CASPER_FORK_BLKNUM </span><span style="color:#c0c5ce;">+ </span><span style="color:#bf616a;">REWARD_STEPDOWN_BLOCK_COUNT</span><span style="color:#c0c5ce;">:
+    block_reward = </span><span style="color:#d08770;">5 </span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">NEW_BLOCK_REWARD
+</span><span style="color:#b48ead;">elif </span><span style="color:#c0c5ce;">block.number &lt; </span><span style="color:#bf616a;">HYBRID_CASPER_FORK_BLKNUM </span><span style="color:#c0c5ce;">+ </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">*</span><span style="color:#bf616a;">REWARD_STEPDOWN_BLOCK_COUNT</span><span style="color:#c0c5ce;">:
+    block_reward = </span><span style="color:#d08770;">4 </span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">NEW_BLOCK_REWARD
+</span><span style="color:#b48ead;">elif </span><span style="color:#c0c5ce;">block.number &lt; </span><span style="color:#bf616a;">HYBRID_CASPER_FORK_BLKNUM </span><span style="color:#c0c5ce;">+ </span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">*</span><span style="color:#bf616a;">REWARD_STEPDOWN_BLOCK_COUNT</span><span style="color:#c0c5ce;">:
+    block_reward = </span><span style="color:#d08770;">3 </span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">NEW_BLOCK_REWARD
+</span><span style="color:#b48ead;">elif </span><span style="color:#c0c5ce;">block.number &lt; </span><span style="color:#bf616a;">HYBRID_CASPER_FORK_BLKNUM </span><span style="color:#c0c5ce;">+ </span><span style="color:#d08770;">4</span><span style="color:#c0c5ce;">*</span><span style="color:#bf616a;">REWARD_STEPDOWN_BLOCK_COUNT</span><span style="color:#c0c5ce;">:
+    block_reward = </span><span style="color:#d08770;">2 </span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">NEW_BLOCK_REWARD
+</span><span style="color:#b48ead;">else</span><span style="color:#c0c5ce;">:
+    block_reward = </span><span style="color:#bf616a;">NEW_BLOCK_REWARD
+</span></code></pre><h4 id="validators">Validators</h4>
+<p>The mechanics and responsibilities of validators are not specified in this EIP because they rely upon network transactions to the contract at <code>CASPER_ADDR</code> rather than on protocol level implementation and changes.
+See the <a href="https://github.com/ethereum/casper/blob/master/VALIDATOR_GUIDE.md">Validator Implementation Guide</a> for validator details.</p>
+<h4 id="msg-hasher-code">MSG_HASHER_CODE</h4>
+<p>The source code for <code>MSG_HASHER_CODE</code> is located <a href="https://github.com/ethereum/casper/blob/master/casper/contracts/msg_hash.se.py">here</a>.
+The source is to be migrated to Vyper LLL before the bytecode is finalized for this EIP.</p>
+<p>The EVM init code is:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">TBD
+</span></code></pre>
+<p>The EVM bytecode that the contract should be set to is:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">TBD
+</span></code></pre><h4 id="purity-checker-code">PURITY_CHECKER_CODE</h4>
+<p>The source code for <code>PURITY_CHECKER_CODE</code> is located <a href="https://github.com/ethereum/research/blob/master/impurity/check_for_impurity.se">here</a>.
+The source is to be migrated to Vyper LLL before the bytecode is finalized for this EIP.</p>
+<p>The EVM init code is:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">TBD
+</span></code></pre>
+<p>The EVM bytecode that the contract should be set to is:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">TBD
+</span></code></pre><h4 id="casper-code">CASPER_CODE</h4>
+<p>The source code for <code>CASPER_CODE</code> is located at
+<a href="https://github.com/ethereum/casper/blob/master/casper/contracts/simple_casper.v.py">here</a>.
+The contract is to be formally verified and further tested before the bytecode is finalized for this EIP.</p>
+<p>The EVM init code with the above specified params is:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">TBD
+</span></code></pre>
+<p>The EVM bytecode that the contract should be set to is:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">TBD
+</span></code></pre><h4 id="client-settings">Client Settings</h4>
+<p>Clients should be implemented with the following configurable settings:</p>
+<h5 id="enable-casper-fork-choice">Enable Casper Fork Choice</h5>
+<p>The ability to enable/disable the Casper Fork Choice. A suggested implementation is <code>--casper-fork-choice</code>.</p>
+<p>This setting should ship as default disabled in client versions during the initial casper fork. This setting should ship as default enabled in subsequent client versions.</p>
+<h5 id="non-revert-min-deposit">NON_REVERT_MIN_DEPOSIT</h5>
+<p>The minimum size of total deposits that the client must observe in the FFG contract for the state of the contract to affect the client's fork choice. A suggested implementation is <code>--non-revert-min-deposit WEI_VALUE</code>.</p>
+<p>The suggested default value that clients should ship with is at least 2e23 wei (200K ETH).</p>
+<p>See &quot;Fork Choice&quot; more details.</p>
+<h5 id="exclusion">Exclusion</h5>
+<p>The ability to exclude a specified blockhash and all of its descendants from a client's fork choice. A suggested implementation is <code>--exclude BLOCKHASHES</code>, where <code>BLOCK_HASHES</code> is a comma delimited list of blockhashes to exclude.</p>
+<p>Note: this <em>can</em> by design override a client's forkchoice and revert finalized blocks.</p>
+<h5 id="join-fork">Join Fork</h5>
+<p>The ability to manually join a fork specified by a blockhash. A suggested implementation is <code>--join-fork BLOCKHASH</code> where the client automatically sets the head to the block defined by<code>BLOCKHASH</code> and locally finalizes it.</p>
+<p>Note: this <em>can</em> by design override a client's forkchoice and revert finalized blocks.</p>
+<h5 id="monitor-votes">Monitor Votes</h5>
+<p>The ability to monitor incoming <code>vote</code> transactions for slashing conditions and submit proof to the casper contract for a finder's fee if found. A suggested implementation is <code>--monitor-votes</code>.</p>
+<p>The setting should default to disabled.</p>
+<p>The following pseudocode defines when two <code>vote</code> messages violate a slashing condition. A <code>vote</code> message is the singular argument included in a <code>vote</code> transaction.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">decode_rlp_list</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">vote_msg</span><span style="color:#c0c5ce;">):
+    </span><span style="color:#65737e;"># [validator_index, target_hash, target_epoch, source_epoch, signature]
+    </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">RLPList</span><span style="color:#c0c5ce;">(vote_msg, [int, bytes, int, int, bytes])
+
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">same_target_epoch</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">vote_msg_1</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">vote_msg_2</span><span style="color:#c0c5ce;">):
+    decoded_values_1 = </span><span style="color:#bf616a;">decode_rlp_msg</span><span style="color:#c0c5ce;">(vote_msg_1)
+    target_epoch_1 = decoded_values_1[</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">]
+
+    decoded_values_2 = </span><span style="color:#bf616a;">decode_rlp_msg</span><span style="color:#c0c5ce;">(vote_msg_2)
+    target_epoch_2 = decoded_values_2[</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">]
+
+    </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">target_epoch_1 == target_epoch_2
+
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">surrounds</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">vote_msg_1</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">vote_msg_2</span><span style="color:#c0c5ce;">):
+    decoded_values_1 = </span><span style="color:#bf616a;">decode_rlp_msg</span><span style="color:#c0c5ce;">(vote_msg_1)
+    target_epoch_1 = decoded_values_1[</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">]
+    source_epoch_1 = decoded_values_1[</span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">]
+
+    decoded_values_2 = </span><span style="color:#bf616a;">decode_rlp_msg</span><span style="color:#c0c5ce;">(vote_msg_2)
+    target_epoch_2 = decoded_values_2[</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">]
+    source_epoch_1 = decoded_values_1[</span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">]
+
+    vote_1_surrounds_vote_2 = target_epoch_1 &gt; target_epoch_2 and source_epoch_1 &lt; source_epoch_2
+    vote_2_surrounds_vote_1 = target_epoch_2 &gt; target_epoch_1 and source_epoch_2 &lt; source_epoch_1
+
+    </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">vote_1_surrounds_vote_2 or vote_2_surrounds_vote_1
+
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">violates_slashing_condition</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">vote_msg_1</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">vote_msg_2</span><span style="color:#c0c5ce;">):
+    </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">same_target_epoch</span><span style="color:#c0c5ce;">(vote_msg_1, vote_msg_2) or </span><span style="color:#bf616a;">surrounds</span><span style="color:#c0c5ce;">(vote_msg_1, vote_msg_2)
+</span></code></pre>
+<p>The casper contract also provides a helper method <code>slashable(vote_msg_1, vote_msg_2)</code> to check if two votes violate a slashing condition. Clients should use the above pseudocode in combination with <code>casper.slashable()</code> as a final check when deciding whether to submit a <code>slash</code> to the contract.</p>
+<p>The <code>--monitor-votes</code> setting is to be used for clients that wish to monitor vote transactions for slashing conditions. If a slashing condition is found, the client creates and sends a transaction to <code>slash</code> on the casper contract. The first transaction to include the slashing condition proof slashes the validator in question and sends a 4% finder's fee to the transaction sender.</p>
+<h2 id="rationale">Rationale</h2>
+<p>Naive PoS specifications and implementations have existed since early blockchain days, but most are vulnerable to serious attacks and do not hold up under crypto-economic analysis. Casper FFG solves problems such as &quot;Nothing at Stake&quot; and &quot;Long Range Attacks&quot; through requiring validators to post slashable deposits and through defining economic finality.</p>
+<h4 id="minimize-consensus-changes">Minimize Consensus Changes</h4>
+<p>The finality gadget is designed to minimize changes across clients. For this reason, FFG is implemented within the EVM, so that the contract byte code encapsulates most of the complexity of the fork.</p>
+<p>Most other decisions were made to minimize changes across clients. For example, it would be possible to allow <code>CASPER_ADDR</code> to mint Ether each time it paid rewards (as compared to creating the contract with <code>CASPER_BALANCE</code>), but this would be more invasive and error-prone than relying on existing EVM mechanics.</p>
+<h4 id="deploying-casper-contract-1">Deploying Casper Contract</h4>
+<p>The <code>MSG_HASHER_CODE</code> and <code>PURITY_CHECKER_CODE</code> both do not require any initialization so the EVM bytecode can simply be placed at <code>MSG_HASHER_ADDR</code> and <code>PURITY_CHECKER_ADDR</code>. On the other hand, the casper contract <em>does</em> require passing in parameters and initialization of state. This initialization would normally occur by the EVM init code interacting with the CREATE opcode. Due to the nature of this contract being deployed outside of normal block transactions and to a particular address, the EVM init code/CREATE method requires client specific &quot;hacks&quot; to make it work. For simplicity of specifying across clients, the EVM bytecode -- <code>CASPER_CODE</code> -- is placed at <code>CASPER_ADDR</code> followed by an explicit <code>CALL</code> to a one-time <code>init</code> method on the casper contract. <code>init</code> handles all of the logic that a constructor normally would, accepting contract parameters as arguments and setting initial variable values, and can only be run <em>once</em>.</p>
+<p><code>CASPER_INIT_DATA</code> is composed of the the byte signature of the <code>init</code> method of the casper contract concatenated with the 32-byte encodings of the following variables in the following order:</p>
+<ul>
+<li><code>EPOCH_LENGTH</code></li>
+<li><code>WITHDRAWAL_DELAY</code></li>
+<li><code>DYNASTY_LOGOUT_DELAY</code></li>
+<li><code>MSG_HASHER_ADDR</code></li>
+<li><code>PURITY_CHECKER_ADDR</code></li>
+<li><code>BASE_INTEREST_FACTOR</code></li>
+<li><code>BASE_PENALTY_FACTOR</code></li>
+<li><code>MIN_DEPOSIT_SIZE</code></li>
+</ul>
+<p>The entirety of this data is provided as a bytestring -- <code>CASPER_INIT_DATA</code> -- to reduce the chance of encoding errors across clients, especially regarding fixed decimal types which are new in vyper and not yet supported by all clients.</p>
+<h4 id="casper-contract-params">Casper Contract Params</h4>
+<p><code>EPOCH_LENGTH</code> is set to 50 blocks as a balance between time to finality and message overhead.</p>
+<p><code>WARM_UP_PERIOD</code> is set to 1.8e5 blocks to provide validators with an approximate 1 month period to make initial deposits before full contract functionality and voting begin. This helps prevent degenerate cases such as having very few or even just one validator in the initial dynasty. This 1 month period also gives the network time to observe on the order of how many validators will initially be participating in consensus. If for some reason there is an unexpectedly low turnout, the community might choose to delay validation and consider design alternatives.</p>
+<p><code>WITHDRAWAL_DELAY</code> is set to 15000 epochs to freeze a validator's funds for approximately 4 months after logout. This allows for at least a 4 month window to identify and slash a validator for attempting to finalize two conflicting checkpoints. This also defines the window of time with which a client must log on to sync the network due to weak subjectivity.</p>
+<p><code>DYNASTY_LOGOUT_DELAY</code> is set to 700 dynasties to prevent immediate logout in the event of an attack from being a viable strategy.</p>
+<p><code>BASE_INTEREST_FACTOR</code> is set to 7e-3 such that if there are ~10M ETH in total deposits, then validators earn approximately 5% per year in ETH rewards under optimal FFG conditions.</p>
+<p><code>BASE_PENALTY_FACTOR</code> is set to 2e-7 such that if 50% of deposits go offline, then offline validators lose half of their deposits in approximately 3 weeks, at which the online portion of validators becomes a 2/3 majority and can begin finalizing checkpoints again.</p>
+<p><code>MIN_DEPOSIT_SIZE</code> is set to 1500 ETH to form a natural upper bound on the total number of validators, bounding the overhead due to <code>vote</code> messages. Using formulas found <a href="https://medium.com/@VitalikButerin/parametrizing-casper-the-decentralization-finality-time-overhead-tradeoff-3f2011672735">here</a> under &quot;From validator count to minimum staking ETH&quot;, we estimate that with 1500 ETH minimum deposit at an assumed ~10M in total deposits there will be approximately 900 validators at any given time. <code>vote</code>s are only sent after the first quarter of an epoch so 900 votes have to fit into 37 blocks or ~24 <code>vote</code>s per block. We have experimented with more dynamic models for <code>MIN_DEPOSIT_SIZE</code>, but these tend to introduce significant complexities and without data from a live network seem to be premature optimizations.</p>
+<h4 id="initialize-epochs-1">Initialize Epochs</h4>
+<p>The call to the method at <code>INITIALIZE_EPOCH_BYTES</code> at <code>CASPER_ADDR</code> at the start of each epoch is a call to the <code>initialize_epoch</code> method in the casper contract. This method can only be called once per epoch and is guaranteed by the protocol to be called at the start block of each epoch by <code>NULL_SENDER</code>. This method performs a number of bookkeeping tasks around incrementing variables, updating rewards, etc.</p>
+<p>Any call to this method fails prior to the end of the <code>WARM_UP_PERIOD</code>. Thus the protocol does not begin executing <code>initialize_epoch</code> calls until <code>block.number &gt;= HYBRID_CASPER_FORK_BLKNUM + WARM_UP_PERIOD</code>.</p>
+<h4 id="issuance">Issuance</h4>
+<p>A fixed amount of 1.25M ETH was chosen as <code>CASPER_BALANCE</code> to fund the casper contract. This gives the contract enough runway to operate for approximately 2 years (assuming ~10M ETH in validator deposits). Acting similarly to the &quot;difficulty bomb&quot;, this &quot;funding crunch&quot; forces the network to hardfork in the relative near future to further fund the contract. This future hardfork is an opportunity to upgrade the contract and transition to full PoS.</p>
+<p>The PoW block reward is reduced from 3.0 to 0.6 ETH/block over the course of approximately one year because the security of the chain is greatly shifted from PoW difficulty to PoS finality and because rewards are now issued to both validators and miners. Rewards are stepped down by 0.6 ETH/block every 3 months (<code>REWARD_STEPDOWN_BLOCK_COUNT</code>) to provide for a conservative transition period from full PoW to hybrid PoS/PoW. This gives validators time to become familiar with the new technology and begin logging on and also provides the network with more leeway in case of any unforeseen issues. If any major issues do arise, the Ethereum network will still have substantial PoW security to rely upon while decisions are made and/or patches are deployed. See <a href="https://gist.github.com/djrtwo/bc864c0d0a275170183803814b207b9a">here</a> for further analysis of the current PoW security and of the effect of PoW block reward reduction in the context of Hybrid Casper FFG.</p>
+<p>In addition to block rewards, miners now receive an issuance reward for including successful <code>vote</code> transactions into the block on time. This reward is equal to 1/8th that of the reward the validator receives for a successful <code>vote</code> transaction. Under optimal FFG conditions after group validator reward adjustments are made, miners receive approximately 1/5th of the total ETH issued by the Casper contract.</p>
+<p>Below is a table of deposit sizes with associated annual interest rate and approximate time until funding crunch:</p>
+<table><thead><tr><th>Deposit Size</th><th>Annual Validator Interest</th><th>Funding Crunch</th></tr></thead><tbody>
+<tr><td>2.5M ETH</td><td>10.12%</td><td>~4 years</td></tr>
+<tr><td>10M ETH</td><td>5.00%</td><td>~2 years</td></tr>
+<tr><td>20M ETH</td><td>3.52%</td><td>~1.4 years</td></tr>
+<tr><td>40M ETH</td><td>2.48%</td><td>~1 year</td></tr>
+</tbody></table>
+<h4 id="gas-changes">Gas Changes</h4>
+<p>Normal block transactions cannot affect casper <code>vote</code> validation results, but casper <code>vote</code> validation results can affect normal block transaction execution. Due to this asymmetrical relationship, <code>vote</code> transactions can be processed in parallel with normal block transactions if <code>vote</code> transactions are placed after all normal block transactions. Because <code>vote</code> transactions can be processed in parallel to normal block transactions, <code>vote</code> transactions cost 0 gas for validators, ensuring that validators can submit votes even in highly congested or high gas-price periods.</p>
+<p><code>vote_gas_used</code> is introduced to ensure that <code>vote</code> transactions do not put an undue burden on block processing. The additional overhead from <code>vote</code> transactions is capped at the same limit as normal block transactions so that, when run in parallel, neither sets of transactions exceeds the overhead defined by the <code>block_gas_limit</code>.</p>
+<p>The call to <code>initialize_epoch</code> at the beginning of each epoch requires 0 gas so that this protocol state transition does not take any gas allowance away from normal transactions.</p>
+<h4 id="null-sender-and-account-abstraction">NULL_SENDER and Account Abstraction</h4>
+<p>This EIP implements a limited version of account abstraction for validators' <code>vote</code> transactions. The general design was borrowed from <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-86.md">EIP 86</a>. Rather than relying upon native transaction signatures, each validator specifies a signature contract when sending their <code>deposit</code> to <code>CASPER_ADDR</code>. When casting a <code>vote</code>, the validator bundles and signs the parameters of their <code>vote</code> according to the requirements of their signature contract. The <code>vote</code> method of the casper contract checks the signature of the parameters against the validator's signature contract, exiting the transaction as unsuccessful if the signature is not successfully verified.</p>
+<p>This allows validators to customize their own signing scheme for votes. Use cases include:</p>
+<ul>
+<li>quantum-secure signature schemes</li>
+<li>multisig wallets</li>
+<li>threshold schemes</li>
+</ul>
+<p>For more details on validator account abstraction, see the <a href="https://github.com/ethereum/casper/blob/master/VALIDATOR_GUIDE.md">Validator Implementation Guide</a>.</p>
+<h4 id="client-settings-1">Client Settings</h4>
+<h5 id="enable-casper-fork-choice-1">Enable Casper Fork Choice</h5>
+<p>Releasing client versions with the casper fork choice as initially default disabled allows for a more conservative transition to hybrid Casper FFG. Under normal operating conditions there are no disparities between the PoW fork choice and the hybrid Casper FFG fork choice. The two fork choice rules can only diverge if either 51% of miners or 51% of validators are faulty.</p>
+<p>Validators will begin to log on, vote, and finalize the FFG contract before the majority of the network begins explicitly relying upon the new finality mechanism. Once a significant number of validators have logged on and the finality mechanism has been tested on the live network, new client software versions that change the default to enabled will be released.</p>
+<h5 id="non-revert-min-deposit-1">NON_REVERT_MIN_DEPOSIT</h5>
+<p><code>NON_REVERT_MIN_DEPOSIT</code> is defined and configurable locally by each client. Clients are in charge of deciding upon the minimum deposits (security) at which they will accept the chain as finalized. In the general case, differing values in the choice of this local constant will not create any fork inconsistencies because clients with very strict finalization requirements will revert to follow the longest PoW chain.</p>
+<p>Arguments have been made to hardcode a value into clients or the contract, but we cannot reasonably define security required for all clients especially in the context of massive fluctuations in the value of ETH.</p>
+<h5 id="exclusion-1">Exclusion</h5>
+<p>This setting is useful in coordinating minority forks in cases of majority collusion.</p>
+<h5 id="join-fork-1">Join Fork</h5>
+<p>This setting is to be used by new clients that are syncing the network for the first time. Due to weak subjectivity, a blockhash should be supplied to successfully sync the network when initially starting a node.</p>
+<p>This setting is also useful for coordinating minority forks in cases of majority collusion.</p>
+<h5 id="monitor-votes-1">Monitor Votes</h5>
+<p>Monitoring the network for slashing conditions is key to Casper FFG's &quot;accountable safety&quot; as submitting proof of nefarious activity burns a validator's deposit.</p>
+<p>This setting is suggested default disabled because the block producer will almost certainly frontrun anyone else submitting a <code>slash</code> transaction. To prevent every client on the network from submitting a <code>slash</code> transaction in the event of a slashing condition, this setting should only be enabled by block producers and those clients who explicitly choose to monitor votes.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is not forward compatible and introduces backwards incompatibilities in the state, fork choice rule, block reward, transaction validity, and gas calculations on certain transactions. Therefore, all changes should be included in a scheduled hardfork at <code>HYBRID_CASPER_FORK_BLKNUM</code>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

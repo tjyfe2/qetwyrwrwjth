@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1178: Multi-class Token Standard</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1178.md" />
+<meta property="og:title" content="EIP-1178: Multi-class Token Standard" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1178 (EIP-1178): Multi-class Token Standard"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1178 (EIP-1178): Multi-class Token Standard"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1178.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1178 (EIP 1178): Multi-class Token Standard" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1178: Multi-class Token Standard
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:achon@stanford.edu">Albert Chon</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1179">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1179</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-06-22</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>A standard interface for multi-class fungible tokens.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>This standard allows for the implementation of a standard API for multi-class fungible tokens (henceforth referred to as &quot;MCFTs&quot;) within smart contracts. This standard provides basic functionality to track and transfer ownership of MCFTs.</p>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>Currently, there is no standard to support tokens that have multiple classes. In the real world, there are many situations in which defining distinct classes of the same token would be fitting (e.g. distinguishing between preferred/common/restricted shares of a company). Yet, such nuance cannot be supported in today's token standards. An ERC-20 token contract defines tokens that are all of one class while an ERC-721 token contract creates a class (defined by token_id) for each individual token. The ERC-1178 token standard proposes a new standard for creating multiple classes of tokens within one token contract.</p>
+<blockquote>
+<p>Aside: In theory, while it is possible to implement tokens with classes using the properties of token structs in ERC-721 tokens, gas costs of implementing this in practice are prohibitive for any non-trivial application.</p>
+</blockquote>
+<h2 id="specification">Specification</h2>
+<h3 id="erc-20-compatibility-partial">ERC-20 Compatibility (partial)</h3>
+<p><strong>name</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function name() constant returns (string name)
+</span></code></pre>
+<p><em>OPTIONAL - It is recommended that this method is implemented for enhanced usability with wallets and exchanges, but interfaces and other contracts MUST NOT depend on the existence of this method.</em></p>
+<p>Returns the name of the aggregate collection of MCFTs managed by this contract. - e.g. <code>&quot;My Company Tokens&quot;</code>.</p>
+<p><strong>class name</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function className(uint256 classId) constant returns (string name)
+</span></code></pre>
+<p><em>OPTIONAL - It is recommended that this method is implemented for enhanced usability with wallets and exchanges, but interfaces and other contracts MUST NOT depend on the existence of this method.</em></p>
+<p>Returns the name of the class of MCFT managed by this contract. - e.g. <code>&quot;My Company Preferred Shares Token&quot;</code>.</p>
+<p><strong>symbol</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function symbol() constant returns (string symbol)
+</span></code></pre>
+<p><em>OPTIONAL - It is recommend that this method is implemented for enhanced usability with wallets and exchanges, but interfaces and other contracts MUST NOT depend on the existence of this method.</em></p>
+<p>Returns a short string symbol referencing the entire collection of MCFT managed in this contract. e.g. &quot;MUL&quot;. This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English).</p>
+<p><strong>totalSupply</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function totalSupply() constant returns (uint256 totalSupply)
+</span></code></pre>
+<p>Returns the total number of all MCFTs currently tracked by this contract.</p>
+<p><strong>individualSupply</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function individualSupply(uint256 _classId) constant returns (uint256 individualSupply)
+</span></code></pre>
+<p>Returns the total number of MCFTs of class <code>_classId</code> currently tracked by this contract.</p>
+<p><strong>balanceOf</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function balanceOf(address _owner, uint256 _classId) constant returns (uint256 balance)
+</span></code></pre>
+<p>Returns the number of MCFTs of token class <code>_classId</code> assigned to address <code>_owner</code>.</p>
+<p><strong>classesOwned</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function classesOwned(address _owner) constant returns (uint256[] classes)
+</span></code></pre>
+<p>Returns an array of <code>_classId</code>'s of MCFTs that address <code>_owner</code> owns in the contract. </p>
+<blockquote>
+<p>NOTE: returning an array is supported by <code>pragma experimental ABIEncoderV2</code></p>
+</blockquote>
+<h2 id="basic-ownership">Basic Ownership</h2>
+<p><strong>approve</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function approve(address _to, uint256 _classId, uint256 quantity)
+</span></code></pre>
+<p>Grants approval for address <code>_to</code> to take possession <code>quantity</code> amount of the MCFT with ID <code>_classId</code>. This method MUST <code>throw</code> if <code>balanceOf(msg.sender, _classId) &lt; quantity</code>, or if <code>_classId</code> does not represent an MCFT class currently tracked by this contract, or if <code>msg.sender == _to</code>.</p>
+<p>Only one address can &quot;have approval&quot; at any given time for a given address and <code>_classId</code>. Calling <code>approve</code> with a new address and <code>_classId</code> revokes approval for the previous address and <code>_classId</code>. Calling this method with 0 as the <code>_to</code> argument clears approval for any address and the specified <code>_classId</code>.</p>
+<p>Successful completion of this method MUST emit an <code>Approval</code> event (defined below) unless the caller is attempting to clear approval when there is no pending approval. In particular, an Approval event MUST be fired if the <code>_to</code> address is zero and there is some outstanding approval. Additionally, an Approval event MUST be fired if <code>_to</code> is already the currently approved address and this call otherwise has no effect. (i.e. An <code>approve()</code> call that &quot;reaffirms&quot; an existing approval MUST fire an event.)</p>
+<!--
+ActionPrior State_to addressNew StateEventClear unset approvalClear0ClearNoneSet new approvalClearXSet to XApproval(owner, X, _classId)Change approvalSet to XYSet to YApproval(owner, Y, _classId)Reaffirm approvalSet to XXSet to XApproval(owner, X, _classId)Clear approvalSet to X0ClearApproval(owner, 0, _classId)
+Note: ANY change of ownership of an MCFT – whether directly through the `transfer` and `transferFrom` methods defined in this interface, or through any other mechanism defined in the conforming contract – MUST clear any and all approvals for the transferred MCFT. The implicit clearing of approval via ownership transfer MUST also fire the event `Approval(0, _classId)` if there was an outstanding approval. (i.e. All actions that transfer ownership must emit the same Approval event, if any, as would emitted by calling `approve(0, _classId)`.)-->
+<p><strong>transfer</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function transfer(address _to, uint256 _classId, uint256 quantity)
+</span></code></pre>
+<p>Assigns the ownership of <code>quantity</code> MCFT's with ID <code>_classId</code> to <code>_to</code> if and only if <code>quantity == balanceOf(msg.sender, _classId)</code>. A successful transfer MUST fire the <code>Transfer</code> event (defined below).</p>
+<p>This method MUST transfer ownership to <code>_to</code> or <code>throw</code>, no other outcomes can be possible. Reasons for failure include (but are not limited to):</p>
+<ul>
+<li><code>msg.sender</code> is not the owner of <code>quantity</code> amount of tokens of <code>_classId</code>'s. </li>
+<li><code>_classId</code> does not represent an MCFT class currently tracked by this contract</li>
+</ul>
+<p>A conforming contract MUST allow the current owner to &quot;transfer&quot; a token to themselves, as a way of affirming ownership in the event stream. (i.e. it is valid for <code>_to == msg.sender</code> if <code>balanceOf(msg.sender, _classId) &gt;= balance</code>.) This &quot;no-op transfer&quot; MUST be considered a successful transfer, and therefore MUST fire a <code>Transfer</code> event (with the same address for <code>_from</code> and <code>_to</code>).</p>
+<h2 id="advanced-ownership-and-exchange">Advanced Ownership and Exchange</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function approveForToken(uint256 classIdHeld, uint256 quantityHeld, uint256 classIdWanted, uint256 quantityWanted)
+</span></code></pre>
+<p>Allows holder of one token to allow another individual (or the smart contract itself) to approve the exchange of their tokens of one class for tokens of another class at their specified exchange rate (see sample implementation for more details). This is equivalent to posting a bid in a marketplace. </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function exchange(address to, uint256 classIdPosted, uint256 quantityPosted, uint256 classIdWanted, uint256 quantityWanted)
+</span></code></pre>
+<p>Allows an individual to fill an existing bid (see above function) and complete the exchange of their tokens of one class for another. In the sample implementation, this function call should fail unless the callee has already approved the contract to transfer their tokens. Of course, it is possible to create an implementation where calling this function implicitly assumes approval and the transfer is completed in one step. </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">transferFrom(address from, address to, uint256 classId)
+</span></code></pre>
+<p>Allows a third party to initiate a transfer of tokens from <code>from</code> to <code>to</code> assuming the approvals have been granted.</p>
+<h2 id="events">Events</h2>
+<p><strong>Transfer</strong></p>
+<p>This event MUST trigger when MCFT ownership is transferred via any mechanism.</p>
+<p>Additionally, the creation of new MCFTs MUST trigger a Transfer event for each newly created MCFTs, with a <code>_from</code> address of 0 and a <code>_to</code> address matching the owner of the new MCFT (possibly the smart contract itself). The deletion (or burn) of any MCFT MUST trigger a Transfer event with a <code>_to</code> address of 0 and a <code>_from</code> address of the owner of the MCFT (now former owner!).</p>
+<p>NOTE: A Transfer event with <code>_from == _to</code> is valid. See the <code>transfer()</code> documentation for details.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event Transfer(address indexed _from, address indexed _to, uint256 _classId)
+</span></code></pre>
+<p><strong>Approval</strong>
+This event MUST trigger on any successful call to <code>approve(_to, _classId, quantity)</code> (unless the caller is attempting to clear approval when there is no pending approval).</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event Approval(address indexed _owner, address indexed _approved, uint256 _classId)
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<h3 id="current-limitations">Current Limitations</h3>
+<p>The design of this project was motivated when I tried to create different classes of fungible ERC-721 tokens (an oxymoron) but ran into gas limits from having to create each tokens individually and maintain them in an efficient data structure for access. Using the maximum gas amount one can send with a transaction on Metamask (a popular web wallet), I was only able to create around 46 ERC-721 tokens before exhausting all gas. This experience motivated the creation of the multi-class fungible token standard. </p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<!--All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards compatibility treatise may be rejected outright.-->
+<p>Adoption of the MCFT standard proposal would not pose backwards compatibility issues as it defines a new standard for token creation. This standard follows the semantics of ERC-721 as closely as possible, but can't be entirely compatible with it due to the fundamental differences between multi-class fungible and non-fungible tokens. For example, the <code>ownerOf</code>, <code>takeOwnership</code>, and <code>tokenOfOwnerByIndex</code> methods in the ERC-721 token standard cannot be implemented in this standard. Furthermore, the function arguments to <code>balanceOf</code>, <code>approve</code>, and <code>transfer</code> differ as well. </p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>A sample implementation can be found <a href="https://github.com/achon22/ERC-1178/blob/master/erc1178-sample.sol">here</a></p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

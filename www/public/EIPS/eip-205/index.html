@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-205: ENS support for contract ABIs</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-205.md" />
+<meta property="og:title" content="EIP-205: ENS support for contract ABIs" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 205 (EIP-205): ENS support for contract ABIs"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 205 (EIP-205): ENS support for contract ABIs"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-205.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 205 (EIP 205): ENS support for contract ABIs" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-205: ENS support for contract ABIs
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:nick@ethereum.org">Nick Johnson</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-02-06</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>137, 181</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>This EIP proposes a mechanism for storing ABI definitions in ENS, for easy lookup of contract interfaces by callers.</p>
+<h2 id="abstract">Abstract</h2>
+<p>ABIs are important metadata required for interacting with most contracts. At present, they are typically supplied out-of-band, which adds an additional burden to interacting with contracts, particularly on a one-off basis or where the ABI may be updated over time. The small size of ABIs permits an alternative solution, storing them in ENS, permitting name lookup and ABI discovery via the same process.</p>
+<p>ABIs are typically quite compact; the largest in-use ABI we could find, that for the DAO, is 9450 bytes uncompressed JSON, 6920 bytes uncompressed CBOR, and 1128 bytes when the JSON form is compressed with zlib. Further gains on CBOR encoding are possible using a CBOR extension that permits eliminating repeated strings, which feature extensively in ABIs. Most ABIs, however, are far shorter than this, consisting of only a few hundred bytes of uncompressed JSON.</p>
+<p>This EIP defines a resolver profile for retrieving contract ABIs, as well as encoding standards for storing ABIs for different applications, allowing the user to select between different representations based on their need for compactness and other considerations such as onchain access.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="abi-encodings">ABI encodings</h3>
+<p>In order to allow for different tradeoffs between onchain size and accessibility, several ABI encodings are defined. Each ABI encoding is defined by a unique constant with only a single bit set, allowing for the specification of 256 unique encodings in a single uint.</p>
+<p>The currently recognised encodings are:</p>
+<table><thead><tr><th>ID</th><th>Description</th></tr></thead><tbody>
+<tr><td>1</td><td>JSON</td></tr>
+<tr><td>2</td><td>zlib-compressed JSON</td></tr>
+<tr><td>4</td><td>CBOR</td></tr>
+<tr><td>8</td><td>URI</td></tr>
+</tbody></table>
+<p>This table may be extended in future through the EIP process.</p>
+<p>Encoding type 1 specifies plaintext JSON, uncompressed; this is the standard format in which ABIs are typically encoded, but also the bulkiest, and is not easily parseable onchain.</p>
+<p>Encoding type 2 specifies zlib-compressed JSON. This is significantly smaller than uncompressed JSON, and is straightforward to decode offchain. However, it is impracticalfor onchain consumers to use.</p>
+<p>Encoding type 4 is <a href="https://cbor.io/">CBOR</a>. CBOR is a binary encoding format that is a superset of JSON, and is both more compact and easier to parse in limited environments such as the EVM. Consumers that support CBOR are strongly encouraged to also support the <a href="http://cbor.schmorp.de/stringref">stringref extension</a> to CBOR, which provides significant additional reduction in encoded size.</p>
+<p>Encoding type 8 indicates that the ABI can be found elsewhere, at the specified URI. This is typically the most compact of the supported forms, but also adds external dependencies for implementers. The specified URI may use any schema, but HTTP, IPFS, and Swarm are expected to be the most common.</p>
+<h3 id="resolver-profile">Resolver profile</h3>
+<p>A new resolver interface is defined, consisting of the following method:</p>
+<pre style="background-color:#2b303b;">
+<code>function ABI(bytes32 node, uint256 contentType) constant returns (uint256, bytes);
+</code></pre>
+<p>The interface ID of this interface is 0x2203ab56.</p>
+<p>contentType is a bitfield, and is the bitwise OR of all the encoding types the caller will accept. Resolvers that implement this interface must return an ABI encoded using one of the requested formats, or <code>(0, &quot;&quot;)</code> if they do not have an ABI for this function, or do not support any of the requested formats.</p>
+<p>The <code>abi</code> resolver profile is valid on both forward and reverse records.</p>
+<h3 id="abi-lookup-process">ABI lookup process</h3>
+<p>When attempting to fetch an ABI based on an ENS name, implementers should first attempt an ABI lookup on the name itself. If that lookup returns no results, they should attempt a reverse lookup on the Ethereum address the name resolves to.</p>
+<p>Implementers should support as many of the ABI encoding formats as practical.</p>
+<h2 id="rationale">Rationale</h2>
+<p>Storing ABIs onchain avoids the need to introduce additional dependencies for applications wishing to fetch them, such as swarm or HTTP access. Given the typical compactness of ABIs, we believe this is a worthwhile tradeoff in many cases.</p>
+<p>The two-step resolution process permits different names to provide different ABIs for the same contract, such as in the case where it's useful to provide a minimal ABI to some callers, as well as specifying ABIs for contracts that did not specify one of their own. The fallback to looking up an ABI on the reverse record permits contracts to specify their own canonical ABI, and prevents the need for duplication when multiple names reference the same contract without the need for different ABIs.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

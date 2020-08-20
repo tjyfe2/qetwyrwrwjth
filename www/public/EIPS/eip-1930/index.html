@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1930: CALLs with strict gas semantic. Revert if not enough gas available.</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1930.md" />
+<meta property="og:title" content="EIP-1930: CALLs with strict gas semantic. Revert if not enough gas available." />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1930 (EIP-1930): CALLs with strict gas semantic. Revert if not enough gas available."
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1930 (EIP-1930): CALLs with strict gas semantic. Revert if not enough gas available."
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1930.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1930 (EIP 1930): CALLs with strict gas semantic. Revert if not enough gas available." />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1930: CALLs with strict gas semantic. Revert if not enough gas available.
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/wighawag">Ronan Sandford</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1930">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1930</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-04-10</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Add the ability for smart contract to execute calls with a specific amount of gas. If this is not possible the execution should revert.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The current CALL, DELEGATE_CALL, STATIC_CALL opcode do not enforce the gas being sent, they simply consider the gas value as a maximum. This pose serious problem for applications that require the call to be executed with a precise amount of gas. </p>
+<p>This is for example the case for meta-transaction where the contract needs to ensure the call is executed exactly as the signing user intended. </p>
+<p>But this is also the case for common use cases, like checking &quot;on-chain&quot; if a smart contract support a specific interface (via <a href="https://eips.ethereum.org/EIPS/eip-165">EIP-165</a> for example).</p>
+<p>The solution presented here is to add new call semantic that enforce the amount of gas specified : the call either proceed with the exact amount of gas or do not get executed and the current call revert.</p>
+<h3 id="specification">Specification</h3>
+<p>There are 2 possibilities</p>
+<p>a) one is to add opcode variant that have a stricter gas semantic</p>
+<p>b) The other is to consider a specific gas value range (one that have never been used before) to have strict gas semantic, while leaving other values as before</p>
+<p>Here are the details description</p>
+<h4 id="option-a">option a)</h4>
+<ul>
+<li>add a new variant of the CALL opcode where the gas specified is enforced so that if the gas left at the point of call is not enough to give the specified gas to the destination, the current call revert</li>
+<li>add a new variant of the DELEGATE_CALL opcode where the gas specified is enforced so that if the gas left at the point of call is not enough to give the specified gas to the destination, the current call revert</li>
+<li>add a new variant of the STATIC_CALL opcode where the gas specified is enforced so that if the gas left at the point of call is not enough to give the specified gas to the destination, the current call revert</li>
+</ul>
+<h5 id="rational-for-a">Rational for a)</h5>
+<p>This solution has the merit to avoid any possibility of old contract be affected by the change. On the other hand it introduce 3 new opcodes. With EIP-1702, we could render the old opcode obsolete though. </p>
+<h4 id="option-b">option b)</h4>
+<p>For all opcode that allow to pass gas to another contract, do the following:</p>
+<ul>
+<li>If the most significant bit is one, consider the 31 less significant bit as the amount of gas to be given to the receiving contract in the strict sense. SO like a) if the gas left at the point of call is not enough to give the specified gas to the destination, the current call revert.</li>
+<li>If the 2nd most significant bit is zero, consider the whole value to behave like before, that is, it act as a maximum value, and even if not enough gas is present, the gas that can be given is given to the receiving contract </li>
+</ul>
+<h5 id="rational-for-b">Rational for b)</h5>
+<p>This solution relies on the fact that no contract would have given any value bigger or equal to 0x8000000000000000000000000000000000000000000000000000000000000000</p>
+<p>Note that solidity for example do not use value like 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF as it is more expensive than passing the gasLeft.</p>
+<p>Its main benefit though is that it does not require extra opcodes.</p>
+<h4 id="strict-gas-semantic">strict gas semantic</h4>
+<p>To be precise, regarding the strict gas semantic, based on <a href="https://eips.ethereum.org/EIPS/eip-150">EIP-150</a>, the current call must revert unless G &gt;= I x 64/63 where G is gas left at the point of call (after deducing the cost of the call itself) and I is the gas specified.</p>
+<p>So instead of</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">availableGas = availableGas - base
+gas := availableGas - availableGas/64
+...
+if !callCost.IsUint64() || gas &lt; callCost.Uint64() {
+    return gas, nil
+}
+</span></code></pre>
+<p>see https://github.com/ethereum/go-ethereum/blob/7504dbd6eb3f62371f86b06b03ffd665690951f2/core/vm/gas.go#L41-L48</p>
+<p>we would have</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">availableGas = availableGas - base
+gas := availableGas - availableGas/64
+if !callCost.IsUint64() || gas &lt; callCost.Uint64() {
+    return 0, errNotEnoughGas
+}
+</span></code></pre><h3 id="rationale">Rationale</h3>
+<p>Currently the gas specified as part of these opcodes is simply a maximum value. And due to the behavior of <a href="https://eips.ethereum.org/EIPS/eip-150">EIP-150</a> it is possible for an external call to be given less gas than intended (less than the gas specified as part of the CALL) while the rest of the current call is given enough to continue and succeed. Indeed since with EIP-150, the external call is given at max  <code>G - Math.floor(G/64)</code> where G is the gasleft() at the point of the CALL, the rest of the current call is given <code>Math.floor(G/64)</code> which can be plenty enough for the transaction to succeed. For example, when G = 6,400,000 the rest of the transaction will be given 100,000 gas plenty enough in many case to succeed.</p>
+<p>This is an issue for contracts that require external call to only fails if they would fails with enough gas. This requirement is present in smart contract wallet and meta transaction in general, where the one executing the transaction is not the signer of the execution data. Because in such case, the contract needs to ensure the call is executed exactly as the signing user intended.</p>
+<p>But this is also true for simple use case, like checking if a contract implement an interface via EIP-165. Indeed as specified by such EIP, the <code>supporstInterface</code> method is bounded to use 30,000 gas so that it is theorically possible to ensure that the throw is not a result of a lack of gas. Unfortunately due to how the different CALL opcodes behave contracts can't simply rely on the gas value specified. They have to ensure by other means that there is enough gas for the call.</p>
+<p>Indeed, if the caller do not ensure that 30,000 gas or more is provided to the callee, the callee might throw because of a lack of gas (and not because it does not support the interface), and the parent call will be given up to 476 gas to continue. This would result in the caller interpreting wrongly that the callee is not implementing the interface in question. </p>
+<p>While such requirement can be enforced by checking the gas left according to EIP-150 and the precise gas required before the call (see solution presented in that <a href="https://web.solidified.io/contract/5b4769b1e6c0d80014f3ea4e/bug/5c83d86ac2dd6600116381f9">bug report</a> or after the call (see the native meta transaction implementation <a href="https://github.com/pixowl/thesandbox-contracts/blob/623f4d4ca10644dcee145bcbd9296579a1543d3d/src/Sand/erc20/ERC20MetaTxExtension.sol#L176">here</a>, it would be much better if the EVM allowed us to strictly specify how much gas is to be given to the CALL so contract implementations do not need to follow <a href="https://eips.ethereum.org/EIPS/eip-150">EIP-150</a> behavior and the current gas pricing so closely.</p>
+<p>This would also allow the behaviour of <a href="https://eips.ethereum.org/EIPS/eip-150">EIP-150</a> to be changed without having to affect contract that require this strict gas behaviour.</p>
+<p>As mentioned, such strict gas behaviour is important for smart contract wallet and meta transaction in general.
+The issue is actually already a problem in the wild as can be seen in the case of Gnosis safe which did not consider the behavior of EIP-150 and thus fails to check the gas properly, requiring the safe owners to add otherwise unnecessary extra gas to their signed message to avoid the possibility of losing funds. See https://github.com/gnosis/safe-contracts/issues/100</p>
+<p>As for EIP-165, the issue already exists in the example implementation presented in the EIP. Please see the details of the issue <a href="https://github.com/ethereum/EIPs/pull/881#issuecomment-491677748">here</a></p>
+<p>The same issue exists also on OpenZeppelin implementation, a library used by many. It does not for perform any check on gas before calling <code>supportsInterface</code> with 30,000 gas (see <a href="https://github.com/OpenZeppelin/openzeppelin-solidity/blob/fa004a7f5de572b3dbcde1a8a81f9a87e353e799/contracts/introspection/ERC165Checker.sol#L37">here</a> and is thus vulnerable to the issue mentioned.</p>
+<p>While such issue can be prevented today by checking the gas with EIP-150 in mind, a solution at the opcode level is more elegant.</p>
+<p>Indeed, the two possible ways to currently enforce that the correct amount of gas is sent are as follow :</p>
+<ol>
+<li>check done before the call </li>
+</ol>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">uint256 gasAvailable = gasleft() - E;
+require(gasAvailable - gasAvailable / 64  &gt;= `txGas`, &quot;not enough gas provided&quot;)
+to.call.gas(txGas)(data); // CALL
+</span></code></pre>
+<p>where E is the gas required for the operation between the call to <code>gasleft()</code> and the actual call PLUS the gas cost of the call itself.
+While it is possible to simply over estimate <code>E</code> to prevent call to be executed if not enough gas is provided to the current call it would be better to have the EVM do the precise work itself. As gas pricing continue to evolve, this is important to have a mechanism to ensure a specific amount of gas is passed to the call so such mechanism can be used without having to relies on a specific gas pricing.</p>
+<ol start="2">
+<li>check done after the call:</li>
+</ol>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">to.call.gas(txGas)(data); // CALL
+require(gasleft() &gt; txGas / 63, &quot;not enough gas left&quot;);
+</span></code></pre>
+<p>This solution does not require to compute a <code>E</code> value and thus do not relies on a specific gas pricing (except for the behaviour of EIP-150) since if the call is given not enough gas and fails for that reason, the condition above will always fail, ensuring the current call will revert.
+But this check still pass if the gas given was less AND the external call reverted or succeeded EARLY (so that the gas left after the call &gt; txGas / 63).
+This can be an issue if the code executed as part of the CALL is reverting as a result of a check against the gas provided. Like a meta transaction in a meta transaction.</p>
+<p>Similarly to the the previous solution, an EVM mechanism would be much better.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>for specification a) : Backwards compatible as it introduce new opcodes.</p>
+<p>for specification b) : Backwards compatible as it use value range outside of what is used by existing contract (to be verified)</p>
+<h2 id="test-cases">Test Cases</h2>
+<h2 id="implementation">Implementation</h2>
+<p>None fully implemented yet. But see Specifications for an example in geth.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>EIP-150, https://eips.ethereum.org/EIPS/eip-150</li>
+</ol>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

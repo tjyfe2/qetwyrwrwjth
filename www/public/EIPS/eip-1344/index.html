@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1344: ChainID opcode</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1344.md" />
+<meta property="og:title" content="EIP-1344: ChainID opcode" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1344 (EIP-1344): ChainID opcode"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1344 (EIP-1344): ChainID opcode"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1344.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1344 (EIP 1344): ChainID opcode" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1344: ChainID opcode
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/rmeissner">Richard Meissner</a>,
+        
+    
+        
+        
+            <a href="https://github.com/fubuloubu"> Bryant Eisenbach</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;add-chain-id-opcode-for-replay-protection-when-handling-signed-messages-in-contracts&#x2F;1131">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;add-chain-id-opcode-for-replay-protection-when-handling-signed-messages-in-contracts&#x2F;1131</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-08-22</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>155</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This EIP adds an opcode that returns the current chain's EIP-155 unique identifier.</p>
+<h2 id="motivation">Motivation</h2>
+<p><a href="https://eips.ethereum.org/EIPS/eip-155">EIP-155</a> proposes to use the chain ID to prevent replay attacks between different chains. It would be a great benefit to have the same possibility inside smart contracts when handling signatures, especially for Layer 2 signature schemes using <a href="https://eips.ethereum.org/EIPS/eip-712">EIP-712</a>.</p>
+<h2 id="specification">Specification</h2>
+<p>Adds a new opcode <code>CHAINID</code> at 0x46, which uses 0 stack arguments. It pushes the current chain ID onto the stack. Chain ID is a 256-bit value. The operation costs <code>G_base</code> to execute.</p>
+<p>The value of the current chain ID is obtained from the chain ID configuration, which should match the EIP-155 unique identifier a client will accept from incoming transactions. Please note that per EIP-155, it is not <em>required</em> that a transaction have an EIP-155 unique identifier, but in that scenario this opcode will still return the configured chain ID and not a default.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The current approach proposed by EIP-712 is to specify the chain ID at compile time. Using this approach will result in problems after a hardfork, as well as human error that may lead to loss of funds or replay attacks on signed messages.
+By adding the proposed opcode it will be possible to access the current chain ID and validate signatures based on that.</p>
+<p>Currently, there is no specification for how chain ID is set for a particular network, relying on choices made manually by the client implementers and the chain community. There is a potential scenario where, during a &quot;contentious split&quot; over a divisive issue, a community using a particular value of chain ID will make a decision to split into two such chains. When this scenario occurs, it will be unsafe to maintain chain ID to the same value on both chains, as chain ID is used for replay protection for in-protocol transactions (per EIP-155), as well as for L2 and &quot;meta-transaction&quot; use cases (per EIP-712 as enabled by this proposal). There are two potential resolutions in this scenario under the current process: 1) one chain decides to modify their value of chain ID (while the other keeps it), or 2) both chains decide to modify their value of chain ID.</p>
+<p>In order to mitigate this situation, users of the proposed <code>CHAINID</code> opcode <strong>must</strong> ensure that their application can handle a potential update to the value of chain ID during their usage of their application in case this does occur, if required for the continued use of the application. A Trustless Oracle that logs the timestamp when a change is made to chain ID can be implemented either as an application-level feature inside the application contract system, or referenced as a globally standard contract. Failure to provide a mitigation for this scenario could lead to a sudden loss of legitimacy of previously signed off-chain messages, which could be an issue during settlement periods and other longer-term verification events for these types of messages. Not all applications of this opcode may need mitigations to handle this scenario, but developers should provide reasoning on a case-by-case basis.</p>
+<p>One example of a scenario where it would not make sense to leverage a global oracle is with the Plasma L2 paradigm. In the Plasma paradigm, an operator or group of operators submit blocks from the L2 network to the base chain (in this case Ethereum) summarizing transactions that have occurred on that chain. The submission of these blocks may not perfectly align with major events on the mainchain, such as a split causing an update of chain ID, which may cause a significant insecurity in the protocol if chain ID is utilized in signing messages. If the operators are not allowed to control the update of chain ID they will not be able to perfectly synchronize the update with their block submissions, and certain past transactions may be rejected because they do not align with the update. This is one example of the unintended consequences of trying to specify too much of the behavior of chain ID during a contentious split, and why having a simple opcode for access is most optimal, versus a more complicated precompile or contract.</p>
+<p>This proposed opcode would be the simplest possible way to implement this functionality, and allows developers the flexibility to implement their own global or local handling of chain ID changes, if required.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is fully backwards compatible with all chains which implement EIP-155 chain ID domain separator for transaction signing.</p>
+<h2 id="references">References</h2>
+<p>This was previously suggested as part of <a href="https://github.com/ethereum/EIPs/issues/901">EIP901</a>.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>Test Cases added to <a href="https://github.com/ethereum/tests/pull/627">ethereum/tests</a></p>
+<h2 id="implementation">Implementation</h2>
+<p>A reference implementation for the Trinity Python client is <a href="https://github.com/ethereum/py-evm/pull/1803">here</a>.</p>
+<p>An example implementation of a trustless chain ID oracle was implemented <a href="https://github.com/fubuloubu/chain-id-oracle/blob/master/ChainIdOracle.vy">here</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

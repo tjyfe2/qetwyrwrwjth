@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1046: ERC20 Metadata Extension</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1046.md" />
+<meta property="og:title" content="EIP-1046: ERC20 Metadata Extension" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1046 (EIP-1046): ERC20 Metadata Extension"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1046 (EIP-1046): ERC20 Metadata Extension"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1046.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1046 (EIP 1046): ERC20 Metadata Extension" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1046: ERC20 Metadata Extension
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/tomasienrbc">Tommy Nicholas</a>,
+        
+    
+        
+        
+            <a href="https://github.com/mateosu"> Matt Russo</a>,
+        
+    
+        
+        
+            <a href="https://github.com/JohnZettler"> John Zettler</a>,
+        
+    
+        
+        
+            <a href="https://github.com/shrugs"> Matt Condon</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;www.reddit.com&#x2F;r&#x2F;raredigitalart&#x2F;comments&#x2F;8hfh1g&#x2F;erc20_metadata_extension_eip_1046&#x2F;">https:&#x2F;&#x2F;www.reddit.com&#x2F;r&#x2F;raredigitalart&#x2F;comments&#x2F;8hfh1g&#x2F;erc20_metadata_extension_eip_1046&#x2F;</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-04-13</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>20</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Optionally extend ERC20 token interface to support the same metadata standard as ERC721 tokens.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The ERC721 standard introduced the <code>tokenURI</code> parameter for non-fungible tokens to handle metadata such as:</p>
+<ul>
+<li>thumbnail image</li>
+<li>title</li>
+<li>description</li>
+<li>special asset properties</li>
+<li>etc.</li>
+</ul>
+<p>Metadata is critical for assets such as crypto-collectibles and video game assets to have real utility and value. However, not all crypto-collectibles and gaming assets will be non-fungible. It is critical for fungible ERC20 tokens to have a metadata standard like that of ERC721 tokens. Standardization of metadata between ERC20 and ERC721 will simplify development of dApps and infrastructure that must support both fungible and non-fungible assets.</p>
+<h2 id="motivation">Motivation</h2>
+<p>The ERC721 standard was created to support the creation of perfectly unique, 1-of-1, non-divisible tokens known as &quot;non-fungible tokens&quot;.</p>
+<p>The initial use case for the ERC721 standard was to support the creation of crypto-collectibles and gaming assets, initially for the <a href="https://www.cryptokitties.co/">&quot;Crypto Kitties&quot;</a> collectibles game. The success of Crypto Kitties catalyzed significant application development to support the display of ERC721 assets using the <code>tokenURI</code> metadata parameter.</p>
+<p>However, not all crypto-collectibles and gaming assets need to be unique and non-fungible. Gaming assets (items, weapons, characters), crypto-artworks with non-unique &quot;prints&quot;, and more will function more like traditional ERC20 tokens with a fungible <code>supply</code>. Many applications such as wallets, exchanges, games, etc. will want to support both fungible and non-fungible assets containing similar metadata. This proposal will extend the ERC20 standard to optionally include a nearly identical <code>tokenURI</code> parameter supporting the same JSON metadata schema as the ERC721 standard.</p>
+<h2 id="specification">Specification</h2>
+<p>The <strong>metadata extension</strong> will be OPTIONAL for ERC20 contracts. This allows your smart contract to be interrogated for its name and for details about the assets which your tokens represent.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/// @title ERC-20 optional metadata extension
+interface TokenMetaData /* is ERC20 */ {
+
+    /// @notice A distinct Uniform Resource Identifier (URI) for a given token.
+    function tokenURI() external view returns (string);
+}
+</span></code></pre>
+<p>This is the &quot;Token Metadata JSON Schema&quot; referenced above.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+    &quot;</span><span style="color:#a3be8c;">title</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Asset Metadata</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">properties</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Identifies the asset to which this token represents</span><span style="color:#c0c5ce;">&quot;,
+        },
+        &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Describes the asset to which this token represents</span><span style="color:#c0c5ce;">&quot;,
+        },
+        &quot;</span><span style="color:#a3be8c;">image</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">A URI pointing to a resource with mime type image/* representing the asset to which this token represents. Consider making any images at a width between 320 and 1080 pixels and aspect ratio between 1.91:1 and 4:5 inclusive.</span><span style="color:#c0c5ce;">&quot;,
+        }
+    }
+}
+</span></code></pre>
+<p>The token's name() and symbol() getters should be preferred over the name and/or symbol properties in the tokenURI JSON. </p>
+<h2 id="rationale">Rationale</h2>
+<p>This proposal will make adding metadata to ERC20 tokens straightforward for developers with minimal-to-no disruption to the overall ecosystem. By using the same parameter name and by consolidating the underlying Token JSON Metadata Standard, developers will confidently understand how to add and interpret token metadata between ERC20 and ERC721 tokens.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is fully backwards compatible as its implementation simply extends the functionality of ERC20 tokens and is optional.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>TO-DO</p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li><a href="https://rareart.io">Rare Art Labs</a> (WIP)</li>
+<li><a href="https://github.com/OpenZeppelin/zeppelin-solidity">Open Zeppelin</a> (WIP)</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

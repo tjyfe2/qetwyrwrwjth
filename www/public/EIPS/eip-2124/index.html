@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2124: Fork identifier for chain compatibility checks</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2124.md" />
+<meta property="og:title" content="EIP-2124: Fork identifier for chain compatibility checks" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2124 (EIP-2124): Fork identifier for chain compatibility checks"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2124 (EIP-2124): Fork identifier for chain compatibility checks"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2124.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2124 (EIP 2124): Fork identifier for chain compatibility checks" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2124: Fork identifier for chain compatibility checks
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:peterke@gmail.com">Péter Szilágyi</a>,
+        
+    
+        
+        
+            <a href="mailto:fjl@ethereum.org">Felix Lange</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2125">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2125</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Networking</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-05-03</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Currently nodes in the Ethereum network try to find each other by establishing random connections to remote machines &quot;looking&quot; like an Ethereum node (public networks, private networks, test networks, etc), hoping that they found a useful peer (same genesis, same forks). This wastes time and resources, especially for smaller networks.</p>
+<p>To avoid this overhead, Ethereum needs a mechanism that can precisely identify whether a node will be useful, as early as possible. Such a mechanism requires a way to summarize chain configurations, as well as a way to disseminate said summaries in the network.</p>
+<p>This proposal focuses only on the definition of said summary - a generally useful <em>fork identifier</em> - and it's validation rules, allowing it to be embedded into arbitrary network protocols (e.g. <a href="https://eips.ethereum.org/EIPS/eip-778">discovery ENRs</a> or <code>eth/6x</code> handshakes).</p>
+<h2 id="abstract">Abstract</h2>
+<p>There are many public and private Ethereum networks, but the discovery protocol doesn't differentiate between them. The only way to check if a peer is good or bad (same chain or not), is to establish a TCP/IP connection, wrap it with RLPx cryptography, then execute an <code>eth</code> handshake. This is an extreme cost to bear if it turns out that the remote peer is on a different network and it's not even precise enough to differentiate Ethereum and Ethereum Classic. This cost is magnified for small networks, where a lot more trial and errors are needed to find good nodes.</p>
+<p>Even if the peer <strong>is</strong> on the same chain, during non-controversial consensus upgrades, not everybody updates their nodes in time (developer nodes, leftovers, etc). These stale nodes put a meaningless burden on the peer-to-peer network, since they just latch on to good nodes, but don't accept upgraded blocks. This causes valuable peer slots and bandwidth to be lost until the stale nodes finally update. This is a serious issue for test networks, where leftovers can linger for months.</p>
+<p>This EIP proposes a new identity scheme to both precisely and concisely summarize the chain's current status (genesis and all applied forks). The conciseness is particularly important to make the identity useful across datagram protocols too. The EIP solves a number of issues:</p>
+<ul>
+<li>If two nodes are on different networks, they should never even consider connecting.</li>
+<li>If a hard fork passes, upgraded nodes should reject non-upgraded ones, but <strong>NOT</strong> before.</li>
+<li>If two chains share the same genesis, but not forks (ETH / ETC), they should reject each other.</li>
+</ul>
+<p>This EIP does not attempt to solve the clean separation of 3-way-forks! If at the same future block number, the network splits into three (non-fork, fork-A and fork-B), separating the forkers from each another will need case-by-case special handling. Not handling this keeps the proposal pragmatic, simple and also avoids making it too easy to fork off mainnet.</p>
+<p>To keep the scope limited, this EIP only defines the identity scheme and validation rules. The same scheme and algorithm can be embedded into various networking protocols, allowing both the <code>eth/6x</code> handshake to be more precise (Ethereum vs. Ethereum Classic); as well as the discovery to be more useful (reject surely peers without ever connecting).</p>
+<h2 id="motivation">Motivation</h2>
+<p>Peer-to-peer networking is messy and hard due to firewalls and network address translation (NAT). Generally only a small fraction of nodes have publicly routed addresses and P2P networks rely mainly on these for forwarding data for everyone else. The best way to maximize the utility of the public nodes is to ensure their resources aren't wasted on tasks that are worthless to the network.</p>
+<p>By aggressively cutting off incompatible nodes from each other we can extract a lot more value from the public nodes, making the entire P2P network much more robust and reliable. Supporting this network partitioning at a discovery layer can further enhance performance as we avoid the costly crypto and latency/bandwidth hit associated with establishing a stream connection in the first place.</p>
+<h2 id="specification">Specification</h2>
+<p>Each node maintains the following values:</p>
+<ul>
+<li><strong><code>FORK_HASH</code></strong>: IEEE CRC32 checksum (<code>[4]byte</code>) of the genesis hash and fork blocks numbers that already passed.
+<ul>
+<li>The fork block numbers are fed into the CRC32 checksum in ascending order.</li>
+<li>If multiple forks are applied at the same block, the block number is checksummed only once.</li>
+<li>Block numbers are regarded as <code>uint64</code> integers, encoded in big endian format when checksumming.</li>
+<li>If a chain is configured to start with a non-Frontier ruleset already in its genesis, that is NOT considered a fork.</li>
+</ul>
+</li>
+<li><strong><code>FORK_NEXT</code></strong>: Block number (<code>uint64</code>) of the next upcoming fork, or <code>0</code> if no next fork is known.</li>
+</ul>
+<p>E.g. <code>FORK_HASH</code> for mainnet would be:</p>
+<ul>
+<li>forkhash₀ = <code>0xfc64ec04</code> (Genesis) = <code>CRC32(&lt;genesis-hash&gt;)</code></li>
+<li>forkhash₁ = <code>0x97c2c34c</code> (Homestead) = <code>CRC32(&lt;genesis-hash&gt; || uint64(1150000))</code></li>
+<li>forkhash₂ = <code>0x91d1f948</code> (DAO fork) = <code>CRC32(&lt;genesis-hash&gt; || uint64(1150000) || uint64(1920000))</code></li>
+</ul>
+<p>The <em>fork identifier</em> is defined as <code>RLP([FORK_HASH, FORK_NEXT])</code>. This <code>forkid</code> is cross validated (<strong>NOT</strong> naively compared) to assess a remote chain's compatibility. Irrespective of fork state, both parties must come to the same conclusion to avoid indefinite reconnect attempts from one side.</p>
+<h4 id="validation-rules">Validation rules</h4>
+<ul>
+<li>
+<ol>
+<li>If local and remote <code>FORK_HASH</code> matches, compare local head to <code>FORK_NEXT</code>.</li>
+</ol>
+<ul>
+<li>The two nodes are in the same fork state currently. They might know of differing future forks, but that's not relevant until the fork triggers (might be postponed, nodes might be updated to match).
+<ul>
+<li>1a) A remotely announced but remotely not passed block is already passed locally, disconnect, since the chains are incompatible.</li>
+<li>1b) No remotely announced fork; or not yet passed locally, connect.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li>If the remote <code>FORK_HASH</code> is a subset of the local past forks and the remote <code>FORK_NEXT</code> matches with the locally following fork block number, connect.</li>
+</ol>
+<ul>
+<li>Remote node is currently syncing. It might eventually diverge from us, but at this current point in time we don't have enough information.</li>
+</ul>
+</li>
+<li>
+<ol start="3">
+<li>If the remote <code>FORK_HASH</code> is a superset of the local past forks and can be completed with locally known future forks, connect.</li>
+</ol>
+<ul>
+<li>Local node is currently syncing. It might eventually diverge from the remote, but at this current point in time we don't have enough information.</li>
+</ul>
+</li>
+<li>
+<ol start="4">
+<li>Reject in all other cases.</li>
+</ol>
+</li>
+</ul>
+<h4 id="stale-software-examples">Stale software examples</h4>
+<p>The examples below try to exhaust the fork combination possibilities that arise when nodes do not run matching software versions, but otherwise follow the same chain (mainnet nodes, testnet nodes, etc).</p>
+<table><thead><tr><th align="center">Past forks</th><th align="center">Future forks</th><th align="center">Head</th><th align="center">Remote <code>FORK_HASH</code></th><th align="center">Remote <code>FORK_NEXT</code></th><th align="center">Connect</th><th align="center">Reason</th></tr></thead><tbody>
+<tr><td align="center">A</td><td align="center"></td><td align="center"></td><td align="center">A</td><td align="center"></td><td align="center">Yes (1b)</td><td align="center">Same forks, same sync state.</td></tr>
+<tr><td align="center">A</td><td align="center"></td><td align="center">&lt; B</td><td align="center">A</td><td align="center">B</td><td align="center">Yes (1b)</td><td align="center">Remote is advertising a future fork, but that is uncertain.</td></tr>
+<tr><td align="center">A</td><td align="center"></td><td align="center">&gt;= B</td><td align="center">A</td><td align="center">B</td><td align="center">No (1a)</td><td align="center">Remote is advertising a future fork that passed locally.</td></tr>
+<tr><td align="center">A</td><td align="center">B</td><td align="center"></td><td align="center">A</td><td align="center"></td><td align="center">Yes (1b)</td><td align="center">Local knows about a future fork, but that is uncertain.</td></tr>
+<tr><td align="center">A</td><td align="center">B</td><td align="center"></td><td align="center">A</td><td align="center">B</td><td align="center">Yes (1b)</td><td align="center">Both know about a future fork, but that is uncertain.</td></tr>
+<tr><td align="center">A</td><td align="center">B1</td><td align="center">&lt; B2</td><td align="center">A</td><td align="center">B2</td><td align="center">Yes (1b)</td><td align="center">Both know about differing future forks, but those are uncertain.</td></tr>
+<tr><td align="center">A</td><td align="center">B1</td><td align="center">&gt;= B2</td><td align="center">A</td><td align="center">B2</td><td align="center">No (1a)</td><td align="center">Both know about differing future forks, but the remote one passed locally.</td></tr>
+<tr><td align="center">[A,B]</td><td align="center"></td><td align="center"></td><td align="center">A</td><td align="center">B</td><td align="center">Yes (2)</td><td align="center">Remote out of sync.</td></tr>
+<tr><td align="center">[A,B,C]</td><td align="center"></td><td align="center"></td><td align="center">A</td><td align="center">B</td><td align="center">Yes¹ (2)</td><td align="center">Remote out of sync. Remote will need a software update, but we don't know it yet.</td></tr>
+<tr><td align="center">A</td><td align="center">B</td><td align="center"></td><td align="center">A ⊕ B</td><td align="center"></td><td align="center">Yes (3)</td><td align="center">Local out of sync.</td></tr>
+<tr><td align="center">A</td><td align="center">B,C</td><td align="center"></td><td align="center">A ⊕ B</td><td align="center"></td><td align="center">Yes (3)</td><td align="center">Local out of sync. Local also knows about a future fork, but that is uncertain yet.</td></tr>
+<tr><td align="center">A</td><td align="center"></td><td align="center"></td><td align="center">A ⊕ B</td><td align="center"></td><td align="center">No (4)</td><td align="center">Local needs software update.</td></tr>
+<tr><td align="center">A</td><td align="center">B</td><td align="center"></td><td align="center">A ⊕ B ⊕ C</td><td align="center"></td><td align="center">No² (4)</td><td align="center">Local needs software update.</td></tr>
+<tr><td align="center">[A,B]</td><td align="center"></td><td align="center"></td><td align="center">A</td><td align="center"></td><td align="center">No (4)</td><td align="center">Remote needs software update.</td></tr>
+</tbody></table>
+<p><em>Note, there's one asymmetry in the table, marked with ¹ and ². Since we don't have access to a remote node's future fork list (just the next one), we can't detect that it's software is stale until it syncs up. This is acceptable as 1) the remote node will disconnect from us anyway, and 2) this is a temporary fluke during sync, not permanent with a leftover node.</em></p>
+<h2 id="rationale">Rationale</h2>
+<h5 id="why-flatten-fork-hash-into-4-bytes-why-not-share-the-entire-genesis-and-fork-list">Why flatten <code>FORK_HASH</code> into 4 bytes? Why not share the entire genesis and fork list?</h5>
+<p>Whilst the <code>eth</code> devp2p protocol permits arbitrarily much data to be transmitted, the discovery protocol's total space allowance for all ENR entries is 300 bytes.</p>
+<p>Reducing the <code>FORK_HASH</code> into a 4 bytes checksum ensures that we leave ample room in the ENR for future extensions; and 4 bytes is more than enough for arbitrarily many Ethereum networks from a (practical) collision perspective.</p>
+<h5 id="why-use-ieee-crc32-as-the-checksum-instead-of-keccak256">Why use IEEE CRC32 as the checksum instead of Keccak256?</h5>
+<p>We need a mechanism that can flatten arbitrary data into 4 bytes, without ignoring any of the input. Any other checksum or hashing algorithm would work, but since nodes can lie at any time, there's no value in cryptographic hash functions.</p>
+<p>Instead of just taking the first 4 bytes of a Keccak256 hash (seems odd) or XOR-ing all the 4-byte groups (messy), CRC32 is a better alternative, as this is exactly what it was designed for. IEEE CRC32 is also used by ethernet, gzip, zip, png, etc, so every programming language support should not be a problem.</p>
+<h5 id="we-re-not-using-fork-next-for-much-can-t-we-get-rid-of-it-somehow">We're not using <code>FORK_NEXT</code> for much, can't we get rid of it somehow?</h5>
+<p>We need to be able to differentiate whether a remote node is out of sync or whether its software is stale. Sharing only the past forks cannot tell us if the node is legitimately behind or stuck.</p>
+<h5 id="why-advertise-only-one-next-fork-instead-of-hashing-all-known-future-ones-like-the-fork-hash">Why advertise only one next fork, instead of &quot;hashing&quot; all known future ones like the <code>FORK_HASH</code>?</h5>
+<p>Opposed to past forks that have already passed (for us locally) and can be considered immutable, we don't know anything about future ones. Maybe we're out of sync or maybe the fork didn't pass yet. If it didn't pass yet, it might be postponed, so enforcing it would split the network apart. It could also happen that we're not yet aware of all future forks (haven't updated our software in a while).</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP only defines an identity scheme, it does not define functional changes.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>Here's a full suite of tests for all possible fork IDs that Mainnet, Ropsten, Rinkeby and Görli can advertise given the Petersburg fork cap (time of writing).</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">type </span><span style="color:#c0c5ce;">testcase </span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">{
+	</span><span style="color:#bf616a;">head </span><span style="color:#b48ead;">uint64
+	</span><span style="color:#bf616a;">want </span><span style="color:#b48ead;">ID
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#bf616a;">tests </span><span style="color:#c0c5ce;">:= []</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">{
+	</span><span style="color:#bf616a;">config  </span><span style="color:#c0c5ce;">*</span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">.</span><span style="color:#b48ead;">ChainConfig
+	</span><span style="color:#bf616a;">genesis common</span><span style="color:#c0c5ce;">.</span><span style="color:#b48ead;">Hash
+	</span><span style="color:#bf616a;">cases   </span><span style="color:#c0c5ce;">[]</span><span style="color:#b48ead;">testcase
+</span><span style="color:#c0c5ce;">}{
+	</span><span style="color:#65737e;">// Mainnet test cases
+	</span><span style="color:#c0c5ce;">{
+		</span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">MainnetChainConfig</span><span style="color:#c0c5ce;">,
+		</span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">MainnetGenesisHash</span><span style="color:#c0c5ce;">,
+		[]</span><span style="color:#b48ead;">testcase</span><span style="color:#c0c5ce;">{
+			{</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xfc64ec04</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1150000</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// Unsynced
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1149999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xfc64ec04</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1150000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Frontier block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1150000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x97c2c34c</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1920000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First Homestead block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1919999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x97c2c34c</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1920000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Homestead block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1920000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x91d1f948</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">2463000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First DAO block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">2462999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x91d1f948</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">2463000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last DAO block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">2463000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x7a64da13</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">2675000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First Tangerine block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">2674999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x7a64da13</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">2675000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Tangerine block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">2675000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x3edd5b10</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">4370000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First Spurious block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">4369999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x3edd5b10</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">4370000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Spurious block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">4370000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa00bc324</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">7280000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First Byzantium block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7279999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa00bc324</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">7280000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Byzantium block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7280000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x668db0af</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// First and last Constantinople, first Petersburg block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7987396</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x668db0af</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// Today Petersburg block
+		</span><span style="color:#c0c5ce;">},
+	},
+	</span><span style="color:#65737e;">// Ropsten test cases
+	</span><span style="color:#c0c5ce;">{
+		</span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">TestnetChainConfig</span><span style="color:#c0c5ce;">,
+		</span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">TestnetGenesisHash</span><span style="color:#c0c5ce;">,
+		[]</span><span style="color:#b48ead;">testcase</span><span style="color:#c0c5ce;">{
+			{</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x30c7ddbc</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">10</span><span style="color:#c0c5ce;">}},            </span><span style="color:#65737e;">// Unsynced, last Frontier, Homestead and first Tangerine block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">9</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x30c7ddbc</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">10</span><span style="color:#c0c5ce;">}},            </span><span style="color:#65737e;">// Last Tangerine block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">10</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x63760190</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1700000</span><span style="color:#c0c5ce;">}},      </span><span style="color:#65737e;">// First Spurious block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1699999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x63760190</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1700000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Spurious block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1700000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x3ea159c7</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">4230000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First Byzantium block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">4229999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x3ea159c7</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">4230000</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Byzantium block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">4230000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x97b544f3</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">4939394</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First Constantinople block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">4939393</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x97b544f3</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">4939394</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Constantinople block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">4939394</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xd6e2149b</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">6485846</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First Petersburg block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">6485845</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xd6e2149b</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">6485846</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Petersburg block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">6485846</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x4bc66396</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// First Istanbul block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7500000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x4bc66396</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// Future Istanbul block
+		</span><span style="color:#c0c5ce;">},
+	},
+	</span><span style="color:#65737e;">// Rinkeby test cases
+	</span><span style="color:#c0c5ce;">{
+		</span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">RinkebyChainConfig</span><span style="color:#c0c5ce;">,
+		</span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">RinkebyGenesisHash</span><span style="color:#c0c5ce;">,
+		[]</span><span style="color:#b48ead;">testcase</span><span style="color:#c0c5ce;">{
+			{</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x3b8e0691</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">}},             </span><span style="color:#65737e;">// Unsynced, last Frontier block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x60949295</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">}},             </span><span style="color:#65737e;">// First and last Homestead block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x8bde40dd</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">}},             </span><span style="color:#65737e;">// First and last Tangerine block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xcb3a64bb</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1035301</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// First Spurious block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1035300</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xcb3a64bb</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1035301</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Spurious block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1035301</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x8d748b57</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">3660663</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First Byzantium block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">3660662</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x8d748b57</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">3660663</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Byzantium block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">3660663</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xe49cab14</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">4321234</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First Constantinople block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">4321233</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xe49cab14</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">4321234</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Constantinople block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">4321234</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xafec6b27</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">5435345</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// First Petersburg block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">5435344</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xafec6b27</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">5435345</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Petersburg block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">5435345</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xcbdb8838</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// First Istanbul block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">6000000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xcbdb8838</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// Future Istanbul block
+		</span><span style="color:#c0c5ce;">},
+	},
+	</span><span style="color:#65737e;">// Goerli test cases
+	</span><span style="color:#c0c5ce;">{
+		</span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">GoerliChainConfig</span><span style="color:#c0c5ce;">,
+		</span><span style="color:#bf616a;">params</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">GoerliGenesisHash</span><span style="color:#c0c5ce;">,
+		[]</span><span style="color:#b48ead;">testcase</span><span style="color:#c0c5ce;">{
+			{</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa3f5ab08</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1561651</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// Unsynced, last Frontier, Homestead, Tangerine, Spurious, Byzantium, Constantinople and first Petersburg block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1561650</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa3f5ab08</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">1561651</span><span style="color:#c0c5ce;">}}, </span><span style="color:#65737e;">// Last Petersburg block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">1561651</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xc25efa5c</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// First Istanbul block
+			</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">2000000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xc25efa5c</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}},       </span><span style="color:#65737e;">// Future Istanbul block
+		</span><span style="color:#c0c5ce;">},
+	},
+}
+</span></code></pre>
+<p>Here's a suite of tests of the different states a Mainnet node might be in and the different remote fork identifiers it might be required to validate and decide to accept or reject:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">tests </span><span style="color:#c0c5ce;">:= []</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">{
+	</span><span style="color:#bf616a;">head </span><span style="color:#b48ead;">uint64
+	</span><span style="color:#bf616a;">id   </span><span style="color:#b48ead;">ID
+	</span><span style="color:#bf616a;">err  </span><span style="color:#b48ead;">error
+</span><span style="color:#c0c5ce;">}{
+	</span><span style="color:#65737e;">// Local is mainnet Petersburg, remote announces the same. No future fork is announced.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7987396</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x668db0af</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}, </span><span style="color:#d08770;">nil</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Petersburg, remote announces the same. Remote also announces a next fork
+	// at block 0xffffffff, but that is uncertain.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7987396</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x668db0af</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">math</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">MaxUint64</span><span style="color:#c0c5ce;">}, </span><span style="color:#d08770;">nil</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet currently in Byzantium only (so it&#39;s aware of Petersburg), remote announces
+	// also Byzantium, but it&#39;s not yet aware of Petersburg (e.g. non updated node before the fork).
+	// In this case we don&#39;t know if Petersburg passed yet or not.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7279999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa00bc324</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}, </span><span style="color:#d08770;">nil</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet currently in Byzantium only (so it&#39;s aware of Petersburg), remote announces
+	// also Byzantium, and it&#39;s also aware of Petersburg (e.g. updated node before the fork). We
+	// don&#39;t know if Petersburg passed yet (will pass) or not.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7279999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa00bc324</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">7280000</span><span style="color:#c0c5ce;">}, </span><span style="color:#d08770;">nil</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet currently in Byzantium only (so it&#39;s aware of Petersburg), remote announces
+	// also Byzantium, and it&#39;s also aware of some random fork (e.g. misconfigured Petersburg). As
+	// neither forks passed at neither nodes, they may mismatch, but we still connect for now.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7279999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa00bc324</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">math</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">MaxUint64</span><span style="color:#c0c5ce;">}, </span><span style="color:#d08770;">nil</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Petersburg, remote announces Byzantium + knowledge about Petersburg. Remote
+	// is simply out of sync, accept.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7987396</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa00bc324</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">7280000</span><span style="color:#c0c5ce;">}, </span><span style="color:#d08770;">nil</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Petersburg, remote announces Spurious + knowledge about Byzantium. Remote
+	// is definitely out of sync. It may or may not need the Petersburg update, we don&#39;t know yet.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7987396</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x3edd5b10</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">4370000</span><span style="color:#c0c5ce;">}, </span><span style="color:#d08770;">nil</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Byzantium, remote announces Petersburg. Local is out of sync, accept.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7279999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x668db0af</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}, </span><span style="color:#d08770;">nil</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Spurious, remote announces Byzantium, but is not aware of Petersburg. Local
+	// out of sync. Local also knows about a future fork, but that is uncertain yet.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">4369999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa00bc324</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}, </span><span style="color:#d08770;">nil</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Petersburg. remote announces Byzantium but is not aware of further forks.
+	// Remote needs software update.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7987396</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa00bc324</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}, </span><span style="color:#bf616a;">ErrRemoteStale</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Petersburg, and isn&#39;t aware of more forks. Remote announces Petersburg +
+	// 0xffffffff. Local needs software update, reject.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7987396</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x5cddc0e1</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}, </span><span style="color:#bf616a;">ErrLocalIncompatibleOrStale</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Byzantium, and is aware of Petersburg. Remote announces Petersburg +
+	// 0xffffffff. Local needs software update, reject.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7279999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x5cddc0e1</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}, </span><span style="color:#bf616a;">ErrLocalIncompatibleOrStale</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Petersburg, remote is Rinkeby Petersburg.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7987396</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xafec6b27</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">}, </span><span style="color:#bf616a;">ErrLocalIncompatibleOrStale</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Petersburg, far in the future. Remote announces Gopherium (non existing fork)
+	// at some future block 88888888, for itself, but past block for local. Local is incompatible.
+	//
+	// This case detects non-upgraded nodes with majority hash power (typical Ropsten mess).
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">88888888</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0x668db0af</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">88888888</span><span style="color:#c0c5ce;">}, </span><span style="color:#bf616a;">ErrLocalIncompatibleOrStale</span><span style="color:#c0c5ce;">},
+
+	</span><span style="color:#65737e;">// Local is mainnet Byzantium. Remote is also in Byzantium, but announces Gopherium (non existing
+	// fork) at block 7279999, before Petersburg. Local is incompatible.
+	</span><span style="color:#c0c5ce;">{</span><span style="color:#d08770;">7279999</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xa00bc324</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">7279999</span><span style="color:#c0c5ce;">}, </span><span style="color:#bf616a;">ErrLocalIncompatibleOrStale</span><span style="color:#c0c5ce;">},
+}
+</span></code></pre>
+<p>Here's a couple of tests to verify the proper RLP encoding (since <code>FORK_HASH</code> is a 4 byte binary but <code>FORK_NEXT</code> is an 8 byte quantity):</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">tests </span><span style="color:#c0c5ce;">:= []</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">{
+  </span><span style="color:#bf616a;">id   </span><span style="color:#b48ead;">ID
+  </span><span style="color:#bf616a;">want </span><span style="color:#c0c5ce;">[]</span><span style="color:#b48ead;">byte
+</span><span style="color:#c0c5ce;">}{
+  {
+    </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">},
+    </span><span style="color:#bf616a;">common</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Hex2Bytes</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">c6840000000080</span><span style="color:#c0c5ce;">&quot;),
+  },
+  {
+    </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xdeadbeef</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">0xBADDCAFE</span><span style="color:#c0c5ce;">},
+    </span><span style="color:#bf616a;">common</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Hex2Bytes</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">ca84deadbeef84baddcafe</span><span style="color:#c0c5ce;">&quot;),
+  },
+  {
+    </span><span style="color:#bf616a;">ID</span><span style="color:#c0c5ce;">{</span><span style="color:#bf616a;">Hash</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">math</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">MaxUint32</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Next</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">math</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">MaxUint64</span><span style="color:#c0c5ce;">},
+    </span><span style="color:#bf616a;">common</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Hex2Bytes</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">ce84ffffffff88ffffffffffffffff</span><span style="color:#c0c5ce;">&quot;),
+  },
+}
+</span></code></pre><h2 id="implementation">Implementation</h2>
+<p>Geth: https://github.com/ethereum/go-ethereum/tree/master/core/forkid</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

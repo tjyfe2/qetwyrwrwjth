@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1753: Smart Contract Interface for Licences</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1753.md" />
+<meta property="og:title" content="EIP-1753: Smart Contract Interface for Licences" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1753 (EIP-1753): Smart Contract Interface for Licences"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1753 (EIP-1753): Smart Contract Interface for Licences"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1753.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1753 (EIP 1753): Smart Contract Interface for Licences" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1753: Smart Contract Interface for Licences
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/BitcoinBrisbane">Lucas Cullen</a>,
+        
+    
+        
+        
+            <a href="https://github.com/CivicKai"> Kai Yeung</a>,
+        
+    
+        
+        
+            <a href="mailto:annaelizabethcrowley@gmail.com">Anna Crowley</a>,
+        
+    
+        
+        
+            <a href="mailto:caroline.marshall888@gmail.com">Caroline Marshall</a>,
+        
+    
+        
+        
+            <a href="mailto:katrina@civicledger.com">Katrina Donaghy</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-02-06</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This Ethereum Improvement Proposal (EIP) proposes an Ethereum standard for the issuance of licences, permits and grants (Licences). </p>
+<p>A Licence is a limited and temporary authority, granted to a natural (e.g. you) or legal person (e.g. a corporation), to do something that would otherwise be unlawful pursuant to a legal framework. A public Licence is granted by the government, directly (e.g. by the New South Wales Department of Primary Industries, Australia) or indirectly (e.g. by an agent operating under the government’s authority), and derives its authority from legislation, though this is often practically achieved via delegated legislation such as regulations. This can be contrasted to a private licence – for example, the licence you grant to a visitor who comes onto your property.</p>
+<p>A Licence has the following properties:</p>
+<ul>
+<li>granted personally to the licencee (Licencee), though it may be transferrable to another person or company;</li>
+<li>conferring a temporary right to the Licencee to own, use or do something that would otherwise be prohibited, without conferring any property interest in the underlying thing. For example, you may be granted a licence to visit a national park without acquiring any ownership in or over the park itself;</li>
+<li>allowing the government authority responsible for the Licence to amend, revoke, renew, suspend or deny the issuance of the Licence, or to impose conditions or penalties for non-compliance; and</li>
+<li>usually issued only after the payment of a fee or the meeting of some criteria.</li>
+</ul>
+<p>Additionally, a Licence may be granted in respect of certain information. For example, a Licence may be issued in respect of a vehicle registration number and attaching to that specific registered vehicle.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Governments are responsible for the issuance and management of Licences. However, maintaining and sharing this data can be complicated and inefficient. The granting of Licences usually requires the filing of paper-based application forms, manual oversight of applicable legislation and data entry into registries, as well as the issuance of paper based Licences. If individuals wish to sight information on Licence registries, they often need to be present at the government office and complete further paper-based enquiry forms in order to access that data (if available publicly).</p>
+<p>This EIP seeks to define a standard that will allow for the granting and/or management of Licences via Ethereum smart contracts. The motivation is, in essence, to address the inefficiencies inherent in current licencing systems.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="methods">Methods</h3>
+<p><strong>NOTES</strong>:</p>
+<ul>
+<li>The following specifications use syntax from Solidity <code>0.4.17</code> (or above)</li>
+<li>Callers MUST handle <code>false</code> from <code>returns (bool success)</code>.  Callers MUST NOT assume that <code>false</code> is never returned!</li>
+</ul>
+<h4 id="name">name</h4>
+<p>Returns the name of the permit - e.g. <code>&quot;MyPermit&quot;</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">name</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">public view returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">string</span><span style="color:#c0c5ce;">);
+</span></code></pre><h4 id="totalsupply">totalSupply</h4>
+<p>Returns the total permit supply.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">totalSupply</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">public view returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint256</span><span style="color:#c0c5ce;">);
+</span></code></pre><h4 id="grantauthority">grantAuthority</h4>
+<p>Adds an ethereum address to a white list of addresses that have authority to modify a permit.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">grantAuthority</span><span style="color:#c0c5ce;">(address who) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="revokeauthority">revokeAuthority</h4>
+<p>Removes an ethereum address from a white list of addresses that have authority to modify a permit.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">revokeAuthority</span><span style="color:#c0c5ce;">(address who) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="hasauthority">hasAuthority</h4>
+<p>Checks to see if the address has authority to grant or revoke permits.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">hasAuthority</span><span style="color:#c0c5ce;">(address who) </span><span style="color:#bf616a;">public view</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="issue">issue</h4>
+<p>Issues an ethereum address a permit between the specified date range.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">issue</span><span style="color:#c0c5ce;">(address who, uint256 validFrom, uint256 validTo) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="revoke">revoke</h4>
+<p>Revokes a permit from an ethereum address.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">revoke</span><span style="color:#c0c5ce;">(address who) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="hasvalid">hasValid</h4>
+<p>Checks to see if an ethereum address has a valid permit.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">hasValid</span><span style="color:#c0c5ce;">(address who) </span><span style="color:#bf616a;">external view returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool</span><span style="color:#c0c5ce;">);
+</span></code></pre><h4 id="purchase">purchase</h4>
+<p>Allows a user to self procure a licence.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">purchase</span><span style="color:#c0c5ce;">(uint256 validFrom, uint256 validTo) </span><span style="color:#bf616a;">external payable</span><span style="color:#c0c5ce;">;
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>The use of smart contracts to apply for, renew, suspend and revoke Licences will free up much needed government resources and allow for the more efficient management of Licences. The EIP also seeks to improve the end user experience of the Licence system. In an era of open government, there is also an increased expectation that individuals will be able to easily access Licence registries, and that the process will be transparent and fair.</p>
+<p>By creating an EIP, we hope to increase the use of Ethereum based and issued Licences, which will address these issues.</p>
+<p>The Ethereum blockchain is adaptable to various Licences and government authorities. It will also be easily translatable into other languages and can be used by other governmental authorities across the world. Moreover, a blockchain will more effectively protect the privacy of Licence-holders’ data, particularly at a time of an ever-increasing volume of government data breaches.</p>
+<p>The EIP has been developed following the review of a number of licensing regulations at the national and state level in Australia. The review allowed the identification of the common licence requirements and criteria for incorporation into the EIP. We have included these in the proposed standard but seek feedback on whether these criteria are sufficient and universal.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>A real world example of a Licence is a permit required to camp in a national park in Australia (e.g. Kakadu national park in the Northern Territory of Australia) under the Environment Protection and Biodiversity Conservation Regulations 2000 (Cth) (EPBC Act) and the Environment Protection and Biodiversity Conservation Regulations 2000 (the Regulations). Pursuant to the EPBC Act and the Regulations, the Director of National Parks oversees a camping permit system, which is intended to help regulate certain activities in National Parks. Permits allowing access to National Parks can be issued to legal or natural persons if the applicant has met certain conditions.</p>
+<p>The current digital portal and application form to camp at Kakadu National Park (the Application) can be accessed at: https://www.environment.gov.au/system/files/resources/b3481ed3-164b-4e72-a9f8-91fc987d90e7/files/kakadu-camping-permit-form-19jan2015-pdf.pdf</p>
+<p>The user must provide the following details when making an Application:</p>
+<ul>
+<li>
+<p>The full name and contact details of each person to whom the permit is to be issued;</p>
+</li>
+<li>
+<p>If the applicant is a company or other incorporated body:</p>
+</li>
+</ul>
+<p>o the name, business address and postal address of the company or incorporated body;</p>
+<p>o if the applicant is a company—</p>
+<ul>
+<li>
+<p>the full name of each of the directors of the company;</p>
+</li>
+<li>
+<p>the full name and contact details of the person completing the application form;</p>
+</li>
+<li>
+<p>the ACN or ABN of the company or other incorporated body (if applicable);</p>
+</li>
+<li>
+<p>Details of the proposed camping purpose (e.g. private camping, school group, etc.);</p>
+</li>
+<li>
+<p>A start date and duration for the camping (up to the maximum duration allowed by law);</p>
+</li>
+<li>
+<p>Number of campers (up to the maximum allowed by law);</p>
+</li>
+<li>
+<p>All other required information not essential to the issuance of the Licence (e.g. any particular medical needs of the campers); and</p>
+</li>
+<li>
+<p>Fees payable depending on the site, duration and number of campers.</p>
+</li>
+</ul>
+<p>The Regulations also set out a number of conditions that must be met by licensees when the permit has been issued. The Regulations allow the Director of National Parks to cancel, renew or transfer the licence. The above workflow could be better performed by way of a smart contract.</p>
+<p>The key criteria required as part of this process form part of the proposed Ethereum standard. We have checked this approach by also considering the issuance of a Commercial Fishing Licence under Part 8 “Licensing and other commercial fisheries management” of the Fisheries Management (General) Regulation 2010 (NSW) (Fisheries Regulations) made pursuant to the Fisheries Management Act 1994 (NSW) (Fisheries Act).</p>
+<h2 id="implementation">Implementation</h2>
+<p>The issuance and ownership of a Licence can be digitally represented on the Ethereum blockchain.</p>
+<p>Smart contracts can be used to embed regulatory requirements with respect to the relevant Licence in the blockchain. The Licence would be available electronically in the form of a token. This might be practically represented by a QR code, for example, displaying the current Licence information. The digital representation of the Licence would be stored in a digital wallet, typically an application on a smartphone or tablet computer. The proposed standard allows issuing authorities or regulators to amend, revoke or deny Licences from time to time, with the result of their determinations reflected in the Licence token in near real-time. Licence holders will therefore be notified almost instantly of any amendments, revocations or issues involving their Licence.</p>
+<h2 id="interface">Interface</h2>
+<h3 id="solidity-example">Solidity Example</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface EIP1753 {
+	string public name;
+	uint256 public totalSupply;
+	
+	function grantAuthority(address who) public;
+	function revokeAuthority(address who) public;
+	function hasAuthority(address who) external view returns (bool);
+	
+	function issue(address who, uint256 from, uint256 to) external;
+	function revoke(address who) public;
+	
+	function hasValid(address who) external view returns (bool);
+	function purchase(uint256 validFrom, uint256 validTo) public payable;
+}
+
+pragma solidity ^0.5.3;
+
+contract EIP is EIP1753 {
+
+	string public name = &quot;Kakadu National Park Camping Permit&quot;;
+	uint256 public totalSupply;
+
+	address private _owner;
+	mapping(address =&gt; bool) private _authorities;
+	mapping(address =&gt; Permit) private _holders;
+	
+	struct Permit {
+		address issuer;
+		uint256 validFrom;
+		uint256 validTo;
+	}
+	
+	constructor() public {
+		_owner = msg.sender;
+	}
+	
+	function grantAuthority(address who) public onlyOwner() {
+		_authorities[who] = true;
+	}
+	
+	function revokeAuthority(address who) public onlyOwner() {
+		delete _authorities[who];
+	}
+	
+	function hasAuthority(address who) external view returns (bool) {
+		return _authorities[who] == true;
+	}
+	
+	function issue(address who, uint256 start, uint256 end) public onlyAuthority() {
+		_holders[who] = Permit(_owner, start, end);
+		totalSupply += 1;
+	}
+	
+	function revoke(address who) public onlyAuthority() {
+		delete _holders[who];
+	}
+	
+	function hasValid(address who) external view returns (bool) {
+	    return _holders[who].start &gt; now &amp;&amp; _holders[who].end &lt; now;
+	}
+
+	function purchase(uint256 validFrom, uint256 validTo) external payable {
+	    require(msg.value == 1 ether, &quot;Incorrect fee&quot;);
+	    issue(msg.sender, from, to);
+	}
+	
+	modifier onlyOwner() {
+		require(msg.sender == _owner, &quot;Only owner can perform this function&quot;);
+		_;
+	}
+	
+	modifier onlyAuthority() {
+		require(hasAuthority(msg.sender), &quot;Only an authority can perform this function&quot;);
+        _;
+	}
+}
+</span></code></pre><h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

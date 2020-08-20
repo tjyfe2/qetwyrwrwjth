@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2464: eth&amp;#x2F;65: transaction announcements and retrievals</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2464.md" />
+<meta property="og:title" content="EIP-2464: eth&amp;#x2F;65: transaction announcements and retrievals" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2464 (EIP-2464): eth&amp;#x2F;65: transaction announcements and retrievals"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2464 (EIP-2464): eth&amp;#x2F;65: transaction announcements and retrievals"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2464.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2464 (EIP 2464): eth&amp;#x2F;65: transaction announcements and retrievals" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2464: eth&#x2F;65: transaction announcements and retrievals
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:peterke@gmail.com">Péter Szilágyi</a>,
+        
+    
+        
+        
+            <a href="mailto:garyrong0905@gmail.com">Gary Rong</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2465">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2465</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Networking</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-01-13</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>2364</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>The <code>eth</code> network protocol has two ways to propagate a newly mined block: it can be broadcast to a peer in its entirety (via <code>NewBlock (0x07)</code> <a href="https://github.com/ethereum/devp2p/blob/master/caps/eth.md">in <code>eth/64</code> and prior</a>) or it can be announced only (via <code>NewBlockHashes (0x01)</code>). This duality allows nodes to do the high-bandwidth broadcasting (10s-100s KB) for a square root number of peers; and the low-bandwidth announcing (10s-100s B) for the remaining linear number of peers. The square root broadcast is enough to reach all well connected nodes, but the linear announce is needed to get across degenerate topologies. This works well.</p>
+<p>The <code>eth</code> protocol, however, does not have a similar dual mechanism for propagating transactions, so nodes need to rely on broadcasting (via <code>Transactions (0x02)</code>). To cater for degenerate topologies, transactions cannot be broadcast square rooted, rather they need to be transferred linearly to all peers. With N peers, each node will transfer the same transaction N times (counting both directions), whereas 1 would be enough in a perfect world. This is a significant waste.</p>
+<p>A similar issue arises when a new network connection is made between two nodes, as they need to sync up their transaction pools, but the pool is just a soup of dangling transactions. Without a way to deduplicate transactions remotely, each node is forced to naively transfer their entire list of transactions to the other side. With pools containing thousands of transactions, a naive transfer amounts to 10s-100s MB, most of which is useless. There is no better way, however.</p>
+<p>This EIP introduces three additional message types into the <code>eth</code> protocol (releasing a new version, <code>eth/65</code>): <code>NewPooledTransactionHashes (0x08)</code> to announce a set of transactions without their content; <code>GetPooledTransactions (0x09)</code> to request a batch of transactions by their announced hash; and <code>PooledTransactions (0x0a)</code> to reply to a transaction request. This permits reducing the bandwidth used for transaction propagation from linear complexity in the number of peers to square root; and also reducing the initial transaction exchange from 10s-100s MB to <code>len(pool) * 32B ~= 128KB</code>.</p>
+<h2 id="motivation">Motivation</h2>
+<p>With transaction throughput (and size) picking up in Ethereum, transaction propagation is the current dominant component of the used network resources. Most of these resources are however wasted, as the <code>eth</code> protocol does not have a mechanism to deduplicate transactions remotely, so the same data is transferred over and over again across all network connections.</p>
+<p>This EIP proposes a tiny extension to the <code>eth</code> protocol, which permits nodes to agree on the set of transactions that need to be transferred across a network connection, before doing the costly exchange. This should help reduce the global (operational) bandwidth usage of the Ethereum network by at least an order of magnitude.</p>
+<h2 id="specification">Specification</h2>
+<p>Add three new message types to the <code>eth</code> protocol:</p>
+<ul>
+<li><code>NewPooledTransactionHashes (0x08): [hash_0: B_32, hash_1: B_32, ...]</code>
+<ul>
+<li>Specify one or more transactions that have appeared in the network and which have <strong>not yet been included in a block</strong>. To be maximally helpful, nodes should inform peers of all transactions that they may not be aware of.</li>
+<li>There is <strong>no protocol violating hard cap</strong> on the number of hashes a node may announce to a remote peer (apart from the 10MB <code>devp2p</code> network packet limit), but 4096 seems a sane chunk (128KB) to avoid a single packet hogging a network connection.</li>
+<li>Nodes should only announce hashes of transactions that the remote peer could reasonably be considered not to know, but it is better to be over zealous than to have a nonce gap in the pool.</li>
+</ul>
+</li>
+<li><code>GetPooledTransactions (0x09): [hash_0: B_32, hash_1: B_32, ...]</code>
+<ul>
+<li>Specify one or more transactions to retrieve from a remote peer's <strong>transaction pool</strong>.</li>
+<li>There is <strong>no protocol violating hard cap</strong> on the number of transactions a node may request from a remote peer (apart from the 10MB <code>devp2p</code> network packet limit), but the recipient may enforce an arbitrary cap on the reply (size or serving time), which <strong>must not</strong> be considered a protocol violation. To keep wasted bandwidth down (unanswered hashes), 256 seems like a sane upper limit.</li>
+</ul>
+</li>
+<li><code>PooledTransactions (0x0a): [[nonce: P, receivingAddress: B_20, value: P, ...], ...]</code>
+<ul>
+<li>Specify transactions <strong>from the local transaction pool</strong> that the remote node requested via a <code>GetPooledTransactions (0x09)</code> message. The items in the list are transactions in the format described in the main Ethereum specification.</li>
+<li>The transactions <strong>must</strong> be in same order as in the request, but it is <strong>ok</strong> to skip transactions that are not available. This way if the response size limit is reached, requesters will know which hashes to request again (everything from the last returned transaction) and which to assume unavailable (all gaps before the last returned transaction).</li>
+<li>A peer may respond with an empty reply <strong>iff</strong> none of the hashes match transactions in its pool. It is allowed to announce a transaction that will not be served later if it gets included in a block in between.</li>
+</ul>
+</li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<p><strong>Q: Why limit <code>GetPooledTransactions (0x09)</code> to retrieving items from the pool?</strong></p>
+<p>Apart from the transaction pool, transactions in Ethereum are always bundled together by the hundreds in block bodies and existing network retrievals honor this data layout. Allowing direct access to individual transactions in the database has no actionable use case, but would expose costly database reads into the network.</p>
+<p>For transaction propagation purposes there is no reason to allow disk access, as any transaction finalized to disk will be broadcast inside a block anyway, so at worse there is a few hundred millisecond delay when a node gets the transaction.</p>
+<p>Block propagation may be made a bit more optimal by transferring the contained transactions on demand only, but that is a whole EIP in itself, so better relax the protocol when all the requirements are known and not in advance. It would probably be enough to maintain a set of transactions included in recent blocks in memory.</p>
+<p><strong>Q: Should <code>NewPooledTransactionHashes (0x08)</code> deduplicate from disk?</strong></p>
+<p>Similarly to <code>GetPooledTransactions (0x09)</code>, <code>NewPooledTransactionHashes (0x08)</code> should also only operate on the transaction pool and should ignore the disk altogether. During healthy network conditions, a transaction will propagate through much faster than it's included in a block, so it will essentially be non-existent that a newly announced transaction is already on disk. By avoiding disk deduplication, we can avoid a DoS griefing by remote transaction announces.</p>
+<p>If we want to be really correct and avoid even the slightest data race when deduplicating announcements, we can use the same recently-included-transactions trick that we discussed above to discard announcements that have recently become stale.</p>
+<p><strong>Q: Why not reuse <code>Transaction (0x02)</code> instead of a new <code>PooledTransactions (0x0a)</code>?</strong></p>
+<p>Originally this EIP reused the existing <code>Transaction (0x02)</code> message as the reply to the <code>GetPooledTransactions (0x09)</code> request. This makes client code more complicated, because nodes constantly gossip <code>Transaction (0x02)</code> messages to each other as broadcasts, so it's hard to match up which of the many messages is the actual reply to the request.</p>
+<p>By keeping <code>Transaction (0x02)</code> and <code>PooledTransactions (0x0a)</code> as separate messages, we can also leave the protocol more flexible for future optimizations (e.g. adding request IDs, which are meaningless for gossip broadcasts).</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP extends the <code>eth</code> protocol in a backwards incompatible way and requires rolling out a new version, <code>eth/65</code>. However, <code>devp2p</code> supports running multiple versions of the same wire protocol side-by-side, so rolling out <code>eth/65</code> does not require client coordination, since non-updated clients can keep using <code>eth/64</code>.</p>
+<p>This EIP does not change the consensus engine, thus does <em>not</em> require a hard fork.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>TODO</p>
+<h2 id="implementation">Implementation</h2>
+<p>Geth: https://github.com/ethereum/go-ethereum/pull/20234</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

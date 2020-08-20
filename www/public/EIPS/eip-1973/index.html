@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1973: Scalable Rewards</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1973.md" />
+<meta property="og:title" content="EIP-1973: Scalable Rewards" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1973 (EIP-1973): Scalable Rewards"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1973 (EIP-1973): Scalable Rewards"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1973.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1973 (EIP 1973): Scalable Rewards" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1973: Scalable Rewards
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/lerajk">Lee Raj</a>,
+        
+    
+        
+        
+            <a href="https://github.com/qinjian"> Qin Jian</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-04-01</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A mintable token rewards interface that mints 'n' tokens per block which are distributed equally among the 'm' participants in the DAPP's ecosystem.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The mintable token rewards interface allows DApps to build a token economy where token rewards are distributed equally among the active participants. The tokens are minted based on per block basis that are configurable (E.g. 10.2356 tokens per block, 0.1 token per block, 1350 tokens per block) and the mint function can be initiated by any active participant. The token rewards distributed to each participant is dependent on the number of participants in the network. At the beginning, when the network has low volume, the tokens rewards per participant is high but as the network scales the token rewards decreases dynamically.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Distributing tokens through a push system to a large amount of participants fails due to block gas limit. As the number of participants in the network grow to tens of thousands, keeping track of the iterable registry of participants and their corresponding rewards in a push system becomes unmanagable. E.g. Looping through 5000 addresses to distribute 0.0000001 reward tokens is highly inefficient. Furthermore, the gas fees in these transactions are high and needs to be undertaken by the DApp developer or the respective company, leading to centralization concerns. </p>
+<p>A pull system is required to keep the application completely decentralized and to avoid the block gas limit problem. However, no standard solution has been proposed to distribute scalable rewards to tens of thousands participants with a pull system. This is what we propose with this EIP through concepts like TPP, round mask, participant mask. </p>
+<h2 id="specification">Specification</h2>
+<h3 id="definitions">Definitions</h3>
+<p><code>token amount per participant in the ecosytem or TPP (token per participant)</code>: TPP = (token amount to mint / total active participants)</p>
+<p><code>roundMask</code>: the cumulative snapshot of TPP over time for the token contract. E.g. transactionOne = 10 tokens are minted with 100 available participants (TPP = 10 / 100) , transactionTwo = 12 tokens are minted with 95 participants (TPP = 12 / 95 ) </p>
+<p>roundMask = (10/100) + (12/95)</p>
+<p><code>participantMask</code>: is used to keep track of a <code>msg.sender</code> (participant) rewards over time. When a <code>msg.sender</code> joins or leaves the ecosystem, the player mask is updated</p>
+<p>participantMask = previous roundMask OR (current roundMask - TPP)</p>
+<p><code>rewards for msg.sender</code>: roundMask - participantMask </p>
+<p>E.g. Let's assume a total of 6 transactions (smart contract triggers or functions calls) are in place with 10 existing participants (denominator) and 20 tokens (numerator) are minted per transaction. At 2nd transaction, the 11th participant joins the network and exits before 5th transaction, the 11th participant's balance is as follows:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">t1 roundMask = (20/10)
+</span><span style="color:#c0c5ce;">t2 roundMask = (20/10) + (20/11) 
+</span><span style="color:#c0c5ce;">t3 roundMask = (20/10) + (20/11) + (20/11)
+</span><span style="color:#c0c5ce;">t4 roundMask = (20/10) + (20/11) + (20/11) + (20/11)
+</span><span style="color:#c0c5ce;">t5 roundMask = (20/10) + (20/11) + (20/11) + (20/11)+ (20/10)
+</span><span style="color:#c0c5ce;">t6 roundMask = (20/10) + (20/11) + (20/11) + (20/11)+ (20/10) + (20/10)
+</span></code></pre>
+<p>Total tokens released in 6 transactions = 60 tokens </p>
+<p>As the participant joins at t2 and leaves before t5, the participant deserves the rewards between t2 and t4. When the participant joins at t2, the 'participantMask = (20/10)', when the participant leaves before t5, the cumulative deserved reward tokens are :</p>
+<p>rewards for msg.sender: <code>[t4 roundMask = (20/10) + (20/11)+ (20/11) + (20/11)] - [participantMask = (20/10)] = [rewards = (20/11)+ (20/11) + (20/11)]</code></p>
+<p>When the same participant joins the ecosystem at a later point (t27 or t35), a new 'participantMask' is given that is used to calculate the new deserved reward tokens when the participant exits. This process continues dynamically for each participant. </p>
+<p><code>tokensPerBlock</code>: the amount of tokens that will be released per block</p>
+<p><code>blockFreezeInterval</code>: the number of blocks that need to pass until the next mint. E.g. if set to 50 and 'n' tokens were minted at block 'b', the next 'n' tokens won't be minted until 'b + 50' blocks have passed</p>
+<p><code>lastMintedBlockNumber</code>: the block number on which last 'n' tokens were minted</p>
+<p><code>totalParticipants</code> : the total number of participants in the DApp network</p>
+<p><code>tokencontractAddress</code> : the contract address to which tokens will be minted, default is address(this) </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">
+pragma solidity ^0.5.2;
+
+import &quot;openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol&quot;;
+import &quot;openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol&quot;;
+
+contract Rewards is ERC20Mintable, ERC20Detailed {
+
+using SafeMath for uint256;
+
+uint256 public roundMask;
+uint256 public lastMintedBlockNumber;
+uint256 public totalParticipants = 0;
+uint256 public tokensPerBlock; 
+uint256 public blockFreezeInterval; 
+address public tokencontractAddress = address(this);
+mapping(address =&gt; uint256) public participantMask; 
+
+/**
+ * @dev constructor, initializes variables.
+ * @param _tokensPerBlock The amount of token that will be released per block, entered in wei format (E.g. 1000000000000000000)
+ * @param _blockFreezeInterval The amount of blocks that need to pass (E.g. 1, 10, 100) before more tokens are brought into the ecosystem.
+ */
+ constructor(uint256 _tokensPerBlock, uint256 _blockFreezeInterval) public ERC20Detailed(&quot;Simple Token&quot;, &quot;SIM&quot;, 18){ 
+lastMintedBlockNumber = block.number;
+tokensPerBlock = _tokensPerBlock;
+blockFreezeInterval = _blockFreezeInterval;
+}
+
+/**
+ * @dev Modifier to check if msg.sender is whitelisted as a minter. 
+ */
+modifier isAuthorized() {
+require(isMinter(msg.sender));
+_;
+}
+
+/**
+ * @dev Function to add participants in the network. 
+ * @param _minter The address that will be able to mint tokens.
+ * @return A boolean that indicates if the operation was successful.
+ */
+function addMinters(address _minter) external returns (bool) {
+_addMinter(_minter);
+totalParticipants = totalParticipants.add(1);
+updateParticipantMask(_minter);
+return true;
+}
+
+
+/**
+ * @dev Function to remove participants in the network. 
+ * @param _minter The address that will be unable to mint tokens.
+ * @return A boolean that indicates if the operation was successful.
+ */
+function removeMinters(address _minter) external returns (bool) {
+totalParticipants = totalParticipants.sub(1);
+_removeMinter(_minter); 
+return true;
+}
+
+
+/**
+ * @dev Function to introduce new tokens in the network. 
+ * @return A boolean that indicates if the operation was successful.
+ */
+function trigger() external isAuthorized returns (bool) {
+bool res = readyToMint();
+if(res == false) {
+return false;
+} else {
+mintTokens();
+return true;
+}
+}
+
+/**
+ * @dev Function to withdraw rewarded tokens by a participant. 
+ * @return A boolean that indicates if the operation was successful.
+ */
+function withdraw() external isAuthorized returns (bool) {
+uint256 amount = calculateRewards();
+require(amount &gt;0);
+ERC20(tokencontractAddress).transfer(msg.sender, amount);
+}
+
+/**
+ * @dev Function to check if new tokens are ready to be minted. 
+ * @return A boolean that indicates if the operation was successful.
+ */
+function readyToMint() public view returns (bool) {
+uint256 currentBlockNumber = block.number;
+uint256 lastBlockNumber = lastMintedBlockNumber;
+if(currentBlockNumber &gt; lastBlockNumber + blockFreezeInterval) { 
+return true;
+} else {
+return false;
+}
+}
+
+/**
+ * @dev Function to calculate current rewards for a participant. 
+ * @return A uint that returns the calculated rewards amount.
+ */
+function calculateRewards() private returns (uint256) {
+uint256 playerMask = participantMask[msg.sender];
+uint256 rewards = roundMask.sub(playerMask);
+updateParticipantMask(msg.sender);
+return rewards;
+}
+
+/**
+ * @dev Function to mint new tokens into the economy. 
+ * @return A boolean that indicates if the operation was successful.
+ */
+function mintTokens() private returns (bool) {
+uint256 currentBlockNumber = block.number;
+uint256 tokenReleaseAmount = (currentBlockNumber.sub(lastMintedBlockNumber)).mul(tokensPerBlock);
+lastMintedBlockNumber = currentBlockNumber;
+mint(tokencontractAddress, tokenReleaseAmount);
+calculateTPP(tokenReleaseAmount);
+return true;
+}
+
+ /**
+* @dev Function to calculate TPP (token amount per participant).
+* @return A boolean that indicates if the operation was successful.
+*/
+function calculateTPP(uint256 tokens) private returns (bool) {
+uint256 tpp = tokens.div(totalParticipants);
+updateRoundMask(tpp);
+return true;
+}
+
+ /**
+* @dev Function to update round mask. 
+* @return A boolean that indicates if the operation was successful.
+*/
+function updateRoundMask(uint256 tpp) private returns (bool) {
+roundMask = roundMask.add(tpp);
+return true;
+}
+
+ /**
+* @dev Function to update participant mask (store the previous round mask)
+* @return A boolean that indicates if the operation was successful.
+*/
+function updateParticipantMask(address participant) private returns (bool) {
+uint256 previousRoundMask = roundMask;
+participantMask[participant] = previousRoundMask;
+return true;
+}
+
+}
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>Currently, there is no standard for a scalable reward distribution mechanism. In order to create a sustainable cryptoeconomic environment within DAPPs, incentives play a large role. However, without a scalable way to distribute rewards to tens of thousands of participants, most DAPPs lack a good incentive structure. The ones with a sustainable cryptoeconomic environment depend heavily on centralized servers or a group of selective nodes to trigger the smart contracts. But, in order to keep an application truly decentralized, the reward distribution mechanism must depend on the active participants itself and scale as the number of participants grow. This is what this EIP intends to accomplish.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>Not Applicable. </p>
+<h2 id="test-cases">Test Cases</h2>
+<p>WIP, will be added.</p>
+<h2 id="implementation">Implementation</h2>
+<p>WIP, a proper implementation will be added later.A sample example is below: </p>
+<p><code>etherscan rewards contract</code> : https://ropsten.etherscan.io/address/0x8b0abfc541ab7558857816a67e186221adf887bc#tokentxns</p>
+<p><code>Step 1</code> : deploy Rewards contract with the following parameters_tokensPerBlock = 1e18, _blockFreezeInterval = 1</p>
+<p><code>Step 2</code> : add Alice(0x123) and Bob(0x456) as minters, addMinters(address _minter) </p>
+<p><code>Step 3</code> : call trigger() from Alice / Bob's account. 65 blocks are passed, hence 65 SIM tokens are minted. The RM is 32500000000000000000</p>
+<p><code>Step 4</code> : Alice withdraws and receives 32.5 SIM tokens (65 tokens / 2 participants) and her PM = 32500000000000000000 </p>
+<p><code>Step 5</code> : add Satoshi(0x321) and Vitalik(0x654) as minters, addMinters(address _minter) </p>
+<p><code>Step 6</code> : call trigger() from Alice / Bob's / Satoshi / Vitalik account. 101 blocks are passed, hence 101 SIM tokens are minted. The RM is 57750000000000000000</p>
+<p><code>Step 7</code> : Alice withdraws and receives 25.25 SIM tokens (101 tokens / 4 participants) and her PM = 57750000000000000000</p>
+<p><code>Step 8</code> : Bob withdraws and receives 57.75 SIM tokens ((65 tokens / 2 participants) + (101 tokens / 4 participants)). Bob's PM = 57750000000000000000</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via CC0.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>
+<p>Scalable Reward Distribution on the Ethereum Blockchain by Bogdan Batog, Lucian Boca and Nick Johnson</p>
+</li>
+<li>
+<p>Fomo3d DApp, https://fomo3d.hostedwiki.co/</p>
+</li>
+</ol>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1203: ERC-1203 Multi-Class Token Standard (ERC-20 Extension)</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1203.md" />
+<meta property="og:title" content="EIP-1203: ERC-1203 Multi-Class Token Standard (ERC-20 Extension)" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1203 (EIP-1203): ERC-1203 Multi-Class Token Standard (ERC-20 Extension)"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1203 (EIP-1203): ERC-1203 Multi-Class Token Standard (ERC-20 Extension)"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1203.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1203 (EIP 1203): ERC-1203 Multi-Class Token Standard (ERC-20 Extension)" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1203: ERC-1203 Multi-Class Token Standard (ERC-20 Extension)
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:jeffishjeff@gmail.com">Jeff Huang</a>,
+        
+    
+        
+        
+            <a href="mailto:crawlregister@gmail.com">Min Zu</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1203">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1203</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-07-01</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard interface for multi-class tokens (MCTs).</p>
+<h2 id="abstract">Abstract</h2>
+<p>The following standard allows for the implementation of a standard API for MCTs within smart contracts. This standard provides basic functionality to track, transfer, and convert MCTs.</p>
+<h2 id="motivation">Motivation</h2>
+<p>This standard is heavily inspired by ERC-20 Token Standard and ERC-721 Non-Fungible Token Standard. However, whereas these standards are chiefly concerned with representation of items/value in a single class, fungible or note, this proposed standard focus on that of a more complexed, multi-class system. It is fair to think of MCTs as a hybrid of fungible tokens (FT) and non-fungible tokens (NFTs), that is tokens are fungible within the same class but non-fungible with that from a different class. And conversions between classes may be optionally supported.</p>
+<p>MCTs are useful in representing various structures with heterogeneous components, such as:</p>
+<ul>
+<li>
+<p><strong>Abstract Concepts:</strong> A company may have different classes of stocks (e.g. senior preferred, junior preferred, class A common, class B common) that together make up its outstanding equities. A shareholder's position of such company composites of zero or more shares in each class.</p>
+</li>
+<li>
+<p><strong>Virtual Items:</strong> A sandbox computer game may have many types of resources (e.g. rock, wood, berries, cows, meat, knife, etc.) that together make up that virtual world. A player's inventory has any combination and quantity of these resources</p>
+</li>
+<li>
+<p><strong>Physical Items:</strong> A supermarket may have many SKUs it has available for purchase (e.g. eggs, milk, beef jerky, beer, etc.). Things get added or removed from a shopper's cart as it moves down the aisle.</p>
+</li>
+</ul>
+<p>It's sometimes possible, especially with regard to abstract concepts or virtual items, to convert from one class to another, at a specified conversion ratio. When it comes to physical items, such conversion essentially is the implementation of bartering. Though it might generally be easier to introduce a common intermediary class, i.e. money.</p>
+<h2 id="specification">Specification</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract ERC20 {
+    function totalSupply() public view returns (uint256);
+    function balanceOf(address _owner) public view returns (uint256);
+    function transfer(address _to, uint256 _value) public returns (bool);
+    function approve(address _spender, uint256 _value) public returns (bool);
+    function allowance(address _owner, address _spender) public view returns (uint256);
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool);
+
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
+}
+
+contract ERC1203 is ERC20 {
+    function totalSupply(uint256 _class) public view returns (uint256);
+    function balanceOf(address _owner, uint256 _class) public view returns (uint256);
+    function transfer(address _to, uint256 _class, uint256 _value) public returns (bool);
+    function approve(address _spender, uint256 _class, uint256 _value) public returns (bool);
+    function allowance(address _owner, address _spender, uint256 _class) public view returns (uint256);
+    function transferFrom(address _from, address _to, uint256 _class, uint256 _value) public returns (bool);
+
+    function fullyDilutedTotalSupply() public view returns (uint256);
+    function fullyDilutedBalanceOf(address _owner) public view returns (uint256);
+    function fullyDilutedAllowance(address _owner, address _spender) public view returns (uint256);
+    function convert(uint256 _fromClass, uint256 _toClass, uint256 _value) public returns (bool);
+
+    event Transfer(address indexed _from, address indexed _to, uint256 _class, uint256 _value);
+    event Approval(address indexed _owner, address indexed _spender, uint256 _class, uint256 _value);
+    event Convert(uint256 indexed _fromClass, uint256 indexed _toClass, uint256 _value);
+}
+</span></code></pre><h3 id="erc-20-methods-and-events-fully-compatible">ERC-20 Methods and Events (fully compatible)</h3>
+<p>Please see <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md">ERC-20 Token Standard</a> for detailed specifications. Do note that these methods and events only work on the &quot;default&quot; class of an MCT.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function totalSupply() public view returns (uint256);
+    function balanceOf(address _owner) public view returns (uint256);
+    function transfer(address _to, uint256 _value) public returns (bool);
+    function approve(address _spender, uint256 _value) public returns (bool);
+    function allowance(address _owner, address _spender) public view returns (uint256);
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool);
+
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
+</span></code></pre><h3 id="tracking-and-transferring">Tracking and Transferring</h3>
+<p><strong>totalSupply</strong></p>
+<p>Returns the total number of tokens in the specified <code>_class</code></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function totalSupply(uint256 _class) public view returns (uint256);
+</span></code></pre>
+<p><strong>balanceOf</strong></p>
+<p>Returns the number of tokens of a specified <code>_class</code> that the <code>_owner</code> has</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function balanceOf(address _owner, uint256 _class) public view returns (uint256);
+</span></code></pre>
+<p><strong>transfer</strong></p>
+<p>Transfer <code>_value</code> tokens of <code>_class</code> to address specified by <code>_to</code>, return <code>true</code> if successful</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function transfer(address _to, uint256 _class, uint256 _value) public returns (bool);
+</span></code></pre>
+<p><strong>approve</strong></p>
+<p>Grant <code>_spender</code> the right to transfer <code>_value</code> tokens of <code>_class</code>, return <code>true</code> if successful</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function approve(address _spender, uint256 _class, uint256 _value) public returns (bool);
+</span></code></pre>
+<p><strong>allowance</strong></p>
+<p>Return the number of tokens of <code>_class</code> that <code>_spender</code> is authorized to transfer on the behalf of <code>_owner</code></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function allowance(address _owner, address _spender, uint256 _class) public view returns (uint256);
+</span></code></pre>
+<p><strong>transferFrom</strong></p>
+<p>Transfer <code>_value</code> tokens of <code>_class</code> from address specified by <code>_from</code> to address specified by <code>_to</code> as previously approved, return <code>true</code> if successful</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function transferFrom(address _from, address _to, uint256 _class, uint256 _value) public returns (bool);
+</span></code></pre>
+<p><strong>Transfer</strong></p>
+<p>Triggered when tokens are transferred or created, including zero value transfers</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    event Transfer(address indexed _from, address indexed _to, uint256 _class, uint256 _value);
+</span></code></pre>
+<p><strong>Approval</strong></p>
+<p>Triggered on successful <code>approve</code></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    event Approval(address indexed _owner, address indexed _spender, uint256 _class, uint256 _value);
+</span></code></pre><h3 id="conversion-and-dilution">Conversion and Dilution</h3>
+<p><strong>fullyDilutedTotalSupply</strong></p>
+<p>Return the total token supply as if all converted to the lowest common denominator class</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function fullyDilutedTotalSupply() public view returns (uint256);
+</span></code></pre>
+<p><strong>fullyDilutedBalanceOf</strong></p>
+<p>Return the total token owned by <code>_owner</code> as if all converted to the lowest common denominator class</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function fullyDilutedBalanceOf(address _owner) public view returns (uint256);
+</span></code></pre>
+<p><strong>fullyDilutedAllowance</strong></p>
+<p>Return the total token <code>_spender</code> is authorized to transfer on behalf of <code>_owner</code> as if all converted to the lowest common denominator class</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function fullyDilutedAllowance(address _owner, address _spender) public view returns (uint256);
+</span></code></pre>
+<p><strong>convert</strong></p>
+<p>Convert <code>_value</code> of <code>_fromClass</code> to <code>_toClass</code>, return <code>true</code> if successful</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    function convert(uint256 _fromClass, uint256 _toClass, uint256 _value) public returns (bool);
+</span></code></pre>
+<p><strong>Conversion</strong></p>
+<p>Triggered on successful <code>convert</code></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    event Conversion(uint256 indexed _fromClass, uint256 indexed _toClass, uint256 _value);
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>This standard purposely extends ERC-20 Token Standard so that new MCTs following or existing ERC-20 tokens extending this standard are fully compatible with current wallets and exchanges. In addition, new methods and events are kept as closely to ERC-20 conventions as possible for ease of adoption.</p>
+<p>We have considered alternative implementations to support the multi-class structure, as discussed below, and we found current token standards incapable or inefficient in deal with such structures.</p>
+<p><strong>Using multiple ERC-20 tokens</strong></p>
+<p>It is certainly possible to create an ERC-20 token for each class, and a separate contract to coordinate potential conversions, but the short coming in this approach is clearly evident. The rationale behind this standard is to have a single contract to manage multiple classes of tokens.</p>
+<p><strong>Shoehorning ERC-721 token</strong></p>
+<p>Treating each token as unique, the non-fungible token standard offers maximum representational flexibility arguably at the expense of convenience. The main challenge of using ERC-721 to represent multi-class token is that separate logic is required to keep track of which tokens belongs to which class, a hacky and unnecessary endeavor.</p>
+<p><strong>Using ERC-1178 token</strong></p>
+<p>We came across ERC-1178 as we were putting final touches on our own proposal. The two ERCs look very similar on the surface but we believe there're a few key advantages this one has over ERC-1178.</p>
+<ul>
+<li>ERC-1178 offers no backward compatibility whereas this proposal is an extension of ERC-20 and therefore fully compatible with all existing wallets and exchanges</li>
+<li>By the same token, existing ERC-20 contracts can extend themselves to adopt this standard and support additional classes without affecting their current behaviors</li>
+<li>This proposal introduces the concept of cross class conversion and dilution, making each token class integral part of a whole system rather than many silos</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is fully compatible with the mandatory methods of ERC20 Token Standard so long as the implementation includes a &quot;lowest common denominator&quot; class, which may be class B common/gold coin/money in the abstract/virtual/physical examples above respectively. Where it is not possible to implement such class, then the implementation should specify a default class for tracking or transferring unless otherwise specified, e.g. US dollar is transferred unless other currency is explicitly specified.</p>
+<p>We find it contrived to require the optional methods of ERC20 Token Standard, <code>name()</code>, <code>symbol()</code>, and <code>decimals()</code>, but developers are certainly free to implement these as they wish.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>The repository at <a href="https://github.com/jeffishjeff/ERC-1203">jeffishjeff/ERC-1203</a> contains the <a href="https://github.com/jeffishjeff/ERC-1203/blob/master/token.test.js">sample test cases</a>.</p>
+<h2 id="implementation">Implementation</h2>
+<p>The repository at <a href="https://github.com/jeffishjeff/ERC-1203">jeffishjeff/ERC-1203</a> contains the <a href="https://github.com/jeffishjeff/ERC-1203/blob/master/token.sol">sample implementation</a>.</p>
+<h2 id="references">References</h2>
+<ul>
+<li>ERC-20 Token Standard. https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md</li>
+<li>ERC-721 Non-Fungible Token Standard. https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md</li>
+<li>ERC-1178 Multi-class Token Standard. https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1178.md</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-55: Mixed-case checksum address encoding</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-55.md" />
+<meta property="og:title" content="EIP-55: Mixed-case checksum address encoding" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 55 (EIP-55): Mixed-case checksum address encoding"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 55 (EIP-55): Mixed-case checksum address encoding"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-55.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 55 (EIP 55): Mixed-case checksum address encoding" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-55: Mixed-case checksum address encoding
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:vitalik.buterin@ethereum.org">Vitalik Buterin</a>,
+        
+    
+        
+        
+            <a href="mailto:avsa@ethereum.org">Alex Van de Sande</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2016-01-14</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h1 id="specification">Specification</h1>
+<p>Code:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">import </span><span style="color:#c0c5ce;">eth_utils
+
+
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">checksum_encode</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">addr</span><span style="color:#c0c5ce;">): </span><span style="color:#65737e;"># Takes a 20-byte binary address as input
+    </span><span style="color:#c0c5ce;">hex_addr = addr.</span><span style="color:#bf616a;">hex</span><span style="color:#c0c5ce;">()
+    checksummed_buffer = &quot;&quot;
+
+    </span><span style="color:#65737e;"># Treat the hex address as ascii/utf-8 for keccak256 hashing
+    </span><span style="color:#c0c5ce;">hashed_address = eth_utils.</span><span style="color:#bf616a;">keccak</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">text</span><span style="color:#c0c5ce;">=hex_addr).</span><span style="color:#bf616a;">hex</span><span style="color:#c0c5ce;">()
+
+    </span><span style="color:#65737e;"># Iterate over each character in the hex address
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">nibble_index, character </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">enumerate</span><span style="color:#c0c5ce;">(hex_addr):
+
+        </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">character in &quot;</span><span style="color:#a3be8c;">0123456789</span><span style="color:#c0c5ce;">&quot;:
+            </span><span style="color:#65737e;"># We can&#39;t upper-case the decimal digits
+            </span><span style="color:#c0c5ce;">checksummed_buffer += character
+        </span><span style="color:#b48ead;">elif </span><span style="color:#c0c5ce;">character in &quot;</span><span style="color:#a3be8c;">abcdef</span><span style="color:#c0c5ce;">&quot;:
+            </span><span style="color:#65737e;"># Check if the corresponding hex digit (nibble) in the hash is 8 or higher
+            </span><span style="color:#c0c5ce;">hashed_address_nibble = </span><span style="color:#bf616a;">int</span><span style="color:#c0c5ce;">(hashed_address[nibble_index], </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">hashed_address_nibble &gt; </span><span style="color:#d08770;">7</span><span style="color:#c0c5ce;">:
+                checksummed_buffer += character.</span><span style="color:#bf616a;">upper</span><span style="color:#c0c5ce;">()
+            </span><span style="color:#b48ead;">else</span><span style="color:#c0c5ce;">:
+                checksummed_buffer += character
+        </span><span style="color:#b48ead;">else</span><span style="color:#c0c5ce;">:
+            </span><span style="color:#b48ead;">raise </span><span style="color:#c0c5ce;">eth_utils.</span><span style="color:#bf616a;">ValidationError</span><span style="color:#c0c5ce;">(
+                </span><span style="color:#b48ead;">f</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">Unrecognized hex character </span><span style="color:#c0c5ce;">{character</span><span style="color:#b48ead;">!r</span><span style="color:#c0c5ce;">}</span><span style="color:#a3be8c;"> at position </span><span style="color:#c0c5ce;">{nibble_index}&quot;
+            )
+
+    </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">0x</span><span style="color:#c0c5ce;">&quot; + checksummed_buffer
+
+
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">test</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">addr_str</span><span style="color:#c0c5ce;">):
+    addr_bytes = eth_utils.</span><span style="color:#bf616a;">to_bytes</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">hexstr</span><span style="color:#c0c5ce;">=addr_str)
+    checksum_encoded = </span><span style="color:#bf616a;">checksum_encode</span><span style="color:#c0c5ce;">(addr_bytes)
+    </span><span style="color:#b48ead;">assert </span><span style="color:#c0c5ce;">checksum_encoded == addr_str, </span><span style="color:#b48ead;">f</span><span style="color:#c0c5ce;">&quot;{checksum_encoded}</span><span style="color:#a3be8c;"> != expected </span><span style="color:#c0c5ce;">{addr_str}&quot;
+
+
+</span><span style="color:#bf616a;">test</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed</span><span style="color:#c0c5ce;">&quot;)
+</span><span style="color:#bf616a;">test</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359</span><span style="color:#c0c5ce;">&quot;)
+</span><span style="color:#bf616a;">test</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB</span><span style="color:#c0c5ce;">&quot;)
+</span><span style="color:#bf616a;">test</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb</span><span style="color:#c0c5ce;">&quot;)
+
+</span></code></pre>
+<p>In English, convert the address to hex, but if the <code>i</code>th digit is a letter (ie. it's one of <code>abcdef</code>) print it in uppercase if the <code>4*i</code>th bit of the hash of the lowercase hexadecimal address is 1 otherwise print it in lowercase.</p>
+<h1 id="rationale">Rationale</h1>
+<p>Benefits:</p>
+<ul>
+<li>Backwards compatible with many hex parsers that accept mixed case, allowing it to be easily introduced over time</li>
+<li>Keeps the length at 40 characters</li>
+<li>On average there will be 15 check bits per address, and the net probability that a randomly generated address if mistyped will accidentally pass a check is 0.0247%. This is a ~50x improvement over ICAP, but not as good as a 4-byte check code.</li>
+</ul>
+<h1 id="implementation">Implementation</h1>
+<p>In javascript:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">const </span><span style="color:#bf616a;">createKeccakHash </span><span style="color:#c0c5ce;">= </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">keccak</span><span style="color:#c0c5ce;">&#39;)
+
+</span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">toChecksumAddress </span><span style="color:#c0c5ce;">(address) {
+  </span><span style="color:#bf616a;">address </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">toLowerCase</span><span style="color:#c0c5ce;">().</span><span style="color:#bf616a;">replace</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">0x</span><span style="color:#c0c5ce;">&#39;, &#39;&#39;)
+  </span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">hash </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">createKeccakHash</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">keccak256</span><span style="color:#c0c5ce;">&#39;).</span><span style="color:#bf616a;">update</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">digest</span><span style="color:#c0c5ce;">(&#39;</span><span style="color:#a3be8c;">hex</span><span style="color:#c0c5ce;">&#39;)
+  </span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">ret </span><span style="color:#c0c5ce;">= &#39;</span><span style="color:#a3be8c;">0x</span><span style="color:#c0c5ce;">&#39;
+
+  </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">i </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; </span><span style="color:#bf616a;">i </span><span style="color:#c0c5ce;">&lt; </span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">.length; </span><span style="color:#bf616a;">i</span><span style="color:#c0c5ce;">++) {
+    </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">(</span><span style="color:#96b5b4;">parseInt</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">hash</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">i</span><span style="color:#c0c5ce;">], </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">) &gt;= </span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">) {
+      </span><span style="color:#bf616a;">ret </span><span style="color:#c0c5ce;">+= </span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">i</span><span style="color:#c0c5ce;">].</span><span style="color:#bf616a;">toUpperCase</span><span style="color:#c0c5ce;">()
+    } </span><span style="color:#b48ead;">else </span><span style="color:#c0c5ce;">{
+      </span><span style="color:#bf616a;">ret </span><span style="color:#c0c5ce;">+= </span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">i</span><span style="color:#c0c5ce;">]
+    }
+  }
+
+  </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">ret
+</span><span style="color:#c0c5ce;">}
+</span></code></pre><pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">&gt; toChecksumAddress(&#39;0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359&#39;)
+&#39;0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359&#39;
+</span></code></pre>
+<p>Note that the input to the Keccak256 hash is the lowercase hexadecimal string (i.e. the hex address encoded as ASCII):</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    var hash = createKeccakHash(&#39;keccak256&#39;).update(Buffer.from(address.toLowerCase(), &#39;ascii&#39;)).digest()
+</span></code></pre><h1 id="test-cases">Test Cases</h1>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;"># All caps
+0x52908400098527886E0F7030069857D2E4169EE7
+0x8617E340B3D01FA5F11F306F4090FD50E238070D
+# All Lower
+0xde709f2102306220921060314715629080e2fb77
+0x27b1fdb04752bbc536007a920d24acb045561c26
+# Normal
+0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed
+0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359
+0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB
+0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb
+</span></code></pre><h1 id="adoption">Adoption</h1>
+<table><thead><tr><th>Wallet</th><th>displays checksummed addresses</th><th>rejects invalid mixed-case</th><th>rejects too short</th><th>rejects too long</th></tr></thead><tbody>
+<tr><td>Etherwall 2.0.1</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Jaxx 1.2.17</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>MetaMask 3.7.8</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Mist 0.8.10</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>MyEtherWallet v3.9.4</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Parity 1.6.6-beta (UI)</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Jaxx Liberty 2.0.0</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Coinomi 1.10</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Trust Wallet</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+</tbody></table>
+<h3 id="exchange-support-for-mixed-case-address-checksums-as-of-2017-05-27">Exchange support for mixed-case address checksums, as of 2017-05-27:</h3>
+<table><thead><tr><th>Exchange</th><th>displays checksummed deposit addresses</th><th>rejects invalid mixed-case</th><th>rejects too short</th><th>rejects too long</th></tr></thead><tbody>
+<tr><td>Bitfinex</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Coinbase</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>GDAX</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Kraken</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Poloniex</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Shapeshift</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+</tbody></table>
+<h1 id="references">References</h1>
+<ol>
+<li>EIP 55 issue and discussion https://github.com/ethereum/eips/issues/55</li>
+<li>Python example by @Recmo https://github.com/ethereum/eips/issues/55#issuecomment-261521584</li>
+<li>Python implementation in <a href="https://github.com/pipermerriam/ethereum-utils#to_checksum_addressvalue---text"><code>ethereum-utils</code></a></li>
+<li>Ethereumjs-util implementation https://github.com/ethereumjs/ethereumjs-util/blob/75f529458bc7dc84f85fd0446d0fac92d991c262/index.js#L452-L466</li>
+<li>Swift implementation in <a href="https://github.com/yuzushioh/EthereumKit/blob/master/EthereumKit/Helper/EIP55.swift"><code>EthereumKit</code></a></li>
+<li>Kotlin implementation in <a href="https://github.com/walleth/kethereum/tree/master/erc55"><code>KEthereum</code></a></li>
+</ol>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1571: EthereumStratum&amp;#x2F;2.0.0</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1571.md" />
+<meta property="og:title" content="EIP-1571: EthereumStratum&amp;#x2F;2.0.0" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1571 (EIP-1571): EthereumStratum&amp;#x2F;2.0.0"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1571 (EIP-1571): EthereumStratum&amp;#x2F;2.0.0"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1571.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1571 (EIP 1571): EthereumStratum&amp;#x2F;2.0.0" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1571: EthereumStratum&#x2F;2.0.0
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/AndreaLanfranchi">Andrea Lanfranchi</a>,
+        
+    
+        
+        
+            <a href="https://github.com/chfast"> Pawel Bylica</a>,
+        
+    
+        
+        
+            <a href="https://github.com/MariusVanDerWijden"> Marius Van Der Wijden</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;AndreaLanfranchi&#x2F;EthereumStratum-2.0.0&#x2F;issues">https:&#x2F;&#x2F;github.com&#x2F;AndreaLanfranchi&#x2F;EthereumStratum-2.0.0&#x2F;issues</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Interface</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-11-09</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This draft contains the guidelines to define a new standard for the Stratum protocol used by Ethereum miners to communicate with mining pool servers.</p>
+<h3 id="conventions">Conventions</h3>
+<p>The key words <code>MUST</code>, <code>MUST NOT</code>, <code>REQUIRED</code>, <code>SHALL</code>, <code>SHALL NOT</code>, <code>SHOULD</code>, <code>SHOULD NOT</code>, <code>RECOMMENDED</code>, <code>MAY</code>, and <code>OPTIONAL</code> in this document are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">RFC 2119</a>.
+The definition <code>mining pool server</code>, and it's plural form, is to be interpreted as <code>work provider</code> and later in this document can be shortened as <code>pool</code> or <code>server</code>.
+The definition <code>miner(s)</code>, and it's plural form, is to be interpreted as <code>work receiver/processor</code> and later in this document can be shortened as <code>miner</code> or <code>client</code>.</p>
+<h3 id="rationale">Rationale</h3>
+<p>Ethereum does not have an official Stratum implementation yet. It officially supports only getWork which requires miners to constantly pool the work provider. Only recently go-ethereum have implemented a <a href="https://github.com/ethereum/go-ethereum/pull/17347">push mechanism</a> to notify clients for mining work, but whereas the vast majority of miners do not run a node, it's main purpose is to facilitate mining pools rather than miners.
+The Stratum protocol on the other hand relies on a standard stateful TCP connection which allows two-way exchange of line-based messages. Each line contains the string representation of a JSON object following the rules of either <a href="https://www.jsonrpc.org/specification_v1">JSON-RPC 1.0</a> or <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0</a>.
+Unfortunately, in absence of a well defined standard, various flavours of Stratum have bloomed for Ethereum mining as a derivative work for different mining pools implementations. The only attempt to define a standard was made by NiceHash with their <a href="https://github.com/nicehash/Specifications/blob/master/EthereumStratum_NiceHash_v1.0.0.txt">EthereumStratum/1.0.0</a> implementation which is the main source this work inspires from.
+Mining activity, thus the interaction among pools and miners, is at it's basics very simple, and can be summarized with &quot;<em>please find a number (nonce) which coupled to this data as input for a given hashing algorithm produces, as output, a result which is below a certain target</em>&quot;. Other messages which may or have to be exchanged among parties during a session are needed to support this basic concept.
+Due to the simplicity of the subject, the proponent, means to stick with JSON formatted objects rather than investigating more verbose solutions, like for example  <a href="https://developers.google.com/protocol-buffers/docs/overview">Google's Protocol Buffers</a> which carry the load of strict object definition.</p>
+<h3 id="stratum-design-flaws">Stratum design flaws</h3>
+<p>The main Stratum design flaw is the absence of a well defined standard. This implies that miners (and mining software developers) have to struggle with different flavours which make their life hard when switching from one pool to another or even when trying to &quot;guess&quot; which is the flavour implemented by a single pool. Moreover all implementations still suffer from an excessive verbosity for a chain with a very small block time like Ethereum. A few numbers may help understand. A normal <code>mining.notify</code> message weigh roughly 240 bytes: assuming the dispatch of 1 work per block to an audience of 50k connected TCP sockets means the transmission of roughly 1.88TB of data a month. And this can be an issue for large pools. But if we see the same figures the other way round, from a miner's perspective, we totally understand how mining decentralization is heavily affected by the quality of internet connections.</p>
+<h3 id="sources-of-inspiration">Sources of inspiration</h3>
+<ul>
+<li><a href="https://github.com/nicehash/Specifications/blob/master/EthereumStratum_NiceHash_v1.0.0.txt">NiceHash EthereumStratum/1.0.0</a></li>
+<li><a href="https://github.com/zcash/zips/blob/23d74b0373c824dd51c7854c0e3ea22489ba1b76/drafts/str4d-stratum/draft1.rst#json-rpc-1-0">Zcash variant of the Stratum protocol</a></li>
+</ul>
+<h2 id="specification">Specification</h2>
+<p>The Stratum protocol is an instance of <a href="https://www.jsonrpc.org/specification">JSON-RPC-2.0</a>. The miner is a JSON-RPC client, and the server is a JSON-RPC server. All communications exist within the scope of a <code>session</code>. A session starts at the moment a client opens a TCP connection to the server till the moment either party do voluntary close the very same connection or it gets broken. Servers <strong>MAY</strong> support session resuming if this is initially negotiated (on first session handshaking) between the client and the server. During a session all messages exchanged among server and client are line-based which means all messages are JSON strings terminated by ASCII LF character (which may also be denoted as <code>\n</code> in this document). The LF character <strong>MUST NOT</strong> appear elsewhere in a message. Client and server implementations <strong>MUST</strong> assume that once they read a LF character, the current message has been completely received and can be processed.
+Line messages are of three types :</p>
+<ul>
+<li><code>Requests</code> : messages for which the issuer expects a response. The receiver <strong>MUST</strong> reply back to any request individually</li>
+<li><code>Responses</code> : solicited messages by a previous request. The responder <strong>MUST</strong> label the response with the same identifier of the originating request.</li>
+<li><code>Notifications</code> : unsolicited messages for which the issuer is not interested nor is expecting a response. Nevertheless a response (eg. an aknowledgement) <strong>MAY</strong> be sent by the receiver.</li>
+</ul>
+<p>During a <code>session</code> both parties <strong>CAN</strong> exchange messages of the above depicted three types.</p>
+<h3 id="json-rpc-2-0-compliances">JSON-RPC-2.0 Compliances</h3>
+<p>As per <a href="https://www.jsonrpc.org/specification">JSON-RPC-2.0</a> specification requests and responses differ from notifications by the identifier (<code>id</code>) member in the JSON object: </p>
+<ul>
+<li>Requests <strong>MUST</strong> have an <code>id</code> member</li>
+<li>Responses <strong>MUST</strong> have an <code>id</code> member valued exactly as the <code>id</code> member of the request this response is for</li>
+<li>Notifications <strong>MUST NOT</strong> have an <code>id</code> member</li>
+</ul>
+<h3 id="json-rpc-2-0-defiances">JSON-RPC-2.0 Defiances</h3>
+<p>In order to get the most concise messages among parties of a session/conversation this implementation enforces the following defiances :</p>
+<ul>
+<li>JSON member <code>jsonrpc</code> (always valued to &quot;2.0&quot;) <strong>MUST ALWAYS BE OMITTED</strong></li>
+<li>JSON member <code>id</code> <strong>MUST NOT</strong> be <code>null</code>. When member is present, mandatorily in requests and responses, it <strong>MUST</strong> be valued to an integer Number ranging from 0 to 65535. Please note that a message with <code>&quot;id&quot;: 0</code> <strong>MUST NOT</strong> be interpreted as a notification: it's a request with identifier 0</li>
+<li>JSON member <code>id</code> <strong>MUST</strong> be only of type primitive number. The removal of other identifier types (namely strings) is due to the need to reduce the number of bytes transferred.</li>
+</ul>
+<h2 id="conventions-1">Conventions</h2>
+<ul>
+<li>The representation of a JSON object is, at it's base, a string </li>
+<li>The conversation among the client and the server is made of strings. Each string ending with a LF (ASCII char 10) denotes a <code>line</code>. Each line <strong>MUST</strong> contain only one JSON root object. Eventually the root object <strong>MAY</strong> contain additional JSON objects in it's members.</li>
+<li>Aside the <code>LF</code> delimiter each <code>line</code> <strong>MUST</strong> be made of printable ASCII chars in the range 32..126</li>
+<li>It's implicit and mandatory that each line message corresponds to a well formatted JSON object: see <a href="https://www.json.org/">JSON documentation</a></li>
+<li>JSON objects are made of <code>members</code> which can be of type : primitive of string/number, JSON object, JSON arrays</li>
+<li>JSON <code>member</code>'s names are strings which <strong>MUST</strong> be composed of printable chars only in the ASCII range 48..57 (numbers) and 97..122 (lower case letters).</li>
+<li>JSON <code>member</code>'s names <strong>MUST NOT</strong> begin with a number.</li>
+<li>JSON values <code>arrays</code> : although the JSON notation allows the insertion of different data types within the same array, this behavior is generally not accepted in coding languages. Due to this, by the means of EthereumStratum/2.0.0, all implementers <strong>MUST</strong> assume that an array is made of elements of the very same data type.</li>
+<li>JSON values <code>booleans</code> : the JSON notation allows to express boolean values as <code>true</code> or <code>false</code>. In EthereumStratum/2.0.0, for better compatibility within arrays, boolean values will be expressed in the hex form of &quot;0&quot; (false) or &quot;1&quot; (true)</li>
+<li>JSON values <code>strings</code> : any string value <strong>MUST</strong> be composed of printable ASCII chars only in the ASCII range 32..126. Each string is delimited by a <code>&quot;</code> (ASCII 34) at the beginning and at the end. Should the string value contain a <code>&quot;</code> this must be escaped as <code>\&quot;</code></li>
+<li>Hex values : a Hexadecimal representation of a number is actually a string data type. As a convention, and to reduce the number of transmitted bytes, the prefix &quot;0x&quot; <strong>MUST</strong> always be omitted. In addition any hex number <strong>MUST</strong> be transferred only for their significant part i.e. the non significant zeroes <strong>MUST</strong> be omitted (example : the decimal <code>456</code> must be represented as <code>&quot;1c8&quot;</code> and not as <code>&quot;01c8&quot;</code> although the conversion produces the same decimal value). This directive <strong>DOES NOT APPLY</strong> to hashes and extranonces</li>
+<li>Hex values casing : all letters in Hexadecimal values <strong>MUST</strong> be lower case. (example : the decimal <code>456</code> must be represented as <code>&quot;1c8&quot;</code> and not as <code>&quot;1C8&quot;</code> although the conversion produces the same decimal value). This directive <strong>DOES NOT APPLY</strong> to hashes.</li>
+<li>Numbers : any non-fractional number <strong>MUST</strong> be transferred by it's hexadecimal representation</li>
+</ul>
+<h3 id="requests">Requests</h3>
+<p>The JSON representation of <code>request</code> object is made of these parts:</p>
+<ul>
+<li>mandatory <code>id</code> member of type Integer : the identifier established by the issuer</li>
+<li>mandatory <code>method</code> member of type String : the name of the method to be invoked on the receiver side</li>
+<li>optional <code>params</code> member : in case the method invocation on the receiver side requires the application of additional parameters to be executed. The type <strong>CAN</strong> be Object (with named members of different types) or Array of single type. In case of an array the parameters will be applied by their ordinal position. If the method requested for invocation on the receiver side does not require the application of additional parameters this member <strong>MUST NOT</strong> be present. The notation <code>&quot;params&quot; : null</code> <strong>IS NOT PERMITTED</strong></li>
+</ul>
+<h3 id="responses">Responses</h3>
+<p>The JSON representation of <code>response</code> object is made of these parts:</p>
+<ul>
+<li>mandatory <code>id</code> member of type Integer : the identifier of the request this response corresponds to</li>
+<li>optional <code>error</code> member : whether an error occurred during the parsing of the method or during it's execution this member <strong>MUST</strong> be present and valued. If no errors occurred this member <strong>MUST NOT</strong> be present. For a detailed structure of the <code>error</code> member see below.</li>
+<li>optional <code>result</code> member : This has to be set, if the corresponding request requires a result from the user. If no errors occurred by invoking the corresponding function, this member <strong>MUST</strong> be present even if one or more information are null. The type can be of Object or single type Array or Primitive string/number. If no data is meant back for the issuer (the method is void on the receiver) or an error occurred this member <strong>MUST NOT</strong> be present.</li>
+</ul>
+<p>You'll notice here some differences with standard JSON-RPC-2.0. Namely the result member is not always required. Basically a response like this :</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{&quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">}
+</span></code></pre>
+<p>means &quot;request received and processed correctly with no data to send back&quot;.</p>
+<p>To better clarify the concept and clear the field of free interpretations let's take another example of <strong>wrong response</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{&quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">false</span><span style="color:#c0c5ce;">}
+</span></code></pre>
+<p>This response syntax leaves room to many interpretations : is it an error ? is <code>false</code> the legit response value to the issued request ?</p>
+<p>For this reason responses, we reiterate, <strong>MUST BE</strong> of two types:</p>
+<ul>
+<li>success responses : no error occurred during the processing, the request was legit, syntactically correct, and the receiver had no issues processing it. This kind of responses <strong>MUST NOT</strong> have the <code>error</code> member and <strong>MAY</strong> have the <code>result</code> member if a value is expected back to the issuer.</li>
+<li>failure responses : something wrong with the request, it's syntax, it's validity scope, or server processing problems. This kind of responses <strong>MUST HAVE</strong> the <code>error</code> member and <strong>MAY</strong> have the <code>result</code> member.</li>
+</ul>
+<p>The latter deserves a better explanation: failure responses can be distinguished by a severity degree. 
+Example 1 : a client submits a solution and server rejects it cause it's not below target. Server <strong>MUST</strong> respond like this</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">31</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">error</span><span style="color:#c0c5ce;">&quot;: {
+      &quot;</span><span style="color:#a3be8c;">code</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">406</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">Bad nonce</span><span style="color:#c0c5ce;">&quot;
+  }
+}
+</span></code></pre>
+<p>Example 2 : a client submits a solution and server <strong>accepts</strong> it <strong>but</strong> it accounts the share as stale. Server <strong>MUST</strong> respond like this</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">31</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">error</span><span style="color:#c0c5ce;">&quot;: {
+      &quot;</span><span style="color:#a3be8c;">code</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">202</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">Stale</span><span style="color:#c0c5ce;">&quot;
+  }
+}
+</span></code></pre>
+<p>Example 3 : a client submits an authorization request specifying an invalid workername. Server authorizes the account but rejects worker name. Server <strong>MUST</strong> respond like this</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">error</span><span style="color:#c0c5ce;">&quot;: {
+      &quot;</span><span style="color:#a3be8c;">code</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">215</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">Invalid Worker Name</span><span style="color:#c0c5ce;">&quot;
+  }
+}
+</span></code></pre>
+<p>Example 1 depicts the condition of a severe failure while Example 2 and 3 depict a situation where the request has been accepted and processed properly but the result <strong>MAY NOT</strong> be what expected by the client.
+It's up to the client to evaluate the severity of the error and decide whether to proceed or not.</p>
+<p>Using proper error codes pools may properly inform miners of the condition of their requests. Error codes <strong>MUST</strong> honor this scheme:</p>
+<ul>
+<li>Error codes 2xx : request accepted and processed but some additional info in the <code>error</code> member may give hint</li>
+<li>Error codes 3xx : server could not process the request due to a lack of authorization by the client</li>
+<li>Error codes 4xx : server could not process the request due to syntactic problems (method not found, missing params, wrong data types ecc.) or passed <code>param</code> values are not valid.</li>
+<li>Error codes 5xx : server could not process the request due to internal errors</li>
+</ul>
+<h3 id="notifications">Notifications</h3>
+<p>A notification message has the very same representation of a <code>request</code> with the only difference the <code>id</code> member <strong>MUST NOT</strong> be present. This means the issuer is not interested nor expects any response to this message. It's up to the receiver to take actions accordingly. For instance the receiver <strong>MAY</strong> decide to execute the method, or, in case of errors or methods not allowed, drop the connection thus closing the session.</p>
+<h4 id="error-member">Error member</h4>
+<p>As seen above a <code>response</code> <strong>MAY</strong> contain an <code>error</code> member. When present this member <strong>MUST</strong> be an Object with:</p>
+<ul>
+<li>mandatory member <code>code</code> : a Number which identifies the error occurred</li>
+<li>mandatory member <code>message</code> : a short human readable sentence describing the error occurred</li>
+<li>optional member <code>data</code> : a Structured or Primitive value that contains additional information about the error. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).</li>
+</ul>
+<h2 id="protocol-flow">Protocol Flow</h2>
+<ul>
+<li>Client starts session by opening a TCP socket to the server</li>
+<li>Client advertises and request protocol compatibility</li>
+<li>Server confirms compatibility and declares ready</li>
+<li>Client starts/resumes a session</li>
+<li>Client sends request for authorization for each of it's workers</li>
+<li>Server replies back with responses for each authorization</li>
+<li>Server sends <code>mining.set</code> for constant values to be adopted for following mining jobs</li>
+<li>Server sends <code>mining.notify</code> with minimal job info</li>
+<li>Client mines on job</li>
+<li>Client sends <code>mining.submit</code> if any solution found for the job</li>
+<li>Server replies whether solution is accepted</li>
+<li>Server optionally sends <code>mining.set</code> for constant values to be adopted for following mining jobs (if something changed)</li>
+<li>Server sends <code>mining.notify</code> with minimal job info</li>
+<li>... (continue)</li>
+<li>Eventually either party closes session and TCP connection</li>
+</ul>
+<h3 id="session-handling-hello">Session Handling - Hello</h3>
+<p><del>One of the worst annoyances until now is that server, at the very moment of socket connection, does not provide any useful information about the stratum flavour implemented. This means the client has to start a conversation by iteratively trying to connect via different protocol flavours. This proposal amends the situation making mandatory for the server to advertise itself to the client. 
+When a new client connects to the server, the server <strong>MUST</strong> send a <code>mining.hello</code> notification :</del></p>
+<p>It's been noted that charging the server of the duty to advertise itself as first message of the conversation could potentially be harmful in respect of traffic amplification attacks using spoofed IP addresses or in traditional DDos attacks where an attacker need to spend very little resources to force the server to send a large packet back.
+For this reason the duty of first advertisement is kept on client which will issue a <code>mining.hello</code> request like this:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot; : </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.hello</span><span style="color:#c0c5ce;">&quot;, 
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: 
+  { 
+    &quot;</span><span style="color:#a3be8c;">agent</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">ethminer-0.17</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">host</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">somemininigpool.com</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">port</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">4d2</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">proto</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">EthereumStratum/2.0.0</span><span style="color:#c0c5ce;">&quot;
+  }
+}
+</span></code></pre>
+<p>The <code>params</code> member object has these mandatory members:</p>
+<ul>
+<li><code>agent</code> (string) the mining software version</li>
+<li><code>host</code> (string) the host name of the server this client is willing to connect to</li>
+<li><code>port</code> (hex) the port number of the server this client is willing to connect to</li>
+<li><code>proto</code> (string) which reports the stratum flavour requested and expected to be implemented by the server;</li>
+</ul>
+<p>The rationale behind sending host and port is it enables virtual hosting, where virtual pools or private URLs might be used for DDoS protection, but that are aggregated on Stratum server backends. As with HTTP, the server CANNOT trust the host string. The port is included separately to parallel the client.reconnect method (see below).</p>
+<p>If the server is prepared to start/resume a session with such requirements it <strong>MUST</strong> reply back with a response like this:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot; : </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot;: 
+  { 
+    &quot;</span><span style="color:#a3be8c;">proto</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">EthereumStratum/2.0.0</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">encoding</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">gzip</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">resume</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">1</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">timeout</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">b4</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">maxerrors</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">5</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">node</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">Geth/v1.8.18-unstable-f08f596a/linux-amd64/go1.10.4</span><span style="color:#c0c5ce;">&quot;
+  } 
+}
+</span></code></pre>
+<p>Where the <code>result</code> is an object made of 5 mandatory members</p>
+<ul>
+<li><code>proto</code> (string) which <strong>MUST</strong> match the exact version requested by the client</li>
+<li><code>encoding</code> (string) which value states whether or not all <strong>next messages</strong> should be gzip compressed or not. Possible values are &quot;gzip&quot; or &quot;plain&quot;</li>
+<li><code>resume</code> (hex) which value states whether or not the host can resume a previously created session;</li>
+<li><code>timeout</code> (hex) which reports the number of seconds after which the server is allowed to drop connection if no messages from the client</li>
+<li><code>maxerrors</code> (hex) the maximum number of errors the server will bear before abruptly close connection</li>
+<li><code>node</code> (string) the node software version underlying the pool</li>
+</ul>
+<p>When the server replies back with <code>&quot;encoding&quot; : &quot;gzip&quot;</code> to the client, both parties <strong>MUST</strong> gzip compress all next messages. In case the client is not capable of compression it <strong>MUST</strong> close the connection immediately.
+Should the server, after this reply, receive other messages as plain text, it <strong>MUST</strong> close the connection.</p>
+<p>Eventually the client will continue with <code>mining.subscribe</code> (further on descripted)</p>
+<p>Otherwise, in case of errors or rejection to start the conversation, the server <strong>MAY</strong> reply back with an error giving the other party useful information or, at server's maintainers discretion, abruptly close the connection.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot; : </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">error</span><span style="color:#c0c5ce;">&quot;: 
+  { 
+      &quot;</span><span style="color:#a3be8c;">code</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">400</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">Bad protocol request</span><span style="color:#c0c5ce;">&quot;
+  } 
+}
+</span></code></pre>
+<p>or </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot; : </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">error</span><span style="color:#c0c5ce;">&quot;: 
+  { 
+      &quot;</span><span style="color:#a3be8c;">code</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">403</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">Forbidden - Banned IP address</span><span style="color:#c0c5ce;">&quot;
+  } 
+}
+</span></code></pre>
+<p><em>The above two JSON error values are only samples</em>
+Eventually the server will close the connection.</p>
+<p>Why a pool should advertise the node's version ? It's a matter of transparency : miners should know whether or not pool have upgraded to latest patches/releases for node's software.</p>
+<h3 id="session-handling-bye">Session Handling - Bye</h3>
+<p>Disconnection are not gracefully handled in Stratum. Client disconnections from pool may be due to several errors and this leads to waste of TCP sockets on server's side which wait for keepalive timeouts to trigger. A useful notification is <code>mining.bye</code> which, once processed, allows both parties of the session to stop receiving and gracefully close TCP connections</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.bye</span><span style="color:#c0c5ce;">&quot;
+}
+</span></code></pre>
+<p>The party receiving this message aknowledges the other party wants to stop the conversation and closes the socket. The issuer will close too. The explicit issuance of this notification implies the session gets abandoned so no session resuming will be possible even on server which support session-resuming. Client reconnecting to the same server which implements session resuming <strong>SHOULD</strong> expect a new session id and <strong>MUST</strong> re-authorize all their workers.</p>
+<h3 id="session-handling-session-subscription">Session Handling - Session Subscription</h3>
+<p>After receiving the response to <code>mining.hello</code> from server, the client, in case the server does support session resuming <strong>MAY</strong> request to resume a previously interrupted session with <code>mining.subscribe</code> request:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.subscribe</span><span style="color:#c0c5ce;">&quot;, 
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">s-12345</span><span style="color:#c0c5ce;">&quot;
+}
+</span></code></pre>
+<p>where <code>params</code> is the id of the session the client wants to resume.</p>
+<p>Otherwise, if client wants to start a new session <strong>OR</strong> server does not support session resuming, the request of subscription <strong>MUST</strong> omit the <code>params</code> member:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.subscribe</span><span style="color:#c0c5ce;">&quot;
+}
+</span></code></pre><h3 id="session-handling-response-to-subscription">Session Handling - Response to Subscription</h3>
+<p>A server receiving a client session subscription <strong>MUST</strong> reply back with</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">s-12345</span><span style="color:#c0c5ce;">&quot;
+}
+</span></code></pre>
+<p>A server receiving a subscription request with <code>params</code> being a string holding the session id. This cases may apply</p>
+<ul>
+<li>If session resuming is not supported <code>result</code> will hold a new session Id which <strong>MUST</strong> be a different value from the <code>session</code> member issued by client in previous <code>mining.subscribe</code> method </li>
+<li>If session resuming is supported it will retrieve working values from cache and <code>result</code> will have the same id requested by the client. This means a session is &quot;resumed&quot;: as a consequence the server <strong>CAN</strong> start pushing jobs omitting to precede them with <code>mining.set</code> (see below) and the client <strong>MUST</strong> continue to use values lastly received within the same session scope. In addition the client <strong>CAN</strong> omit to re-authorize all it's workers.</li>
+<li>If session resuming is supported but the requested session has expired or it's cache values have been purged <code>result</code> will hold a new session Id which <strong>MUST</strong> be a different value from the <code>session</code> member issued by client in previous <code>mining.subscribe</code> method. As a consequence the server <strong>MUST</strong> wait for client to request authorization for it's workers and <strong>MUST</strong> send <code>mining.set</code> values before pushing jobs. The client <strong>MUST</strong> prepare for a new session discarding all previously cached values (if any).</li>
+</ul>
+<p>A server implementing session-resuming <strong>MUST</strong> cache :</p>
+<ul>
+<li>The session Ids</li>
+<li>Any active job per session</li>
+<li>The extraNonce</li>
+<li>Any authorized worker</li>
+</ul>
+<p>Servers <strong>MAY</strong> drop entries from the cache on their own schedule. It's up to server to enforce session validation for same agent and/or ip.</p>
+<p>A client which successfully subscribes and resumes session (the <code>session</code> value in server response is identical to <code>session</code> value requested by client on <code>mining.subscribe</code>) <strong>CAN</strong> omit to issue the authorization request for it's workers.</p>
+<h3 id="session-handling-noop">Session Handling - Noop</h3>
+<p>There are cases when a miner struggles to find a solution in a reasonable time so it may trigger the timeout imposed by the server in case of no communications (the server, in fact, may think the client got disconnected). To mitigate the problem a new method <code>mining.noop</code>(with no additional parameters) may be requested by the client. </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">50</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.noop</span><span style="color:#c0c5ce;">&quot;
+}
+</span></code></pre><h3 id="session-handling-reconnect">Session Handling - Reconnect</h3>
+<p>Under certain circumstances the server may need to free some resources and or to relocate miners to another machine. Until now the only option for servers was to abruptly close the connection. On the miner's side this action is interpreted as a server malfunction and they, more often than not, switch to a failover pool. 
+The implementation of the notification <code>mining.reconnect</code> helps client to better merge with logic of handling of large mining pools. </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.reconnect</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {
+      &quot;</span><span style="color:#a3be8c;">host</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">someotherhost.com</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">port</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">d80</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">resume</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">1</span><span style="color:#c0c5ce;">&quot;
+  }
+}
+</span></code></pre>
+<p>This notification is meant only from servers to clients. Should a server receive such a notification it will simply ignore it. After the notification has been properly sent, the server is ALLOWED to close the connection, while the client will take the proper actions to reconnect to the suggested end-point.
+The <code>host</code> member in <code>params</code> object <strong>SHOULD</strong> report an host DNS name and not an IP address: TLS encrypted connections require to validate the CN name in the certificate which, 99% of the cases, is an host name. 
+The third member <code>resume</code> of the <code>params</code> object sets whether or not the receiving server is prepared for session resuming.
+After this notification has been issued by the server, the client should expect no further messages and <strong>MUST</strong> disconnect.</p>
+<h3 id="workers-authorization">Workers Authorization</h3>
+<p>The miner <strong>MUST</strong> authorize at least one worker in order to begin receiving jobs and submit solutions or hashrates. The miner <strong>MAY</strong> authorize multiple workers in the same session. The server <strong>MUST</strong> allow authorization for multiple workers within a session and <strong>MUST</strong> validate at least one authorization from the client before starting to send jobs. A <code>worker</code> is a tuple of the address where rewards must be credited coupled with identifier of the machine actually doing the work. For Ethereum the most common form is <code>&lt;account&gt;.&lt;MachineName&gt;</code>. The same account can be bound to multiple machines. For pool's allowing anonymous mining the account is the address where rewards must be credited, while, for pools requiring registration, the account is the login name. Each time a solution is submitted by the client it must be labelled with the Worker identifier. It's up to server to keep the correct accounting for different addresses.</p>
+<p>The syntax for the authorization request is the following:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.authorize</span><span style="color:#c0c5ce;">&quot;, 
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: [&quot;</span><span style="color:#a3be8c;">&lt;account&gt;[.&lt;MachineName&gt;]</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">password</span><span style="color:#c0c5ce;">&quot;]
+}
+</span></code></pre>
+<p><code>params</code> member must be an Array of 2 string elements. For anonymous mining the &quot;password&quot; can be any string value or empty but not null. Pools allowing anonymous mining will simply ignore the value.
+The server <strong>MUST</strong> reply back either with an error or, in case of success, with</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">w-123</span><span style="color:#c0c5ce;">&quot;
+}
+</span></code></pre>
+<p>Where the <code>result</code> member is a string which holds an unique - within the scope of the <code>session</code> - token which identifies the authorized worker. For every further request issued by the client, and related to a Worker action, the client <strong>MUST</strong> use the token given by the server in response to an <code>mining.authorize</code> request. This reduces the number of bytes transferred for solution and /or hashrate submission.</p>
+<p>If client is resuming a previous session it <strong>CAN</strong> omit the authorization request for it's workers and, in this case, <strong>MUST</strong> use the tokens assigned in the originating session. It's up to the server to keep the correct map between tokens and workers.
+The server receiving an authorization request where the credentials match previously authorized ones within the same session <strong>MUST</strong> reply back with the previously generated unique token.</p>
+<h3 id="prepare-for-mining">Prepare for mining</h3>
+<p>A lot of data is sent over the wire multiple times with useless redundancy. For instance the seed hash is meant to change only every 30000 blocks (roughly 5 days) while fixed-diff pools rarely change the work target. Moreover pools must optimize the search segments among miners trying to assign to every session a different &quot;startNonce&quot; (AKA extraNonce).
+For this purpose the <code>notification</code> method <code>mining.set</code> allows to set (on miner's side) only those params which change less frequently. The server will keep track of seed, target and extraNonce at session level and will push a notification <code>mining.set</code> whenever any (or all) of those values change to the connected miner.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.set</span><span style="color:#c0c5ce;">&quot;, 
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {
+      &quot;</span><span style="color:#a3be8c;">epoch</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">dc</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">target</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">0112e0be826d694b2e62d01511f12a6061fbaec8bc02357593e70e52ba</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">algo</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">ethash</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">extranonce</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">af4c</span><span style="color:#c0c5ce;">&quot;
+  }
+}
+</span></code></pre>
+<p>At the beginning of each <code>session</code> the server <strong>MUST</strong> send this notification before any <code>mining.notify</code>. All values passed by this notification will be valid for all <strong>NEXT</strong> jobs until a new <code>mining.set</code> notification overwrites them. Description of members is as follows:</p>
+<ul>
+<li>optional <code>epoch</code> (hex) : unlike all actual Stratum implementations the server should inform the client of the epoch number instead of passing the seed hash. This is enforced by two reasons : the main one is that client has only one way to compute the epoch number and this is by a linear search from epoch 0 iteratively trying increasing epochs till the hash matches the seed hash. Second reason is that epoch number is more concise than seed hash. In the end the seed hash is only transmitted to inform the client about the epoch and is not involved in the mining algorithm.</li>
+<li>optional <code>target</code> (hex) : this is the boundary hash already adjusted for pool difficulty. Unlike in EthereumStratum/1.0.0, which provides a <code>mining.set_difficulty</code> notification of an <em>index of difficulty</em>, the proponent opt to pass directly the boundary hash. If omitted the client <strong>MUST</strong> assume a boundary of <code>&quot;0x00000000ffff0000000000000000000000000000000000000000000000000000&quot;</code></li>
+<li>optional <code>algo</code> (string) : the algorithm the miner is expected to mine on. If omitted the client <strong>MUST</strong> assume <code>&quot;algo&quot;: &quot;ethash&quot;</code></li>
+<li>optional <code>extranonce</code> (hex) : a starting search segment nonce assigned by server to clients so they possibly do not overlap their search segments. If server wants to &quot;cancel&quot; a previously set extranonce it must pass this member valued as an empty string.</li>
+</ul>
+<p>Whenever the server detects that one, or two, or three or four values change within the session, the server will issue a notification with one, or two or three or four members in the <code>param</code> object. For this reason on each <strong>new</strong> session the server <strong>MUST</strong> pass all four members. As a consequence the miner is instructed to adapt those values on <strong>next</strong> job which gets notified.
+The new <code>algo</code> member is defined to be prepared for possible presence of algorithm variants to ethash, namely ethash1a or ProgPow.
+Pools providing multicoin switching will take care to send a new <code>mining.set</code> to miners before pushing any job after a switch.
+The client which can't support the data provided in the <code>mining.set</code> notification <strong>MAY</strong> close connection or stay idle till new values satisfy it's configuration (see <code>mining.noop</code>).
+All client's implementations <strong>MUST</strong> be prepared to accept new extranonces during the session: unlike in EthereumStratum/1.0.0 the optional client advertisement <code>mining.extranonce.subscribe</code> is now implicit and mandatory.</p>
+<p>The miner receiving the <code>extranonce</code> <strong>MUST</strong> initialize the search segment for next job resizing the extranonce to a hex of 16 bytes thus appending as many zeroes as needed.
+Extranonce &quot;af4c&quot; means &quot;<em>search segment of next jobs starts from 0xaf4c000000000000</em>&quot;
+If <code>extranonce</code> is valued to an empty string, or it's never been set within the session scope, the client is free pick any starting point of it's own search segment on subsequent <code>mining.notify</code> jobs.</p>
+<h3 id="a-detail-of-extranonce">A detail of &quot;extranonce&quot;</h3>
+<p>Miners connected to a pool might likely process the very same nonces thus wasting a lot of duplicate jobs. A <code>nonce</code> is any valid number which, applied to algorithm and job specifications, produces a result which is below a certain target. For every job pushed by server to client(s) there are 2^64 possible nonces to test.</p>
+<p>To be noted that :</p>
+<ul>
+<li>Any nonce in the 2^64 has the very same possibility to be the right one. </li>
+<li>A certain hashing job can be solved by more than one nonce</li>
+</ul>
+<p>Every &quot;test&quot; over a number is called a hash. Assuming a miner should receive a job for each block and considering the actual average block time of 15 seconds that would mean a miner should try</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">  ( 2^64 / 15 ) / 1T ~ 1,229,782.94 TeraHashes per second
+</span></code></pre>
+<p>This computation capacity is well beyond any miner on the market (including ASICs). For this reason single miners can process only small chunks (segments) of this humongous range. The way miners pick the segments to search on is beyond the scope of this work. Fact is as miners are not coordinated there is no knowledge - for a single miner - of segments picked by other miners.
+Extranonce concept is here to mitigate this possibility of duplicate jobs charging the server (the work provider) to give miners, at the maximum possible extent, different segments to search on.</p>
+<p>Giving the above assumptions we can depict a nonce as any number in the hex range :</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">  Min 0x0000000000000000
+  Max 0xffffffffffffffff
+</span></code></pre>
+<p><em>the prefix 0x is voluntarily inserted here only to give a better visual representation</em>.</p>
+<p>The <code>extranonce</code> is, at it's basics, the message of the server saying the client &quot;<em>I give you the first number to start search from</em>&quot;. More in detail the <code>extranoce</code> is the leftmost part of that number.
+Assume a pool notifies the client the usage of extranonce <code>ab5d</code> this means the client will see it's search segment narrowed as </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">  Min 0xab5d000000000000
+  Max 0xab5dffffffffffff
+</span></code></pre>
+<p>Pushing an extranonce of 4 bytes (like in the example) will give pool the possibility to separate segment 65535 different miners ( or if you prefer 0xffff miners ) while leaving the miner still a segment of 2^48 possible nonces to search on.
+Recalculating, as above, the computation capacity needed to search this segment we get</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">  ( 2^48 / 15 ) / 1T ~ 18.76 TeraHashes per second
+</span></code></pre>
+<p>Which is still a wide segment where miners can randomly (or using other ergodic techniques) pick their internal search segments.</p>
+<p>Extranonce <strong>MUST</strong> be passed with all relevant bytes (no omission of left zeroes) for a specific reason. Assume an extranonce of &quot;01ac&quot; : it  has the same decimal value of &quot;1ac&quot; but the number of bytes changes thus changing available search segment</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">  When &quot;01ac&quot;               When &quot;1ac&quot;
+  Segment is                Segment is
+  Min  0x01ac000000000000   Min  0x1ac0000000000000
+  Max  0x01acffffffffffff   Max  0x1acfffffffffffff
+</span></code></pre>
+<p>As you can see resulting segments are quite different</p>
+<p>This all said pools (server), when making use of extranonce, <strong>MUST</strong> observe a maximum length of 6 bytes (hex).</p>
+<h3 id="jobs-notification">Jobs notification</h3>
+<p>When available server will dispatch jobs to connected miners issuing a <code>mining.notify</code> notification.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.notify</span><span style="color:#c0c5ce;">&quot;, 
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: [
+      &quot;</span><span style="color:#a3be8c;">bf0488aa</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">6526d5</span><span style="color:#c0c5ce;">&quot;
+      &quot;</span><span style="color:#a3be8c;">645cf20198c2f3861e947d4f67e3ab63b7b2e24dcc9095bd9123e7b33371f6cc</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">0</span><span style="color:#c0c5ce;">&quot;
+  ]
+}
+</span></code></pre>
+<p><code>params</code> member is made of 4 mandatory elements:</p>
+<ul>
+<li>1st element is jobId as specified by pool. To reduce the amount of data sent over the wire pools <strong>SHOULD</strong> keep their job IDs as concise as possible. Pushing a Job id which is identical to headerhash is a bad practice and is highly discouraged.</li>
+<li>2nd element is the hex number of the block id</li>
+<li>3rd element is the headerhash. </li>
+<li>4th element is an hex boolean indicating whether or not eventually found shares from previous jobs will be accounted for sure as stale.</li>
+</ul>
+<h3 id="solution-submission">Solution submission</h3>
+<p>When a miner finds a solution for a job he is mining on it sends a <code>mining.submit</code> request to server.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">31</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.submit</span><span style="color:#c0c5ce;">&quot;, 
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: [
+      &quot;</span><span style="color:#a3be8c;">bf0488aa</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">68765fccd712</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">w-123</span><span style="color:#c0c5ce;">&quot;
+  ]
+}
+</span></code></pre>
+<p>First element of <code>params</code> array is the jobId this solution refers to (as sent in the <code>mining.notify</code> message from the server). Second element is the <code>miner nonce</code> as hex. Third element is the token given to the worker previous <code>mining.authorize</code> request. Any <code>mining.submit</code> request bound to a worker which was not successfully authorized - i.e. the token does not exist in the session - <strong>MUST</strong> be rejected.</p>
+<p>You'll notice in the sample above the <code>miner nonce</code> is only 12 bytes wide (should be 16). Why ?
+That's because in the previous <code>mining.set</code> the server has set an <code>extranonce</code> of <code>af4c</code>. This means the full nonce is <code>af4c68765fccd712</code>
+In presence of extranonce the miner <strong>MUST</strong> submit only the chars to append to the extranonce to build the final hex value. If no extranonce is set for the session or for the work the miner <strong>MUST</strong> send all 16 bytes.</p>
+<p>It's server duty to keep track of the tuples <code>job ids &lt;-&gt; extranonces</code> per session.</p>
+<p>When the server receives this request it either responds success using the short form</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{&quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">31</span><span style="color:#c0c5ce;">}
+</span></code></pre>
+<p>or, in case of any error or condition with a detailed error object</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">31</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">error</span><span style="color:#c0c5ce;">&quot;: {
+      &quot;</span><span style="color:#a3be8c;">code</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">404</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">Job not found</span><span style="color:#c0c5ce;">&quot;
+  }
+}
+</span></code></pre>
+<p>Client <strong>should</strong> treat errors as &quot;soft&quot; errors (stales) or &quot;hard&quot; (bad nonce computation, job not found etc.). Errors in 5xx range are server errors and suggest the miner to abandon the connection and switch to a failover.</p>
+<h3 id="hashrate">Hashrate</h3>
+<p>Most pools offer statistic information, in form of graphs or by API calls, about the calculated hashrate expressed by the miner while miners like to compare this data with the hashrate they read on their devices. Communication about parties of these information have never been coded in Stratum and most pools adopt the method from getWork named <code>eth_submitHashrate</code>.
+In this document we propose an official implementation of the <code>mining.hashrate</code> request.
+This method behaves differently when issued from client or from server.</p>
+<h4 id="client-communicates-it-s-hashrate-to-server">Client communicates it's hashrate to server.</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot; : </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.hashrate</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: [
+      &quot;</span><span style="color:#a3be8c;">500000</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">w-123</span><span style="color:#c0c5ce;">&quot;
+      ]
+}
+</span></code></pre>
+<p>where <code>params</code> is an array made of two elements: the first is a hexadecimal string representation (32 bytes) of the hashrate the miner reads on it's devices and the latter is the authorization token issued to worker this hashrate is refers to (see above for <code>mining.authorization</code>).
+Server <strong>MUST</strong> respond back with either an aknowledgment message</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{&quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">16 </span><span style="color:#c0c5ce;">}
+</span></code></pre>
+<p>Optionally the server can reply back reporting it's findings about calculated hashrate <strong>for the same worker</strong>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot; : [
+      &quot;</span><span style="color:#a3be8c;">4f0000</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">w-123</span><span style="color:#c0c5ce;">&quot;
+      ]
+}
+</span></code></pre>
+<p>In case of errors - for example when the client submits too frequently - with</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">error</span><span style="color:#c0c5ce;">&quot; : {
+    &quot;</span><span style="color:#a3be8c;">code</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">220</span><span style="color:#c0c5ce;">,
+    &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Enhance your calm. Too many requests</span><span style="color:#c0c5ce;">&quot;
+  }
+}
+</span></code></pre><h4 id="server-communicates-hashrate-to-client">Server communicates hashrate to client</h4>
+<p>Optionally the server can <strong>notify</strong> client about it's overall performance (according to schedule set on server) with a <code>mining.hashrate</code> notification composed like this</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">mining.hashrate</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {
+      &quot;</span><span style="color:#a3be8c;">interval</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">60</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">hr</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">500000</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">accepted</span><span style="color:#c0c5ce;">&quot;: [</span><span style="color:#d08770;">3692</span><span style="color:#c0c5ce;">,</span><span style="color:#d08770;">20</span><span style="color:#c0c5ce;">],
+      &quot;</span><span style="color:#a3be8c;">rejected</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">,
+  }
+}
+</span></code></pre>
+<p>Where <code>params</code> is an object which holds these members for values of the <strong>whole session</strong>:</p>
+<ul>
+<li><code>interval</code> (number) the width, in minutes, of the observation window. &quot;<em>in the last x minutes we calculated ...</em>&quot;</li>
+<li><code>hr</code> (hex) representation of the hashrate the pool has calculated for the miner</li>
+<li><code>accepted</code> is an array of two number elements : the first is the overall count of accepted shares and the second is the number of stale shares. The array must be interpreted as &quot;total accepted of which x are stale&quot;</li>
+<li><code>rejected</code> (number) the overall number of rejected shares</li>
+</ul>
+<p>The client will eventually take internal actions to reset/restart it's workers.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

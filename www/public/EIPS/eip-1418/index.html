@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1418: Blockchain Storage Rent Payment</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1418.md" />
+<meta property="og:title" content="EIP-1418: Blockchain Storage Rent Payment" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1418 (EIP-1418): Blockchain Storage Rent Payment"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1418 (EIP-1418): Blockchain Storage Rent Payment"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1418.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1418 (EIP 1418): Blockchain Storage Rent Payment" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1418: Blockchain Storage Rent Payment
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/fulldecent">William Entriken</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1418">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1418</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-09-16</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h1 id="simple-summary">Simple Summary</h1>
+<p>At each block, deduct an amount of value from every account based on the quantity of storage used by that account.</p>
+<h1 id="abstract">Abstract</h1>
+<p>The most naive implementation would be to simply loop through every account on each block and deduct a certain fee. We show that a better implementation could achieve reasonable performance. Also we review practical considerations of switching to a fee-based rent system.</p>
+<p>In other words, <code>product=0; while(factor1--)product+= factor2;</code> is slow, but equivalently <code>product = factor1 * factor2</code> is fast. And we can reason about both at the same time.</p>
+<h1 id="motivation">Motivation</h1>
+<p>Ethereum is a public utility and we are underpricing the long-term costs of storage. Storage cost can be approximately modeled as bytes × time.</p>
+<h1 id="specification">Specification</h1>
+<p><strong>New state variables (per account)</strong></p>
+<ul>
+<li>rent -- σ[a]_r -- an amount of value, in Wei</li>
+<li>rentLastPaid -- σ[a]_p -- a block number that is set when:
+<ul>
+<li>Value is transferred into an account</li>
+<li>Code is set for an account (CREATE)</li>
+<li>An account's storage is updated (SSTORE)</li>
+</ul>
+</li>
+<li>storageWords -- σ[a]_w -- number of words in storage</li>
+<li>rentEvictBlock -- σ[a]_e -- the block number when this account will be destructed
+<ul>
+<li>Note: it is possible that a client could implement the Yellow Paper without storing this value explicitly. It can be calculated simply on demand.</li>
+</ul>
+</li>
+</ul>
+<p><strong>New constants</strong></p>
+<ul>
+<li>RENT_WORD_COST -- The rent cost, in Wei, paid for each word-block</li>
+<li>RENT_ACCOUNT_COST -- The rent cost, in Wei, paid for each account-block</li>
+<li>RENT_STIPEND -- The amount of rent, in Wei, given to accounts when touched</li>
+</ul>
+<p><strong>New opcodes</strong></p>
+<ul>
+<li>RENTBALANCE(address) -- G_BALANCE -- Similar to BALANCE</li>
+<li>SENDRENT(address, amount) -- G_BASE -- Convert value to rent and send to account
+<ol>
+<li>σ[account]_rent += amount</li>
+<li>σ[msg.sender]_balance -= amount</li>
+</ol>
+</li>
+</ul>
+<p><strong>Updated opcodes</strong></p>
+<p>A new subroutine, paying for rent, is established as such:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">PAYRENT(account)
+    ASSERT(σ[account]_rentEviction &gt;= NUMBER) // TODO: I&#39;m not sure if should be &gt; or &gt;=
+    blocks_to_pay = NUMBER - σ[account]_rentLastPaid
+    cost_per_block = RENT_ACCOUNT_COST + RENT_WORD_COST * ⌈∥σ[account]_code∥ / 32⌉ + RENT_WORD_COST * σ[a]_storageWords
+    rent_to_pay = blocks_to_pay * cost_per_block
+    σ[account]_rent -= rent_to_pay
+    σ[account]_rentLastPaid = NUMBER
+    σ[account]_rentEvictBlock = NUMBER + ⌊σ[account]_rent / cost_per_block⌋
+END PAYRENT
+</span></code></pre>
+<ul>
+<li>SSTORE(account, key, value)
+<ul>
+<li>Perform PAYRENT(account)</li>
+<li>Set σ[account]_rent = MAX(σ[account]_rent, RENT_STIPEND)</li>
+<li>Do normal SSTORE operation</li>
+<li>If the old value was zero for this [account, key] and the new value is non-zero, then σ[account]_storageSize++</li>
+<li>If the old value was non-zero for this [account, key] and the new value is zero, then σ[account]_storageSize--</li>
+</ul>
+</li>
+<li>CALL (and derivatives)
+<ul>
+<li>If value &gt; 0 then perform PAYRENT(account)</li>
+<li>Do normal CALL operation</li>
+</ul>
+</li>
+<li>CREATE
+<ul>
+<li>Set σ[account]_rent = MAX(σ[account]_rent, RENT_STIPEND)</li>
+<li>Set σ[account]_rentLastPaid = HEIGHT</li>
+<li>Do normal CREATE operation</li>
+<li>Note: it is possible there is a pre-existing rent balance here</li>
+</ul>
+</li>
+</ul>
+<p><strong>Updated substate</strong></p>
+<p>The substate tuple is defined as:</p>
+<blockquote>
+<p>A ≡ (As, Al, At, Ar)</p>
+</blockquote>
+<p>This includes A_t, &quot;the set of touched accounts, of which the empty ones are deleted at the end of a transaction&quot;.</p>
+<p>This definition is updated to: &quot;the set of touched accounts, of which the empty ones or evicted ones (BLOCK &gt;= σ[a]_rentEvictBlock) are deleted at the end of a transaction&quot;</p>
+<p>// TODO: I'm not sure if that should be &gt; or &gt;=</p>
+<p><strong>New built-in contract</strong></p>
+<ul>
+<li>PAYRENT(address, amount) -- Calls PAYRENT opcode</li>
+</ul>
+<p><em>This is a convenience for humans to send Ether from their accounts and turn it into rent. Note that simple accounts (CODESIZE == 0) cannot call arbitrary opcodes, they can only call CREATE or CALL.</em></p>
+<p>The gas cost of PAYRENT will be 10,000.</p>
+<p><strong>No changes to current opcode gas costs.</strong></p>
+<h1 id="rationale">Rationale</h1>
+<p><strong>No call</strong></p>
+<p>A contract will not know or react to the receipt of rent. This is okay. Workaround: if a contract really needed to know who provided rent payments then it could create a function in its ABI to attribute these payments. It is already possible to send payments to a contract without attribution by using SELFDESTRUCT.</p>
+<p><strong>Eviction responsibility / lazy evaluation</strong></p>
+<p>The specification gives responsibility for eviction to the consensus clients. This is the most predictable behavior because it happens exactly when it should. Also there need not be any incentive mechanism (refund gas, bounty) for outside participants (off chain) to monitor accounts and request removal.</p>
+<p>This adds a computational responsibility to the clients to track eviction dates. This is possible in efficient time (at double the memory) using a double-ended priority queue (one for addressing by account address, the other for addressing by eviction date). There may be other ways of implementing this with different time-memory guarantees.</p>
+<p><strong>No converting rent to value</strong></p>
+<p>Ether converted to rent cannot be converted back. Anybody that works in accounting and knows about gifts cards should tell you this is a good idea. It makes reasoning about the system much easier.</p>
+<p><strong>Accounts pay rent</strong></p>
+<p>Yes, they pay rent. It costs money to keep their balances so we charge them rent.</p>
+<p><strong>You can lose all your money</strong></p>
+<p>Yes, if you do not pay rent for your account or contract then you lose it all. User education is required.</p>
+<p>Alternative: spend value (Ether balance) when rent is depleted</p>
+<ul>
+<li>Rename rentEvictBlock to rentUsingValueBlock</li>
+<li>Update eviction calculation to include RENT + VALUE. Also update CALL (and friends) operations to recalculate eviction date when value is transferred. This is the new rentEvictBlock.</li>
+<li>Update CALL (and friends), RENTBALANCE and SENDRENT operations. If HEIGHT &gt;= rentUsingValueBlock then proceed as if rent started paying using value.</li>
+</ul>
+<p>This alternative is a good idea, if there is support I can include this part formally in the specification. The specification is a little complicated so I like the informal definition above until we have some consent around it.</p>
+<p>Alternative2: do not have a separate rent account -- directly deduct rent from value</p>
+<ul>
+<li>Every time the state is updated (including receiving value) you get a rent subsidity</li>
+<li>Need to review invariants of existing contracts to see what problems and broken assumptions this will cause in real life</li>
+</ul>
+<p><strong>Permanent removal</strong></p>
+<p>All state about an account is destructed during eviction. The data cannot be recovered. That's the point.</p>
+<p>Hint to implementers: make sure this works:</p>
+<ol>
+<li>Send value to a new account (gets stipend)</li>
+<li>Pay rent to that account</li>
+<li>Wait until after the rent expires (account is gone)</li>
+<li>Send value to that account (gets stipend again)</li>
+<li>Deploy a contract (CREATE) to that account (stipend gets topped off)</li>
+</ol>
+<h1 id="rationale-economics-constants">Rationale -- economics &amp; constants</h1>
+<p>An <code>SSTORE</code> executed in 2015 cost 20,000 gas and has survived about 6 million blocks. The gas price has been around 1 ~ 50 Gwei. So basically 4,000 Wei per block per word so far. Maybe storing an account is 10 times more intensive than storing a word. But actually G_transaction is 21,000 and G_sstore is 20,000 so these are similar and they can both create new accounts / words.</p>
+<p>How about:</p>
+<ul>
+<li>RENT_WORD_COST -- 4,000 Wei</li>
+<li>RENT_ACCOUNT_COST -- 4,000 Wei</li>
+<li>RENT_STIPEND -- 4,000 Wei * 360 days worth of blocks</li>
+</ul>
+<p>The rent is priced in cold, hard Ether. It is not negotiated by clients, it is not dynamic. It is linear. Why is this a good idea? Because right now Ethereum is a system with multiple free variables -- Ether/gas price, gas/opcodes costs, Ether/block reward. [Add some note here about reducing a system of equations...] So the end result is that we can peg one of the values and it will be okay.</p>
+<p>By setting the RENT price in Ether and by having the existing gas prices set based on the floating rate, there is an implicit price of ~4 gwei set into the Yellow Paper. In other words, if in the future the price of gas goes to 1 Ether then people will be upset because they will say &quot;I paid 20,000 gas for an SSTORE&quot; but I only got 360 days of stipend. If I paid for the rent directly I would have gotten enough rent to last until the Sun explodes.&quot; I acknowledge this complaint and do not think it is sufficient to warrant dismissing this proposal.</p>
+<p>Q: There is a finite-ish amount of Ether and this proposal introduces a word-price in Ether, do math for me. A: The current size of Ethereum is about ~1 TB, maybe half of that is branch nodes. So that's like 15B words. There is about 100M Ether mined. The answer is that all the Ether can be spent on 400,000 terabyte-years of storage. I'm not sure if it is helpful to look at it that way.</p>
+<h1 id="backwards-compatibility">Backwards compatibility</h1>
+<p>There is a 360-day transition period (related to the RENT_STIPEND). This requires a hard fork. On the block of the fork, every account is immediately funded with enough rent to pay for ~ 360 days' worth of their current storage requirements. The formal implementation is that this new rule is applied if any existing account has σ[account]_rentLastPaid = 0. Therefore this can be implemented by clients lazily or eagerly.</p>
+<p>Preexisting accounts which increase their storage needs will evict sooner than 360 days.</p>
+<p>Users will need to be educated.</p>
+<h1 id="test-cases">Test Cases</h1>
+<p>TO BE ADDED</p>
+<h1 id="implementation">Implementation</h1>
+<p>TO BE ADDED</p>
+<h1 id="copyright">Copyright</h1>
+<p>Copyright and related rights waived via CC0.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

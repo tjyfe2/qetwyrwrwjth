@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2021: Payoutable Token</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2021.md" />
+<meta property="og:title" content="EIP-2021: Payoutable Token" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2021 (EIP-2021): Payoutable Token"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2021 (EIP-2021): Payoutable Token"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2021.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2021 (EIP 2021): Payoutable Token" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2021: Payoutable Token
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:fer@io.builders">Fernando Paris</a>,
+        
+    
+        
+        
+            <a href="mailto:julio@adhara.io">Julio Faura</a>,
+        
+    
+        
+        
+            <a href="mailto:daniel@io.builders">Daniel Lehrner</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2106">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2106</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-05-10</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>20, 1066, 1996</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>An extension to the <a href="https://eips.ethereum.org/EIPS/eip-20">ERC-20</a> standard token that allows Token wallet owners to request payout from their wallet, by calling the smart contract and attaching a payout instruction string.</p>
+<h2 id="actors">Actors</h2>
+<h4 id="token-wallet-owners">Token Wallet Owners</h4>
+<p>The person or company who owns the wallet, and will order payout.</p>
+<h4 id="token-contract-owner-agent">Token contract owner / agent</h4>
+<p>The entity, company responsible/owner of the token contract, and token issuing/minting. This actor is in charge of trying to fulfill all payout request(s), reading the payout instruction(s), and correlate the payout details.</p>
+<h4 id="orderer">Orderer</h4>
+<p>An actor who is enabled to initiate payout orders on behalf of a token wallet owner.</p>
+<h2 id="abstract">Abstract</h2>
+<p>Token wallet owners (or approved addresses) can order payout requests through  blockchain. This is done by calling the <code>orderPayoutFrom</code> or <code>orderPayoutFrom</code> methods, which initiate the workflow for the token contract operator to either honor or reject the payout request. In this case, payout instructions are provided when submitting the request, which are used by the operator to determine the destination of the funds.</p>
+<p>In general, it is not advisable to place explicit routing instructions for the payouts on a verbatim basis on the blockchain, and it is advised to use a private communication alternatives, such as private channels, encrypted storage or similar, to do so (external to the blockchain ledger). Another (less desirable) possibility is to place these instructions on the instructions field in encrypted form.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Nowadays most of the token payout requests, need a previous centralized transaction, to be able to define the payout destination to be able to execute the payout (burn transaction).
+In the aim of trying to bring all the needed steps into decentralization, exposing all the needed steps of token lifecycle and payment transactions, a payout request can allow wallet owner to initiate the payout order via blockchain.
+Key benefits:</p>
+<ul>
+<li>Payout, burning  traceability is enhanced bringing the initiation into the ledger. All payment, payout statuses can be stored on chain.</li>
+<li>Almost all money/token lifecycle is covered via a decentralized approach, complemented with private communications which is common use in the ecosystem.</li>
+</ul>
+<p>In this case, the following movement of tokens are done as the process progresses:</p>
+<ul>
+<li>Upon launch of the payout request, the appropriate amount of funds are placed on a hold with a predefined notary defined by the platform, and the payout is placed into a <code>Ordered</code> state</li>
+<li>The operator then can put the payout request <code>InProcess</code>, which prevents the <em>orderer</em> of the payout from being able to cancel the payout request</li>
+<li>After checking the payout is actually possible the operator then executes the hold, which moves the funds to a suspense wallet and places the payout into the <code>FundsInSuspense</code> state</li>
+<li>The operator then moves the funds offchain (usually from the omnibus account)  to the appropriate destination account, then burning the tokens from the suspense wallet and rendering the payout into the <code>Executed</code> state</li>
+<li>Either before or after placing the request <code>InProcess</code>, the operator can also reject the payout, which returns the funds to the payer and eliminates the hold. The resulting end state of the payout is <code>Rejected</code></li>
+<li>When the payout is <code>Ordered</code> and before the operator places it into the <code>InProcess</code> state, the orderer of the payout can also cancel it, which frees up the hold and puts the payout into the final <code>Cancelled</code> state</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface IPayoutable /* is ERC-20 */ {
+    enum PayoutStatusCode {
+        Nonexistent,
+        Ordered,
+        InProcess,
+        FundsInSuspense,
+        Executed,
+        Rejected,
+        Cancelled
+    }
+    function authorizePayoutOperator(address orderer) external returns (bool);
+    function revokePayoutOperator(address orderer) external returns (bool);
+    function orderPayout(string calldata operationId, uint256 value, string calldata instructions) external returns (bool);
+    function orderPayoutFrom(string calldata operationId, address walletToBePaidOut, uint256 value, string calldata instructions) external returns (bool);
+    function cancelPayout(string calldata operationId) external returns (bool);
+    function processPayout(string calldata operationId) external returns (bool);
+    function putFundsInSuspenseInPayout(string calldata operationId) external returns (bool);
+    function executePayout(string calldata operationId) external returns (bool);
+    function rejectPayout(string calldata operationId, string calldata reason) external returns (bool);
+
+    function isPayoutOperatorFor(address walletToDebit, address orderer) external view returns (bool);
+    function retrievePayoutData(string calldata operationId) external view returns (address walletToDebit, uint256 value, string memory instructions, PayoutStatusCode status);
+
+    event PayoutOrdered(address indexed orderer, string indexed operationId, address indexed walletToDebit, uint256 value, string instructions);
+    event PayoutInProcess(address indexed orderer, string indexed operationId);
+    event PayoutFundsInSuspense(address indexed orderer, string indexed operationId);
+    event PayoutExecuted(address indexed orderer, string indexed operationId);
+    event PayoutRejected(address indexed orderer, string indexed operationId, string reason);
+    event PayoutCancelled(address indexed orderer, string indexed operationId);
+    event PayoutOperatorAuthorized(address indexed walletToBePaidOut, address indexed orderer);
+    event PayoutOperatorRevoked(address indexed walletToBePaidOut, address indexed orderer);
+}
+</span></code></pre><h3 id="functions">Functions</h3>
+<h4 id="authorizepayoutoperator">authorizePayoutOperator</h4>
+<p>Wallet owner, allows a given address to be payout orderer.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the orderer.</td></tr>
+</tbody></table>
+<h4 id="revokepayoutoperator">revokePayoutOperator</h4>
+<p>Wallet owner, Revokes a given address to be payout orderer.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the orderer.</td></tr>
+</tbody></table>
+<h4 id="orderpayout">orderPayout</h4>
+<p>Creates a payout request, that will be processed by the token operator. The function must revert if the operation ID has been used before.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request</td></tr>
+<tr><td>value</td><td>The amount to be paid out.</td></tr>
+<tr><td>instruction</td><td>A string including the payment instruction.</td></tr>
+</tbody></table>
+<h4 id="orderpayoutfrom">orderPayoutFrom</h4>
+<p>Creates a payout request, on behalf of a wallet owner, that will be processed by the token operator. The function must revert if the operation ID has been used before.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request</td></tr>
+<tr><td>walletToBePaidOut</td><td>The wallet to be paid out on behalf.</td></tr>
+<tr><td>value</td><td>The amount to be paid out.</td></tr>
+<tr><td>instruction</td><td>A string including the payment instruction.</td></tr>
+</tbody></table>
+<h4 id="cancelpayout">cancelPayout</h4>
+<p>Cancels a payout request.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request that is going to be cancelled. This can only be done by token holder, or the payout initiator/orderer.</td></tr>
+<tr><td>reason</td><td>The specific reason that explains why the payout request was rejected. <a href="https://eips.ethereum.org/EIPS/eip-1066">EIP-1066</a> codes can be used.</td></tr>
+</tbody></table>
+<h4 id="processpayout">processPayout</h4>
+<p>Marks a payout request as on process. After the status is on process, order cannot be cancelled.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify that the request is in process.</td></tr>
+</tbody></table>
+<h4 id="putfundsinsuspenseinpayout">putFundsInSuspenseInPayout</h4>
+<p>Put a given payout in suspense. Can only be done if it is in process.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify that the request is in process.</td></tr>
+</tbody></table>
+<h4 id="executepayout">executePayout</h4>
+<p>Burn the amount of tokens and marks a payout request as executed.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request that has been executed.</td></tr>
+</tbody></table>
+<h4 id="rejectpayout">rejectPayout</h4>
+<p>Rejects a given operation with a reason.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request that has been executed.</td></tr>
+<tr><td>reason</td><td>The specific reason that explains why the payout request was rejected. <a href="https://eips.ethereum.org/EIPS/eip-1066">EIP-1066</a> codes can be used</td></tr>
+</tbody></table>
+<h4 id="isapprovedtoorderpayout">isApprovedToOrderPayout</h4>
+<p>Checks that given player is allowed to order payout  requests, for a given wallet.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>walletToBePaidOut</td><td>The wallet to be paid out, and checked for approval permission.</td></tr>
+<tr><td>orderer</td><td>The address of the orderer, to be checked for approval permission.</td></tr>
+</tbody></table>
+<h4 id="retrievepayoutdata">retrievePayoutData</h4>
+<p>Retrieves all the payout request data. Only operator, tokenHolder, and orderer can get the given operation data.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the orderer, to correlate the right data.</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the payout order.</td></tr>
+</tbody></table>
+<h3 id="events">Events</h3>
+<h4 id="payout-ordered">Payout Ordered</h4>
+<p>Emitted when an token wallet owner orders a payout request.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request</td></tr>
+<tr><td>walletToBePaidOut</td><td>The wallet that is requested to be paid out</td></tr>
+<tr><td>value</td><td>The amount to be funded.</td></tr>
+<tr><td>instruction</td><td>A string including the payment instruction.</td></tr>
+</tbody></table>
+<h4 id="payoutfundsinsuspense">PayoutFundsInSuspense</h4>
+<p>Emitted when an operator puts fund in suspense.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the payout request orderer.</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the payout.</td></tr>
+</tbody></table>
+<h4 id="payoutinprocess">PayoutInProcess</h4>
+<p>Emitted when an operator accepts a payout request, and the operation is in process.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the payout request orderer.</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the payout.</td></tr>
+</tbody></table>
+<h4 id="payoutexecuted">PayoutExecuted</h4>
+<p>Emitted when an operator has executed a payout request.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the payout request orderer.</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the payout.</td></tr>
+</tbody></table>
+<h4 id="payoutrejected">PayoutRejected</h4>
+<p>Emitted when an operator has rejected a payout request.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the payout request orderer.</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the payout.</td></tr>
+<tr><td>reason</td><td>The specific reason that explains why the payout request was rejected. <a href="https://eips.ethereum.org/EIPS/eip-1066">EIP-1066</a> codes can be used</td></tr>
+</tbody></table>
+<h4 id="payoutcancelled">PayoutCancelled</h4>
+<p>Emitted when a token holder, orderer,  has cancelled a payout request. This can only be done if the operator hasn't put the payout order in process.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the payout request orderer.</td></tr>
+<tr><td>operationId</td><td>The unique ID per payout issuer to identify the payout.</td></tr>
+</tbody></table>
+<h4 id="payoutoperatorauthorized">PayoutOperatorAuthorized</h4>
+<p>Emitted when a given player, operator, company or a given persona, has been approved to start payout request for a given token holder.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>walletToBePaidOut</td><td>The wallet that the player is allowed to start payout requests</td></tr>
+<tr><td>orderer</td><td>The address that allows the the player to start requests.</td></tr>
+</tbody></table>
+<h4 id="payoutoperatorrevoked">PayoutOperatorRevoked</h4>
+<p>Emitted when a given player has been revoked initiate payout requests.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>walletToBePaidOut</td><td>The wallet that the player is allowed to start payout requests</td></tr>
+<tr><td>orderer</td><td>The address that allows the the player to start requests.</td></tr>
+</tbody></table>
+<h2 id="rationale">Rationale</h2>
+<p>This standards provides a functionality to allow token holders to start payout requests in a decentralized way.</p>
+<p>It's important to highlight that the token operator, need to process all payout request, updating the payout status based on the linked payment that will be done.</p>
+<p>Payout instruction format is open. ISO payment standard like is a good start point.</p>
+<p>This EIP uses <a href="https://eips.ethereum.org/EIPS/eip-1996">EIP-1996</a> to hold the money after a payout is ordered. The token contract owner or agent, whose implementation is not part of this proposal, acts as a predefined notary to decide if the payout is executed or not.</p>
+<p>The <code>operationId</code> is a string and not something more gas efficient to allow easy traceability of the hold and allow human readable ids. It is up to the implementer if the string should be stored on-chain or only its hash, as it is enough to identify a hold.</p>
+<p>The <code>operationId</code> is a competitive resource. It is recommended, but not required, that the hold issuers used a unique prefix to avoid collisions.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is fully backwards compatible as its implementation extends the functionality of <a href="https://eips.ethereum.org/EIPS/eip-20">ERC-20</a> and [ERC-1996].</p>
+<h2 id="implementation">Implementation</h2>
+<p>The GitHub repository <a href="https://github.com/IoBuilders/payoutable-token">IoBuilders/payoutable-token</a> contains the reference implementation.</p>
+<h2 id="contributors">Contributors</h2>
+<p>This proposal has been collaboratively implemented by <a href="https://adhara.io/">adhara.io</a> and <a href="https://io.builders/">io.builders</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

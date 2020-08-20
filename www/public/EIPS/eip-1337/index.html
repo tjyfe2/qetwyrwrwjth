@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1337: Subscriptions on the blockchain</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1337.md" />
+<meta property="og:title" content="EIP-1337: Subscriptions on the blockchain" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1337 (EIP-1337): Subscriptions on the blockchain"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1337 (EIP-1337): Subscriptions on the blockchain"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1337.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1337 (EIP 1337): Subscriptions on the blockchain" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1337: Subscriptions on the blockchain
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:kevin@gitcoin.co">Kevin Owocki</a>,
+        
+    
+        
+        
+            <a href="mailto:andrew@blockcrushr.com">Andrew Redden</a>,
+        
+    
+        
+        
+            <a href="mailto:scott@blockcrushr.com">Scott Burke</a>,
+        
+    
+        
+        
+            <a href="mailto:k.s.seagraves@gmail.com">Kevin Seagraves</a>,
+        
+    
+        
+        
+            <a href="mailto:luka.kacil@gmail.com">Luka Kacil</a>,
+        
+    
+        
+        
+            <a href="mailto:stefan.simec@gmail.com">Štefan Šimec</a>,
+        
+    
+        
+        
+            <a href="https://github.com/kosecki123"> Piotr Kosiński</a>,
+        
+    
+        
+        
+            <a href="mailto:tradeninja7@gmail.com">ankit raj</a>,
+        
+    
+        
+        
+            <a href="mailto:john@atchai.com">John Griffin</a>,
+        
+    
+        
+        
+            <a href="mailto:nathantr@gmail.com">Nathan Creswell</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1337-subscriptions-on-the-blockchain&#x2F;4422">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1337-subscriptions-on-the-blockchain&#x2F;4422</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-08-01</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>20, 165</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Monthly subscriptions are a key monetization channel for legacy web, and arguably they are the most healthy monetization channel for businesses on the legacy web (especially when compared to ad/surveillance) based models.  They are arguably more healthy than a token based economic system (depending upon the vesting model of the ICO) because</p>
+<h5 id="for-a-user">For a user:</h5>
+<ul>
+<li>you don't have to read a complex whitepaper to use a dapps utility (as opposed to utility tokens)</li>
+<li>you don't have to understand the founder's vesting schedules</li>
+<li>you can cancel anytime</li>
+</ul>
+<h5 id="for-a-service-provider">For a Service Provider:</h5>
+<ul>
+<li>since you know your subscriber numbers, churn numbers, conversion rate, you get consistent cash flow, and accurate projections</li>
+<li>you get to focus on making your customers happy </li>
+<li>enables you to remove speculators from your ecosystem</li>
+</ul>
+<p>For these reasons, we think it's imperative to create a standard way to do 'subscriptions' on Ethereum.</p>
+<h2 id="abstract">Abstract</h2>
+<p>To enable replay-able transactions users sign a concatenated bytes hash that is composed of the input data needed to execute the transaction. This data is stored off chain by the recipient of the payment and is transmitted to the customers smart contract for execution alongside a provided signature.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Recurring payments are the bedrock of SaSS and countless other businesses, a robust specification for defining this interaction will enable a broad spectrum of revenue generation and business models.</p>
+<h2 id="specification">Specification</h2>
+<h4 id="enum-contract">Enum Contract</h4>
+<p>EIP-1337 Contracts should be compiled with a contract that references all the enumerations that are required for operation</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/// @title Enum - Collection of enums
+/// Original concept from Richard Meissner - &lt;richard@gnosis.pm&gt; Gnosis safe contracts
+contract Enum {
+    enum Operation {
+        Call,
+        DelegateCall,
+        Create,
+        ERC20, 
+        ERC20Approve
+    }
+    enum SubscriptionStatus {
+        ACTIVE,
+        PAUSED,
+        CANCELLED,
+        EXPIRED
+    }
+    
+    enum Period {
+        INIT,
+        DAY,
+        WEEK,
+        MONTH
+    }
+}
+</span></code></pre><h4 id="eip-165">EIP-165</h4>
+<p>EIP-1337 compliant contracts support EIP-165 announcing what interfaces they support </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface ERC165 {
+  /**
+   * @notice Query if a contract implements an interface
+   * @param interfaceID The interface identifier, as specified in ERC-165
+   * @dev Interface identification is specified in ERC-165. This function
+   * uses less than 30,000 gas.
+   * @return `true` if the contract implements `interfaceID` and
+   * `interfaceID` is not 0xffffffff, `false` otherwise
+   **/
+  function supportsInterface(bytes4 interfaceID) external view returns (bool);
+}
+</span></code></pre><h4 id="public-view-functions">Public View Functions</h4>
+<h6 id="isvalidsubscription">isValidSubscription</h6>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">
+/** @dev Checks if the subscription is valid.
+  * @param bytes subscriptionHash is the identifier of the customer&#39;s subscription with its relevant details.
+  * @return success is the result of whether the subscription is valid or not.
+  **/
+
+function isValidSubscription(
+            uint256 subscriptionHash
+        ) 
+        public 
+        view 
+        returns (
+            bool success
+        )
+</span></code></pre><h6 id="getsubscriptionstatus">getSubscriptionStatus</h6>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">
+/** @dev returns the value of the subscription
+  * @param bytes subscriptionHash is the identifier of the customer&#39;s subscription with its relevant details.
+  * @return status is the enumerated status of the current subscription, 0 expired, 1 active, 2 paused, 3 cancelled
+  **/
+function getSubscriptionStatus(
+        uint256 subscriptionHash
+    )
+    public 
+    view 
+    returns (
+        uint256 status, 
+        uint256 nextWithdraw
+    )
+</span></code></pre><h6 id="getsubscriptionhash">getSubscriptionHash</h6>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/** @dev returns the hash of cocatenated inputs to the address of the contract holding the logic.,
+  * the owner would sign this hash and then provide it to the party for execution at a later date,
+  * this could be viewed like a cheque, with the exception that unless you specifically
+  * capture the hash on chain a valid signature will be executable at a later date, capturing the hash lets you modify the status to cancel or expire it.
+  * @param address recipient the address of the person who is getting the funds.
+  * @param uint256 value the value of the transaction
+  * @param bytes data the data the user is agreeing to
+  * @param uint256 txGas the cost of executing one of these transactions in gas(probably safe to pad this)
+  * @param uint256 dataGas the cost of executing the data portion of the transaction(delegate calls etc)
+  * @param uint 256 gasPrice the agreed upon gas cost of Execution of this subscription(cost incurment is up to implementation, ie, sender or receiver)
+  * @param address gasToken address of the token in which gas will be compensated by, address(0) is ETH, only works in the case of an enscrow implementation)
+  * @param bytes meta dynamic bytes array with 4 slots, 2 required, 2 optional // address refundAddress / uint256 period / uint256 offChainID / uint256 expiration (uinx timestamp)
+  * @return bytes32, return the hash input arguments concatenated to the address of the contract that holds the logic.
+  **/
+function getSubscriptionHash(
+        address recipient,
+        uint256 value,
+        bytes data,
+        Enum.Operation operation,
+        uint256 txGas,
+        uint256 dataGas,
+        uint256 gasPrice,
+        address gasToken,
+        bytes meta
+    )
+    public
+    view
+    returns (
+        bytes32 subscriptionHash
+    )
+</span></code></pre><h6 id="getmodifystatushash">getModifyStatusHash</h6>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/** @dev returns the hash of concatenated inputs that the owners user would sign with their public keys
+  * @param address recipient the address of the person who is getting the funds.
+  * @param uint256 value the value of the transaction
+  * @return bytes32 returns the hash of concatenated inputs with the address of the contract holding the subscription hash
+  **/
+function getModifyStatusHash(
+        bytes32 subscriptionHash
+        Enum.SubscriptionStatus status
+    )
+    public
+    view
+    returns (
+        bytes32 modifyStatusHash
+    )
+</span></code></pre><h4 id="public-functions">Public Functions</h4>
+<h6 id="modifystatus">modifyStatus</h6>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">
+/** @dev modifys the current subscription status
+  * @param uint256 subscriptionHash is the identifier of the customer&#39;s subscription with its relevant details.
+  * @param Enum.SubscriptionStatus status the new status of the subscription
+  * @param bytes signatures of the requested method being called
+  * @return success is the result of the subscription being paused
+  **/
+function modifyStatus(
+        uint256 subscriptionHash, 
+        Enum.SubscriptionStatus status, 
+        bytes signatures
+    ) 
+    public 
+    returns (
+        bool success
+    )
+</span></code></pre><h6 id="executesubscription">executeSubscription</h6>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">
+/** @dev returns the hash of cocatenated inputs to the address of the contract holding the logic.,
+  * the owner would sign this hash and then provide it to the party for execution at a later date,
+  * this could be viewed like a cheque, with the exception that unless you specifically
+  * capture the hash on chain a valid signature will be executable at a later date, capturing the hash lets you modify the status to cancel or expire it.
+  * @param address recipient the address of the person who is getting the funds.
+  * @param uint256 value the value of the transaction
+  * @param bytes data the data the user is agreeing to
+  * @param uint256 txGas the cost of executing one of these transactions in gas(probably safe to pad this)
+  * @param uint256 dataGas the cost of executing the data portion of the transaction(delegate calls etc)
+  * @param uint 256 gasPrice the agreed upon gas cost of Execution of this subscription(cost incurment is up to implementation, ie, sender or receiver)
+  * @param address gasToken address of the token in which gas will be compensated by, address(0) is ETH, only works in the case of an enscrow implementation)
+  * @param bytes meta dynamic bytes array with 4 slots, 2 required, 2 optional // address refundAddress / uint256 period / uint256 offChainID / uint256 expiration (uinx timestamp)
+  * @param bytes signatures signatures concatenated that have signed the inputs as proof of valid execution
+  * @return bool success something to note that a failed execution will still pay the issuer of the transaction for their gas costs.
+  **/
+function executeSubscription(
+        address to,
+        uint256 value,
+        bytes data,
+        Enum.Operation operation,
+        uint256 txGas,
+        uint256 dataGas,
+        uint256 gasPrice,
+        address gasToken,
+        bytes meta,
+        bytes signatures
+    )
+    public 
+    returns (
+        bool success
+    )
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>Merchants who accept credit-cards do so by storing a token that is retrieved from a third party processor(stripe, paypal, etc), this token is used to grant access to pull payment from the cx's credit card provider and move funds to the merchant account. 
+Having users sign input data acts in a similliar fashion and enables that merchant to store the signature of the concatenated bytes hash and input data used to generate the hash and pass them off to the contract holding the subscription logic, thus enabling a workflow that is similliar to what exists in the present day legacy web.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>N/A</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>TBD</p>
+<h2 id="implementation">Implementation</h2>
+<p>TBD</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2803: Rich Transactions</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2803.md" />
+<meta property="og:title" content="EIP-2803: Rich Transactions" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2803 (EIP-2803): Rich Transactions"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2803 (EIP-2803): Rich Transactions"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2803.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2803 (EIP 2803): Rich Transactions" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2803: Rich Transactions
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;rich-transactions-via-evm-bytecode-execution-from-externally-owned-accounts&#x2F;4025">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;rich-transactions-via-evm-bytecode-execution-from-externally-owned-accounts&#x2F;4025</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-07-18</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Support 'rich transactions' by allowing transactions from externally owned accounts to execute bytecode directly.</p>
+<h2 id="abstract">Abstract</h2>
+<p>If a transaction has a <code>to</code> of address <code>x</code>, then the <code>data</code> of the transaction will be treated as EVM bytecode and executed from the context of the <code>CALLER</code> of the transaction (aka: the transaction signer at the moment).</p>
+<h2 id="motivation">Motivation</h2>
+<p>Many Ethereum DApps presently require users to approve multiple transactions in order to produce one effect - for example, the common pattern of first approving a contract to spend a token, then calling that contract. This results in a poor user-experience, and complicates the experience of interacting with DApps.</p>
+<p>Making it possible for externally owned accounts to execute EVM bytecode directly allows a single transaction to execute multiple contract calls, allowing DApps to provide a streamlined experience, where every interaction results in at most one transaction.</p>
+<p>While this is in principle possible today using contract wallets, other UX issues, such as the need to fund a sending account with gas money, lack of support for contract wallets in browser integrations, and lack of a consistent API for contract wallets has led to poor adoption of these. We propose this EIP as a way of enhancing the utility of existing EOAs, in the spirit of &quot;don't let the perfect be the enemy of the good&quot;.</p>
+<h2 id="specification">Specification</h2>
+<p>A new reserved address is specified at <code>x</code>, in the range used for precompiles. When a transaction is sent to this address from an externally owned account, the payload of the transaction is treated as EVM bytecode, and executed with the signer of the transaction as the current account. For clarity:</p>
+<ul>
+<li>The <code>ADDRESS</code> opcode returns the address of the EOA that signed the transaction.</li>
+<li>The <code>BALANCE</code> opcode returns the balance of the EOA that signed the transaction.</li>
+<li>Any <code>CALL</code> operations that send value take their value from the EOA that signed the transaction.</li>
+<li><code>CALL</code> will set the <code>CALLER</code> to the EOA (not <code>x</code>).</li>
+<li><code>DELEGATECALL</code> preserves the EOA as the owning account.</li>
+<li>The <code>CALLER</code> and <code>ORIGIN</code> opcodes both return the address of the EOA that signed the transaction.</li>
+<li>There is no code associated with the precompile address. <code>CODE*</code> and <code>EXTCODE*</code> opcodes do not return the transaction payload.</li>
+<li><code>CALLDATA*</code> opcodes operate on the transaction payload as expected. </li>
+<li><code>SLOAD</code> and <code>SSTORE</code> operate on the storage of the EOA. As a result, an EOA can have data in storage, that persists between transactions.</li>
+<li>The <code>SELFDESTRUCT</code> opcode transfers the balance of the EOA to the specified address, and at the end of the transaction zeroes out the account's state storage, but does not zero the account's nonce. No refund is applied for the <code>SELFDESTRUCT</code> at the end of the transaction.</li>
+<li>All other opcodes behave as expected for a call to a contract address.</li>
+<li>The transaction is invalid if there is any value attached.</li>
+<li>A call to the precompile address from a contract has no special effect and is equivalent to a call to a nonexistent precompile or an empty address.</li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<p>The intent of this EIP is for the new precompile to act in all ways possible like a <code>DELEGATECALL</code> from an externally owned account. Some changes are required to reflect the fact that the code being executed is not stored on chain, and for special cases such as <code>SELFDESTRUCT</code>, to prevent introducing new edge-cases such as the ability to zero-out an EOA's nonce.</p>
+<p>A precompile was used rather than a new EIP-2718 transaction type because a precompile allows us to have a rich transaction with any type of EIP-2718 transaction.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP introduces a new feature that will need to be implemented in a future hard fork. No backwards compatibility issues with existing code are expected.</p>
+<p>Contracts or DApps that assume that an EOA cannot atomically perform multiple operations may be affected by this change, as this now makes it possible for EOAs to execute multiple atomic operations together. The authors do not believe this is a significant use-case, as this 'protection' is already trivially defeated by miners.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>TBD.</p>
+<h2 id="implementation">Implementation</h2>
+<p>None yet.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

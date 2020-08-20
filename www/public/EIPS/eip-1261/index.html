@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1261: Membership Verification Token (MVT)</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1261.md" />
+<meta property="og:title" content="EIP-1261: Membership Verification Token (MVT)" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1261 (EIP-1261): Membership Verification Token (MVT)"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1261 (EIP-1261): Membership Verification Token (MVT)"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1261.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1261 (EIP 1261): Membership Verification Token (MVT)" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1261: Membership Verification Token (MVT)
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/chaitanyapotti">Chaitanya Potti</a>,
+        
+    
+        
+        
+            <a href="https://github.com/pb25193"> Partha Bhattacharya</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1261">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1261</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-07-14</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>165, 173</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard interface for Membership Verification Token(MVT).</p>
+<h2 id="abstract">Abstract</h2>
+<p>The following standard allows for the implementation of a standard API for Membership Verification Token within smart contracts(called entities). This standard provides basic functionality to track membership of individuals in certain on-chain ‘organizations’. This allows for several use cases like automated compliance, and several forms of governance and membership structures.</p>
+<p>We considered use cases of MVTs being assigned to individuals which are non-transferable and revocable by the owner. MVTs can represent proof of recognition, proof of membership, proof of right-to-vote and several such otherwise abstract concepts on the blockchain. The following are some examples of those use cases, and it is possible to come up with several others:</p>
+<ul>
+<li>Voting: Voting is inherently supposed to be a permissioned activity. So far, onchain voting systems are only able to carry out voting with coin balance based polls. This can now change and take various shapes and forms.</li>
+<li>Passport issuance, social benefit distribution, Travel permit issuance, Drivers licence issuance are all applications which can be abstracted into membership, that is belonging of an individual to a small set, recognized by some authority as having certain entitlements, without needing any individual specific information(right to welfare, freedom of movement, authorization to operate vehicles, immigration)</li>
+<li>Investor permissioning: Making regulatory compliance a simple on chain process. Tokenization of securities, that are streamlined to flow only to accredited addresses, tracing and certifying on chain addresses for AML purposes.</li>
+<li>Software licencing: Software companies like game developers can use the protocol to authorize certain hardware units(consoles) to download and use specific software(games)</li>
+</ul>
+<p>In general, an individual can have different memberships in their day to day life. The protocol allows for the creation of software that puts everything all at one place. Their identity can be verified instantly. Imagine a world where you don't need to carry a wallet full of identity cards (Passport, gym membership, SSN, Company ID etc) and organizations can easily keep track of all its members. Organizations can easily identify and disallow fake identities.</p>
+<p>Attributes are a huge part of ERC-1261 which help to store identifiable information regarding its members. Polls can make use of attributes to calculate the voterbase.
+E.g: Users should belong to USA entity and not belong to Washington state attribute to be a part of a poll.</p>
+<p>There will exist a mapping table that maps attribute headers to an array of all possible attributes. This is done in order to subdivide entities into subgroups which are exclusive and exhaustive. For example,
+header: blood group alphabet
+Array: [ o, a, b, ab ]
+header: blood group sign
+Array: [ +, - ]</p>
+<p>NOT an example of exclusive exhaustive:
+Header: video subscription
+Array: [ Netflix, HBO, Amazon ]
+Because a person is not necessitated to have EXACTLY one of the elements. He or she may have none or more than one.</p>
+<h2 id="motivation">Motivation</h2>
+<p>A standard interface allows any user, applications to work with any MVT on Ethereum. We provide for simple ERC-1261 smart contracts. Additional applications are discussed below.</p>
+<p>This standard is inspired from the fact that voting on the blockchain is done with token balance weights. This has been greatly detrimental to the formation of flexible governance systems on the blockchain, despite the tremendous governance potential that blockchains offer. The idea was to create a permissioning system that allows organizations to vet people once into the organization on the blockchain, and then gain immense flexibility in the kind of governance that can be carried out.</p>
+<p>We have also reviewed other Membership EIPs including EIP-725/735 Claim Registry. A significant difference between #735 claims and #1261 MVTs is information ownership. In #735 the Claim Holder owns any claims made about themselves. The problem with this is that there is no way for a Claim Issuer to revoke or alter a claim once it has been issued. While #735 does specify a removeClaim method, a malicious implementation could simply ignore that method call, because they own the claim.</p>
+<p>Imagine that SafeEmploy™, a background checking company, issues a claim about Timmy. The claim states that Timmy has never been convicted of any felonies. Timmy makes some bad decisions, and now that claim is no longer true. SafeEmploy™ executes removeClaim, but Timmy's #735 contract just ignores it, because Timmy wants to stay employed (and is crypto-clever). #1261 MVTs do not have this problem. Ownership of a badge/claim is entirely determined by the contract issuing the badges, not the one receiving them. The issuer is free to remove or change those badges as they see fit.</p>
+<p><strong>Trade-off between trustlessness and usability:</strong>
+To truly understand the value of the protocol, it is important to understand the trade-off we are treading on. The MVT contract allows the creator to revoke the token, and essentially confiscate the membership of the member in question. To some, this might seem like an unacceptable flaw, however this is a design choice, and not a flaw.
+The choice may seem to place a great amount of trust in the individuals who are managing the entity contract(entity owners). If the interests of the entity owner conflict with the interests of the members, the owner may resort to addition of fake addresses(to dominate consensus) or evicting members(to censor unfavourable decisions). At first glance this appears to be a major shortcomings, because the blockchain space is used to absolute removal of authority in most cases. Even the official definition of a dapp requires the absence of any party that manages the services provided by the application. However, the trust in entity owners is not misplaced, if it can be ensured that the interests of entity owners are aligned with the interests of members.
+Another criticism of such a system would be that the standard edge of blockchain intermediation - “you cannot bribe the system if you don’t know who to bribe” - no longer holds. It is possible to bribe an entity owner into submission, and get them to censor or fake votes. There are several ways to respond to this argument. First of all, all activities, such as addition of members, and removal of members can be tracked on the blockchain and traces of such activity cannot be removed. It is not difficult to build analytics tools to detect malicious activity(adding 100 fake members suddenly who vote in the direction/sudden removal of a number of members voting in a certain direction). Secondly, the entity owners’ power is limited to the addition and removal of members. This means that they cannot tamper any votes. They can only alter the counting system to include fake voters or remove real voters. Any sensible auditor can identify the malicious/victim addresses and create an open source audit tool to find out the correct results. The biggest loser in this attack will be the entity owner, who has a reputation to lose.
+Finally, one must understand why we are taking a step away from trustlessness in this trade-off. The answer is usability. Introducing a permissioning system expands the scope of products and services that can be delivered through the blockchain, while leveraging other aspects of the blockchain(cheap, immutable, no red-tape, secure). Consider the example of the driver licence issuing agency using the ERC-1300 standard. This is a service that simply cannot be deployed in a completely trustless environment. The introduction of permissioned systems expanded the scope of services on the blockchain to cover this particular service. Sure, they have the power to revoke a person’s licence for no reason. But will they? Who stands to lose the most, if the agency acts erratically? The agency itself. Now consider the alternative, the way licences(not necessarily only drivers licence, but say shareholder certificates and so on) are issued, the amount of time consumed, the complete lack of transparency. One could argue that if the legacy systems providing these services really wanted to carry out corruption and nepotism in the execution of these services, the present systems make it much easier to do so. Also, they are not transparent, meaning that there is no way to even detect if they act maliciously.
+All that being said, we are very excited to share our proposal with the community and open up to suggestions in this space.</p>
+<h2 id="specification">Specification</h2>
+<p>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in RFC 2119.</p>
+<p><strong>Every ERC-1261 compliant contract must implement the <code>ERC1261</code>, <code>ERC173</code> and <code>ERC165</code> interfaces</strong> (subject to &quot;caveats&quot; below):</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/// @title ERC-1261 MVT Standard
+/// @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1261.md
+///  The constructor should define the attribute set for this MVT.
+///  Note: the ERC-165 identifier for this interface is 0x1d8362cf.
+interface IERC1261 {/* is ERC173, ERC165 */
+    /// @dev This emits when a token is assigned to a member.
+    event Assigned(address indexed _to, uint[] attributeIndexes);
+
+    /// @dev This emits when a membership is revoked.
+    event Revoked(address indexed _to);
+
+    /// @dev This emits when a user forfeits his membership
+    event Forfeited(address indexed _to);
+
+    /// @dev This emits when a membership request is accepted
+    event ApprovedMembership(address indexed _to, uint[] attributeIndexes);
+
+    /// @dev This emits when a membership is requested by an user
+    event RequestedMembership(address indexed _to);
+
+    /// @dev This emits when data of a member is modified.
+    ///  Doesn&#39;t emit when a new membership is created and data is assigned.
+    event ModifiedAttributes(address indexed _to, uint attributeIndex, uint attributeValueIndex);
+
+    /// @notice Adds a new attribute (key, value) pair to the set of pre-existing attributes.
+    /// @dev Adds a new attribute at the end of the array of attributes and maps it to `values`.
+    ///  Contract can set a max number of attributes and throw if limit is reached.
+    /// @param _name Name of the attribute which is to be added.
+    /// @param values List of values of the specified attribute.
+    function addAttributeSet(bytes32 _name, bytes32[] calldata values) external;
+
+    /// @notice Modifies the attribute value of a specific attribute for a given `_to` address.
+    /// @dev Use appropriate checks for whether a user/admin can modify the data.
+    ///  Best practice is to use onlyOwner modifier from ERC173.
+    /// @param _to The address whose attribute is being modified.
+    /// @param _attributeIndex The index of attribute which is being modified.
+    /// @param _modifiedValueIndex The index of the new value which is being assigned to the user attribute.
+    function modifyAttributeByIndex(address _to, uint _attributeIndex, uint _modifiedValueIndex) external;
+
+    /// @notice Requests membership from any address.
+    /// @dev Throws if the `msg.sender` already has the token.
+    ///  The individual `msg.sender` can request for a membership if some existing criteria are satisfied.
+    ///  When a membership is requested, this function emits the RequestedMembership event.
+    ///  dev can store the membership request and use `approveRequest` to assign membership later
+    ///  dev can also oraclize the request to assign membership later
+    /// @param _attributeIndexes the attribute data associated with the member.
+    ///  This is an array which contains indexes of attributes.
+    function requestMembership(uint[] calldata _attributeIndexes) external payable;
+
+    /// @notice User can forfeit his membership.
+    /// @dev Throws if the `msg.sender` already doesn&#39;t have the token.
+    ///  The individual `msg.sender` can revoke his/her membership.
+    ///  When the token is revoked, this function emits the Revoked event.
+    function forfeitMembership() external payable;
+
+    /// @notice Owner approves membership from any address.
+    /// @dev Throws if the `_user` doesn&#39;t have a pending request.
+    ///  Throws if the `msg.sender` is not an owner.
+    ///  Approves the pending request
+    ///  Make oraclize callback call this function
+    ///  When the token is assigned, this function emits the `ApprovedMembership` and `Assigned` events.
+    /// @param _user the user whose membership request will be approved.
+    function approveRequest(address _user) external;
+
+    /// @notice Owner discards membership from any address.
+    /// @dev Throws if the `_user` doesn&#39;t have a pending request.
+    ///  Throws if the `msg.sender` is not an owner.
+    ///  Discards the pending request
+    ///  Make oraclize callback call this function if criteria are not satisfied
+    /// @param _user the user whose membership request will be discarded.
+    function discardRequest(address _user) external;
+
+    /// @notice Assigns membership of an MVT from owner address to another address.
+    /// @dev Throws if the member already has the token.
+    ///  Throws if `_to` is the zero address.
+    ///  Throws if the `msg.sender` is not an owner.
+    ///  The entity assigns the membership to each individual.
+    ///  When the token is assigned, this function emits the Assigned event.
+    /// @param _to The address to which the token is assigned.
+    /// @param _attributeIndexes The attribute data associated with the member.
+    ///  This is an array which contains indexes of attributes.
+    function assignTo(address _to, uint[] calldata _attributeIndexes) external;
+
+    /// @notice Only Owner can revoke the membership.
+    /// @dev This removes the membership of the user.
+    ///  Throws if the `_from` is not an owner of the token.
+    ///  Throws if the `msg.sender` is not an owner.
+    ///  Throws if `_from` is the zero address.
+    ///  When transaction is complete, this function emits the Revoked event.
+    /// @param _from The current owner of the MVT.
+    function revokeFrom(address _from) external;
+
+    /// @notice Queries whether a member is a current member of the organization.
+    /// @dev MVT&#39;s assigned to the zero address are considered invalid, and this
+    ///  function throws for queries about the zero address.
+    /// @param _to An address for whom to query the membership.
+    /// @return Whether the member owns the token.
+    function isCurrentMember(address _to) external view returns (bool);
+
+     /// @notice Gets the value collection of an attribute.
+    /// @dev Returns the values of attributes as a bytes32 array.
+    /// @param _name Name of the attribute whose values are to be fetched
+    /// @return The values of attributes.
+    function getAttributeExhaustiveCollection(bytes32 _name) external view returns (bytes32[] memory);
+
+    /// @notice Returns the list of all past and present members.
+    /// @dev Use this function along with isCurrentMember to find wasMemberOf() in Js.
+    ///  It can be calculated as present in getAllMembers() and !isCurrentMember().
+    /// @return List of addresses who have owned the token and currently own the token.
+    function getAllMembers() external view returns (address[]);
+
+    /// @notice Returns the count of all current members.
+    /// @dev Use this function in polls as denominator to get percentage of members voted.
+    /// @return Count of current Members.
+    function getCurrentMemberCount() external view returns (uint);
+
+    /// @notice Returns the list of all attribute names.
+    /// @dev Returns the names of attributes as a bytes32 array.
+    ///  AttributeNames are stored in a bytes32 Array.
+    ///  Possible values for each attributeName are stored in a mapping(attributeName =&gt; attributeValues).
+    ///  AttributeName is bytes32 and attributeValues is bytes32[].
+    ///  Attributes of a particular user are stored in bytes32[].
+    ///  Which has a single attributeValue for each attributeName in an array.
+    ///  Use web3.toAscii(data[0]).replace(/\u0000/g, &quot;&quot;) to convert to string in JS.
+    /// @return The names of attributes.
+    function getAttributeNames() external view returns (bytes32[] memory);
+
+    /// @notice Returns the attributes of `_to` address.
+    /// @dev Throws if `_to` is the zero address.
+    ///  Use web3.toAscii(data[0]).replace(/\u0000/g, &quot;&quot;) to convert to string in JS.
+    /// @param _to The address whose current attributes are to be returned.
+    /// @return The attributes associated with `_to` address.
+    function getAttributes(address _to) external view returns (bytes32[]);
+
+    /// @notice Returns the `attribute` stored against `_to` address.
+    /// @dev Finds the index of the `attribute`.
+    ///  Throws if the attribute is not present in the predefined attributes.
+    ///  Returns the attributeValue for the specified `attribute`.
+    /// @param _to The address whose attribute is requested.
+    /// @param _attributeIndex The attribute Index which is required.
+    /// @return The attribute value at the specified name.
+    function getAttributeByIndex(address _to, uint _attributeIndex) external view returns (bytes32);
+}
+
+interface ERC173 /* is ERC165 */ {
+    /// @dev This emits when ownership of a contract changes.
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /// @notice Get the address of the owner
+    /// @return The address of the owner.
+    function owner() external view;
+
+    /// @notice Set the address of the new owner of the contract
+    /// @param _newOwner The address of the new owner of the contract
+    function transferOwnership(address _newOwner) external;
+}
+
+interface ERC165 {
+    /// @notice Query if a contract implements an interface
+    /// @param interfaceID The interface identifier, as specified in ERC-165
+    /// @dev Interface identification is specified in ERC-165. This function
+    ///  uses less than 30,000 gas.
+    /// @return `true` if the contract implements `interfaceID` and
+    ///  `interfaceID` is not 0xffffffff, `false` otherwise
+    function supportsInterface(bytes4 interfaceID) external view returns (bool);
+}
+</span></code></pre>
+<p>The <strong>metadata extension</strong> is OPTIONAL for ERC-1261 smart contracts (see &quot;caveats&quot;, below). This allows your smart contract to be interrogated for its name and for details about the organization which your MV tokens represent.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/// @title ERC-1261 MVT Standard, optional metadata extension
+/// @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1261.md
+interface ERC1261Metadata /* is ERC1261 */ {
+    /// @notice A descriptive name for a collection of MVTs in this contract
+    function name() external view returns (string _name);
+
+    /// @notice An abbreviated name for MVTs in this contract
+    function symbol() external view returns (string _symbol);
+}
+</span></code></pre>
+<p>This is the &quot;ERC1261 Metadata JSON Schema&quot; referenced above.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">title</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Organization Metadata</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">properties</span><span style="color:#c0c5ce;">&quot;: {
+    &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: {
+      &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Identifies the organization to which this MVT represents</span><span style="color:#c0c5ce;">&quot;
+    },
+    &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: {
+      &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Describes the organization to which this MVT represents</span><span style="color:#c0c5ce;">&quot;
+    }
+  }
+}
+</span></code></pre><h3 id="caveats">Caveats</h3>
+<p>The 0.4.24 Solidity interface grammar is not expressive enough to document the ERC-1261 standard. A contract which complies with ERC-1261 MUST also abide by the following:</p>
+<ul>
+<li>Solidity issue #3412: The above interfaces include explicit mutability guarantees for each function. Mutability guarantees are, in order weak to strong: <code>payable</code>, implicit nonpayable, <code>view</code>, and <code>pure</code>. Your implementation MUST meet the mutability guarantee in this interface and you MAY meet a stronger guarantee. For example, a <code>payable</code> function in this interface may be implemented as nonpayble (no state mutability specified) in your contract. We expect a later Solidity release will allow your stricter contract to inherit from this interface, but a workaround for version 0.4.24 is that you can edit this interface to add stricter mutability before inheriting from your contract.</li>
+<li>Solidity issue #3419: A contract that implements <code>ERC1261Metadata</code> SHALL also implement <code>ERC1261</code>.</li>
+<li>Solidity issue #2330: If a function is shown in this specification as <code>external</code> then a contract will be compliant if it uses <code>public</code> visibility. As a workaround for version 0.4.24, you can edit this interface to switch to <code>public</code> before inheriting from your contract.</li>
+<li>Solidity issues #3494, #3544: Use of <code>this.*.selector</code> is marked as a warning by Solidity, a future version of Solidity will not mark this as an error.</li>
+</ul>
+<p><em>If a newer version of Solidity allows the caveats to be expressed in code, then this EIP MAY be updated and the caveats removed, such will be equivalent to the original specification.</em></p>
+<h2 id="rationale">Rationale</h2>
+<p>There are many potential uses of Ethereum smart contracts that depend on tracking membership. Examples of existing or planned MVT systems are Vault, a DAICO platform, and Stream, a security token framework. Future uses include the implementation of direct democracy, in-game memberships and badges, licence and travel document issuance, electronic voting machine trails, software licencing and many more.</p>
+<p><strong>MVT Word Choice:</strong></p>
+<p>Since the tokens are non transferable and revocable, they function like membership cards. Hence the word membership verification token.</p>
+<p><strong>Transfer Mechanism</strong></p>
+<p>MVTs can't be transferred. This is a design choice, and one of the features that distinguishes this protocol.
+Any member can always ask the issuer to revoke the token from an existing address and assign to a new address.
+One can think of the set of MVTs as identifying a user, and you cannot split the user into parts and have it be the same user, but you can transfer a user to a new private key.</p>
+<p><strong>Assign and Revoke mechanism</strong></p>
+<p>The assign and revoke functions' documentation only specify conditions when the transaction MUST throw. Your implementation MAY also throw in other situations. This allows implementations to achieve interesting results:</p>
+<ul>
+<li><strong>Disallow additional memberships after a condition is met</strong> — Sample contract available on GitHub</li>
+<li><strong>Blacklist certain address from receiving MV tokens</strong> — Sample contract available on GitHub</li>
+<li><strong>Disallow additional memberships after a certain time is reached</strong> — Sample contract available on GitHub</li>
+<li><strong>Charge a fee to user of a transaction</strong> — require payment when calling <code>assign</code> and <code>revoke</code> so that condition checks from external sources can be made</li>
+</ul>
+<p><strong>ERC-173 Interface</strong></p>
+<p>We chose Standard Interface for Ownership (ERC-173) to manage the ownership of a ERC-1261 contract.</p>
+<p>A future EIP/ Zeppelin may create a multi-ownable implementation for ownership. We strongly support such an EIP and it would allow your ERC-1261 implementation to implement <code>ERC1261Metadata</code>, or other interfaces by delegating to a separate contract.</p>
+<p><strong>ERC-165 Interface</strong></p>
+<p>We chose Standard Interface Detection (ERC-165) to expose the interfaces that a ERC-1261 smart contract supports.</p>
+<p>A future EIP may create a global registry of interfaces for contracts. We strongly support such an EIP and it would allow your ERC-1261 implementation to implement <code>ERC1261Metadata</code>, or other interfaces by delegating to a separate contract.</p>
+<p><strong>Gas and Complexity</strong> (regarding the enumeration extension)</p>
+<p>This specification contemplates implementations that manage a few and <em>arbitrarily large</em> numbers of MVTs. If your application is able to grow then avoid using for/while loops in your code. These indicate your contract may be unable to scale and gas costs will rise over time without bound</p>
+<p><strong>Privacy</strong></p>
+<p>Personal information: The protocol does not put any personal information on to the blockchain, so there is no compromise of privacy in that respect.
+Membership privacy: The protocol by design, makes it public which addresses are/aren’t members. Without making that information public, it would not be possible to independently audit governance activity or track admin(entity owner) activity.</p>
+<p><strong>Metadata Choices</strong> (metadata extension)</p>
+<p>We have required <code>name</code> and <code>symbol</code> functions in the metadata extension. Every token EIP and draft we reviewed (ERC-20, ERC-223, ERC-677, ERC-777, ERC-827) included these functions.</p>
+<p>We remind implementation authors that the empty string is a valid response to <code>name</code> and <code>symbol</code> if you protest to the usage of this mechanism. We also remind everyone that any smart contract can use the same name and symbol as <em>your</em> contract. How a client may determine which ERC-1261 smart contracts are well-known (canonical) is outside the scope of this standard.</p>
+<p>A mechanism is provided to associate MVTs with URIs. We expect that many implementations will take advantage of this to provide metadata for each MVT system. The URI MAY be mutable (i.e. it changes from time to time). We considered an MVT representing membership of a place, in this case metadata about the organization can naturally change.</p>
+<p>Metadata is returned as a string value. Currently this is only usable as calling from <code>web3</code>, not from other contracts. This is acceptable because we have not considered a use case where an on-blockchain application would query such information.</p>
+<p><em>Alternatives considered: put all metadata for each asset on the blockchain (too expensive), use URL templates to query metadata parts (URL templates do not work with all URL schemes, especially P2P URLs), multiaddr network address (not mature enough)</em></p>
+<p><strong>Community Consensus</strong></p>
+<p>We have been very inclusive in this process and invite anyone with questions or contributions into our discussion. However, this standard is written only to support the identified use cases which are listed herein.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>We have adopted <code>name</code> and <code>symbol</code> semantics from the ERC-20 specification.</p>
+<p>Example MVT implementations as of July 2018:</p>
+<ul>
+<li>Membership Verification Token(https://github.com/chaitanyapotti/MembershipVerificationToken)</li>
+</ul>
+<h2 id="test-cases">Test Cases</h2>
+<p>Membership Verification Token ERC-1261 Token includes test cases written using Truffle.</p>
+<h2 id="implementations">Implementations</h2>
+<p>Membership Verification Token ERC1261 -- a reference implementation</p>
+<ul>
+<li>MIT licensed, so you can freely use it for your projects</li>
+<li>Includes test cases</li>
+<li>Also available as a npm package - npm i membershipverificationtoken</li>
+</ul>
+<h2 id="references">References</h2>
+<p><strong>Standards</strong></p>
+<ol>
+<li>ERC-20 Token Standard. https://eips.ethereum.org/EIPS/eip-20</li>
+<li>ERC-165 Standard Interface Detection. https://eips.ethereum.org/EIPS/eip-165</li>
+<li>ERC-725/735 Claim Registry https://eips.ethereum.org/EIPS/eip-725</li>
+<li>ERC-173 Owned Standard. https://eips.ethereum.org/EIPS/eip-173</li>
+<li>JSON Schema. https://json-schema.org/</li>
+<li>Multiaddr. https://github.com/multiformats/multiaddr</li>
+<li>RFC 2119 Key words for use in RFCs to Indicate Requirement Levels. https://www.ietf.org/rfc/rfc2119.txt</li>
+</ol>
+<p><strong>Issues</strong></p>
+<ol>
+<li>The Original ERC-1261 Issue. https://github.com/ethereum/eips/issues/1261</li>
+<li>Solidity Issue #2330 -- Interface Functions are Axternal. https://github.com/ethereum/solidity/issues/2330</li>
+<li>Solidity Issue #3412 -- Implement Interface: Allow Stricter Mutability. https://github.com/ethereum/solidity/issues/3412</li>
+<li>Solidity Issue #3419 -- Interfaces Can't Inherit. https://github.com/ethereum/solidity/issues/3419</li>
+</ol>
+<p><strong>Discussions</strong></p>
+<ol>
+<li>Gitter #EIPs (announcement of first live discussion). https://gitter.im/ethereum/EIPs?at=5b5a1733d2f0934551d37642</li>
+<li>ERC-1261 (announcement of first live discussion). https://github.com/ethereum/eips/issues/1261</li>
+</ol>
+<p><strong>MVT Implementations and Other Projects</strong></p>
+<ol>
+<li>Membership Verification Token ERC-1261 Token. https://github.com/chaitanyapotti/MembershipVerificationToken</li>
+</ol>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

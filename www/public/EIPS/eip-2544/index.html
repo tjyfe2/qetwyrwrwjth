@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2544: ENS Wildcard Resolution</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2544.md" />
+<meta property="og:title" content="EIP-2544: ENS Wildcard Resolution" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2544 (EIP-2544): ENS Wildcard Resolution"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2544 (EIP-2544): ENS Wildcard Resolution"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2544.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2544 (EIP 2544): ENS Wildcard Resolution" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2544: ENS Wildcard Resolution
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/arachnid">Nick Johnson</a>,
+        
+    
+        
+        
+            <a href="https://github.com/0age"> 0age</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2544-ens-wildcard-resolution">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2544-ens-wildcard-resolution</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-02-28</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>137</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>EIP-2544 extends ENS client behavior to support &quot;wildcard&quot; resolution of subdomains. This is accomplished by using a parent domain's resolver if none is set on a given subdomain.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The Ethereum Name Service Specification (EIP-137) establishes a two-step name resolution process. First, an ENS client takes a provided name, performs the namehash algorithm to determine the associated &quot;node&quot;, and supplies that node to the ENS Registry contract to determine the resolver. Then, if a resolver has been set on the Registry, the client supplies that same node to the resolver contract, which will return the associated address or other record.</p>
+<p>As currently specified, this process terminates if a resolver is not set on the ENS Registry for a given node. This EIP extends the existing name resolution process by adding an additional step if a resolver is not set for subdomain. This step strips out the leftmost label from the name, derives the node of the new fragment, and supplies that node to the ENS Registry. If a resolver is located for that node, the client supplies the original, complete node to that resolver contract to derive the relevant records.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Many applications such as wallet providers, exchanges, and dapps have expressed a desire to issue ENS names for their users via custom subdomains on a shared parent domain. However, the cost of doing so is currently prohibitive for large user bases, as a distinct record must be set on the ENS Registry for each subdomain.</p>
+<p>Furthermore, users cannot immediately utilize these subdomains upon account creation, as the transaction to assign a resolver for the node of the subdomain must first be submitted and mined on-chain. This adds unnecessary friction when onboarding new users, who coincidentally would often benefit greatly from the usability improvements afforded by an ENS name.</p>
+<p>Enabling wildcard support allows for the design of more advanced resolvers that deterministically generate addresses and other records for unassigned subdomains. The generated addresses could map to counterfactual contract deployment addresses (i.e. <code>CREATE2</code> addresses), to designated &quot;fallback&quot; addresses, or other schemes. Additionally, individual resolvers would still be assignable to any given subdomain, which would supersede the wildcard resolution using the parent resolver.</p>
+<p>Another critical motivation with EIP-2544 is to enable wildcard resolution in a backwards-compatible fashion. It does not require modifying the current ENS Registry contract or any assigned resolvers, and continues to support existing ENS records — legacy ENS clients would simply fail to resolve wildcard records.</p>
+<h2 id="specification">Specification</h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+<p>EIP-2544-compliant ENS clients MUST perform the following sequence when determining the resolver for a given name:</p>
+<ol>
+<li>Apply the namehash algorithm to the supplied name as specified in EIP-137 to derive the <code>node</code>.</li>
+<li>Call the ENS Registry contract, supplying the node as the argument to <code>function resolver(bytes32 node) constant returns (address)</code>.</li>
+<li>If an address other than the null address is returned, the client MUST use the returned address as the resolver.</li>
+<li>If the null address is returned, the client MUST strip the leftmost label from the name to derive a new name.</li>
+<li>If the only remaining label is a top-level domain, or if no labels remain, the client MUST refuse to interact with the resolver.</li>
+<li>Apply the namehash algorithm to the new name as specified in EIP-137 to derive the <code>parentNode</code>.</li>
+<li>Call the ENS Registry contract, supplying the parent node as the argument to <code>function resolver(bytes32 node) constant returns (address)</code> to determine the resolver.</li>
+<li>If the null address is returned from this second request, the client MUST refuse to interact with the resolver.</li>
+</ol>
+<p>In the event that a non-null resolver is located via this process, the client MUST supply the full, original <code>node</code> to the resolver to derive the address or other records. As with EIP-137, clients attempting to resolve an address via <code>function addr(bytes32 node) constant returns (address)</code> MUST refuse to interact with the returned address when the null address is returned.</p>
+<h3 id="pseudocode">Pseudocode</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function getNodeAndResolver(name) {
+    // 1. Apply the namehash algorithm to supplied name to determine the node.
+    const node = namehash(name);
+    
+    // 2. Attempt to retrieve a resolver from the ENS Registry using the node.
+    let resolver = ENS_REGISTRY.methods.resolver(node).call();
+    
+    // 3. Use the resolver if a non-null result is returned from the registry.
+    if (resolver != &quot;0x0000000000000000000000000000000000000000&quot;) {
+        return (node, resolver);
+    }
+    
+    // 4. Remove the leftmost label from the name.
+    const labelsWithoutLeftmost = name.split(&quot;.&quot;).slice(1);
+    
+    // 5. Do not continue if only the top-level domain (or no domain) remains.
+    if (labelsWithoutLeftmost.length &lt; 2) {
+        throw new Error(&quot;ENS resolver not found.&quot;);
+    }
+    
+    // 6. Apply the namehash algorithm to new name to determine the parent node.
+    const parentNode = namehash(labelsWithoutLeftmost.join(&quot;.&quot;));
+    
+    // 7. Attempt to retrieve a resolver from registry using the parent node.
+    resolver = ENS_REGISTRY.methods.resolver(parentNode).call();
+    
+    // 8. Do not continue if a null result is returned from the registry.
+    if (resolver == &quot;0x0000000000000000000000000000000000000000&quot;) {
+        throw new Error(&quot;ENS resolver not found.&quot;);
+    }
+
+    // Return the located resolver along with the original node.
+    return (node, resolver);
+};
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>The proposed implementation supports wildcard resolution in a manner that minimizes the impact to existing systems. It also reuses existing algorithms and procedures to the greatest possible extent, thereby easing the burden placed on authors and maintainers of various ENS clients.</p>
+<p>It also recognizes an existing consensus concerning the desirability of wildcard resolution for ENS, enabling more widespread adoption of the original specification by solving for a key scalability obstacle.</p>
+<p>By not recursively applying the namehash operation after removing successive leftmost subdomains, round-trip requests are reduced and edge cases around overriding ownership of nested subdomains are adequately handled. ENS clients may optimize further for reduced latency by utilizing a helper contract that performs the logic necessary to support wildcard resolution.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>There are no backwards compatibility concerns — existing ENS clients that are compliant with EIP-137 will fail to resolve wildcard records and refuse to interact with them, while those compliant with EIP-2544 will continue to correctly resolve, or reject, existing ENS records.</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<p>While compliant ENS clients will continue to refuse to resolve records without a resolver, there is still the risk that an improperly-configured client will refer to an incorrect resolver, or will not reject interactions with the null address when a resolver cannot be located.</p>
+<p>Additionally, resolvers supporting completely arbitrary wildcard subdomain resolution will increase the likelihood of funds being sent to unintended recipients as a result of typos. Applications that implement such resolvers should consider making additional name validation available to clients depending on the context, or implementing features that support recoverability of funds.</p>
+<p>There is also the possibility that some applications might require that no resolver be set for certain subdomains. For this to be problematic, the parent domain would need to successfully resolve the given subdomain node — to the knowledge of the authors, no application currently supports this feature or expects that subdomains should not resolve to a record.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

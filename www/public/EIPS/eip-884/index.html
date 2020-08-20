@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-884: DGCL Token</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-884.md" />
+<meta property="og:title" content="EIP-884: DGCL Token" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 884 (EIP-884): DGCL Token"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 884 (EIP-884): DGCL Token"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-884.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 884 (EIP 884): DGCL Token" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-884: DGCL Token
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:davesag@gmail.com">Dave Sag</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-02-14</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h1 id="delaware-general-corporations-law-dgcl-compatible-share-token">Delaware General Corporations Law (DGCL) compatible share token</h1>
+<p>Ref: <a href="https://forum.ethereum.org/discussion/17200/proposing-an-eip-for-regulation-a-Tokens">proposing-an-eip-for-DGCL-tokens</a></p>
+<h2 id="simple-summary">Simple Summary</h2>
+<p>An <code>ERC-20</code> compatible token that conforms to <a href="https://legis.delaware.gov/json/BillDetail/GenerateHtmlDocument?legislationId=25730&amp;legislationTypeId=1&amp;docTypeId=2&amp;legislationName=SB69">Delaware State Senate, 149th General Assembly, Senate Bill No. 69: An act to Amend Title 8 of the Delaware Code Relating to the General Corporation Law</a>, henceforth referred to as 'The Act'.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The recently amended 'Title 8 of the Delaware Code Relating to the General Corporation Law' now explicitly allows for the use of blockchains to maintain corporate share registries. This means it is now possible to create a tradable <code>ERC-20</code> token where each token represents a share issued by a Delaware corporation. Such a token must conform to the following principles over and above the <code>ERC-20</code> standard.</p>
+<ol>
+<li>
+<p>Token owners must have their identity verified.</p>
+</li>
+<li>
+<p>The token contract must provide the following three functions of a <code>Corporations Stock ledger</code> (Ref: Section 224 of The Act):</p>
+<ol>
+<li>
+<p>Reporting:</p>
+<p>It must enable the corporation to prepare the list of shareholders specified in Sections 219 and 220 of The Act.</p>
+</li>
+<li>
+<p>It must record the information specified in Sections 156, 159, 217(a) and 218 of The Act:</p>
+<ul>
+<li>Partly paid shares</li>
+<li>Total amount paid</li>
+<li>Total amount to be paid</li>
+</ul>
+</li>
+<li>
+<p>Transfers of shares as per section 159 of The Act:</p>
+<p>It must record transfers of shares as governed by Article 8 of subtitle I of Title 6.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Each token MUST correspond to a single share, each of which would be paid for in full, so there is no need to record information concerning partly paid shares, and there are no partial tokens.</p>
+</li>
+<li>
+<p>There must be a mechanism to allow a shareholder who has lost their private key, or otherwise lost access to their tokens to have their address <code>cancelled</code> and the tokens re-issued to a new address.</p>
+</li>
+</ol>
+<h2 id="motivation">Motivation</h2>
+<ol>
+<li>Delaware General Corporation Law requires that shares issued by a Delaware corporation be recorded in a share registry.</li>
+<li>The share registry can be represented by an <code>ERC-20</code> token contract that is compliant with Delaware General Corporation Law.</li>
+<li>This standard can cover equity issued by any Delaware corporation, whether private or public.</li>
+</ol>
+<p>By using a <code>DGCL</code> compatible token, a firm may be able to raise funds via IPO, conforming to Delaware Corporations Law, but bypassing the need for involvement of a traditional Stock Exchange.</p>
+<p>There are currently no token standards that conform to the <code>DGCL</code> rules. <code>ERC-20</code> tokens do not support KYC/AML rules required by the General Corporation Law, and do not provide facilities for the exporting of lists of shareholders.</p>
+<h3 id="what-about-erc-721">What about ERC-721?</h3>
+<p>The proposed standard could easily be used to enhance <code>ERC-721</code>, adding features for associating tokens with assets such as share certificates.</p>
+<p>While the <code>ERC-721</code> token proposal allows for some association of metadata with an Ethereum address, its uses are <em>not completely aligned</em> with The Act, and it is not, in its current form, fully <code>ERC-20</code> compatible.</p>
+<h2 id="specification">Specification</h2>
+<p>The <code>ERC-20</code> token provides the following basic features:</p>
+<pre style="background-color:#2b303b;">
+<code>contract ERC20 {
+  function totalSupply() public view returns (uint256);
+  function balanceOf(address who) public view returns (uint256);
+  function transfer(address to, uint256 value) public returns (bool);
+  function allowance(address owner, address spender) public view returns (uint256);
+  function transferFrom(address from, address to, uint256 value) public returns (bool);
+  function approve(address spender, uint256 value) public returns (bool);
+  event Approval(address indexed owner, address indexed spender, uint256 value);
+  event Transfer(address indexed from, address indexed to, uint256 value);
+}
+</code></pre>
+<p>This will be extended as follows:</p>
+<pre style="background-color:#2b303b;">
+<code>/**
+ *  An `ERC20` compatible token that conforms to Delaware State Senate,
+ *  149th General Assembly, Senate Bill No. 69: An act to Amend Title 8
+ *  of the Delaware Code Relating to the General Corporation Law.
+ *
+ *  Implementation Details.
+ *
+ *  An implementation of this token standard SHOULD provide the following:
+ *
+ *  `name` - for use by wallets and exchanges.
+ *  `symbol` - for use by wallets and exchanges.
+ *
+ *  The implementation MUST take care not to allow unauthorised access to
+ *  share-transfer functions.
+ *
+ *  In addition to the above the following optional `ERC20` function MUST be defined.
+ *
+ *  `decimals` — MUST return `0` as each token represents a single share and shares are non-divisible.
+ *
+ *  @dev Ref https://github.com/ethereum/EIPs/pull/884
+ */
+contract ERC884 is ERC20 {
+
+    /**
+     *  This event is emitted when a verified address and associated identity hash are
+     *  added to the contract.
+     *  @param addr The address that was added.
+     *  @param hash The identity hash associated with the address.
+     *  @param sender The address that caused the address to be added.
+     */
+    event VerifiedAddressAdded(
+        address indexed addr,
+        bytes32 hash,
+        address indexed sender
+    );
+
+    /**
+     *  This event is emitted when a verified address and associated identity hash are
+     *  removed from the contract.
+     *  @param addr The address that was removed.
+     *  @param sender The address that caused the address to be removed.
+     */
+    event VerifiedAddressRemoved(address indexed addr, address indexed sender);
+
+    /**
+     *  This event is emitted when the identity hash associated with a verified address is updated.
+     *  @param addr The address whose hash was updated.
+     *  @param oldHash The identity hash that was associated with the address.
+     *  @param hash The hash now associated with the address.
+     *  @param sender The address that caused the hash to be updated.
+     */
+    event VerifiedAddressUpdated(
+        address indexed addr,
+        bytes32 oldHash,
+        bytes32 hash,
+        address indexed sender
+    );
+
+    /**
+     *  This event is emitted when an address is cancelled and replaced with
+     *  a new address.  This happens in the case where a shareholder has
+     *  lost access to their original address and needs to have their share
+     *  reissued to a new address.  This is the equivalent of issuing replacement
+     *  share certificates.
+     *  @param original The address being superseded.
+     *  @param replacement The new address.
+     *  @param sender The address that caused the address to be superseded.
+     */
+    event VerifiedAddressSuperseded(
+        address indexed original,
+        address indexed replacement,
+        address indexed sender
+    );
+
+    /**
+     *  Add a verified address, along with an associated verification hash to the contract.
+     *  Upon successful addition of a verified address, the contract must emit
+     *  `VerifiedAddressAdded(addr, hash, msg.sender)`.
+     *  It MUST throw if the supplied address or hash are zero, or if the address has already been supplied.
+     *  @param addr The address of the person represented by the supplied hash.
+     *  @param hash A cryptographic hash of the address holder's verified information.
+     */
+    function addVerified(address addr, bytes32 hash) public;
+
+    /**
+     *  Remove a verified address, and the associated verification hash. If the address is
+     *  unknown to the contract then this does nothing. If the address is successfully removed, this
+     *  function must emit `VerifiedAddressRemoved(addr, msg.sender)`.
+     *  It MUST throw if an attempt is made to remove a verifiedAddress that owns tokens.
+     *  @param addr The verified address to be removed.
+     */
+    function removeVerified(address addr) public;
+
+    /**
+     *  Update the hash for a verified address known to the contract.
+     *  Upon successful update of a verified address the contract must emit
+     *  `VerifiedAddressUpdated(addr, oldHash, hash, msg.sender)`.
+     *  If the hash is the same as the value already stored then
+     *  no `VerifiedAddressUpdated` event is to be emitted.
+     *  It MUST throw if the hash is zero, or if the address is unverified.
+     *  @param addr The verified address of the person represented by the supplied hash.
+     *  @param hash A new cryptographic hash of the address holder's updated verified information.
+     */
+    function updateVerified(address addr, bytes32 hash) public;
+
+    /**
+     *  Cancel the original address and reissue the tokens to the replacement address.
+     *  Access to this function MUST be strictly controlled.
+     *  The `original` address MUST be removed from the set of verified addresses.
+     *  Throw if the `original` address supplied is not a shareholder.
+     *  Throw if the `replacement` address is not a verified address.
+     *  Throw if the `replacement` address already holds tokens.
+     *  This function MUST emit the `VerifiedAddressSuperseded` event.
+     *  @param original The address to be superseded. This address MUST NOT be reused.
+     */
+    function cancelAndReissue(address original, address replacement) public;
+
+    /**
+     *  The `transfer` function MUST NOT allow transfers to addresses that
+     *  have not been verified and added to the contract.
+     *  If the `to` address is not currently a shareholder then it MUST become one.
+     *  If the transfer will reduce `msg.sender`'s balance to 0 then that address
+     *  MUST be removed from the list of shareholders.
+     */
+    function transfer(address to, uint256 value) public returns (bool);
+
+    /**
+     *  The `transferFrom` function MUST NOT allow transfers to addresses that
+     *  have not been verified and added to the contract.
+     *  If the `to` address is not currently a shareholder then it MUST become one.
+     *  If the transfer will reduce `from`'s balance to 0 then that address
+     *  MUST be removed from the list of shareholders.
+     */
+    function transferFrom(address from, address to, uint256 value) public returns (bool);
+
+    /**
+     *  Tests that the supplied address is known to the contract.
+     *  @param addr The address to test.
+     *  @return true if the address is known to the contract.
+     */
+    function isVerified(address addr) public view returns (bool);
+
+    /**
+     *  Checks to see if the supplied address is a shareholder.
+     *  @param addr The address to check.
+     *  @return true if the supplied address owns a token.
+     */
+    function isHolder(address addr) public view returns (bool);
+
+    /**
+     *  Checks that the supplied hash is associated with the given address.
+     *  @param addr The address to test.
+     *  @param hash The hash to test.
+     *  @return true if the hash matches the one supplied with the address in `addVerified`, or `updateVerified`.
+     */
+    function hasHash(address addr, bytes32 hash) public view returns (bool);
+
+    /**
+     *  The number of addresses that hold tokens.
+     *  @return the number of unique addresses that hold tokens.
+     */
+    function holderCount() public view returns (uint);
+
+    /**
+     *  By counting the number of token holders using `holderCount`
+     *  you can retrieve the complete list of token holders, one at a time.
+     *  It MUST throw if `index &gt;= holderCount()`.
+     *  @param index The zero-based index of the holder.
+     *  @return the address of the token holder with the given index.
+     */
+    function holderAt(uint256 index) public view returns (address);
+
+    /**
+     *  Checks to see if the supplied address was superseded.
+     *  @param addr The address to check.
+     *  @return true if the supplied address was superseded by another address.
+     */
+    function isSuperseded(address addr) public view returns (bool);
+
+    /**
+     *  Gets the most recent address, given a superseded one.
+     *  Addresses may be superseded multiple times, so this function needs to
+     *  follow the chain of addresses until it reaches the final, verified address.
+     *  @param addr The superseded address.
+     *  @return the verified address that ultimately holds the share.
+     */
+    function getCurrentFor(address addr) public view returns (address);
+}
+</code></pre><h3 id="securities-exchange-commission-requirements">Securities Exchange Commission Requirements</h3>
+<p>The Securities Exchange Commission (SEC) has additional requirements as to how a crowdsale ought to be run and what information must be made available to the general public. This information is however out of scope from this standard, though the standard does support the requirements.</p>
+<p>For example: The SEC requires a crowdsale's website display the amount of money raised in US Dollars. To support this a crowdsale contract minting these tokens must maintain a USD to ETH conversion rate (via Oracle or some other mechanism) and must record the conversion rate used at time of minting.</p>
+<p>Also, depending on the type of raise, the SEC (or other statutory body) can apply limits to the number of shareholders allowed. To support this the standard provides the <code>holderCount</code> and <code>isHolder</code> functions which a crowdsale can invoke to check that limits have not been exceeded.</p>
+<h3 id="use-of-the-identity-hash-value">Use of the Identity <code>hash</code> value</h3>
+<p>Implementers of a crowdsale, in order to comply with The Act, must be able to produce an up-to-date list of the names and addresses of all shareholders. It is not desirable to include those details in a public blockchain, both for reasons of privacy, and also for reasons of economy. Storing arbitrary string data on the blockchain is strongly discouraged.</p>
+<p>Implementers should maintain an off-chain private database that records the owner's name, residential address, and Ethereum address. The implementer must then be able to extract the name and address for any address, and hash the name + address data and compare that hash to the hash recorded in the contract using the <code>hasHash</code> function. The specific details of this system are left to the implementer.</p>
+<p>It is also desirable that the implementers offer a REST API endpoint along the lines of</p>
+<pre style="background-color:#2b303b;">
+<code>GET https://&lt;host&gt;/&lt;pathPrefix&gt;/:ethereumAddress -&gt; [true|false]
+</code></pre>
+<p>to enable third party auditors to verify that a given Ethereum address is known to the implementers as a verified address.</p>
+<p>How the implementers verify a person's identity is up to them and beyond the scope of this standard.</p>
+<h3 id="handling-users-who-have-lost-access-to-their-addresses">Handling users who have lost access to their addresses</h3>
+<p>A traditional share register is typically managed by a Transfer Agent who is authorised to maintain the register accurately, and to handle shareholder enquiries. A common request is for share certificates to be reissued in the case where the shareholder has lost or destroyed their original.</p>
+<p>Token implementers can handle that via the <code>cancelAndReissue</code> function, which must perform the various changes to ensure that the old address now points to the new one, and that cancelled addresses are not then reused.</p>
+<h3 id="permissions-management">Permissions management</h3>
+<p>It is not desirable that anyone can add, remove, update, or supersede verified addresses. How access to these functions is controlled is outside of the scope of this standard.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The proposed standard offers as minimal an extension as possible over the existing <code>ERC-20</code> standard in order to conform to the requirements of The Act. Rather than return a <code>bool</code> for successful or unsuccessful completion of state-changing functions such as <code>addVerified</code>, <code>removeVerified</code>, and <code>updateVerified</code>, we have opted to require that implementations <code>throw</code> (preferably by using the <a href="https://github.com/ethereum/solidity/issues/1686#issuecomment-328181514">forthcoming <code>require(condition, 'fail message')</code> syntax</a>).</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>The proposed standard is designed to maintain compatibility with <code>ERC-20</code> tokens with the following provisos:</p>
+<ol>
+<li>The <code>decimals</code> function MUST return <code>0</code> as the tokens MUST NOT be divisible,</li>
+<li>The <code>transfer</code> and <code>transferFrom</code> functions MUST NOT allow transfers to non-verified addresses, and MUST maintain a list of shareholders.</li>
+<li>Shareholders who transfer away their remaining tokens must be pruned from the list of shareholders.</li>
+</ol>
+<p>Proviso 1 will not break compatibility with modern wallets or exchanges as they all appear to use that information if available.</p>
+<p>Proviso 2 will cause transfers to fail if an attempt is made to transfer tokens to a non-verified address. This is implicit in the design and implementers are encouraged to make this abundantly clear to market participants. We appreciate that this will make the standard unpalatable to some exchanges, but it is an SEC requirement that shareholders of a corporation provide verified names and addresses.</p>
+<p>Proviso 3 is an implementation detail.</p>
+<h2 id="test-cases-and-reference-implementation">Test Cases and Reference Implementation</h2>
+<p>Test cases and a reference implementation are available at <a href="https://github.com/davesag/ERC884-reference-implementation">github.com/davesag/ERC884-reference-implementation</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

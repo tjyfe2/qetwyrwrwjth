@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-137: Ethereum Domain Name Service - Specification</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-137.md" />
+<meta property="og:title" content="EIP-137: Ethereum Domain Name Service - Specification" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 137 (EIP-137): Ethereum Domain Name Service - Specification"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 137 (EIP-137): Ethereum Domain Name Service - Specification"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-137.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 137 (EIP 137): Ethereum Domain Name Service - Specification" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-137: Ethereum Domain Name Service - Specification
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:arachnid@notdot.net">Nick Johnson</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2016-04-04</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h1 id="abstract">Abstract</h1>
+<p>This draft EIP describes the details of the Ethereum Name Service, a proposed protocol and ABI definition that provides flexible resolution of short, human-readable names to service and resource identifiers. This permits users and developers to refer to human-readable and easy to remember names, and permits those names to be updated as necessary when the underlying resource (contract, content-addressed data, etc) changes.</p>
+<p>The goal of domain names is to provide stable, human-readable identifiers that can be used to specify network resources. In this way, users can enter a memorable string, such as 'vitalik.wallet' or 'www.mysite.swarm', and be directed to the appropriate resource. The mapping between names and resources may change over time, so a user may change wallets, a website may change hosts, or a swarm document may be updated to a new version, without the domain name changing. Further, a domain need not specify a single resource; different record types allow the same domain to reference different resources. For instance, a browser may resolve 'mysite.swarm' to the IP address of its server by fetching its A (address) record, while a mail client may resolve the same address to a mail server by fetching its MX (mail exchanger) record.</p>
+<h1 id="motivation">Motivation</h1>
+<p>Existing <a href="https://github.com/ethereum/wiki/wiki/Registrar-ABI">specifications</a> and <a href="https://ethereum.gitbooks.io/frontier-guide/content/registrar_services.html">implementations</a> for name resolution in Ethereum provide basic functionality, but suffer several shortcomings that will significantly limit their long-term usefulness:</p>
+<ul>
+<li>A single global namespace for all names with a single 'centralised' resolver.</li>
+<li>Limited or no support for delegation and sub-names/sub-domains.</li>
+<li>Only one record type, and no support for associating multiple copies of a record with a domain.</li>
+<li>Due to a single global implementation, no support for multiple different name allocation systems.</li>
+<li>Conflation of responsibilities: Name resolution, registration, and whois information.</li>
+</ul>
+<p>Use-cases that these features would permit include:</p>
+<ul>
+<li>Support for subnames/sub-domains - eg, live.mysite.tld and forum.mysite.tld.</li>
+<li>Multiple services under a single name, such as a DApp hosted in Swarm, a Whisper address, and a mail server.</li>
+<li>Support for DNS record types, allowing blockchain hosting of 'legacy' names. This would permit an Ethereum client such as Mist to resolve the address of a traditional website, or the mail server for an email address, from a blockchain name.</li>
+<li>DNS gateways, exposing ENS domains via the Domain Name Service, providing easier means for legacy clients to resolve and connect to blockchain services.</li>
+</ul>
+<p>The first two use-cases, in particular, can be observed everywhere on the present-day internet under DNS, and we believe them to be fundamental features of a name service that will continue to be useful as the Ethereum platform develops and matures.</p>
+<p>The normative parts of this document does not specify an implementation of the proposed system; its purpose is to document a protocol that different resolver implementations can adhere to in order to facilitate consistent name resolution. An appendix provides sample implementations of resolver contracts and libraries, which should be treated as illustrative examples only.</p>
+<p>Likewise, this document does not attempt to specify how domains should be registered or updated, or how systems can find the owner responsible for a given domain. Registration is the responsibility of registrars, and is a governance matter that will necessarily vary between top-level domains.</p>
+<p>Updating of domain records can also be handled separately from resolution. Some systems, such as swarm, may require a well defined interface for updating domains, in which event we anticipate the development of a standard for this.</p>
+<h1 id="specification">Specification</h1>
+<h2 id="overview">Overview</h2>
+<p>The ENS system comprises three main parts:</p>
+<ul>
+<li>The ENS registry</li>
+<li>Resolvers</li>
+<li>Registrars</li>
+</ul>
+<p>The registry is a single contract that provides a mapping from any registered name to the resolver responsible for it, and permits the owner of a name to set the resolver address, and to create subdomains, potentially with different owners to the parent domain.</p>
+<p>Resolvers are responsible for performing resource lookups for a name - for instance, returning a contract address, a content hash, or IP address(es) as appropriate. The resolver specification, defined here and extended in other EIPs, defines what methods a resolver may implement to support resolving different types of records.</p>
+<p>Registrars are responsible for allocating domain names to users of the system, and are the only entities capable of updating the ENS; the owner of a node in the ENS registry is its registrar. Registrars may be contracts or externally owned accounts, though it is expected that the root and top-level registrars, at a minimum, will be implemented as contracts.</p>
+<p>Resolving a name in ENS is a two-step process. First, the ENS registry is called with the name to resolve, after hashing it using the procedure described below. If the record exists, the registry returns the address of its resolver. Then, the resolver is called, using the method appropriate to the resource being requested. The resolver then returns the desired result.</p>
+<p>For example, suppose you wish to find the address of the token contract associated with 'beercoin.eth'. First, get the resolver:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">var </span><span style="color:#bf616a;">node </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">namehash</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">beercoin.eth</span><span style="color:#c0c5ce;">&quot;);
+</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">resolver </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">ens</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">resolver</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">node</span><span style="color:#c0c5ce;">);
+</span></code></pre>
+<p>Then, ask the resolver for the address for the contract:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">var </span><span style="color:#bf616a;">address </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">resolver</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">addr</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">node</span><span style="color:#c0c5ce;">);
+</span></code></pre>
+<p>Because the <code>namehash</code> procedure depends only on the name itself, this can be precomputed and inserted into a contract, removing the need for string manipulation, and permitting O(1) lookup of ENS records regardless of the number of components in the raw name.</p>
+<h2 id="name-syntax">Name Syntax</h2>
+<p>ENS names must conform to the following syntax:</p>
+<pre>&lt;domain> ::= &lt;label> | &lt;domain> "." &lt;label>
+&lt;label> ::= any valid string label per [UTS46](https://unicode.org/reports/tr46/)
+</pre>
+<p>In short, names consist of a series of dot-separated labels. Each label must be a valid normalised label as described in <a href="https://unicode.org/reports/tr46/">UTS46</a> with the options <code>transitional=false</code> and <code>useSTD3AsciiRules=true</code>. For Javascript implementations, a <a href="https://www.npmjs.com/package/idna-uts46">library</a> is available that normalises and checks names.</p>
+<p>Note that while upper and lower case letters are allowed in names, the UTS46 normalisation process case-folds labels before hashing them, so two names with different case but identical spelling will produce the same namehash.</p>
+<p>Labels and domains may be of any length, but for compatibility with legacy DNS, it is recommended that labels be restricted to no more than 64 characters each, and complete ENS names to no more than 255 characters. For the same reason, it is recommended that labels do not start or end with hyphens, or start with digits.</p>
+<h2 id="namehash-algorithm">namehash algorithm</h2>
+<p>Before being used in ENS, names are hashed using the 'namehash' algorithm. This algorithm recursively hashes components of the name, producing a unique, fixed-length string for any valid input domain. The output of namehash is referred to as a 'node'.</p>
+<p>Pseudocode for the namehash algorithm is as follows:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">def namehash(name):
+  if name == &#39;&#39;:
+    return &#39;\0&#39; * 32
+  else:
+    label, _, remainder = name.partition(&#39;.&#39;)
+    return sha3(namehash(remainder) + sha3(label))
+</span></code></pre>
+<p>Informally, the name is split into labels, each label is hashed. Then, starting with the last component, the previous output is concatenated with the label hash and hashed again. The first component is concatenated with 32 '0' bytes. Thus, 'mysite.swarm' is processed as follows:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">node = &#39;\0&#39; * 32
+node = sha3(node + sha3(&#39;swarm&#39;))
+node = sha3(node + sha3(&#39;mysite&#39;))
+</span></code></pre>
+<p>Implementations should conform to the following test vectors for namehash:</p>
+<pre style="background-color:#2b303b;">
+<code>namehash('') = 0x0000000000000000000000000000000000000000000000000000000000000000
+namehash('eth') = 0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae
+namehash('foo.eth') = 0xde9b09fd7c5f901e23a3f19fecc54828e9c848539801e86591bd9801b019f84f
+</code></pre><h2 id="registry-specification">Registry specification</h2>
+<p>The ENS registry contract exposes the following functions:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function owner(bytes32 node) constant returns (address);
+</span></code></pre>
+<p>Returns the owner (registrar) of the specified node.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function resolver(bytes32 node) constant returns (address);
+</span></code></pre>
+<p>Returns the resolver for the specified node.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function ttl(bytes32 node) constant returns (uint64);
+</span></code></pre>
+<p>Returns the time-to-live (TTL) of the node; that is, the maximum duration for which a node's information may be cached.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function setOwner(bytes32 node, address owner);
+</span></code></pre>
+<p>Transfers ownership of a node to another registrar. This function may only be called by the current owner of <code>node</code>. A successful call to this function logs the event <code>Transfer(bytes32 indexed, address)</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function setSubnodeOwner(bytes32 node, bytes32 label, address owner);
+</span></code></pre>
+<p>Creates a new node, <code>sha3(node, label)</code> and sets its owner to <code>owner</code>, or updates the node with a new owner if it already exists. This function may only be called by the current owner of <code>node</code>. A successful call to this function logs the event <code>NewOwner(bytes32 indexed, bytes32 indexed, address)</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function setResolver(bytes32 node, address resolver);
+</span></code></pre>
+<p>Sets the resolver address for <code>node</code>. This function may only be called by the owner of <code>node</code>. A successful call to this function logs the event <code>NewResolver(bytes32 indexed, address)</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function setTTL(bytes32 node, uint64 ttl);
+</span></code></pre>
+<p>Sets the TTL for a node. A node's TTL applies to the 'owner' and 'resolver' records in the registry, as well as to any information returned by the associated resolver.</p>
+<h2 id="resolver-specification">Resolver specification</h2>
+<p>Resolvers may implement any subset of the record types specified here. Where a record types specification requires a resolver to provide multiple functions, the resolver MUST implement either all or none of them. Resolvers MUST specify a fallback function that throws.</p>
+<p>Resolvers have one mandatory function:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function supportsInterface(bytes4 interfaceID) constant returns (bool)
+</span></code></pre>
+<p>The <code>supportsInterface</code> function is documented in <a href="https://eips.ethereum.org/EIPS/eip-165">EIP-165</a>, and returns true if the resolver implements the interface specified by the provided 4 byte identifier. An interface identifier consists of the XOR of the function signature hashes of the functions provided by that interface; in the degenerate case of single-function interfaces, it is simply equal to the signature hash of that function. If a resolver returns <code>true</code> for <code>supportsInterface()</code>, it must implement the functions specified in that interface.</p>
+<p><code>supportsInterface</code> must always return true for <code>0x01ffc9a7</code>, which is the interface ID of <code>supportsInterface</code> itself.</p>
+<p>Currently standardised resolver interfaces are specified in the table below.</p>
+<p>The following interfaces are defined:</p>
+<table><thead><tr><th>Interface name</th><th>Interface hash</th><th>Specification</th></tr></thead><tbody>
+<tr><td><code>addr</code></td><td>0x3b3b57de</td><td><a href="https://eips.ethereum.com/EIPS/eip-137/#addr">Contract address</a></td></tr>
+<tr><td><code>name</code></td><td>0x691f3431</td><td>#181</td></tr>
+<tr><td><code>ABI</code></td><td>0x2203ab56</td><td>#205</td></tr>
+<tr><td><code>pubkey</code></td><td>0xc8690233</td><td>#619</td></tr>
+</tbody></table>
+<p>EIPs may define new interfaces to be added to this registry.</p>
+<h3 id="contract-address-interface"><a name="addr"></a>Contract Address Interface</h3>
+<p>Resolvers wishing to support contract address resources must provide the following function:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function addr(bytes32 node) constant returns (address);
+</span></code></pre>
+<p>If the resolver supports <code>addr</code> lookups but the requested node does not have an addr record, the resolver MUST return the zero address.</p>
+<p>Clients resolving the <code>addr</code> record MUST check for a zero return value, and treat this in the same manner as a name that does not have a resolver specified - that is, refuse to send funds to or interact with the address. Failure to do this can result in users accidentally sending funds to the 0 address.</p>
+<p>Changes to an address MUST trigger the following event:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event AddrChanged(bytes32 indexed node, address a);
+</span></code></pre><h1 id="appendix-a-registry-implementation">Appendix A: Registry Implementation</h1>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract ENS {
+    struct Record {
+        address owner;
+        address resolver;
+        uint64 ttl;
+    }
+
+    mapping(bytes32=&gt;Record) records;
+
+    event NewOwner(bytes32 indexed node, bytes32 indexed label, address owner);
+    event Transfer(bytes32 indexed node, address owner);
+    event NewResolver(bytes32 indexed node, address resolver);
+
+    modifier only_owner(bytes32 node) {
+        if(records[node].owner != msg.sender) throw;
+        _
+    }
+
+    function ENS(address owner) {
+        records[0].owner = owner;
+    }
+
+    function owner(bytes32 node) constant returns (address) {
+        return records[node].owner;
+    }
+
+    function resolver(bytes32 node) constant returns (address) {
+        return records[node].resolver;
+    }
+
+    function ttl(bytes32 node) constant returns (uint64) {
+        return records[node].ttl;
+    }
+
+    function setOwner(bytes32 node, address owner) only_owner(node) {
+        Transfer(node, owner);
+        records[node].owner = owner;
+    }
+
+    function setSubnodeOwner(bytes32 node, bytes32 label, address owner) only_owner(node) {
+        var subnode = sha3(node, label);
+        NewOwner(node, label, owner);
+        records[subnode].owner = owner;
+    }
+
+    function setResolver(bytes32 node, address resolver) only_owner(node) {
+        NewResolver(node, resolver);
+        records[node].resolver = resolver;
+    }
+
+    function setTTL(bytes32 node, uint64 ttl) only_owner(node) {
+        NewTTL(node, ttl);
+        records[node].ttl = ttl;
+    }
+}
+</span></code></pre><h1 id="appendix-b-sample-resolver-implementations">Appendix B: Sample Resolver Implementations</h1>
+<h3 id="built-in-resolver">Built-in resolver</h3>
+<p>The simplest possible resolver is a contract that acts as its own name resolver by implementing the contract address resource profile:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract DoSomethingUseful {
+    // Other code
+
+    function addr(bytes32 node) constant returns (address) {
+        return this;
+    }
+
+    function supportsInterface(bytes4 interfaceID) constant returns (bool) {
+        return interfaceID == 0x3b3b57de || interfaceID == 0x01ffc9a7;
+    }
+
+    function() {
+        throw;
+    }
+}
+</span></code></pre>
+<p>Such a contract can be inserted directly into the ENS registry, eliminating the need for a separate resolver contract in simple use-cases. However, the requirement to 'throw' on unknown function calls may interfere with normal operation of some types of contract.</p>
+<h3 id="standalone-resolver">Standalone resolver</h3>
+<p>A basic resolver that implements the contract address profile, and allows only its owner to update records:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract Resolver {
+    event AddrChanged(bytes32 indexed node, address a);
+
+    address owner;
+    mapping(bytes32=&gt;address) addresses;
+
+    modifier only_owner() {
+        if(msg.sender != owner) throw;
+        _
+    }
+
+    function Resolver() {
+        owner = msg.sender;
+    }
+
+    function addr(bytes32 node) constant returns(address) {
+        return addresses[node];    
+    }
+
+    function setAddr(bytes32 node, address addr) only_owner {
+        addresses[node] = addr;
+        AddrChanged(node, addr);
+    }
+
+    function supportsInterface(bytes4 interfaceID) constant returns (bool) {
+        return interfaceID == 0x3b3b57de || interfaceID == 0x01ffc9a7;
+    }
+
+    function() {
+        throw;
+    }
+}
+</span></code></pre>
+<p>After deploying this contract, use it by updating the ENS registry to reference this contract for a name, then calling <code>setAddr()</code> with the same node to set the contract address it will resolve to.</p>
+<h3 id="public-resolver">Public resolver</h3>
+<p>Similar to the resolver above, this contract only supports the contract address profile, but uses the ENS registry to determine who should be allowed to update entries:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract PublicResolver {
+    event AddrChanged(bytes32 indexed node, address a);
+    event ContentChanged(bytes32 indexed node, bytes32 hash);
+
+    ENS ens;
+    mapping(bytes32=&gt;address) addresses;
+
+    modifier only_owner(bytes32 node) {
+        if(ens.owner(node) != msg.sender) throw;
+        _
+    }
+
+    function PublicResolver(address ensAddr) {
+        ens = ENS(ensAddr);
+    }
+
+    function addr(bytes32 node) constant returns (address ret) {
+        ret = addresses[node];
+    }
+
+    function setAddr(bytes32 node, address addr) only_owner(node) {
+        addresses[node] = addr;
+        AddrChanged(node, addr);
+    }
+
+    function supportsInterface(bytes4 interfaceID) constant returns (bool) {
+        return interfaceID == 0x3b3b57de || interfaceID == 0x01ffc9a7;
+    }
+
+    function() {
+        throw;
+    }
+}
+</span></code></pre><h1 id="appendix-c-sample-registrar-implementation">Appendix C: Sample Registrar Implementation</h1>
+<p>This registrar allows users to register names at no cost if they are the first to request them.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract FIFSRegistrar {
+    ENS ens;
+    bytes32 rootNode;
+
+    function FIFSRegistrar(address ensAddr, bytes32 node) {
+        ens = ENS(ensAddr);
+        rootNode = node;
+    }
+
+    function register(bytes32 subnode, address owner) {
+        var node = sha3(rootNode, subnode);
+        var currentOwner = ens.owner(node);
+        if(currentOwner != 0 &amp;&amp; currentOwner != msg.sender)
+            throw;
+
+        ens.setSubnodeOwner(rootNode, subnode, owner);
+    }
+}
+</span></code></pre>
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1077: Gas relay for contract calls</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1077.md" />
+<meta property="og:title" content="EIP-1077: Gas relay for contract calls" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1077 (EIP-1077): Gas relay for contract calls"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1077 (EIP-1077): Gas relay for contract calls"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1077.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1077 (EIP 1077): Gas relay for contract calls" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1077: Gas relay for contract calls
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:avsa@ethereum.org">Alex Van de Sande</a>,
+        
+    
+        
+        
+            <a href="https://github.com/3esmit"> Ricardo Guilherme Schmidt</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;erc1077-and-1078-the-magic-of-executable-signed-messages-to-login-and-do-actions&#x2F;351">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;erc1077-and-1078-the-magic-of-executable-signed-messages-to-login-and-do-actions&#x2F;351</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-05-04</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>20, 191, 1271, 1344</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard interface for gas abstraction in top of smart contracts. </p>
+<p>Allows users to offer <a href="https://eips.ethereum.org/EIPS/eip-20">EIP-20</a> token for paying the gas used in a call. </p>
+<h2 id="abstract">Abstract</h2>
+<p>A main barrier for adoption of DApps is the requirement of multiple tokens for executing in chain actions. Allowing users to sign messages to show intent of execution, but allowing a third party relayer to execute them can circumvent this problem, while ETH will always be required for ethereum transactions, it's possible for smart contract to take <a href="https://eips.ethereum.org/EIPS/eip-191">EIP-191</a> signatures and forward a payment incentive to an untrusted party with ETH for executing the transaction. </p>
+<h2 id="motivation">Motivation</h2>
+<p>Standardizing a common format for them, as well as a way in which the user allows the transaction to be paid in tokens, gives app developers a lot of flexibility and can become the main way in which app users interact with the Blockchain.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="methods">Methods</h3>
+<h4 id="executegasrelay">executeGasRelay</h4>
+<p>Executes <code>_execData</code> with current <code>lastNonce()</code> and pays <code>msg.sender</code> the gas used in specified <code>_gasToken</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function executeGasRelay(bytes calldata _execData, uint256 _gasPrice, uint256 _gasLimit, address _gasToken, address _gasRelayer, bytes calldata _signature) external;	
+</span></code></pre><h3 id="executegasrelaymsg">executeGasRelayMsg</h3>
+<p>Returns the <code>executeGasRelay</code> message used for signing messages..</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function executeGasRelayMsg(uint256 _nonce, bytes memory _execData, uint256 _gasPrice, uint256 _gasLimit, address _gasToken, address _gasRelayer) public pure returns (bytes memory);
+</span></code></pre><h4 id="executegasrelayerc191msg">executeGasRelayERC191Msg</h4>
+<p>Returns the <a href="https://eips.ethereum.org/EIPS/eip-191">EIP-191</a> of <code>executeGasRelayMsg</code> used for signing messages and for verifying the execution.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function executeGasRelayERC191Msg(uint256 _nonce, bytes memory _execData, uint256 _gasPrice, uint256 _gasLimit, address _gasToken, address _gasRelayer) public view returns (bytes memory);
+</span></code></pre><h4 id="lastnonce">lastNonce</h4>
+<p>Returns the current nonce for the gas relayed messages.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function lastNonce() public returns (uint nonce);
+</span></code></pre><h3 id="signed-message">Signed Message</h3>
+<p>The signed message require the following fields:</p>
+<ul>
+<li>Nonce: A nonce <em>or</em> a timestamp;</li>
+<li>Execute Data: the bytecode to be executed by the account contract;</li>
+<li>Gas Price: The gas price (paid in the selected token);</li>
+<li>Gas Limit: The gas reserved to the relayed execution;</li>
+<li>Gas Token: A token in which the gas will be paid (leave 0 for ether);</li>
+<li>Gas Relayer: the beneficiary of gas refund for this call (leave 0 for <code>block.coinbase</code>) .</li>
+</ul>
+<h4 id="signing-the-message">Signing the message</h4>
+<p>The message <strong>MUST</strong> be signed as <a href="https://eips.ethereum.org/EIPS/eip-191">EIP-191</a> standard, and the called contract <strong>MUST</strong> also implement <a href="https://eips.ethereum.org/EIPS/eip-1271">EIP-1271</a> which must validate the signed messages.</p>
+<p>Messages <strong>MUST</strong> be signed by the owner of the account contract executing. If the owner is a contract, it must implement <a href="https://eips.ethereum.org/EIPS/eip-1271">EIP-1271</a> interface and forward validation to it. </p>
+<p>In order to be compliant, the transaction <strong>MUST</strong> request to sign a &quot;messageHash&quot; that is a concatenation of multiple fields.</p>
+<p>The fields <strong>MUST</strong> be constructed as this method:</p>
+<p>The first and second fields are to make it <a href="https://eips.ethereum.org/EIPS/eip-191">EIP-191</a> compliant. Starting a transaction with <code>byte(0x19)</code> ensure the signed data from being a <a href="https://github.com/ethereum/wiki/wiki/RLP">valid ethereum transaction</a>. The second argument is a version control byte. The third being the validator address (the account contract address) according to version 0 of <a href="https://eips.ethereum.org/EIPS/eip-191">EIP-191</a>. The remaining arguments being the application specific data for the gas relay: chainID as per <a href="https://eips.ethereum.org/EIPS/eip-1344">EIP-1344</a>, execution nonce, execution data, agreed gas Price, gas limit of gas relayed call, gas token to pay back and gas relayer authorized to receive reward.</p>
+<p>The <a href="https://eips.ethereum.org/EIPS/eip-191">EIP-191</a> message must be constructed as following:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">keccak256(
+	abi.encodePacked(
+        byte(0x19), //ERC-191 - the initial 0x19 byte
+        byte(0x0), //ERC-191 - the version byte
+        address(this), //ERC-191 - version data (validator address)
+        chainID,
+        bytes4(
+            keccak256(&quot;executeGasRelay(uint256,bytes,uint256,uint256,address,address)&quot;)
+        ),
+        _nonce, 
+        _execData,
+        _gasPrice,
+        _gasLimit,
+        _gasToken,
+        _gasRelayer
+    )
+)
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>User pain points:</p>
+<ul>
+<li>users don't want to think about ether</li>
+<li>users don't want to think about backing up private keys or seed phrases</li>
+<li>users want to be able to pay for transactions using what they already have on the system, be apple pay, xbox points or even a credit card</li>
+<li>Users don’t want to sign a new transaction at every move</li>
+<li>Users don’t want to download apps/extensions (at least on the desktop) to connect to their apps</li>
+</ul>
+<p>App developer pain points:</p>
+<ul>
+<li>Many apps use their own token and would prefer to use those as the main accounting</li>
+<li>Apps want to be able to have apps in multiple platforms without having to share private keys between devices or have to spend transaction costs moving funds between them</li>
+<li>Token developers want to be able for their users to be able to move funds and pay fees in the token</li>
+<li>While the system provides fees and incentives for miners, there are no inherent business model for wallet developers (or other apps that initiate many transactions)</li>
+</ul>
+<p>Using signed messages, specially combined with an account contract that holds funds, and multiple disposable ether-less keys that can sign on its behalf, solves many of these pain points.</p>
+<h3 id="multiple-signatures">Multiple signatures</h3>
+<p>More than one signed transaction with the same parameter can be executed by this function at the same time, by passing all signatures in the <code>messageSignatures</code> field. That field will split the signature in multiple 72 character individual signatures and evaluate each one. This is used for cases in which one action might require the approval of multiple parties, in a single transaction.</p>
+<p>If multiple signatures are required, then all signatures should then be <em>ordered by account</em> and the account contract should implement signatures checks locally (<code>JUMP</code>) on <a href="https://eips.ethereum.org/EIPS/eip-1271">EIP-1271</a> interface which might forward (<code>STATIC_CALL</code>) the <a href="https://eips.ethereum.org/EIPS/eip-1271">EIP-1271</a> signature check to owner contract.</p>
+<h3 id="keep-track-of-nonces">Keep track of nonces:</h3>
+<p>Note that <code>executeGasRelay</code> function does not take a <code>_nonce</code> as parameter. The contract knows what is the current nonce, and can only execute the transactions in order, therefore there is no reason</p>
+<p>Nonces work similarly to normal ethereum transactions: a transaction can only be executed if it matches the last nonce + 1, and once a transaction has occurred, the <code>lastNonce</code> will be updated to the current one. This prevents transactions to be executed out of order or more than once.</p>
+<p>Contracts may accept transactions without nonce (nonce = 0). The contract then must keep the full hash of the transaction to prevent it from being replayed. This would allows contracts to have more flexibilities as you can sign a transaction that can be executed out of order or not at all, but it uses more memory for each transaction. It can be used, for instance, for transactions that the user wants to schedule in the future but cannot know its future nonce, or transactions that are made for state channel contracts that are not guaranteed to be executed or are only executed when there's some dispute.</p>
+<h3 id="execute-transaction">Execute transaction</h3>
+<p>After signature validation, the evaluation of <code>_execBytes</code> is up to the account contract implementation, it's role of the wallet to properly use the account contract and it's gas relay method. 
+A common pattern is to expose an interface which can be only called by the contract itself. The <code>_execBytes</code> could entirely forward the call in this way, as example: <code>address(this).call.gas(_gasLimit)(_execData);</code>
+Where <code>_execData</code> could call any method of the contract itself, for example:</p>
+<ul>
+<li><code>call(address to, uint256 value, bytes data)</code>:  allow any type of ethereum call be performed; </li>
+<li><code>create(uint256 value, bytes deployData)</code>: allows create contract </li>
+<li><code>create2(uint256 value, bytes32 salt, bytes deployData)</code>: allows create contract with deterministic address </li>
+<li><code>approveAndCall(address token, address to, uint256 value, bytes data)</code>: allows safe approve and call of an ERC20 token.</li>
+<li><code>delegatecall(address codeBase, bytes data)</code>: allows executing code stored on other contract</li>
+<li><code>changeOwner(address newOwner)</code>: Some account contracts might allow change of owner</li>
+<li><code>foo(bytes bar)</code>: Some account contracts might have custom methods of any format.</li>
+</ul>
+<p>The standardization of account contracts is not scope of this ERC, and is presented here only for illustration on possible implementations. 
+Using a self call to evaluate <code>_execBytes</code> is not mandatory, depending on the account contract logic, the evaluation could be done locally. </p>
+<h3 id="gas-accounting-and-refund">Gas accounting and refund</h3>
+<p>The implementing contract must keep track of the gas spent. One way to do it is to first call <code>gasLeft()</code> at the beginning of the function and then after executing the desired action and compare the difference.</p>
+<p>The contract then will make a token transfer (or ether, if <code>tokenAddress</code> is nil) in the value of <code>gasSpent * gasPrice</code> to the <code>_gasRelayer</code>, that is the account that deployed the message.</p>
+<p>If <code>_gasRelayer</code> is zero, then the funds <strong>MUST</strong> go to <code>block.coinbase</code>.</p>
+<p>If there are not enough funds, or if the total surpasses <code>gasLimit</code> then the transaction <strong>MUST</strong> revert.</p>
+<p>If the executed transaction fails internally, nonces should still be updated and gas needs to be paid.</p>
+<p>Contracts are not obligated to support ether or any other token they don’t want and can be implemented to only accept refunds in a few tokens of their choice.</p>
+<h3 id="usage-examples">Usage examples</h3>
+<p>This scheme opens up a great deal of possibilities on interaction as well as different experiments on business models:</p>
+<ul>
+<li>Apps can create individual identities contract for their users which holds the actual funds and then create a different private key for each device they log into. Other apps can use the same identity and just ask to add permissioned public keys to manage the device, so that if one individual key is lost, no ether is lost.</li>
+<li>An app can create its own token and only charge their users in its internal currency for any ethereum transaction. The currency units can be rounded so it looks more similar to to actual amount of transactions: a standard transaction always costs 1 token, a very complex transaction costs exactly 2, etc. Since the app is the issuer of the transactions, they can do their own Sybil verifications and give a free amount of currency units to new users to get them started.</li>
+<li>A game company creates games with a traditional monthly subscription, either by credit card or platform-specific microtransactions. Private keys never leave the device and keep no ether and only the public accounts are sent to the company. The game then signs transactions on the device with gas price 0, sends them to the game company which checks who is an active subscriber and batches all transactions and pays the ether themselves. If the company goes bankrupt, the gamers themselves can set up similar subscription systems or just increase the gas price. End result is a <strong>ethereum based game in which gamers can play by spending apple, google or xbox credits</strong>.</li>
+<li>A standard token is created that doesn’t require its users to have ether, and instead allows tokens to be transferred by paying in tokens. A wallet is created that signs messages and send them via whisper to the network, where other nodes can compete to download the available transactions, check the current gas price, and select those who are paying enough tokens to cover the cost. <strong>The result is a token that the end users never need to keep any ether and can pay fees in the token itself.</strong></li>
+<li>A DAO is created with a list of accounts of their employees. Employees never need to own ether, instead they sign messages, send them to whisper to a decentralized list of relayers which then deploy the transactions. The DAO contract then checks if the transaction is valid and sends ether to the deployers. Employees have an incentive not to use too many of the companies resources because they’re identifiable.  The result is that the users of the DAO don't need to keep ether, and <strong>the contract ends up paying for it's own gas usage</strong>.</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>There is no issues with backwards compatibility, however for future upgrades, as <code>_execData</code> contains arbitrary data evaluated by the account contract, it's up to the contract to handle properly this data and therefore contracts can gas relay any behavior with the current interface.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>TBD</p>
+<h2 id="implementation">Implementation</h2>
+<p>One initial implementation of such a contract can be found at <a href="https://github.com/status-im/account-contracts/blob/develop/contracts/account/AccountGasAbstract.sol">Status.im account-contracts repository</a></p>
+<p>Other version is implemented as Gnosis Safe variant in: https://github.com/status-im/safe-contracts</p>
+<h3 id="similar-implementations">Similar implementations</h3>
+<p>The idea of using signed messages as executable intent has been around for a while and many other projects are taking similar approaches, which makes it a great candidate for a standard that guarantees interoperability:</p>
+<ul>
+<li><a href="https://github.com/ethereum/EIPs/pull/877">EIP 877</a> An attempt of doing the same but with a change in the protocol</li>
+<li><a href="https://github.com/status-im/ideas/issues/73">Status</a></li>
+<li><a href="https://github.com/aragonlabs/pay-protocol">Aragon</a> (this might not be the best link to show their work in this area)</li>
+<li><a href="https://github.com/ethereum/EIPs/issues/662">Token Standard Functions for Preauthorized Actions</a></li>
+<li><a href="https://github.com/ethereum/EIPs/issues/865">Token Standard Extension 865</a></li>
+<li><a href="https://github.com/iurimatias/TransactionRelay">Iuri Matias: Transaction Relay</a></li>
+<li><a href="https://github.com/uport-project/uport-identity#send-a-meta-tx">uPort: Meta transactions</a></li>
+<li><a href="https://github.com/uport-project/uport-identity/blob/develop/docs/txRelay.md">uPort: safe Identities</a></li>
+<li><a href="https://github.com/gnosis/safe-contracts">Gnosis safe contracts</a></li>
+</ul>
+<p>Swarm city uses a similar proposition for etherless transactions, called <a href="https://github.com/swarmcity/SCLabs-gasstation-service">Gas Station Service</a>, but it's a different approach. Instead of using signed messages, a traditional ethereum transaction is signed on an etherless account, the transaction is then sent to a service that immediately sends the exact amount of ether required and then publishes the transaction.</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<p>Deployers of transactions (relayers) should be able to call untrusted contracts, which provides no guarantees that the contract they are interacting with correctly implements the standard and they will be reimbursed for gas. To prevent being fooled by bad implementations, relayers must <strong>estimate the outcome of a transaction</strong>, and only include/sign transactions which have a desired outcome. </p>
+<p>Is also interest of relayers to maintaining a private reputation of contracts they interact with, as well as keep track of which tokens and for which <code>gasPrice</code> they’re willing to deploy transactions.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=qF2lhJzngto">Universal Logins talk at UX Unconf, Toronto</a></li>
+</ul>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

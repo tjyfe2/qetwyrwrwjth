@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1962: EC arithmetic and pairings with runtime definitions</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1962.md" />
+<meta property="og:title" content="EIP-1962: EC arithmetic and pairings with runtime definitions" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1962 (EIP-1962): EC arithmetic and pairings with runtime definitions"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1962 (EIP-1962): EC arithmetic and pairings with runtime definitions"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1962.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1962 (EIP 1962): EC arithmetic and pairings with runtime definitions" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1962: EC arithmetic and pairings with runtime definitions
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/shamatar">Alex Vlasov</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;generalised-precompile-for-elliptic-curve-arithmetics-and-pairings-working-group&#x2F;3208&#x2F;2">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;generalised-precompile-for-elliptic-curve-arithmetics-and-pairings-working-group&#x2F;3208&#x2F;2</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-04-22</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>1109</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h1 id="simple-summary">Simple summary</h1>
+<p>This proposal is an extension and formalization of <a href="https://eips.ethereum.org/EIPS/eip-1829">EIP1829</a> with an inclusion of pairings. <a href="https://eips.ethereum.org/EIPS/eip-1109">EIP1109</a> is required due to low cost of some operations compared to the <code>STATICCALL</code> opcode (more information in the corresponding section below).</p>
+<h2 id="abstract">Abstract</h2>
+<p>This EIP proposes a new precompile to bring cryptographic functionality desired for privacy and scaling solutions. Functionality of such precompile will require the following:</p>
+<ul>
+<li>Implementation the following operations over elliptic curves in the Weierstrass form with curve parameters such as base field, A, B coefficients defined in runtime:
+<ul>
+<li>Point addition</li>
+<li>Multiplication of a single point over a scalar</li>
+<li>Multiexponentiation</li>
+</ul>
+</li>
+<li>Implementation pairing operation over elliptic curves from the following &quot;families&quot; with parameters such as base field, extension tower structure, coefficients defined in runtime:
+<ul>
+<li>BLS12</li>
+<li>BN</li>
+<li>MNT4/6 (Ate pairing)</li>
+</ul>
+</li>
+</ul>
+<p>Full functionality of the precompile is described below in <code>Specification</code> section.</p>
+<h2 id="motivation">Motivation</h2>
+<ul>
+<li>There is a pending proposal to implement base elliptic curve arithmetic is covered by <a href="https://eips.ethereum.org/EIPS/eip-1829">EIP1829</a> and will allow to implement various privacy-preserving protocols with a reasonable gas costs per operation.</li>
+<li>Pairings are an important extension for basic arithmetic and so this new precompile is proposed with the following benefits:
+<ul>
+<li>Extended set of curves will be available to allow Ethereum users to choose their security parameters and required functionality.</li>
+<li>Generic approach of this precompile will allow Ethereum users to experiment with newly found curves of their choice and new constructions constructions without waiting for new forks.</li>
+<li>EC arithmetic is indeed re-implemented in this precompile, but it's strictly required. Most of the pairing-based protocols still need to perform standard EC multiplications or additions and thus such operations must be available on generic set of curves.</li>
+</ul>
+</li>
+<li>Gas costs - this EIP is designed to estimate gas-cost of performed operation as early as possible during the call and base if solely on specified parameters and operation type. This is a strict requirement for any precompile to allow Ethereum nodes to efficiently reject transactions and operations as early as possible.</li>
+</ul>
+<p>Functionality of this newly proposed precompile is different from <a href="https://eips.ethereum.org/EIPS/eip-1829">EIP1829</a> in the following aspects:</p>
+<ul>
+<li>Operation on arbitrary-length modulus (up to some upper-limit) for a base field and scalar field of the curve</li>
+<li>Pairing operations are introduced</li>
+<li>Different ABI due to variable parameter length</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<p>If <code>block.number &gt;= XXXXX</code>, define a set of <code>10</code> new precompiles with an addresses <code>[0x.., 0x.., ...]</code> and the following functionality. </p>
+<ul>
+<li>Addition of points on the curve defined over base field</li>
+<li>Multiplication of a point on the curve defined over base field</li>
+<li>Multiexponentiation for <code>N</code> pairs of <code>(scalar, point)</code> on the curve defined over base field</li>
+<li>Addition of points on the curve defined over quadratic or cubic extension of the base field</li>
+<li>Multiplication of a point on the curve defined over quadratic or cubic extension of the base field</li>
+<li>Multiexponentiation for <code>N</code> pairs of <code>(scalar, point)</code> on the curve defined over quadratic or cubic extension of the base field</li>
+<li>Pairing operation on the curve of <code>BLS12</code> family</li>
+<li>Pairing operation on the curve of <code>BN</code> family</li>
+<li>Pairing operation on the curve of <code>MNT4</code> family</li>
+<li>Pairing operation on the curve of <code>MNT6</code> family</li>
+</ul>
+<p>Due to actuve development of the precompile and a lot of ongoing changes there is a single <a href="https://github.com/matter-labs/eip1962/tree/master/documentation">source of truth</a>. It covers binary interface, gas schedule, integration guide for existing implementations.</p>
+<h3 id="possible-simplifications">Possible simplifications</h3>
+<p>Due to high complexity of the proposed operations in the aspects of implementation, debugging and evaluation of the factors for gas costs it may be appropriate to either limit the set of curves at the moment of acceptance to some list and then extend it. Another approach (if it's technically possible) would be to have the &quot;whilelist&quot; contract that can be updated without consensus changes (w/o fork).</p>
+<p>In the case of limited set of curve the following set is proposed as a minimal:</p>
+<ul>
+<li>BN254 curve from the current version of Ethereum</li>
+<li>BN curve from DIZK with 2^32 roots of unity</li>
+<li>BLS12-381 </li>
+<li>BLS12-377 from ZEXE with large number of roots of unity</li>
+<li>MNT4/6 cycle from the original <a href="https://eprint.iacr.org/2014/595.pdf">paper</a>. It's not too secure, but may give some freedom for experiments.</li>
+<li>MNT4/6 cycle from Coda if performance allows</li>
+<li>Set of CP generated curves that would allow embedding of BLS12-377 and may be some BN curve that would have large power of two divisor for both base field and scalar field modulus (example of CP curve for BLS12-377 can be found in ZEXE). </li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<p>Only the largest design decisions will be covered:</p>
+<ul>
+<li>While there is no arithmetic over the scalar field (which is modulo size of the main group) of the curve, it's required for gas estimation purposes.</li>
+<li>Multiexponentiation is a separate operation due to large cost saving</li>
+<li>There are no point decompressions due to impossibility to get universal gas estimation of square root operation. For a limited number of &quot;good&quot; cases prices would be too different, so specifying the &quot;worst case&quot; is expensive and inefficient, while introduction of another level if complexity into already complicated gas costs formula is not worth is.</li>
+</ul>
+<h3 id="this-precompile-and-eip-1109">This precompile and EIP 1109</h3>
+<p>While there is no strict requirement of EIP 1109 for functionality, here is an example why it would be desired:</p>
+<ul>
+<li>BLS12-381 curve, 381 bit modulus, 255 bit scalar field, no native arithmetic is available in EVM for this</li>
+<li>Point addition would take 5000ns (quite overestimated)</li>
+<li>Point multiplication would take roughly 150000ns</li>
+<li>Crude gas schedule 15 Mgas/second from ECRecover precompile </li>
+<li>Point addition would cost 75 gas, with <code>STATICCALL</code> adding another 700</li>
+<li>Point multiplication would cost 2250 gas</li>
+<li>One should also add the cost of memory allocation that is at least <code>1 + 1 + 48 + 48 + 48 + 1 + 32 + 2*48 + 2*48 = 371 byte</code> that is around 12 native Ethereum &quot;words&quot; and will require extra 36 gas (with negligible price for memory extension)</li>
+</ul>
+<p>Based on these quite crude estimations one can see that <code>STATICCALL</code> price will dominate the total cost (in case of addition) or bring significant overhead (in case of multiplication operation) in case of calls to this precompile.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This change is not backwards compatible and requires hard fork to be activated.</p>
+<p>Functionality of the new precompile itself does not affect any existing functionality of Ethereum or EVM. </p>
+<p>This precompile may serve as a complete replacement of the current set of <code>ECADD</code>, <code>ECMUL</code> and pairing check precompiles (<code>0x06</code>, <code>0x07</code>, <code>0x08</code>)</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>Test cases are the part of the implementation with a link below.</p>
+<h2 id="implementation">Implementation</h2>
+<p>There is an ongoing implementation effort <a href="https://github.com/matter-labs/eip1829">here</a>. Right now:</p>
+<ul>
+<li>Non-pairing operations are implemented and tested.</li>
+<li>BLS12 family is completed and tested for BLS12-381 and BLS12-377 curves. </li>
+<li>BN family is completed and tested with BN254 curve.</li>
+<li>Cocks-Pinch method curve is tested for k=6 curve from ZEXE.</li>
+</ul>
+<h2 id="preliminary-benchmarks">Preliminary benchmarks</h2>
+<p>cp6 in benchmarks is a Cocks-Pinch method curve that embeds BLS12-377. Machine: Core i7, 2.9 GHz.</p>
+<p>Multiexponentiation benchmarks take 100 pairs <code>(generator, random scalar)</code> as input. Due to the same &quot;base&quot; it may be not too representative benchmark and will be updated.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">test pairings::bls12::tests::bench_bls12_381_pairing    ... bench:   2,348,317 ns/iter (+/- 605,340)
+test pairings::cp::tests::bench_cp6_pairing             ... bench:  86,328,825 ns/iter (+/- 11,802,073)
+test tests::bench_addition_bn254                        ... bench:         388 ns/iter (+/- 73)
+test tests::bench_doubling_bn254                        ... bench:         187 ns/iter (+/- 4)
+test tests::bench_field_inverse                         ... bench:       2,478 ns/iter (+/- 167)
+test tests::bench_field_mont_inverse                    ... bench:       2,356 ns/iter (+/- 51)
+test tests::bench_multiplication_bn254                  ... bench:      81,744 ns/iter (+/- 6,984)
+test tests::bench_multiplication_bn254_into_affine      ... bench:      81,925 ns/iter (+/- 3,323)
+test tests::bench_multiplication_bn254_into_affine_wnaf ... bench:      74,716 ns/iter (+/- 4,076)
+test tests::bench_naive_multiexp_bn254                  ... bench:  10,659,911 ns/iter (+/- 559,790)
+test tests::bench_peppinger_bn254                       ... bench:   2,678,743 ns/iter (+/- 148,914)
+test tests::bench_wnaf_multiexp_bn254                   ... bench:   9,161,281 ns/iter (+/- 456,137)
+</span></code></pre><h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2767: Contract Ownership Governance</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2767.md" />
+<meta property="og:title" content="EIP-2767: Contract Ownership Governance" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2767 (EIP-2767): Contract Ownership Governance"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2767 (EIP-2767): Contract Ownership Governance"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2767.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2767 (EIP 2767): Contract Ownership Governance" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2767: Contract Ownership Governance
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/zemse">Soham Zemse</a>,
+        
+    
+        
+        
+            <a href="https://github.com/mudgen"> Nick Mudge</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2766">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2766</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-07-04</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>165, 173, 191</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>A standard interface for Governance contracts that administratively decentralize the ownership of smart contracts.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>The following standard allows for the implementation of a standard API for a Governance smart contract. This standard provides basic functionality for on-chain and off-chain governance inheriting equal or privileged voting rights. Existing <code>ERC-173</code> compatible contracts can upgrade from private key wallet ownership to a Governance smart contract. Smart contracts that use a Governance contract are more administratively decentralised and adhering to a standard API enables tools to populate governance information to dApp users.</p>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>Traditionally, many contracts that require that they be owned or controlled in some way use <code>ERC-173</code> which standardized the use of ownership in the smart contracts. For example to withdraw funds or perform administrative actions.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract dApp {
+  function doSomethingAdministrative() external onlyOwner {
+    // admin logic that can be performed by a single wallet
+  }
+}
+</span></code></pre>
+<p>Often, such administrative rights for a contract are written for maintenance purpose but users need to trust the owner. Rescue operations by an owner have raised questions on decentralised nature of the projects. Also, there is a possibility of compromise of an owner's private key.</p>
+<p>At present, there are various implementation ideas for handling governance. Adhering to a standard API would enable general tools (like EtherScan) to populate governance information, thus increasing transparency to users. This can result in a wide adoption for contract governance.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<h4 id="notes">Notes</h4>
+<ul>
+<li>The following specifications use syntax from Solidity 0.6.0 (or above)</li>
+<li>Governor is the board member who has voting right.</li>
+<li>Power represents the voting privilege of a governor.</li>
+</ul>
+<p>A contract that is compliant with <code>ERC-2767</code> shall implement the following interface:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/// @title ERC-2767 Governance with Privileged Voting Rights
+/// @dev ERC-165 InterfaceID: 0x4fe54581
+interface ERC2767 {
+    /// @dev This emits when governor power changes
+    event GovernorPowerUpdated(address indexed governor, uint256 power);
+
+    /// @notice Gets the consensus power of the governor
+    /// @param _governor Address of the governor
+    /// @return The governor&#39;s voting power
+    function powerOf(address _governor) external view returns (uint256);
+
+    /// @notice Gets the sum of the power of all governors
+    /// @return Sum of the power of all governors
+    function totalPower() external view returns (uint256);
+
+    /// @notice Gets number votes required for achieving consensus
+    /// @return Required number of consensus votes
+    function required() external view returns (uint256);
+
+    /// @notice Updates governor statuses
+    /// @param _governor Governor address
+    /// @param _newPower New power for the governor
+    /// @dev Only Governance can call
+    function setGovernor(address _governor, uint256 _newPower) external;
+}
+</span></code></pre>
+<p>Implementations that require equal governance rights between the governors can simply have equal power values for every governor.</p>
+<p>There is a possibility that <code>totalPower()</code> changes rapidly due to adding or removing governors. This can result in having a fixed <code>required()</code> return value easier or difficult to achieve. Implementations can have custom logic that affect the return value of <code>required()</code>. For example the return value of <code>required()</code> can be changed by custom logic in order to maintain <code>51%</code> of <code>totalPower()</code>. So if more governors are added in such implementations, the <code>required()</code> return value would automatically take that into account.</p>
+<h3 id="interface-identification">Interface Identification</h3>
+<p>An <code>ERC-2767</code> Governance Contract should also implement <code>ERC-165</code>. This helps general tools to identify whether a contract is a <code>ERC-2767</code> Governance contract.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface ERC165 {
+    /// @notice Query if a contract implements an interface
+    /// @param interfaceID The interface identifier, as specified in ERC-165
+    /// @dev Interface identification is specified in ERC-165. This function
+    ///  uses less than 30,000 gas.
+    /// @return `true` if the contract implements `interfaceID` and
+    ///  `interfaceID` is not 0xffffffff, `false` otherwise
+    function supportsInterface(bytes4 interfaceID) external view returns (bool);
+}
+</span></code></pre><h3 id="transaction-execution-optional">Transaction execution (Optional)</h3>
+<p>There are two optional interfaces for transaction execution: On-chain and Off-chain. A <code>ERC-2767</code> compatible governance contract can optionally implement one of them or both. The contract should specify the interfaceID(s) using <code>ERC-165</code>'s <code>supportsInterface</code> method.</p>
+<h4 id="on-chain">On-chain</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/// @title ERC-2767 On-chain Governance
+/// @dev ERC-165 InterfaceID: 0x947133b4
+interface IGovernanceOnchain {
+    struct Transaction {
+        address destination;
+        uint256 value;
+        bytes data;
+        bool executed;
+        uint256 votes;
+    }
+
+    /// @dev Emits when a transaction is proposed
+    event TransactionCreated(uint256 indexed transactionId);
+
+    /// @dev Emits every time a governor confirms a transaction
+    event TransactionConfirmed(uint256 indexed transactionId);
+
+    /// @dev Emits whenever a governor takes back their confirmation
+    event TransactionRevoked(uint256 indexed transactionId);
+
+    /// @dev Emits when a transactions with enough confirmations is executed
+    event TransactionExecuted(uint256 indexed transactionId);
+
+    /// @notice Gets transaction parameters
+    /// @param _transactionId TransactionID
+    /// @return ABIV2 encoded Transaction struct
+    function getTransaction(uint256 _transactionId) external view returns (Transaction memory);
+
+    /// @notice Allows an governor to submit and confirm a transaction.
+    /// @param _destination Transaction target address, the governed contract
+    /// @param _value Transaction ether value
+    /// @param _data Transaction data payload
+    /// @return Returns transaction ID
+    function createTransaction(
+        address _destination,
+        uint256 _value,
+        bytes memory _data
+    ) external returns (uint256);
+
+    /// @notice Allows a governor to confirm a transaction.
+    /// @param _transactionId Transaction ID
+    function confirmTransaction(uint256 _transactionId) external;
+
+    /// @notice Allows a governor to revoke a confirmation for a transaction
+    /// @param _transactionId Transaction ID
+    function revokeConfirmation(uint256 _transactionId) external;
+
+    /// @notice Calls the governed contract to perform administrative task
+    /// @param _transactionId Transaction ID
+    /// @dev Only Governance can call
+    function executeTransaction(uint256 _transactionId) external;
+}
+</span></code></pre>
+<p>A governor proposes a transaction by calling <code>createTransaction</code> passing the parameters. Following this, rest of the governors can choose to confirm the transaction by calling <code>confirmTransaction</code>. If at later point of time, a governor wishes to take back their vote, they can call <code>revokeConfirmation</code>. Once a transaction reaches enough confirmations, it can be executed by calling <code>confirmTransaction</code>. The <code>confirmTransaction</code> method can internally call <code>executeTransaction</code> after it's primary logic if required votes have been registered.</p>
+<h4 id="off-chain">Off-chain</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/// @title ERC-2767 Off-chain Governance
+/// @dev ERC-165 InterfaceID: 0x32542713
+interface IGovernanceOffchain {
+    /// @notice Get the transactions count
+    /// @dev To be used as nonce
+    /// @return The transactions count
+    function transactionsCount() external view returns (uint256);
+
+    /// @notice Calls the governed contract to perform an administrative task
+    /// @param _nonce Serial number of transaction
+    /// @param _destination Address of contract to make a call to, should be governed contract address
+    /// @param _data Input data in the transaction
+    /// @param _signatures Signatures of governors collected off chain
+    /// @dev The signatures are required to be sorted to prevent duplicates
+    /// @dev Only Governance can call
+    function executeTransaction(
+        uint256 _nonce,
+        address _destination,
+        bytes memory _data,
+        bytes[] memory _signatures
+    ) external payable;
+}
+</span></code></pre>
+<p>Anyone can take an initiative to execute a transaction by preparing a <code>ERC-191</code> signed data <code>0x 19 00 &lt;20 bytes address&gt; &lt;32 bytes nonce&gt; &lt;20 bytes to-address&gt; &lt;input data&gt;</code> and collect signatures from required governors. The contract logic should expect signatures to be sorted, this is to save the expenditure gas to prevent duplicate signatures. If signatures are sorted, valid, and the required number of them (or more), the governance contract will make a call to the governed contract to perform the administrative task.</p>
+<h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<p>The goals of this EIP have been the following:</p>
+<ul>
+<li>standardize API of Governance contracts for governed contracts.</li>
+<li>enable existing <code>ERC-173</code> ownership smart contracts to become administratively decentralised.</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<!--All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards compatibility treatise may be rejected outright.-->
+<p>Smart contracts that are <code>ERC-173</code> compliant can transfer their ownership to a Governance contract. This enables existing contracts to become compatible with <code>ERC-2767</code>.</p>
+<p>However, there are some existing projects with governance implementations and most of them have custom APIs, since a standard did not exist. Such projects need to deploy a new governance contract and transfer ownership to it to be <code>ERC-2767</code> compatible. Not having an <code>ERC-2767</code> compatible governance contract means only that general tools might be able to populate their governance information.</p>
+<!-- ## Test Cases -->
+<!--Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Other EIPs can choose to include links to test cases if applicable.-->
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>The reference implementations are available in this <a href="https://github.com/zemse/contract-ownership-governance">repository</a>.</p>
+<ol>
+<li>Governance Onchain with Equal Voting Rights (<a href="https://github.com/zemse/contract-ownership-governance/blob/master/contracts/GovernanceOnchainEqual.sol">Contract</a>, <a href="https://github.com/zemse/contract-ownership-governance/blob/master/test/suites/OnchainEqual.test.ts">Tests</a>)</li>
+<li>Governance Offchain with Privileged Voting Rights (<a href="https://github.com/zemse/contract-ownership-governance/blob/master/contracts/GovernanceOffchainPrivileged.sol">Contract</a>, <a href="https://github.com/zemse/contract-ownership-governance/blob/master/test/suites/OffchainPrivileged.test.ts">Tests</a>)</li>
+</ol>
+<h2 id="security-considerations">Security Considerations</h2>
+<!--All EIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life cycle of the proposal. E.g. include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. EIP submissions missing the "Security Considerations" section will be rejected. An EIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.-->
+<p>The signatures in off-chain governance implementation should follow recommendations of <code>ERC-191</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">0x 19 00 &lt;20 bytes governance address&gt; &lt;32 bytes nonce&gt; &lt;20 bytes to-address&gt; &lt;input data&gt;.
+</span></code></pre>
+<p>To prevent repeated signatures in the <code>signatures</code> array, it is required that caller of <code>executeTransaction</code> should sort the signatures based on increasing addresses.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

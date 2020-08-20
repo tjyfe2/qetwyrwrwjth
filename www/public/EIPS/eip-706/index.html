@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-706: DEVp2p snappy compression</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-706.md" />
+<meta property="og:title" content="EIP-706: DEVp2p snappy compression" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 706 (EIP-706): DEVp2p snappy compression"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 706 (EIP-706): DEVp2p snappy compression"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-706.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 706 (EIP 706): DEVp2p snappy compression" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-706: DEVp2p snappy compression
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:peter@ethereum.org">Péter Szilágyi</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Networking</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-09-07</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>The base networking protocol (DEVp2p) used by Ethereum currently does not employ any form of compression. This results in a massive amount of bandwidth wasted in the entire network, making both initial sync as well as normal operation slower and laggier.</p>
+<p>This EIP proposes a tiny extension to the DEVp2p protocol to enable <a href="https://en.wikipedia.org/wiki/Snappy_(compression)">Snappy compression</a> on all message payloads after the initial handshake. After extensive benchmarks, results show that data traffic is decreased by 60-80% for initial sync. You can find exact numbers below.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Synchronizing the Ethereum main network (block 4,248,000) in Geth using fast sync currently consumes 1.01GB upload and 33.59GB download bandwidth. On the Rinkeby test network (block 852,000) it's 55.89MB upload and 2.51GB download.</p>
+<p>However, most of this data (blocks, transactions) are heavily compressible. By enabling compression at the message payload level, we can reduce the previous numbers to 1.01GB upload / 13.46GB download on the main network, and 46.21MB upload / 463.65MB download on the test network.</p>
+<p>The motivation behind doing this at the DEVp2p level (opposed to eth for example) is that it would enable compression for all sub-protocols (eth, les, bzz) seamlessly, reducing any complexity those protocols might incur in trying to individually optimize for data traffic.</p>
+<h2 id="specification">Specification</h2>
+<p>Bump the advertised DEVp2p version number from <code>4</code> to <code>5</code>. If during handshake, the remote side advertises support only for version <code>4</code>, run the exact same protocol as until now.</p>
+<p>If the remote side advertises a DEVp2p version <code>&gt;= 5</code>, inject a Snappy compression step right before encrypting the DEVp2p message during sending:</p>
+<ul>
+<li>A message consists of <code>{Code, Size, Payload}</code></li>
+<li>Compress the original payload with Snappy and store it in the same field.</li>
+<li>Update the message size to the length of the compressed payload.</li>
+<li>Encrypt and send the message as before, oblivious to compression.</li>
+</ul>
+<p>Similarly to message sending, when receiving a DEVp2p v5 message from a remote node, insert a Snappy decompression step right after the decrypting the DEVp2p message:</p>
+<ul>
+<li>A message consists of <code>{Code, Size, Payload}</code></li>
+<li>Decrypt the message payload as before, oblivious to compression.</li>
+<li>Decompress the payload with Snappy and store it in the same field.</li>
+<li>Update the message size to the length of the decompressed payload.</li>
+</ul>
+<p>Important caveats:</p>
+<ul>
+<li>The handshake message is <strong>never</strong> compressed, since it is needed to negotiate the common version.</li>
+<li>Snappy framing is <strong>not</strong> used, since the DEVp2p protocol already message oriented.</li>
+</ul>
+<p><em>Note: Snappy supports uncompressed binary literals (up to 4GB) too, leaving room for fine-tuned future optimisations for already compressed or encrypted data that would have no gain of compression (Snappy usually detects this case automatically).</em></p>
+<h3 id="avoiding-dos-attacks">Avoiding DOS attacks</h3>
+<p>Currently a DEVp2p message length is limited to 24 bits, amounting to a maximum size of 16MB. With the introduction of Snappy compression, care must be taken not to blindly decompress messages, since they may get significantly larger than 16MB.</p>
+<p>However, Snappy is capable of calculating the decompressed size of an input message without inflating it in memory (<em><a href="https://github.com/google/snappy/blob/master/format_description.txt#L20">the stream starts with the uncompressed length up to a maximum of <code>2^32 - 1</code> stored as a little-endian varint</a></em>). This can be used to discard any messages which decompress above some threshold. <strong>The proposal is to use the same limit (16MB) as the threshold for decompressed messages.</strong> This retains the same guarantees that the current DEVp2p protocol does, so there won't be surprises in application level protocols.</p>
+<h2 id="alternatives-discarded">Alternatives (discarded)</h2>
+<p><strong>Alternative solutions to data compression that have been brought up and discarded are:</strong></p>
+<p>Extend protocol <code>xyz</code> to support compressed messages versus doing it at DEVp2p level:</p>
+<ul>
+<li><strong>Pro</strong>: Can be better optimized when to compress and when not to.</li>
+<li><strong>Con</strong>: Mixes in transport layer encoding into application layer logic.</li>
+<li><strong>Con</strong>: Makes the individual message specs more convoluted with compression details.</li>
+<li><strong>Con</strong>: Requires cross client coordination on every single protocol, making the effor much harder and repeated (eth, les, shh, bzz).</li>
+</ul>
+<p>Introduce seamless variations of protocol such as <code>xyz</code> expanded with <code>xyz-compressed</code>:</p>
+<ul>
+<li><strong>Pro</strong>: Can be done (hacked in) without cross client coordination.</li>
+<li><strong>Con</strong>: Litters the network with client specific protocol announces.</li>
+<li><strong>Con</strong>: Needs to be specced in an EIP for cross interoperability anyway.</li>
+</ul>
+<p><strong>Other ideas that have been discussed and discarded:</strong></p>
+<p>Don't explicitly limit the decompressed message size, only the compressed one:</p>
+<ul>
+<li><strong>Pro</strong>: Allows larger messages to traverse through DEVp2p.</li>
+<li><strong>Con</strong>: Upper layer protocols need to check and discard large messages.</li>
+<li><strong>Con</strong>: Needs lazy decompression to allow size limitations without DOS.</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This proposal is fully backward compatible. Clients upgrading to the proposed DEVp2p protocol version <code>5</code> should still support skipping the compression step for connections that only advertise version <code>4</code> of the DEVp2p protocol.</p>
+<h2 id="implementation">Implementation</h2>
+<p>You can find a reference implementation of this EIP in https://github.com/ethereum/go-ethereum/pull/15106.</p>
+<h2 id="test-vectors">Test vectors</h2>
+<p>There is more than one valid encoding of any given input, and there is more than one good internal compression algorithm within Snappy when trading off throughput for output size. As such, different implementations might produce slight variations in the compressed form, but all should be cross compatible between each other.</p>
+<p>As an example, take hex encoded RLP of block #272621 from the Rinkeby test network: <a href="https://gist.githubusercontent.com/karalabe/72a1a6c4c1dbe6d4996879e415697f06/raw/195bf0c0050ee9805fcd5db4b5b650c58879a55f/block.rlp">block.rlp (~3MB)</a>.</p>
+<ul>
+<li>Encoding the raw RLP via <a href="https://github.com/golang/snappy">Go's Snappy library</a> yields: <a href="https://gist.githubusercontent.com/karalabe/72a1a6c4c1dbe6d4996879e415697f06/raw/195bf0c0050ee9805fcd5db4b5b650c58879a55f/block.go.snappy">block.go.snappy (~70KB)</a>.</li>
+<li>Encoding the raw RLP via <a href="https://github.com/andrix/python-snappy">Python's Snappy library</a> yields: <a href="https://gist.githubusercontent.com/karalabe/72a1a6c4c1dbe6d4996879e415697f06/raw/195bf0c0050ee9805fcd5db4b5b650c58879a55f/block.py.snappy">block.py.snappy (~70KB)</a>.</li>
+</ul>
+<p>You can verify that an encoded binary can be decoded into the proper plaintext using the following snippets:</p>
+<h3 id="go">Go</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> go get https://github.com/golang/snappy
+</span></code></pre><pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">package </span><span style="color:#bf616a;">main
+
+</span><span style="color:#b48ead;">import </span><span style="color:#c0c5ce;">(
+	&quot;</span><span style="color:#a3be8c;">bytes</span><span style="color:#c0c5ce;">&quot;
+	&quot;</span><span style="color:#a3be8c;">encoding/hex</span><span style="color:#c0c5ce;">&quot;
+	&quot;</span><span style="color:#a3be8c;">fmt</span><span style="color:#c0c5ce;">&quot;
+	&quot;</span><span style="color:#a3be8c;">io/ioutil</span><span style="color:#c0c5ce;">&quot;
+	&quot;</span><span style="color:#a3be8c;">log</span><span style="color:#c0c5ce;">&quot;
+	&quot;</span><span style="color:#a3be8c;">os</span><span style="color:#c0c5ce;">&quot;
+
+	&quot;</span><span style="color:#a3be8c;">github.com/golang/snappy</span><span style="color:#c0c5ce;">&quot;
+)
+
+</span><span style="color:#b48ead;">func </span><span style="color:#8fa1b3;">main</span><span style="color:#c0c5ce;">() {
+	</span><span style="color:#65737e;">// Read and decode the decompressed file
+	</span><span style="color:#bf616a;">plainhex</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">err </span><span style="color:#c0c5ce;">:= </span><span style="color:#bf616a;">ioutil</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">ReadFile</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">os</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Args</span><span style="color:#c0c5ce;">[</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">])
+	</span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">err </span><span style="color:#c0c5ce;">!= </span><span style="color:#d08770;">nil </span><span style="color:#c0c5ce;">{
+		</span><span style="color:#bf616a;">log</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Fatalf</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Failed to read decompressed file </span><span style="color:#d08770;">%s</span><span style="color:#a3be8c;">: </span><span style="color:#d08770;">%v</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#bf616a;">os</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Args</span><span style="color:#c0c5ce;">[</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">], </span><span style="color:#bf616a;">err</span><span style="color:#c0c5ce;">)
+	}
+	</span><span style="color:#bf616a;">plain</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">err </span><span style="color:#c0c5ce;">:= </span><span style="color:#bf616a;">hex</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">DecodeString</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">string</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">plainhex</span><span style="color:#c0c5ce;">))
+	</span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">err </span><span style="color:#c0c5ce;">!= </span><span style="color:#d08770;">nil </span><span style="color:#c0c5ce;">{
+		</span><span style="color:#bf616a;">log</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Fatalf</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Failed to decode decompressed file: </span><span style="color:#d08770;">%v</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#bf616a;">err</span><span style="color:#c0c5ce;">)
+	}
+	</span><span style="color:#65737e;">// Read and decode the compressed file
+	</span><span style="color:#bf616a;">comphex</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">err </span><span style="color:#c0c5ce;">:= </span><span style="color:#bf616a;">ioutil</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">ReadFile</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">os</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Args</span><span style="color:#c0c5ce;">[</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">])
+	</span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">err </span><span style="color:#c0c5ce;">!= </span><span style="color:#d08770;">nil </span><span style="color:#c0c5ce;">{
+		</span><span style="color:#bf616a;">log</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Fatalf</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Failed to read compressed file </span><span style="color:#d08770;">%s</span><span style="color:#a3be8c;">: </span><span style="color:#d08770;">%v</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#bf616a;">os</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Args</span><span style="color:#c0c5ce;">[</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">], </span><span style="color:#bf616a;">err</span><span style="color:#c0c5ce;">)
+	}
+	</span><span style="color:#bf616a;">comp</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">err </span><span style="color:#c0c5ce;">:= </span><span style="color:#bf616a;">hex</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">DecodeString</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">string</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">comphex</span><span style="color:#c0c5ce;">))
+	</span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">err </span><span style="color:#c0c5ce;">!= </span><span style="color:#d08770;">nil </span><span style="color:#c0c5ce;">{
+		</span><span style="color:#bf616a;">log</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Fatalf</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Failed to decode compressed file: </span><span style="color:#d08770;">%v</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#bf616a;">err</span><span style="color:#c0c5ce;">)
+	}
+	</span><span style="color:#65737e;">// Make sure they match
+	</span><span style="color:#bf616a;">decomp</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">err </span><span style="color:#c0c5ce;">:= </span><span style="color:#bf616a;">snappy</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Decode</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">nil</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">comp</span><span style="color:#c0c5ce;">)
+	</span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">err </span><span style="color:#c0c5ce;">!= </span><span style="color:#d08770;">nil </span><span style="color:#c0c5ce;">{
+		</span><span style="color:#bf616a;">log</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Fatalf</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Failed to decompress compressed file: </span><span style="color:#d08770;">%v</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#bf616a;">err</span><span style="color:#c0c5ce;">)
+	}
+	</span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">!</span><span style="color:#bf616a;">bytes</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Equal</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">plain</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">decomp</span><span style="color:#c0c5ce;">) {
+		</span><span style="color:#bf616a;">fmt</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Println</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Booo, decompressed file does not match provided plain text!</span><span style="color:#c0c5ce;">&quot;)
+		</span><span style="color:#b48ead;">return
+	</span><span style="color:#c0c5ce;">}
+	</span><span style="color:#bf616a;">fmt</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Println</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Yay, decompressed data matched provided plain text!</span><span style="color:#c0c5ce;">&quot;)
+}
+</span></code></pre><pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> go run main.go block.rlp block.go.snappy
+</span><span style="color:#bf616a;">Yay,</span><span style="color:#c0c5ce;"> decompressed data matched provided plain text!
+
+</span><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> go run main.go block.rlp block.py.snappy
+</span><span style="color:#bf616a;">Yay,</span><span style="color:#c0c5ce;"> decompressed data matched provided plain text!
+</span></code></pre><h3 id="python">Python</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> pip install python-snappy
+</span></code></pre><pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">import </span><span style="color:#c0c5ce;">snappy
+</span><span style="color:#b48ead;">import </span><span style="color:#c0c5ce;">sys
+
+</span><span style="color:#65737e;"># Read and decode the decompressed file
+</span><span style="color:#b48ead;">with </span><span style="color:#96b5b4;">open</span><span style="color:#c0c5ce;">(sys.argv[</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">], &#39;</span><span style="color:#a3be8c;">rb</span><span style="color:#c0c5ce;">&#39;) </span><span style="color:#b48ead;">as </span><span style="color:#c0c5ce;">file:
+    plainhex = file.</span><span style="color:#bf616a;">read</span><span style="color:#c0c5ce;">()
+
+plain = plainhex.</span><span style="color:#bf616a;">decode</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">hex</span><span style="color:#c0c5ce;">&quot;)
+
+</span><span style="color:#65737e;"># Read and decode the compressed file
+</span><span style="color:#b48ead;">with </span><span style="color:#96b5b4;">open</span><span style="color:#c0c5ce;">(sys.argv[</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">], &#39;</span><span style="color:#a3be8c;">rb</span><span style="color:#c0c5ce;">&#39;) </span><span style="color:#b48ead;">as </span><span style="color:#c0c5ce;">file:
+    comphex = file.</span><span style="color:#bf616a;">read</span><span style="color:#c0c5ce;">()
+
+comp = comphex.</span><span style="color:#bf616a;">decode</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">hex</span><span style="color:#c0c5ce;">&quot;)
+
+</span><span style="color:#65737e;"># Make sure they match
+</span><span style="color:#c0c5ce;">decomp = snappy.</span><span style="color:#bf616a;">uncompress</span><span style="color:#c0c5ce;">(comp)
+</span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">plain != decomp:
+    </span><span style="color:#b48ead;">print </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">Booo, decompressed file does not match provided plain text!</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#b48ead;">else</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#b48ead;">print </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">Yay, decompressed data matched provided plain text!</span><span style="color:#c0c5ce;">&quot;
+</span></code></pre><pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> python main.py block.rlp block.go.snappy
+</span><span style="color:#bf616a;">Yay,</span><span style="color:#c0c5ce;"> decompressed data matched provided plain text!
+
+</span><span style="color:#bf616a;">$</span><span style="color:#c0c5ce;"> python main.py block.rlp block.py.snappy
+</span><span style="color:#bf616a;">Yay,</span><span style="color:#c0c5ce;"> decompressed data matched provided plain text!
+</span></code></pre><h2 id="references">References</h2>
+<ul>
+<li>Snappy website: https://google.github.io/snappy/</li>
+<li>Snappy specification: https://github.com/google/snappy/blob/master/format_description.txt</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

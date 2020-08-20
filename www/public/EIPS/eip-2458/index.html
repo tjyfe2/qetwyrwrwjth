@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2458: Updates and Updated-by Header</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2458.md" />
+<meta property="og:title" content="EIP-2458: Updates and Updated-by Header" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2458 (EIP-2458): Updates and Updated-by Header"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2458 (EIP-2458): Updates and Updated-by Header"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2458.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2458 (EIP 2458): Updates and Updated-by Header" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2458: Updates and Updated-by Header
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/edsonayllon">Edson Ayllon</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2453">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2453</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Informational</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-01-06</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>Adds EIP header options <code>updates</code> and <code>updated-by</code> to frontmatter of <code>active</code> EIPs for use as needed.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>EIP headers <code>updates</code> and <code>updated-by</code> are used for updating <code>active</code> EIPs. This is to make the improvement process of EIPs more modular, and have updates to existing <code>active</code> EIPs receive similar exposures to EIPs which replace existing <code>final</code> EIPs. </p>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>Currently, EIP1 specifies EIP headers: <code>updated</code>, <code>replaces</code>, and <code>superseded-by</code>. Headers <code>replaces</code> and <code>superseded-by</code> indicates when an entire EIP is being replaced by another EIP, indicating when an EIP is now historical, and is updated by a new standard. </p>
+<p>The header <code>updated</code> indicates the date an EIP has received an update by EIP authors and editors, an example EIP being EIP1. <code>updated</code> is reserved for EIPs in <code>draft</code> or <code>active</code> status. </p>
+<p>In the case of <code>active</code> status, an EIP may receive an update, but these updates don't operate as with EIPs in <code>final</code> status, where a historical EIP is created, and the new EIP is referenced by the historical one. While these updates are not kept immutably, updates to active EIPs can be done modularly by creating a new EIP that goes through the standard discussion and auditing process EIPs undergo. The EIP headers <code>updates</code> and <code>updated-by</code> are to facilitate this modularity. Creating a new EIP also provides sufficient notification to affected stakeholders of an active EIP before that EIP is <code>updated</code>. </p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<h3 id="updated-by"><code>updated-by</code></h3>
+<p><code>updated-by</code> is reserved for EIPs in <code>active</code> status. For an EIP in status <code>active</code>, updates to that EIP, which update the header <code>updated</code>, should be started by opening a new EIP to start vetting for that update. When an <code>active</code> EIP receives a new entry to header <code>updated</code>, an associated <code>updated-by</code> EIP listing should be included, where that newly listed EIP has reached <code>final</code> status.</p>
+<p><code>updates</code> should be included as an EIP header, as all EIP headers, and include a reference to an EIP designation. When multiple EIP designations are referenced, each should be separated by a comma. Example:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">---
+updated-by: 9999, 9998, 9997
+---
+</span></code></pre><h3 id="updates"><code>updates</code></h3>
+<p><code>updates</code> is reserved for EIPs updating EIPs in <code>active</code> status. An EIP listed as <code>updates</code> is implied to also be <code>requires</code>; only <code>updates</code> is needed for those EIP listings. Having an EIP listing <code>updates</code> does not necessarily mean that referenced EIP must reference back with an <code>updated-by</code> listing.</p>
+<p><code>updates</code> should be included as an EIP header, as all EIP headers, and include a reference to an EIP designation. When multiple EIP designations are referenced, each should be separated by a comma. Example:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">---
+updates: 1
+---
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<p><code>updates</code> and <code>updated-by</code> apply only to EIPs in <code>active</code> status as updates to EIPs in <code>final</code> status are already handled by EIP headers <code>superseded-by</code> and <code>replaces</code>.</p>
+<p>The syntax should align with previous EIP header syntax, as this EIP is not updating syntax, simply adding header options.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<!--All EIPs that introduce backward incompatibilities must include a section describing these incompatibilities and their severity. The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backward compatibility treatise may be rejected outright.-->
+<p>These EIP headers are optional and do not introduce compatibility issues.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>An implementation is adding a header option. </p>
+<h2 id="security-considerations">Security Considerations</h2>
+<!--All EIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surface risks and can be used throughout the life cycle of the proposal. E.g. include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. EIP submissions missing the "Security Considerations" section will be rejected. An EIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.-->
+<p>This standard is informational and does not introduce technical security issues.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

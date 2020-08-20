@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1775: App Keys, application specific wallet accounts</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1775.md" />
+<meta property="og:title" content="EIP-1775: App Keys, application specific wallet accounts" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1775 (EIP-1775): App Keys, application specific wallet accounts"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1775 (EIP-1775): App Keys, application specific wallet accounts"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1775.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1775 (EIP 1775): App Keys, application specific wallet accounts" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1775: App Keys, application specific wallet accounts
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/Bunjin">Vincent Eli</a>,
+        
+    
+        
+        
+            <a href="https://github.com/DanFinlay"> Dan Finlay</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-erc-app-keys-application-specific-wallet-accounts&#x2F;2742">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-erc-app-keys-application-specific-wallet-accounts&#x2F;2742</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-02-20</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>Among others cryptographic applications, scalability and privacy solutions for ethereum blockchain require that an user performs a significant amount of signing operations. It may also require her to watch some state and be ready to sign data automatically (e.g. sign a state or contest a withdraw). The way wallets currently implement accounts poses several obstacles to the development of a complete web3.0 experience both in terms of UX, security and privacy.</p>
+<p>This proposal describes a standard and api for a new type of wallet accounts that are derived specifically for a each given application. We propose to call them <code>app keys</code>. They allow to isolate the accounts used for each application, thus potentially increasing privacy. They also allow to give more control to the applications developers over account management and signing delegation. For these app keys, wallets can have a more permissive level of security (e.g. not requesting user's confirmation) while keeping main accounts secure. Finally wallets can also implement a different behavior such as allowing to sign transactions without broadcasting them.</p>
+<p>This new accounts type can allow to significantly improve UX and permit new designs for applications of the crypto permissionned web.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>In a wallet, an user often holds most of her funds in her main accounts. These accounts require a significant level of security and should not be delegated in any way, this significantly impacts the design of cryptographic applications if a user has to manually confirm every action. Also often an user uses the same accounts across apps, which is a privacy and potentially also a security issue.</p>
+<p>We introduce here a new account type, app keys, which permits signing delegation and accounts isolation across applications for privacy and security.</p>
+<p>In this EIP, we provide a proposal on how to uniquely identify and authenticate each application, how to derive a master account (or app key) unique for the domain from an user private key (her root private key or any other private key of an account derived or not from her root one). This EIP aims at becoming a standard on how to derive keys specific to each application that can be regenerated from scratch without further input from the user if she restores her wallet and uses again the application for which this key was derived.
+These app keys can then be endowed a different set of permissions (through the requestPermission model introduced in <a href="https://eips.ethereum.org/EIPS/eip-2255">EIP2255</a>). This will potentially allow an user to partly trust some apps to perform some crypto operations on their behalf without compromising any security with respect to her main accounts.</p>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>Wallets developers have agreed on an HD derivation path for ethereum accounts using BIP32, BIP44, SLIP44, <a href="https://github.com/ethereum/EIPs/issues/84">(see the discussion here)</a>. Web3 wallets have implemented in a roughly similar way the rpc eth api. <a href="https://eips.ethereum.org/EIPS/eip-1102">EIP1102</a> introduced privacy through non automatic opt-in of a wallet account into an app increasing privacy.</p>
+<p>However several limitations remain in order to allow for proper design and UX for crypto permissioned apps.</p>
+<p>Most of GUI based current wallets don't allow to:</p>
+<ul>
+<li>being able to automatically and effortlessly use different keys / accounts for each apps,</li>
+<li>being able to sign some app's action without prompting the user with the same level of security as sending funds from their main accounts,</li>
+<li>being able to use throwable keys to improve anonymity,</li>
+<li>effortlessly signing transactions for an app without broadcasting these while still being able to perform other transaction signing as usual from their main accounts,</li>
+<li>All this while being fully restorable using the user's mnemonic or hardware wallet and the HD Path determined uniquely by the app's ens name.</li>
+</ul>
+<p>We try to overcome these limitations by introducing a new account's type, app keys, made to be used along side the existing main accounts.</p>
+<p>These new app keys can permit to give more power and flexibility to the crypto apps developers. This can allow to improve a lot the UX of crypto dapps and to create new designs that were not possible before leveraging the ability to create and handle many accounts, to presign messages and broadcast them later. These features were not compatible with the level of security we were requesting for main accounts that hold most of an user's funds.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<h3 id="applications">Applications</h3>
+<p>An app is a website (or other) that would like to request from a wallet to access a cryptographic key specifically derived for this usage. It can be any form of cryptography/identity relying application, Ethereum based but not only.</p>
+<p>Once connected to a wallet, an application can request to access an account derived exclusively for that application using the following algorithm.</p>
+<h3 id="private-app-key-generation-algorithm">Private App Key generation algorithm</h3>
+<p>We now propose an algorithm to generate application keys that:</p>
+<ul>
+<li>are uniquely defined, with respect to the account that the user selected to generate these keys,</li>
+<li>and thus can be isolated when changing the user account, allowing persona management (see next section),</li>
+<li>are specific to each application,</li>
+<li>can be fully restored from the user master seed mnemonic and the applications' names.</li>
+</ul>
+<h4 id="using-different-accounts-as-personas">Using different accounts as personas</h4>
+<p>We allow the user to span a different set of application keys by changing the account selected to generate each key. Thus from the same master seed mnemonic, an user can use each of her account index to generate an alternative set of application keys. One can describe this as using different personas.
+This would allow potentially an user to fully isolate her interaction with a given app across personas. One can use this for instance to create a personal and business profile for a given's domain both backup up from the same mnemonic, using 2 different accounts to generate these. The app or domain, will not be aware that it is the same person and mnemonic behind both.
+If an application interacts with several main accounts of an user, one of these accounts, a master account can be used as persona and the others as auxiliary accounts.</p>
+<p>This EIP is agnostic about the way one generates the private keys used to span different app keys spaces. However for compatibility purposes and for clean disambiguation between personas and cryptocurrency accounts, a new EIP, distinct from this one but to be used alongside, will be proposed soon introducing clean persona generation and management.</p>
+<h4 id="applications-unique-identifiers">Applications' Unique Identifiers</h4>
+<p>Each application is uniquely defined and authenticated by its origin, a domain string. It can be a Domain Name Service (DNS) name or, in the future, an Ethereum Name Service (ENS) name or IPFS hash.</p>
+<p>For Ipfs or swam origins, but we could probably use the ipfs or swarm addresses as origin or we could require those to be pointed at through an ENS entry and use the ENS address as origin, although this would mean that the content it refers to could change. It would thus allow for different security and updatibility models.</p>
+<p>We will probably require for protocol prefixes when using an ENS domain to point to an IPFS address:
+<code>ens://ipfs.snap.eth</code></p>
+<h4 id="private-app-key-generation-algorithm-1">Private App Key generation algorithm</h4>
+<p>Using the domain name of an application, we generate a private key for each application (and per main account) :</p>
+<p><code>const appKeyPrivKey = keccak256(privKey + originString)</code></p>
+<p>where <code>+</code> is concatenation, <code>privKey</code> is the private key of the user's account selected to span the application key and <code>originString</code> represents the origin url from which the permission call to access the application key is originated from.</p>
+<p>This is exposed as an RPC method to allow any domain to request its own app key associated with the current requested account (if available):</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">const appKey = await provider.send({
+  method: &#39;wallet_getAppKeyForAccount&#39;,
+  params: [address1]
+});
+</span></code></pre>
+<p>See here for an implementation:
+https://github.com/MetaMask/eth-simple-keyring/blob/master/index.js#L169</p>
+<h4 id="app-keys-and-hierarchical-deterministic-keys">App keys and Hierarchical Deterministic keys</h4>
+<p>The app keys generated using the algorithm described in the previous section will not be BIP32 compliant. Therefore apps will not be able to create several app keys or use non-hardening and extended public keys techniques directly. They get a single private key (per origin, per persona).
+Yet they can use this as initial entropy to span a new HD tree and generate addresses that can be either hardened or not. Thus we should not be losing use cases.</p>
+<h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<h3 id="sharing-application-keys-across-domains">Sharing application keys across domains:</h3>
+<p>While this does not explicit cover cases of sharing these app keys between pages on its own, this need can be met by composition:</p>
+<p>Since a domain would get a unique key per persona, and because domains can intercommunicate, one domain (app) could request another domain (signer) to perform its cryptographic operation on some data, with its appKey as a seed, potentially allowing new signing strategies to be added as easily as new websites.</p>
+<p>This could also pass it to domains that are loading specific signing strategies. This may sound dangerous at first, but if a domain represents a static hash of a trusted cryptographic function implementation, it could be as safe as calling any audited internal dependency.</p>
+<h3 id="privacy-and-the-funding-trail">Privacy and the funding trail</h3>
+<p>If all an application needs to do with its keys is to sign messages and it does not require funding, then this EIP allows for privacy through the use of distinct keys for each application with a simple deterministic standard compatible across wallets.</p>
+<p>However if these application keys require funding, there can be trail and the use of app keys would not fully solve the privacy problem there.</p>
+<p>Mixers or anonymous ways of funding an ethereum address (ring signatures) along with this proposal would guarantee privacy.</p>
+<p>Even if privacy is not solved fully without this anonymous funding method, we still need a way to easily create and restore different accounts/addresses for each application</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<!--All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards compatibility treatise may be rejected outright.-->
+<p>From a wallet point of view, there does not seem to be compatibility issues since these are separate accounts from those that were used previously by wallets and they are supposed to be used along-side in synergy.</p>
+<p>However, for applications that associated in some way their users to their main accounts may want to reflect on if and how they would like to leverage the power offered by <code>app keys</code> to migrate to them and leverage on the new app designs they permit.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>Here is an early implementation of app keys for standard (non HW) MetaMask accounts.
+https://github.com/MetaMask/eth-simple-keyring/blob/6d12bd9d73adcccbe0b0c7e32a99d279085e2934/index.js#L139-L152</p>
+<p>See here for a fork of MetaMask that implements app keys along side plugins:
+https://github.com/MetaMask/metamask-snaps-beta
+https://github.com/MetaMask/metamask-snaps-beta/wiki/Plugin-API</p>
+<h2 id="example-use-cases">Example use cases</h2>
+<ul>
+<li>
+<p>signing transactions without broadcasting them
+https://github.com/MetaMask/metamask-extension/issues/3475</p>
+</li>
+<li>
+<p>token contract
+https://github.com/ethereum/EIPs/issues/85</p>
+</li>
+<li>
+<p>default account for dapps
+https://ethereum-magicians.org/t/default-accounts-for-dapps/904</p>
+</li>
+<li>
+<p>non wallet/crypto accounts
+<a href="https://eips.ethereum.org/EIPS/eip-1581">EIP1581: Non-wallet usage of keys derived from BIP32 trees</a></p>
+</li>
+<li>
+<p>state channel application</p>
+</li>
+<li>
+<p>privacy solution</p>
+</li>
+<li>
+<p>non custodian cross cryptocurrency exchange...</p>
+</li>
+</ul>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>MetaMask team, Christian Lundkvist, Counterfactual team, Liam Horne, Erik Bryn, Richard Moore, Jeff Coleman.</p>
+<h2 id="references">References</h2>
+<h3 id="hd-and-mnemonics">HD and mnemonics</h3>
+<h4 id="bips">BIPs</h4>
+<ul>
+<li>
+<p><a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki">BIP32: Hierarchical Deterministic Wallets:</a></p>
+</li>
+<li>
+<p><a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39: Mnemonic code for generating deterministic keys:</a></p>
+</li>
+<li>
+<p><a href="https://github.com/satoshilabs/slips/blob/master/slip-0044.md">SLIP44: Registered coin types for BIP44</a></p>
+</li>
+</ul>
+<h4 id="derivation-path-for-eth">Derivation path for eth</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ethereum/EIPs/issues/84">Issue 84</a></p>
+</li>
+<li>
+<p><a href="https://github.com/ethereum/EIPs/issues/85">Issue 85</a></p>
+</li>
+<li>
+<p><a href="https://eips.ethereum.org/EIPS/eip-600">EIP600 Ethereum purpose allocation for Deterministic Wallets</a></p>
+</li>
+<li>
+<p><a href="https://eips.ethereum.org/EIPS/eip-601">EIP601 Ethereum hierarchy for deterministic wallets</a></p>
+</li>
+</ul>
+<h3 id="previous-proposals-and-discussions-related-to-app-keys">Previous proposals and discussions related to app keys</h3>
+<ul>
+<li>
+<p><a href="https://ethereum-magicians.org/t/meta-we-should-value-privacy-more/2475">Meta: we should value privacy more</a></p>
+</li>
+<li>
+<p><a href="https://eips.ethereum.org/EIPS/eip-1102">EIP1102: Opt-in account exposure</a></p>
+</li>
+<li>
+<p><a href="https://eips.ethereum.org/EIPS/eip-1581">EIP1581: Non-wallet usage of keys derived from BIP-32 trees</a></p>
+</li>
+<li>
+<p><a href="https://ethereum-magicians.org/t/non-wallet-usage-of-keys-derived-from-bip-32-trees/1817/4">EIP1581: discussion</a></p>
+</li>
+<li>
+<p><a href="https://github.com/satoshilabs/slips/blob/master/slip-0013.md">SLIP13: Authentication using deterministic hierarchy</a></p>
+</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

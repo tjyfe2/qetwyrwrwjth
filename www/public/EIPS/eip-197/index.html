@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-197: Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-197.md" />
+<meta property="og:title" content="EIP-197: Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 197 (EIP-197): Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 197 (EIP-197): Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-197.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 197 (EIP 197): Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-197: Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:vitalik@ethereum.org">Vitalik Buterin</a>,
+        
+    
+        
+        
+            <a href="mailto:chris@ethereum.org">Christian Reitwiessner</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-02-06</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Precompiled contracts for elliptic curve pairing operations are required in order to perform zkSNARK verification within the block gas limit.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This EIP suggests to add precompiled contracts for a pairing function on a specific pairing-friendly elliptic curve. This can in turn be combined with <a href="https://eips.ethereum.com/EIPS/eip-196/">EIP-196</a> to verify zkSNARKs in Ethereum smart contracts. The general benefit of zkSNARKs for Ethereum is that it will increase the privacy for users (because of the Zero-Knowledge property) and might also be a scalability solution (because of the succinctness and efficient verifiability property).</p>
+<h2 id="motivation">Motivation</h2>
+<p>Current smart contract executions on Ethereum are fully transparent, which makes them unsuitable for several use-cases that involve private information like the location, identity or history of past transactions. The technology of zkSNARKs could be a solution to this problem. While the Ethereum Virtual Machine can make use of zkSNARKs in theory, they are currently too expensive
+to fit the block gas limit. Because of that, this EIP proposes to specify certain parameters for some elementary primitives that enable zkSNARKs so that they can be implemented more efficiently and the gas cost be reduced.</p>
+<p>Note that fixing these parameters will in no way limit the use-cases for zkSNARKs, it will even allow for incorporating some advances in zkSNARK research without the need for a further hard fork.</p>
+<p>Pairing functions can be used to perform a limited form of multiplicatively homomorphic operations, which are necessary for current zkSNARKs. This precompile can be used to run such computations within the block gas limit. This precompiled contract only specifies a certain check, and not an evaluation of a pairing function. The reason is that the codomain of a pairing function is a rather complex field which could provide encoding problems and all known uses of pairing function in zkSNARKs only require the specified check.</p>
+<h2 id="specification">Specification</h2>
+<p>For blocks where <code>block.number &gt;= BYZANTIUM_FORK_BLKNUM</code>, add a precompiled contracts for a bilinear function on groups on the elliptic curve &quot;alt_bn128&quot;. We will define the precompiled contract in terms of a discrete logarithm. The discrete logarithm is of course assumed to be hard to compute, but we will give an equivalent specification that makes use of elliptic curve pairing functions which can be efficiently computed below.</p>
+<p>Address: 0x8</p>
+<p>For a cyclic group <code>G</code> (written additively) of prime order <code>q</code> let <code>log_P: G -&gt; F_q</code> be the discrete logarithm on this group with respect to a generator <code>P</code>, i.e. <code>log_P(x)</code> is the smallest non-negative integer <code>n</code> such that <code>n * P = x</code>.</p>
+<p>The precompiled contract is defined as follows, where the two groups <code>G_1</code> and <code>G_2</code> are defined by their generators <code>P_1</code> and <code>P_2</code> below. Both generators have the same prime order <code>q</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">Input: (a1, b1, a2, b2, ..., ak, bk) from (G_1 x G_2)^k
+Output: If the length of the input is incorrect or any of the inputs are not elements of
+        the respective group or are not encoded correctly, the call fails.
+        Otherwise, return one if
+        log_P1(a1) * log_P2(b1) + ... + log_P1(ak) * log_P2(bk) = 0
+        (in F_q) and zero else.
+</span></code></pre>
+<p>Note that <code>k</code> is determined from the length of the input. Following the section on the encoding below,
+<code>k</code> is the length of the input divided by <code>192</code>. If the input length is not a multiple of <code>192</code>,
+the call fails. Empty input is valid and results in returning one.</p>
+<p>In order to check that an input is an element of <code>G_1</code>, verifying the encoding of the coordinates and checking that they satisfy the curve equation (or is the encoding of infinity) is sufficient. For <code>G_2</code>, in addition to that, the order of the element has to be checked to be equal to the group order <code>q = 21888242871839275222246405745257275088548364400416034343698204186575808495617</code>.</p>
+<h3 id="definition-of-the-groups">Definition of the groups</h3>
+<p>The groups <code>G_1</code> and <code>G_2</code> are cyclic groups of prime order <code>q = 21888242871839275222246405745257275088548364400416034343698204186575808495617</code>.</p>
+<p>The group <code>G_1</code> is defined on the curve <code>Y^2 = X^3 + 3</code> over the field <code>F_p</code> with <code>p = 21888242871839275222246405745257275088696311157297823662689037894645226208583</code> with generator <code>P1 = (1, 2)</code>.</p>
+<p>The group <code>G_2</code> is defined on the curve <code>Y^2 = X^3 + 3/(i+9)</code> over a different field <code>F_p^2 = F_p[i] / (i^2 + 1)</code> (p is the same as above) with generator</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">P2 = (
+  11559732032986387107991004021392285783925812861821192530917403151452391805634 * i +
+  10857046999023057135944570762232829481370756359578518086990519993285655852781,
+  4082367875863433681332203403145435568316851327593401208105741076214120093531 * i +
+  8495653923123431417604973247489272438418190587263600148770280649306958101930
+)
+</span></code></pre>
+<p>Note that <code>G_2</code> is the only group of order <code>q</code> of that elliptic curve over the field <code>F_p^2</code>. Any other generator of order <code>q</code> instead of <code>P2</code> would define the same <code>G_2</code>. However, the concrete value of <code>P2</code> is useful for skeptical readers who doubt the existence of a group of order <code>q</code>. They can be instructed to compare the concrete values of <code>q * P2</code> and <code>P2</code>.</p>
+<h3 id="encoding">Encoding</h3>
+<p>Elements of <code>F_p</code> are encoded as 32 byte big-endian numbers. An encoding value of <code>p</code> or larger is invalid.</p>
+<p>Elements <code>a * i + b</code> of <code>F_p^2</code> are encoded as two elements of <code>F_p</code>, <code>(a, b)</code>.</p>
+<p>Elliptic curve points are encoded as a Jacobian pair <code>(X, Y)</code> where the point at infinity is encoded as <code>(0, 0)</code>.</p>
+<p>Note that the number <code>k</code> is derived from the input length.</p>
+<p>The length of the returned data is always exactly 32 bytes and encoded as a 32 byte big-endian number.</p>
+<h3 id="gas-costs">Gas costs</h3>
+<p>The gas costs of the precompiled contract are <code>80 000 * k + 100 000</code>, where <code>k</code> is the number of
+points or, equivalently, the length of the input divided by 192.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The specific curve <code>alt_bn128</code> was chosen because it is particularly well-suited for zkSNARKs, or, more specifically their verification building block of pairing functions. Furthermore, by choosing this curve, we can use synergy effects with ZCash and re-use some of their components and artifacts.</p>
+<p>The feature of adding curve and field parameters to the inputs was considered but ultimately rejected since it complicates the specification; the gas costs are much harder to determine and it would be possible to call the contracts on something which is not an actual elliptic curve or does not admit an efficient pairing implementation.</p>
+<p>A non-compact point encoding was chosen since it still allows to perform some operations in the smart contract itself (inclusion of the full y coordinate) and two encoded points can be compared for equality (no third projective coordinate).</p>
+<p>The encoding of field elements in <code>F_p^2</code> was chosen in this order to be in line with the big endian encoding of the elements themselves.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>As with the introduction of any precompiled contract, contracts that already use the given addresses will change their semantics. Because of that, the addresses are taken from the &quot;reserved range&quot; below 256.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>To be written.</p>
+<h2 id="implementation">Implementation</h2>
+<p>The precompiled contract can be implemented using elliptic curve pairing functions, more specifically, an optimal ate pairing on the alt_bn128 curve, which can be implemented efficiently. In order to see that, first note that a pairing function <code>e: G_1 x G_2 -&gt; G_T</code> fulfills the following properties (<code>G_1</code> and <code>G_2</code> are written additively, <code>G_T</code> is written multiplicatively):</p>
+<p>(1) <code>e(m * P1, n * P2) = e(P1, P2)^(m * n)</code>
+(2) <code>e</code> is non-degenerate</p>
+<p>Now observe that</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">log_P1(a1) * log_P2(b1) + ... + log_P1(ak) * log_P2(bk) = 0 (in F_q)
+</span></code></pre>
+<p>if and only if</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">e(P1, P2)^(log_P1(a1) * log_P2(b1) + ... + log_P1(ak) * log_P2(bk)) = 1 (in G_T)
+</span></code></pre>
+<p>Furthermore, the left hand side of this equation is equal to</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">e(log_P1(a1) * P1, log_P2(b1) * P2) * ... * e(log_P1(ak) * P1, log_P2(bk) * P2)
+= e(a1, b1) * ... * e(ak, bk)
+</span></code></pre>
+<p>And thus, the precompiled contract can be implemented by verifying that
+<code>e(a1, b1) * ... * e(ak, bk) = 1</code></p>
+<p>Implementations are available here:</p>
+<ul>
+<li><a href="https://github.com/scipr-lab/libff/blob/master/libff/algebra/curves/alt_bn128/alt_bn128_g1.hpp">libff</a> (C++)</li>
+<li><a href="https://github.com/zcash/bn/blob/master/src/groups/mod.rs">bn</a> (Rust)</li>
+<li><a href="https://github.com/ethereum/py_pairing/blob/master/py_ecc/bn128/bn128_pairing.py">Python</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1616: ERC-1616 Attribute Registry Standard</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1616.md" />
+<meta property="og:title" content="EIP-1616: ERC-1616 Attribute Registry Standard" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1616 (EIP-1616): ERC-1616 Attribute Registry Standard"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1616 (EIP-1616): ERC-1616 Attribute Registry Standard"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1616.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1616 (EIP 1616): ERC-1616 Attribute Registry Standard" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1616: ERC-1616 Attribute Registry Standard
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/0age">0age</a>,
+        
+    
+        
+        
+            <a href="https://github.com/spalladino"> Santiago Palladino</a>,
+        
+    
+        
+        
+            <a href="https://github.com/elopio"> Leo Arias</a>,
+        
+    
+        
+        
+            <a href="https://github.com/fiiiu"> Alejo Salles</a>,
+        
+    
+        
+        
+            <a href="https://github.com/thegostep"> Stephane Gosselin</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1616">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1616</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-11-23</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>165</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>EIP-1616 provides a basic interface for querying a registry for attribute metadata assigned to Ethereum accounts.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>This EIP contains the following core ideas:</p>
+<ol>
+<li>Instead of relying directly on the reputation of a claims issuer to assess the veracity of a given claim, trust can be brought up to the level of a registry curator. This registry which we call an &quot;<strong>Attribute Registry</strong>&quot; allows for reduced complexity in implementation since a party needing to verify an attribute can now work with a trusted claims aggregator instead of relying on individual claim providers.</li>
+<li>Claims are abstracted as standard &quot;attributes&quot; which represent metadata assigned to an account, with claims decoupled from the issuing party. Attributes are registered as a flat <code>uint256 -&gt; uint256</code> key-value pair on each account, with the important property that <strong>each attribute type has one canonical value per address</strong>. This property allows for composability of attribute registries and advanced attribute formation.</li>
+<li>There is a generic method for determining the set of attribute keys or IDs made available by the registry. The standard does not specify requirements or recommendations for how attributes and their values are managed, or what additional metadata may be associated with attributes. It is likely that a standard set of attribute names and metadata schema could be proposed in a separate EIP.</li>
+</ol>
+<p>Potential advanced uses of attribute registries include:</p>
+<ul>
+<li>Encoding complex boolean expressions which combine multiple attributes into a single uint256 key, which is then parsed and evaluated by the registry logic.</li>
+<li>Using values associated with an attribute to query additional on-chain or off-chain metadata.</li>
+<li>Resolving attribute values by calling into separate attribute registries or other contracts, delegating authority without changing the interface of the registry.</li>
+</ul>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>This EIP is motivated by the need for contracts and external accounts to be able to verify information about a given address from a single trusted source <strong>without concerning themselves with the particular details of how the information was obtained</strong>, and to do so in as simple a manner as possible. It is also motivated by the desire to promote broad <strong>cross-compatibility and composability</strong> between attribute registries, a property which is amplified by both the simplicity of the interface as well as by the guarantees on uniqueness provided by the proposed standard.</p>
+<p>Existing EIPs for assigning metadata to an account include EIP-735 and EIP-780, which both allow for multiple claims to be issued on the same address for any given claim topic. This forces verifiers of said metadata to assess the veracity of each claim, taking into account the relative reputation of each claim issuer. It also prescribes a methodology for adding and removing claims, which may not be appropriate for all use cases.</p>
+<p>This EIP proposes a light-weight abstraction layer for a standard account metadata registry interface. This abstraction layer can sit on top of claims registries like EIP-735 and EIP-780 or others as the attribute registry curator selects trusted data sources.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<p>The Attribute Registry interface contains four functions, outlined as follows:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/**
+ * @title EIP-1616 Attribute Registry Standard interface. EIP-165 ID: 0x5f46473f
+ */
+interface AttributeRegistryInterface {
+  function hasAttribute(address account, uint256 attributeTypeID) external view returns (bool);
+  function getAttributeValue(address account, uint256 attributeTypeID) external view returns (uint256);
+  function countAttributeTypes() external view returns (uint256);
+  function getAttributeTypeID(uint256 index) external view returns (uint256);
+}
+</span></code></pre>
+<p>Contracts that comply with the Attribute Registry EIP MUST implement the above interface.</p>
+<p>As an additional requirement, the ERC-165 interface MUST be included:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/**
+ * @title EIP-165 interface. EIP-165 ID: 0x01ffc9a7
+ */
+interface EIP-165 {
+  /**
+   * @notice EIP-165 support. Attribute Registry interface ID is 0x5f46473f.
+   * @param _interfaceID The interface identifier, as specified in EIP-165
+   * @return True for 0x01ffc9a7 &amp; 0x5f46473f, false for unsupported interfaces.
+   */
+  function supportsInterface(bytes4 _interfaceID) external view returns (bool);
+}
+</span></code></pre>
+<p>The implementation MUST follow the specifications described below.</p>
+<h3 id="view-functions">View Functions</h3>
+<p>The view functions detailed below MUST be implemented.</p>
+<h4 id="hasattribute-function"><code>hasAttribute</code> function</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function hasAttribute(address account, uint256 attributeTypeID) external view returns (bool)
+</span></code></pre>
+<p>Check if an attribute has been assigned to a given account on the registry and is currently valid.</p>
+<p><em><strong>NOTE</strong></em>: This function MUST return either true or false - i.e. calling this function MUST NOT cause the caller to revert. Implementations that wish to call into another contract during execution of this function MUST catch any <code>revert</code> and instead return <code>false</code>.</p>
+<p><em><strong>NOTE</strong></em>: This function MUST return two equal values when performing two directly consecutive function calls with identical <code>account</code> and <code>attributeTypeID</code> parameters, regardless of differences in the caller's address, the transaction origin, or other out-of-band information.</p>
+<h4 id="getattributevalue-function"><code>getAttributeValue</code> function</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function getAttributeValue(address account, uint256 attributeTypeID) external view returns (uint256)
+</span></code></pre>
+<p>Retrieve the <code>uint256</code> value of an attribute on a given account on the registry, assuming the attribute is currently valid.</p>
+<p><em><strong>NOTE</strong></em>: This function MUST revert if a directly preceding or subsequent function call to <code>hasAttribute</code> with identical <code>account</code> and <code>attributeTypeID</code> parameters would return false.</p>
+<p><em><strong>NOTE</strong></em>: This function MUST return two equal values when performing two directly consecutive function calls with identical <code>account</code> and <code>attributeTypeID</code> parameters, regardless of differences in the caller's address, the transaction origin, or other out-of-band information.</p>
+<h4 id="countattributetypes-function"><code>countAttributeTypes</code> function</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function countAttributeTypes() external view returns (uint256)
+</span></code></pre>
+<p>Retrieve the total number of valid attribute types defined on the registry. Used alongside <code>getAttributeTypeID</code> to determine all of the attribute types that are available on the registry.</p>
+<p><em><strong>NOTE</strong></em>: This function MUST return a positive integer value  - i.e. calling this function MUST NOT cause the caller to revert.</p>
+<p><em><strong>NOTE</strong></em>: This function MUST return a value that encompasses all indexes of attribute type IDs whereby a call to <code>hasAttribute</code> on some address with an attribute type ID at the given index would return <code>true</code>.</p>
+<h4 id="getattributetypeid-function"><code>getAttributeTypeID</code> function</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function getAttributeTypeID(uint256 index) external view returns (uint256)
+</span></code></pre>
+<p>Retrieve an ID of an attribute type defined on the registry by index. Used alongside <code>countAttributeTypes</code> to determine all of the attribute types that are available on the registry.</p>
+<p><em><strong>NOTE</strong></em>: This function MUST revert if the provided <code>index</code> value falls outside of the range of the value returned from a directly preceding or subsequent function call to <code>countAttributeTypes</code>. It MUST NOT revert if the provided <code>index</code> value falls inside said range.</p>
+<p><em><strong>NOTE</strong></em>: This function MUST return an <code>attributeTypeID</code> value on <em>some</em> index if the same <code>attributeTypeID</code> value would cause a given call to <code>hasAttribute</code> to return <code>true</code> when passed as a parameter.</p>
+<h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<p>This standard extends the applicability of metadata assignment to those use cases that are not adequately represented by EIP-735, EIP-780, or similar proposals. Namely, it enforces the constraint of one attribute value per attribute ID per address, as opposed to one value per ID per address <em>per issuer</em>.</p>
+<p>Aside from the prescribed attribute value, attribute properties are deliberately omitted from the standard. While many attribute registries will require additional metadata on attributes at both the instance and the class level, reliable and flexible interoperability between highly variable registry extensions is facilitated more effectively by enforcing a widely-applicable base layer for attributes.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<!--All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards compatibility treatise may be rejected outright.-->
+<p>There are no backwards compatibility concerns.</p>
+<h2 id="test-cases">Test Cases</h2>
+<!--Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Other EIPs can choose to include links to test cases if applicable.-->
+<p>Targeted test cases with 100% code coverage can be found at <a href="https://github.com/0age/AttributeRegistry">this repository</a>. See <a href="https://github.com/TPL-protocol/tpl-contracts">here</a> for tests on a more complex contract that implements the application registry interface.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>The basic implementation that follows can be found at <a href="https://github.com/0age/AttributeRegistry">this repository</a> (see <a href="https://github.com/TPL-protocol/tpl-contracts/blob/master/contracts/BasicJurisdiction.sol#L399">here</a> for an example of a more complex implementing contract):</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.4.25;
+
+/**
+ * @title Attribute Registry interface. EIP-165 ID: 0x5f46473f
+ */
+interface AttributeRegistryInterface {
+  /**
+   * @notice Check if an attribute of the type with ID `attributeTypeID` has
+   * been assigned to the account at `account` and is currently valid.
+   * @param account address The account to check for a valid attribute.
+   * @param attributeTypeID uint256 The ID of the attribute type to check for.
+   * @return True if the attribute is assigned and valid, false otherwise.
+   * @dev This function MUST return either true or false - i.e. calling this
+   * function MUST NOT cause the caller to revert.
+   */
+  function hasAttribute(
+    address account,
+    uint256 attributeTypeID
+  ) external view returns (bool);
+
+  /**
+   * @notice Retrieve the value of the attribute of the type with ID
+   * `attributeTypeID` on the account at `account`, assuming it is valid.
+   * @param account address The account to check for the given attribute value.
+   * @param attributeTypeID uint256 The ID of the attribute type to check for.
+   * @return The attribute value if the attribute is valid, reverts otherwise.
+   * @dev This function MUST revert if a directly preceding or subsequent
+   * function call to `hasAttribute` with identical `account` and
+   * `attributeTypeID` parameters would return false.
+   */
+  function getAttributeValue(
+    address account,
+    uint256 attributeTypeID
+  ) external view returns (uint256);
+
+  /**
+   * @notice Count the number of attribute types defined by the registry.
+   * @return The number of available attribute types.
+   * @dev This function MUST return a positive integer value  - i.e. calling
+   * this function MUST NOT cause the caller to revert.
+   */
+  function countAttributeTypes() external view returns (uint256);
+
+  /**
+   * @notice Get the ID of the attribute type at index `index`.
+   * @param index uint256 The index of the attribute type in question.
+   * @return The ID of the attribute type.
+   * @dev This function MUST revert if the provided `index` value falls outside
+   * of the range of the value returned from a directly preceding or subsequent
+   * function call to `countAttributeTypes`. It MUST NOT revert if the provided
+   * `index` value falls inside said range.
+   */
+  function getAttributeTypeID(uint256 index) external view returns (uint256);
+}
+
+
+/**
+ * @title A simple example of an Attribute Registry implementation.
+ */
+contract AttributeRegistry is AttributeRegistryInterface {
+  // This particular implementation just defines two attribute types.
+  enum Affiliation { Whitehat, Blackhat }
+
+  // Top-level information about attribute types held in a static array.
+  uint256[2] private _attributeTypeIDs;
+
+  // The number of attributes currently issued tracked in a static array.
+  uint256[2] private _issuedAttributeCounters;
+
+  // Issued attributes held in a nested mapping by account &amp; attribute type.
+  mapping(address =&gt; mapping(uint256 =&gt; bool)) private _issuedAttributes;
+
+  // Issued attribute values held in a nested mapping by account &amp; type.
+  mapping(address =&gt; mapping(uint256 =&gt; uint256)) private _issuedAttributeValues;
+
+  /**
+  * @notice The constructor function, defines the two attribute types available
+  * on this particular registry.
+  */
+  constructor() public {
+    // Set the attribute type IDs for whitehats (8008) and blackhats (1337).
+    _attributeTypeIDs = [8008, 1337];
+  }
+
+  /**
+   * @notice Assign a &quot;whitehat&quot; attribute type to `msg.sender`.
+   * @dev The function may not be called by accounts with a &quot;blackhat&quot; attribute
+   * type already assigned. This function is arbitrary and not part of the
+   * Attribute Registry specification.
+   */
+  function joinWhitehats() external {
+    // Get the index of the blackhat attribute type on the attribute registry.
+    uint256 blackhatIndex = uint256(Affiliation.Blackhat);
+
+    // Get the attribute type ID of the blackhat attribute type.
+    uint256 blackhatAttributeTypeID = _attributeTypeIDs[blackhatIndex];
+
+    // Do not allow the whitehat attribute to be set if blackhat is already set.
+    require(
+      !_issuedAttributes[msg.sender][blackhatAttributeTypeID],
+      &quot;no blackhats allowed!&quot;
+    );
+
+    // Get the index of the whitehat attribute type on the attribute registry.
+    uint256 whitehatIndex = uint256(Affiliation.Whitehat);
+
+    // Get the attribute type ID of the whitehat attribute type.
+    uint256 whitehatAttributeTypeID = _attributeTypeIDs[whitehatIndex];
+
+    // Mark the attribute as issued on the given address.
+    _issuedAttributes[msg.sender][whitehatAttributeTypeID] = true;
+
+    // Calculate the new number of total whitehat attributes.
+    uint256 incrementCounter = _issuedAttributeCounters[whitehatIndex] + 1;
+
+    // Set the attribute value to the new total assigned whitehat attributes.
+    _issuedAttributeValues[msg.sender][whitehatAttributeTypeID] = incrementCounter;
+
+    // Update the value of the counter for total whitehat attributes.
+    _issuedAttributeCounters[whitehatIndex] = incrementCounter;
+  }
+
+  /**
+   * @notice Assign a &quot;blackhat&quot; attribute type to `msg.sender`.
+   * @dev The function may be called by any account, but assigned &quot;whitehat&quot;
+   * attributes will be removed. This function is arbitrary and not part of the
+   * Attribute Registry specification.
+   */
+  function joinBlackhats() external {
+    // Get the index of the blackhat attribute type on the attribute registry.
+    uint256 blackhatIndex = uint256(Affiliation.Blackhat);
+
+    // Get the attribute type ID of the blackhat attribute type.
+    uint256 blackhatAttributeTypeID = _attributeTypeIDs[blackhatIndex];
+
+    // Mark the attribute as issued on the given address.    
+    _issuedAttributes[msg.sender][blackhatAttributeTypeID] = true;
+
+    // Calculate the new number of total blackhat attributes.    
+    uint256 incrementCounter = _issuedAttributeCounters[blackhatIndex] + 1;
+
+    // Set the attribute value to the new total assigned blackhat attributes.    
+    _issuedAttributeValues[msg.sender][blackhatAttributeTypeID] = incrementCounter;
+
+    // Update the value of the counter for total blackhat attributes.    
+    _issuedAttributeCounters[blackhatIndex] = incrementCounter;
+
+    // Get the index of the whitehat attribute type on the attribute registry.
+    uint256 whitehatIndex = uint256(Affiliation.Whitehat);
+
+    // Get the attribute type ID of the whitehat attribute type.
+    uint256 whitehatAttributeTypeID = _attributeTypeIDs[whitehatIndex];
+
+    // Determine if a whitehat attribute type has been assigned.
+    if (_issuedAttributes[msg.sender][whitehatAttributeTypeID]) {
+      // If so, delete the attribute.
+      delete _issuedAttributes[msg.sender][whitehatAttributeTypeID];
+
+      // Delete the attribute value as well.
+      delete _issuedAttributeValues[msg.sender][whitehatAttributeTypeID];
+
+      // Set the attribute value to the new total assigned whitehat attributes.      
+      uint256 decrementCounter = _issuedAttributeCounters[whitehatIndex] - 1;
+
+      // Update the value of the counter for total whitehat attributes.
+      _issuedAttributeCounters[whitehatIndex] = decrementCounter;
+    }
+  }
+
+  /**
+   * @notice Get the total number of assigned whitehat and blackhat attributes.
+   * @return Array with counts of assigned whitehat and blackhat attributes.
+   * @dev This function is arbitrary and not part of the Attribute Registry
+   * specification.
+   */
+  function totalHats() external view returns (uint256[2]) {
+    // Return the array containing counter values.
+    return _issuedAttributeCounters;
+  }
+
+  /**
+   * @notice Check if an attribute of the type with ID `attributeTypeID` has
+   * been assigned to the account at `account` and is currently valid.
+   * @param account address The account to check for a valid attribute.
+   * @param attributeTypeID uint256 The ID of the attribute type to check for.
+   * @return True if the attribute is assigned and valid, false otherwise.
+   * @dev This function MUST return either true or false - i.e. calling this
+   * function MUST NOT cause the caller to revert.
+   */
+  function hasAttribute(
+    address account,
+    uint256 attributeTypeID
+  ) external view returns (bool) {
+    // Return assignment status of attribute by account and attribute type ID
+    return _issuedAttributes[account][attributeTypeID];
+  }
+
+  /**
+   * @notice Retrieve the value of the attribute of the type with ID
+   * `attributeTypeID` on the account at `account`, assuming it is valid.
+   * @param account address The account to check for the given attribute value.
+   * @param attributeTypeID uint256 The ID of the attribute type to check for.
+   * @return The attribute value if the attribute is valid, reverts otherwise.
+   * @dev This function MUST revert if a directly preceding or subsequent
+   * function call to `hasAttribute` with identical `account` and
+   * `attributeTypeID` parameters would return false.
+   */
+  function getAttributeValue(
+    address account,
+    uint256 attributeTypeID
+  ) external view returns (uint256 value) {
+    // Revert if attribute with given account &amp; attribute type ID is unassigned
+    require(
+      _issuedAttributes[account][attributeTypeID],
+      &quot;could not find a value with the provided account and attribute type ID&quot;
+    );
+
+    // Return the attribute value.
+    return _issuedAttributeValues[account][attributeTypeID];
+  }
+
+  /**
+   * @notice Count the number of attribute types defined by the registry.
+   * @return The number of available attribute types.
+   * @dev This function MUST return a positive integer value  - i.e. calling
+   * this function MUST NOT cause the caller to revert.
+   */
+  function countAttributeTypes() external view returns (uint256) {
+    // Return the length of the attribute type IDs array.
+    return _attributeTypeIDs.length;
+  }
+
+  /**
+   * @notice Get the ID of the attribute type at index `index`.
+   * @param index uint256 The index of the attribute type in question.
+   * @return The ID of the attribute type.
+   * @dev This function MUST revert if the provided `index` value falls outside
+   * of the range of the value returned from a directly preceding or subsequent
+   * function call to `countAttributeTypes`. It MUST NOT revert if the provided
+   * `index` value falls inside said range.
+   */
+  function getAttributeTypeID(uint256 index) external view returns (uint256) {
+    // Revert if the provided index is out of range.
+    require(
+      index &lt; _attributeTypeIDs.length,
+      &quot;provided index is outside of the range of defined attribute type IDs&quot;
+    );
+
+    // Return the attribute type ID at the given index in the array.
+    return _attributeTypeIDs[index];
+  }
+}
+</span></code></pre><h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

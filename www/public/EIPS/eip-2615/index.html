@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2615: Non-Fungible Token with mortgage and rental functions</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2615.md" />
+<meta property="og:title" content="EIP-2615: Non-Fungible Token with mortgage and rental functions" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2615 (EIP-2615): Non-Fungible Token with mortgage and rental functions"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2615 (EIP-2615): Non-Fungible Token with mortgage and rental functions"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2615.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2615 (EIP 2615): Non-Fungible Token with mortgage and rental functions" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2615: Non-Fungible Token with mortgage and rental functions
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:kohshi.shiba@gmail.com">Kohshi Shiba</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2616">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2616</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-04-25</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>165, 721</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>This standard proposes an extension to ERC721 Non-Fungible Tokens (NFTs) to support rental and mortgage functions. These functions are necessary for NFTs to emulate real property, just like those in the real world.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This standard is an extension of ERC721. It proposes additional roles, the right of tenants to enable rentals, and the right of lien.</p>
+<p>With ERC2615, NFT owners will be able to rent out their NFTs and take out a mortgage by collateralizing their NFTs. For example, this standard can apply to:</p>
+<ul>
+<li>Virtual items (in-game assets, virtual artwork, etc.)</li>
+<li>Physical items (houses, automobiles, etc.)</li>
+<li>Intellectual property rights</li>
+<li>DAO membership tokens</li>
+</ul>
+<p>NFT developers are also able to easily integrate ERC2615 since it is fully backwards-compatible with the ERC721 standard.</p>
+<p>One notable point is that the person who has the right to use an application is not the owner but the user (i.e. tenant). Application developers must implement this specification into their applications.</p>
+<h2 id="motivation">Motivation</h2>
+<p>It has been challenging to implement rental and mortgage functions with the ERC721 standard because it only has one role defined (which is the Owner).</p>
+<p>Currently, a security deposit is needed for trustless renting with ERC721, and ownership lockup within a contract is necessary whenever one chooses to mortgage their ERC721 property. The tracking and facilitation of these relationships must be done separately from the ERC721 standard.</p>
+<p>This proposal eliminates these requirements by integrating basic rights of tenantship and liens. By standardizing these functions, developers can more easily integrate rental and mortgage functions for their applications.</p>
+<h2 id="specification">Specification</h2>
+<p>This standard proposes three user roles: the <strong>Lien Holder</strong>, the <strong>Owner</strong>, and the <strong>User</strong>. Their rights are as follows:</p>
+<ul>
+<li>
+<p>A <strong>Lien Holder</strong> has the right to:</p>
+<ol>
+<li>Transfer the <strong>Owner</strong> role</li>
+<li>Transfer the <strong>User</strong> role</li>
+</ol>
+</li>
+<li>
+<p>An <strong>Owner</strong> has the right to:</p>
+<ol>
+<li>Transfer the <strong>Owner</strong> role</li>
+<li>Transfer the <strong>User</strong> role</li>
+</ol>
+</li>
+<li>
+<p>A <strong>User</strong> has the right to:</p>
+<ol>
+<li>Transfer the <strong>User</strong> role</li>
+</ol>
+</li>
+</ul>
+<h3 id="erc-2615-interface">ERC-2615 Interface</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event TransferUser(address indexed from, address indexed to, uint256 indexed itemId, address operator);
+event ApprovalForUser(address indexed user, address indexed approved, uint256 itemId);
+event TransferOwner(address indexed from, address indexed to, uint256 indexed itemId, address operator);
+event ApprovalForOwner(address indexed owner, address indexed approved, uint256 itemId);
+event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+event LienApproval(address indexed to, uint256 indexed itemId);
+event TenantRightApproval(address indexed to, uint256 indexed itemId);
+event LienSet(address indexed to, uint256 indexed itemId, bool status);
+event TenantRightSet(address indexed to, uint256 indexed itemId,bool status);
+
+function balanceOfOwner(address owner) public view returns (uint256);
+function balanceOfUser(address user) public view returns (uint256);
+function userOf(uint256 itemId) public view returns (address);
+function ownerOf(uint256 itemId) public view returns (address);
+
+function safeTransferOwner(address from, address to, uint256 itemId) public;
+function safeTransferOwner(address from, address to, uint256 itemId, bytes memory data) public;
+function safeTransferUser(address from, address to, uint256 itemId) public;
+function safeTransferUser(address from, address to, uint256 itemId, bytes memory data) public;
+
+function approveForOwner(address to, uint256 itemId) public;
+function getApprovedForOwner(uint256 itemId) public view returns (address);
+function approveForUser(address to, uint256 itemId) public;
+function getApprovedForUser(uint256 itemId) public view returns (address);
+function setApprovalForAll(address operator, bool approved) public;
+function isApprovedForAll(address requester, address operator) public view returns (bool);
+
+function approveLien(address to, uint256 itemId) public;
+function getApprovedLien(uint256 itemId) public view returns (address);
+function setLien(uint256 itemId) public;
+function getCurrentLien(uint256 itemId) public view returns (address);
+function revokeLien(uint256 itemId) public;
+
+function approveTenantRight(address to, uint256 itemId) public;
+function getApprovedTenantRight(uint256 itemId) public view returns (address);
+function setTenantRight(uint256 itemId) public;
+function getCurrentTenantRight(uint256 itemId) public view returns (address);
+function revokeTenantRight(uint256 itemId) public;
+</span></code></pre><h3 id="erc-2615-receiver">ERC-2615 Receiver</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function onERCXReceived(address operator, address from, uint256 itemId, uint256 layer, bytes memory data) public returns(bytes4);
+</span></code></pre><h3 id="erc-2615-extensions">ERC-2615 Extensions</h3>
+<p>Extensions here are provided to help developers build with this standard.</p>
+<h4 id="1-erc721-compatible-functions">1. ERC721 Compatible functions</h4>
+<p>This extension makes this standard compatible with ERC721. By adding the following functions, developers can take advantage of the existing tools for ERC721.</p>
+<p>Transfer functions in this extension will transfer both the <strong>Owner</strong> and <strong>User</strong> roles when the tenant right has not been set. Conversely, when the tenant right has been set, only the <strong>Owner</strong> role will be transferred.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function balanceOf(address owner) public view returns (uint256)
+function ownerOf(uint256 itemId) public view returns (address)
+function approve(address to, uint256 itemId) public
+function getApproved(uint256 itemId) public view returns (address)
+function transferFrom(address from, address to, uint256 itemId) public
+function safeTransferFrom(address from, address to, uint256 itemId) public
+function safeTransferFrom(address from, address to, uint256 itemId, bytes memory data) pubic
+</span></code></pre><h4 id="2-enumerable">2. Enumerable</h4>
+<p>This extension is analogous to the enumerable extension of the ERC721 standard.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function totalNumberOfItems() public view returns (uint256);
+function itemOfOwnerByIndex(address owner, uint256 index, uint256 layer)public view returns (uint256 itemId);
+function itemByIndex(uint256 index) public view returns (uint256);
+</span></code></pre><h4 id="3-metadata">3. Metadata</h4>
+<p>This extension is analogous to the metadata extension of the ERC721 standard.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function itemURI(uint256 itemId) public view returns (string memory);
+function name() external view returns (string memory);
+function symbol() external view returns (string memory);
+</span></code></pre><h2 id="how-rentals-and-mortgages-work">How rentals and mortgages work</h2>
+<p>This standard does not deal with token or value transfer. Other logic (outside the scope of this standard) must be used to orchestrate these transfers and to implement validation of payment.</p>
+<h3 id="mortgage-functions">Mortgage functions</h3>
+<p>The following diagram demonstrates the mortgaging functionality.</p>
+<p><img src="../assets/eip-2615/mortgage-sequential.jpg" alt="concept image" title="mortgage" /></p>
+<p>Suppose Alice owns an NFT and wants to take out a mortgage, and Bob wants to earn interest by lending tokens to Alice.</p>
+<ol>
+<li>Alice approves the setting of a lien for the NFT Alice owns.</li>
+<li>Alice sends a loan request to the mortgage contract.</li>
+<li>Bob fills the loan request and transfers tokens to the mortgage contract. The lien is then set on the NFT by the mortgage contract.</li>
+<li>Alice can now withdraw the borrowed tokens from the mortgage contract.</li>
+<li>Alice registers repayment (anyone can pay the repayment).</li>
+<li>Bob can finish the agreement if the agreement period ends and the agreement is kept (i.e. repayment is paid without delay).</li>
+<li>Bob can revoke the agreement if the agreement is breached (e.g. repayment is not paid on time) and execute the lien and take over the ownership of the NFT.</li>
+</ol>
+<h3 id="rental-functions">Rental functions</h3>
+<p>The following diagram demonstrates the rental functionality.</p>
+<p><img src="../assets/eip-2615/rental-sequential.jpg" alt="concept image" title="rental" /></p>
+<p>Suppose Alice owns NFTs and wants to rent out a NFT, and Bob wants to lease a NFT.</p>
+<ol>
+<li>Alice approves the setting of a tenant-right for the NFT Alice owns.</li>
+<li>Alice sends a rental listing to the rental contract.</li>
+<li>Bob fills the rental request, and the right to use the NFT is transferred to Bob. At the same time, the tenant-right is set, and Alice becomes not able to transfer the right to use the NFT.</li>
+<li>Bob registers rent (anyone can pay the rent).</li>
+<li>Alice can withdraw the rent from the rental contract.</li>
+<li>Alice can finish the agreement if the agreement period has ended and the agreement is kept (i.e. rent is paid without delay).</li>
+<li>Alice can revoke the agreement if the agreement is breached (e.g. rent is not paid on time) and revoke the tenant-right and take over the right to use the NFT.</li>
+</ol>
+<h2 id="rationale">Rationale</h2>
+<p>There have been some attempts to achieve rentals or mortgages with ERC721. However, as I noted before, it has been challenging to achieve. I will explain the reasons and advantages of this standard below.</p>
+<h3 id="no-security-lockup-for-rentals">No security lockup for rentals</h3>
+<p>To achieve trustless rental of NFTs with ERC721, it has been necessary to deposit funds as security. This is required to prevent malicious activity from tenants, as it is impossible to take back ownership once it is transferred.</p>
+<p>With this standard, security deposits are no longer needed since the standard natively supports rental and tenantship functions.</p>
+<h3 id="no-ownership-escrow-when-taking-out-a-mortgage">No ownership escrow when taking out a mortgage</h3>
+<p>In order to take out a mortgage on NFTs, it has been necessary to transfer the NFTs to a contract as collateral. This is required to prevent the potential default risk of the mortgage.</p>
+<p>However, secured collateral with ERC721 hurts the utility of the NFT. Since most NFT applications provide services to the canonical owner of a NFT, the NFT essentially cannot be utilized under escrow.</p>
+<p>With ERC2615, it is possible to collateralize NFTs and use them at the same time.</p>
+<h3 id="easy-integration">Easy integration</h3>
+<p>Because of the above reasons, a great deal of effort is required to implement rental and mortgage functions with ERC721. Adopting this standard is a much easier way to integrate rental and mortgage functionality.</p>
+<h3 id="no-money-token-transactions-within-tokens">No money/token transactions within tokens</h3>
+<p>A NFT itself does not handle lending or rental functions directly. This standard is open-source, and there is no platform lockup. Developers can integrate it without having to worry about those risks.</p>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<p>As mentioned in the specifications section, this standard can be fully ERC721 compatible by adding an extension function set.</p>
+<p>In addition, new functions introduced in this standard have many similarities with the existing functions in ERC721. This allows developers to easily adopt the standard quickly.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>When running the tests, you need to create a test network with Ganache-CLI:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">ganache-cli -a 15  --gasLimit=0x1fffffffffffff -e 1000000000
+</span></code></pre>
+<p>And then run the tests using Truffle: </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">truffle test -e development
+</span></code></pre>
+<p>Powered by Truffle and Openzeppelin test helper.</p>
+<h2 id="implementation">Implementation</h2>
+<p><a href="https://github.com/kohshiba/ERC-X">Github Reposotory</a>.</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<p>Since the external contract will control lien or tenant rights, flaws within the external contract directly lead to the standard's unexpected behavior.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

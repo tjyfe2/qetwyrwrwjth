@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1900: dType - Decentralized Type System for EVM</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1900.md" />
+<meta property="og:title" content="EIP-1900: dType - Decentralized Type System for EVM" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1900 (EIP-1900): dType - Decentralized Type System for EVM"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1900 (EIP-1900): dType - Decentralized Type System for EVM"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1900.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1900 (EIP 1900): dType - Decentralized Type System for EVM" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1900: dType - Decentralized Type System for EVM
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/loredanacirstea">Loredana Cirstea</a>,
+        
+    
+        
+        
+            <a href="https://github.com/ctzurcanu"> Christian Tzurcanu</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1882">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1882</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-03-28</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>The EVM and related languages such as Solidity need consensus on an extensible Type System in order to further evolve into the Singleton Operating System (The World Computer).</p>
+<h2 id="abstract">Abstract</h2>
+<p>We are proposing a decentralized Type System for Ethereum, to introduce data definition (and therefore ABI) consistency. This ERC focuses on defining an on-chain Type Registry (named <code>dType</code>) and a common interface for creating types, based on <code>struct</code>s.</p>
+<h2 id="motivation">Motivation</h2>
+<p>In order to build a network of interoperable protocols on Ethereum, we need data standardization, to ensure a smooth flow of on-chain information. Off-chain, the Type Registry will allow a better analysis of blockchain data (e.g. for blockchain explorers) and creation of smart contract development tools for easily using existing types in a new smart contract.</p>
+<p>However, this is only the first phase. As defined in this document and in the future proposals that will be based on this one, we are proposing something more: a decentralized Type System with Data Storage - <a href="https://github.com/ethereum/EIPs/pull/2158">ERC-2158</a>. In addition, developers can create libraries of <code>pure</code> functions that know how to interact and modify the data entries - <a href="https://github.com/ethereum/EIPs/issues/1921">dType Functions Extension</a>. This will effectively create the base for a general functional programming system on Ethereum, where developers can use previously created building blocks.</p>
+<p>To summarize:</p>
+<ul>
+<li>We would like to have a good decentralized medium for integrating all Ethereum data, and relationships between the different types of data. Also, a way to address the behavior related to each data type.</li>
+<li>Functional programming becomes easier. Functions like <code>map</code>, <code>reduce</code>, <code>filter</code>, are implemented by each type library.</li>
+<li>Solidity development tools could be transparently extended to include the created types (For example in IDEs like Remix). At a later point, the EVM itself can have precompiled support for these types.</li>
+<li>The system can be easily extended to types pertaining to other languages. (With type definitions in the source (Swarm stored source code in the respective language))</li>
+<li>The dType database should be part of the System Registry for the Operating System of The World Computer</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<p>The Type Registry can have a governance protocol for its CRUD operations. However, this, and other permission guards are not covered in this proposal.</p>
+<h3 id="type-definition-and-metadata">Type Definition and Metadata</h3>
+<p>The dType registry should support the registration of Solidity's elementary and complex types. In addition, it should also support contract events definitions. In this EIP, the focus will be on describing the minimal on-chain type definition and metadata needed for registering Solidity user-defined types.</p>
+<h4 id="type-definition-typelibrary">Type Definition: TypeLibrary</h4>
+<p>A type definition consists of a type library containing:</p>
+<ul>
+<li>the nominal <code>struct</code> used to define the type</li>
+<li>additional functions:
+<ul>
+<li><code>isInstanceOf</code>: checks whether a given variable is an instance of the defined type. Additional rules can be defined for each type fields, e.g. having a specific range for a <code>uint16 amount</code>.</li>
+<li>provide HOFs such as <code>map</code>, <code>filter</code>, <code>reduce</code></li>
+<li><code>structureBytes</code> and <code>destructureBytes</code>: provide type structuring and destructuring. This can be useful for low-level calls or assembly code, when importing contract interfaces is not an efficient option. It can also be used for type checking.</li>
+</ul>
+</li>
+</ul>
+<p>A simple example is:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.5.0;
+pragma experimental ABIEncoderV2;
+
+library myBalanceLib {
+
+    struct myBalance {
+        string accountName;
+        uint256 amount;
+    }
+
+    function structureBytes(bytes memory data) pure public returns(myBalance memory balance)
+
+    function destructureBytes(myBalance memory balance) pure public returns(bytes memory data)
+
+    function isInstanceOf(myBalance memory balance) pure public returns(bool isInstance)
+
+    function map(
+        address callbackAddr,
+        bytes4 callbackSig,
+        myBalance[] memory balanceArr
+    )
+        view
+        internal
+        returns (myBalance[] memory result)
+}
+</span></code></pre>
+<p>Types can also use existing types in their composition. However, this will always result in a directed acyclic graph.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">library myTokenLib {
+    using myBalanceLib for myBalanceLib.myBalance;
+
+    struct myToken {
+        address token;
+        myBalanceLib.myBalance;
+    }
+}
+</span></code></pre><h4 id="type-metadata-dtype-registry">Type Metadata: dType Registry</h4>
+<p>Type metadata will be registered on-chain, in the dType registry contract. This consists of:</p>
+<ul>
+<li><code>name</code> - the type's name, as it would be used in Solidity; it can be stored as a <code>string</code> or encoded as <code>bytes</code>. The name can have a human-readable part and a version number.</li>
+<li><code>typeChoice</code> - used for storing additional ABI data that differentiate how types are handled on and off chain. It is defined as an <code>enum</code> with the following options: <code>BaseType</code>, <code>PayableFunction</code>, <code>StateFunction</code>, <code>ViewFunction</code>, <code>PureFunction</code>, <code>Event</code></li>
+<li><code>contractAddress</code> - the Ethereum <code>address</code> of the <code>TypeRootContract</code>. For this proposal, we can consider the Type Library address as the <code>TypeRootContract</code>. Future EIPs will make it more flexible and propose additional TypeStorage contracts that will modify the scope of <code>contractAddress</code> - <a href="https://github.com/ethereum/EIPs/pull/2158">ERC-2158</a>.</li>
+<li><code>source</code> - a <code>bytes32</code> Swarm hash where the source code of the type library and contracts can be found; in future EIPs, where dType will be extended to support other languages (e.g. JavaScript, Rust), the file identified by the Swarm hash will contain the type definitions in that language.</li>
+<li><code>types</code> - metadata for subtypes: the first depth level internal components. This is an array of objects (<code>structs</code>), with the following fields:
+<ul>
+<li><code>name</code> - the subtype name, of type <code>string</code>, similar to the above <code>name</code> definition</li>
+<li><code>label</code> - the subtype label</li>
+<li><code>dimensions</code> - <code>string[]</code> used for storing array dimensions. E.g.:
+<ul>
+<li><code>[]</code> -&gt; <code>TypeA</code></li>
+<li><code>[&quot;&quot;]</code> -&gt; <code>TypeA[]</code></li>
+<li><code>[&quot;2&quot;]</code> -&gt; <code>TypeA[2]</code></li>
+<li><code>[&quot;&quot;,&quot;&quot;]</code> -&gt; <code>TypeA[][]</code></li>
+<li><code>[&quot;2&quot;,&quot;3&quot;]</code> -&gt; <code>TypeA[2][3]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Examples of metadata, for simple, value types:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">contractAddress</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x0000000000000000000000000000000000000000</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">typeChoice</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">source</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x0000000000000000000000000000000000000000000000000000000000000000</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">uint256</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">types</span><span style="color:#c0c5ce;">&quot;: []
+}
+
+{
+  &quot;</span><span style="color:#a3be8c;">contractAddress</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x0000000000000000000000000000000000000000</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">typeChoice</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">source</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x0000000000000000000000000000000000000000000000000000000000000000</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">types</span><span style="color:#c0c5ce;">&quot;: []
+}
+</span></code></pre>
+<p>Composed types can be defined as:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">contractAddress</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x105631C6CdDBa84D12Fa916f0045B1F97eC9C268</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">typeChoice</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">source</span><span style="color:#c0c5ce;">&quot;: &lt;</span><span style="color:#bf616a;">a SWARM hash </span><span style="color:#b48ead;">for </span><span style="color:#bf616a;">type source code files</span><span style="color:#c0c5ce;">&gt;,
+  &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">myBalance</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">types</span><span style="color:#c0c5ce;">&quot;: [
+    {&quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">label</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">accountName</span><span style="color:#c0c5ce;">&quot;, dimensions: []},
+    {&quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">uint256</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">label</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">amount</span><span style="color:#c0c5ce;">&quot;, dimensions: []}
+  ]
+}
+</span></code></pre>
+<p>Composed types can be further composed:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">contractAddress</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x91E3737f15e9b182EdD44D45d943cF248b3a3BF9</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">typeChoice</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">source</span><span style="color:#c0c5ce;">&quot;: &lt;</span><span style="color:#bf616a;">a SWARM hash </span><span style="color:#b48ead;">for </span><span style="color:#bf616a;">type source code files</span><span style="color:#c0c5ce;">&gt;,
+  &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">myToken</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">types</span><span style="color:#c0c5ce;">&quot;: [
+    {&quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">address</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">label</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">token</span><span style="color:#c0c5ce;">&quot;, dimensions: []},
+    {&quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">myBalance</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">label</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">balance</span><span style="color:#c0c5ce;">&quot;, dimensions: []}
+  ]
+}
+</span></code></pre>
+<p><code>myToken</code> type will have the final data format: <code>(address,(string,uint256))</code> and a labeled format: <code>(address token, (string accountName, uint256 amount))</code>.</p>
+<h5 id="dtype-registry-data-structures-and-interface">dType Registry Data Structures and Interface</h5>
+<p>To store this metadata, the dType registry will have the following data structures:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">enum TypeChoices {
+    BaseType,
+    PayableFunction,
+    StateFunction,
+    ViewFunction,
+    PureFunction,
+    Event
+}
+
+struct dTypes {
+    string name;
+    string label;
+    string[] dimensions;
+}
+
+struct dType {
+    TypeChoices typeChoice;
+    address contractAddress;
+    bytes32 source;
+    string name;
+    dTypes[] types;
+}
+
+</span></code></pre>
+<p>For storage, we propose a pattern which isolates the type metadata from additional storage-specific data and allows CRUD operations on records.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">// key: identifier
+mapping(bytes32 =&gt; Type) public typeStruct;
+
+// array of identifiers
+bytes32[] public typeIndex;
+
+struct Type {
+  dType data;
+  uint256 index;
+}
+</span></code></pre>
+<p>Note that we are proposing to define the type's primary identifier, <code>identifier</code>, as <code>keccak256(abi.encodePacked(name))</code>. If the system is extended to other programming languages, we can define <code>identifier</code> as <code>keccak256(abi.encodePacked(language, name))</code>.
+Initially, single word English names can be disallowed, avoiding name squatting.</p>
+<p>The dType registry interface is:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">import &#39;./dTypeLib.sol&#39;;
+interface dType {
+    event LogNew(bytes32 indexed identifier, uint256 indexed index);
+    event LogUpdate(bytes32 indexed identifier, uint256 indexed index);
+    event LogRemove(bytes32 indexed identifier, uint256 indexed index);
+
+    function insert(dTypeLib.dType calldata data) external returns (bytes32 identifier);
+
+    function remove(bytes32 identifier) external returns(uint256 index);
+
+    function count() external view returns(uint256 counter);
+
+    function getTypeIdentifier(string memory name) pure external returns (bytes32 identifier);
+
+    function getByIdentifier(bytes32 identifier) view external returns(dTypeLib.dType memory dtype);
+
+    function get(string memory name) view external returns(dTypeLib.dType memory dtype);
+
+    function isRegistered(bytes32 identifier) view external returns(bool registered);
+}
+</span></code></pre>
+<p><strong>Notes:</strong></p>
+<p>To ensure backward compatibility, we suggest that updating types should not be supported.</p>
+<p>The <code>remove</code> function can also be removed from the interface, to ensure immutability. One reason for keeping it would be clearing up storage for types that are not in use or have been made obsolete. However, this can have undesired effects and should be accompanied by a solid permissions system, testing and governance process. This part will be updated when enough feedback has been received.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The Type Registry must store the minimum amount of information for rebuilding the type ABI definition. This allows us to:</p>
+<ul>
+<li>support on-chain interoperability</li>
+<li>decode blockchain side effects off-chain (useful for block explorers)</li>
+<li>allow off-chain tools to cache and search through the collection (e.g. editor plugin for writing typed smart contracts)</li>
+</ul>
+<p>There is one advantage that has become clear with the emergence of global operating systems, like Ethereum: we can have a global type system through which the system’s parts can interoperate. Projects should agree on standardizing types and a type registry, continuously working on improving them, instead of creating encapsulated projects, each with their own types.</p>
+<p>The effort of having consensus on new types being added or removing unused ones is left to the governance system.</p>
+<p>After the basis of such a system is specified, we can move forward to building a static type checking system at compile time, based on the type definitions and rules stored in the dType registry.</p>
+<p>The Type Library must express the behavior strictly pertinent to its defined type. Additional behavior, required by various project's business logic can be added later, through libraries containing functions that handle the respective type. These can also be registered in dType, but will be detailed in a future ERC.</p>
+<p>This is an approach that will separate definitions from stored data and behavior, allowing for easier and more secure fine-grained upgrades.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This proposal does not affect extant Ethereum standards or implementations. It uses the present experimental version of ABIEncoderV2.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>Will be added.</p>
+<h2 id="implementation">Implementation</h2>
+<p>An in-work implementation can be found at https://github.com/pipeos-one/dType/tree/master/contracts/contracts.
+This proposal will be updated with an appropriate implementation when consensus is reached on the specifications.</p>
+<p>A video demo of the current implementation (a more extended version of this proposal) can be seen at https://youtu.be/pcqi4yWBDuQ.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1175: Wallet &amp;amp; shop standard for all tokens (erc20)</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1175.md" />
+<meta property="og:title" content="EIP-1175: Wallet &amp;amp; shop standard for all tokens (erc20)" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1175 (EIP-1175): Wallet &amp;amp; shop standard for all tokens (erc20)"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1175 (EIP-1175): Wallet &amp;amp; shop standard for all tokens (erc20)"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1175.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1175 (EIP 1175): Wallet &amp;amp; shop standard for all tokens (erc20)" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1175: Wallet &amp; shop standard for all tokens (erc20)
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/Nitro888">Jet Lim</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1182">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1182</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-06-21</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>20</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h1 id="all-tokens-go-to-heaven">All tokens go to heaven</h1>
+<h2 id="simple-summary">Simple Summary</h2>
+<p>Make wallets and shops created from certified contracts make erc20 tokens easy to use for commerce.</p>
+<p><img src="/assets/eip-1175/wallet.png" alt="wallet" /></p>
+<h2 id="abstract">Abstract</h2>
+<p>The mutual trust between the wallet and the shop created by the authenticated contract allows you to pay for and purchase items at a simple process.</p>
+<h2 id="motivation">Motivation</h2>
+<p>New standards with improvements have been released, but the majority of tokens currently being developed are erc20 tokens. So I felt I needed a proposal to use old tokens in commerce.
+To use various erc20 tokens for trading, you need a custom contract. However, a single wallet with a variety of tokens, and a mutually trusted store, can make transactions that are simple and efficient. The erc20 token is traded through two calls, <code>approve (address _spender, uint256 _value)</code> and <code>transferFrom (address _from, address _to, uint256 _value)</code>, but when using the wallet contract, <code>paySafe (address _shop, uint256 _item)</code>will be traded only in one call.
+And if you only reuse the store interface, you can also trade using <code>payUnsafe (address _shop, uint256 _item)</code>.</p>
+<h2 id="specification">Specification</h2>
+<p><img src="/assets/eip-1175/workflow.png" alt="workflow" /></p>
+<h2 id="walletcenter">WalletCenter</h2>
+<h3 id="methods">Methods</h3>
+<h4 id="createwallet">createWallet</h4>
+<p>Create wallet contract and add to list. Returns the address of new wallet.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">createWallet</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _wallet</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="iswallet">isWallet</h4>
+<p>Returns true or false value for test this address is a created by createWallet.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">isWallet</span><span style="color:#c0c5ce;">(address _wallet) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="createshop">createShop</h4>
+<p>Create Shop contract and add to list. Returns the address of new Shop with erc20 token address.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">createShop</span><span style="color:#c0c5ce;">(address _erc20) </span><span style="color:#bf616a;">public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _shop</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="isshop">isShop</h4>
+<p>Returns true or false value for test this address is a created by createWallet.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">isShop</span><span style="color:#c0c5ce;">(address _shop) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool</span><span style="color:#c0c5ce;">)
+</span></code></pre><h3 id="events">Events</h3>
+<h4 id="wallet">Wallet</h4>
+<p>Search for my wallet.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event Wallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _owner</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address indexed _wallet</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="shop">Shop</h4>
+<p>Search for my shop.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event Shop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _owner</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address indexed _shop</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address indexed _erc20</span><span style="color:#c0c5ce;">)
+</span></code></pre><h2 id="wallet-1">Wallet</h2>
+<p>Wallet must be created by wallet center.</p>
+<h3 id="methods-1">Methods</h3>
+<h4 id="balanceof">balanceOf</h4>
+<p>Returns the account balance of Wallet.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">balanceOf</span><span style="color:#c0c5ce;">(address _erc20) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint256 balance</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="withdrawal">withdrawal</h4>
+<p>withdrawal <code>_value</code> amount of <code>_erc20</code> token to <code>_owner</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">withdrawal</span><span style="color:#c0c5ce;">(address _erc20, uint256 _value) </span><span style="color:#bf616a;">onlyOwner public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="paysafe">paySafe</h4>
+<p>Pay for safe shop (created by contract) item with item index <code>_item</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">paySafe</span><span style="color:#c0c5ce;">(address _shop, uint256 _item) </span><span style="color:#bf616a;">onlyOwner onlyShop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="payunsafe">payUnsafe</h4>
+<p>Pay for unsafe shop (did not created by contract) item with item index <code>_item</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">payUnsafe</span><span style="color:#c0c5ce;">(address _shop, uint256 _item) </span><span style="color:#bf616a;">onlyOwner public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="paycancel">payCancel</h4>
+<p>Cancel pay and refund. (only weekly model)</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">payCancel</span><span style="color:#c0c5ce;">(address _shop, uint256 _item) </span><span style="color:#bf616a;">onlyOwner public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="refund">refund</h4>
+<p>Refund from shop with item index <code>_item</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">refund</span><span style="color:#c0c5ce;">(uint256 _item, uint256 _value) </span><span style="color:#bf616a;">public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">)
+</span></code></pre><h3 id="events-1">Events</h3>
+<h4 id="pay">Pay</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event Pay</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _shop</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _item</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _value</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="refund-1">Refund</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event Refund</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _shop</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _item</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _value</span><span style="color:#c0c5ce;">)
+</span></code></pre><h2 id="shop-1">Shop</h2>
+<p>Shop is created by wallet center or not. but Shop that created by wallet center is called safe shop.</p>
+<h3 id="methods-2">Methods</h3>
+<h4 id="balanceof-1">balanceOf</h4>
+<p>Returns the account balance of Shop.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">balanceOf</span><span style="color:#c0c5ce;">(address _erc20) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint256 balance</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="withdrawal-1">withdrawal</h4>
+<p>withdrawal <code>_value</code> amount of <code>_erc20</code> token to <code>_owner</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">withdrawal</span><span style="color:#c0c5ce;">(address _erc20, uint256 _value) </span><span style="color:#bf616a;">onlyOwner public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="pay-1">pay</h4>
+<p>Pay from buyer with item index <code>_item</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">pay</span><span style="color:#c0c5ce;">(uint256 _item) </span><span style="color:#bf616a;">onlyWallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender) </span><span style="color:#bf616a;">public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="refund-2">refund</h4>
+<p>refund token to <code>_to</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">refund</span><span style="color:#c0c5ce;">(address _buyer, uint256 _item, uint256 _value) </span><span style="color:#bf616a;">onlyWallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_buyer</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">onlyOwner public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="resister">resister</h4>
+<p>Listing item for sell.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">resister</span><span style="color:#c0c5ce;">(uint8 _category, uint256 _price, uint256 _stock) </span><span style="color:#bf616a;">onlyOwner public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint256 _itemId</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="update">update</h4>
+<p>Update item state for sell. (change item <code>_price</code> or add item <code>_stock</code>)</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">update</span><span style="color:#c0c5ce;">(uint256 _item, uint256 _price, uint256 _stock) </span><span style="color:#bf616a;">onlyOwner public
+</span></code></pre><h4 id="price">price</h4>
+<p>Get token address and price from buyer with item index <code>_item</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">price</span><span style="color:#c0c5ce;">(uint256 _item) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _erc20</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 _value</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="canbuy">canBuy</h4>
+<p><code>_who</code> can Buy <code>_item</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">canBuy</span><span style="color:#c0c5ce;">(address _who, uint256 _item) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool _canBuy</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="isbuyer">isBuyer</h4>
+<p><code>_who</code> is buyer of <code>_item</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">isBuyer</span><span style="color:#c0c5ce;">(address _who, uint256 _item) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool _buyer</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="info">info</h4>
+<p>Set shop information bytes.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">info</span><span style="color:#c0c5ce;">(bytes _msgPack)
+</span></code></pre><h4 id="upvote">upVote</h4>
+<p>Up vote for this shop.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">upVote</span><span style="color:#c0c5ce;">()
+</span></code></pre><h4 id="dnvote">dnVote</h4>
+<p>Down vote for this shop.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">dnVote</span><span style="color:#c0c5ce;">()
+</span></code></pre><h4 id="about">about</h4>
+<p>Get shop token, up vote and down vote.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">about</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">view returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _erc20</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 _up</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 _down</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="infoitem">infoItem</h4>
+<p>Set item information bytes.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">infoItem</span><span style="color:#c0c5ce;">(uint256 _item, bytes _msgPack)
+</span></code></pre><h4 id="upvoteitem">upVoteItem</h4>
+<p>Up vote for this item.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">upVoteItem</span><span style="color:#c0c5ce;">(uint256 _item)
+</span></code></pre><h4 id="dnvoteitem">dnVoteItem</h4>
+<p>Down vote for this item.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">dnVoteItem</span><span style="color:#c0c5ce;">(uint256 _item)
+</span></code></pre><h4 id="aboutitem">aboutItem</h4>
+<p>Get Item price, up vote and down vote.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">aboutItem</span><span style="color:#c0c5ce;">(uint256 _item) </span><span style="color:#bf616a;">view returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint256 _price</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 _up</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 _down</span><span style="color:#c0c5ce;">)
+</span></code></pre><h3 id="events-2">Events</h3>
+<h4 id="pay-2">Pay</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event Pay</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _buyer</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _item</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _value</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="refund-3">Refund</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event Refund</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _to</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _item</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _value</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="item">Item</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event Item</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint256 indexed _item</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 _price</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="info-1">Info</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event Info</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bytes _msgPack</span><span style="color:#c0c5ce;">)
+</span></code></pre><h4 id="infoitem-1">InfoItem</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event InfoItem</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint256 indexed _item</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">bytes _msgPack</span><span style="color:#c0c5ce;">)
+</span></code></pre><h2 id="implementation">Implementation</h2>
+<p>Sample token contract address is <a href="https://ropsten.etherscan.io/address/0x393dd70ce2ae7b30501aec94727968c517f90d52">0x393dd70ce2ae7b30501aec94727968c517f90d52</a></p>
+<p>WalletCenter contract address is <a href="https://ropsten.etherscan.io/address/0x1fe0862a4a8287d6c23904d61f02507b5044ea31">0x1fe0862a4a8287d6c23904d61f02507b5044ea31</a></p>
+<p>WalletCenter create shop contract address is <a href="https://ropsten.etherscan.io/address/0x59117730D02Ca3796121b7975796d479A5Fe54B0">0x59117730D02Ca3796121b7975796d479A5Fe54B0</a></p>
+<p>WalletCenter create wallet contract address is <a href="https://ropsten.etherscan.io/address/0x39da7111844df424e1d0a0226183533dd07bc5c6">0x39da7111844df424e1d0a0226183533dd07bc5c6</a></p>
+<h2 id="appendix">Appendix</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">pragma solidity </span><span style="color:#c0c5ce;">^</span><span style="color:#d08770;">0.4</span><span style="color:#c0c5ce;">.</span><span style="background-color:#bf616a;color:#2b303b;">24</span><span style="color:#c0c5ce;">;
+
+</span><span style="color:#bf616a;">contract ERC20Interface </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">totalSupply</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">balanceOf</span><span style="color:#c0c5ce;">(address tokenOwner) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint balance</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">allowance</span><span style="color:#c0c5ce;">(address tokenOwner, address spender) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint remaining</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">transfer</span><span style="color:#c0c5ce;">(address to, uint tokens) </span><span style="color:#bf616a;">public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">approve</span><span style="color:#c0c5ce;">(address spender, uint tokens) </span><span style="color:#bf616a;">public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">transferFrom</span><span style="color:#c0c5ce;">(address from, address to, uint tokens) </span><span style="color:#bf616a;">public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">);
+
+    </span><span style="color:#bf616a;">event Transfer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed from</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address indexed to</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint tokens</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#bf616a;">event Approval</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed tokenOwner</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address indexed spender</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint tokens</span><span style="color:#c0c5ce;">);
+}
+
+</span><span style="color:#bf616a;">contract SafeMath </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">safeAdd</span><span style="color:#c0c5ce;">(uint a, uint b) </span><span style="color:#bf616a;">public pure returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint c</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#bf616a;">c </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">a </span><span style="color:#c0c5ce;">+ </span><span style="color:#bf616a;">b</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">c </span><span style="color:#c0c5ce;">&gt;= </span><span style="color:#bf616a;">a</span><span style="color:#c0c5ce;">);
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">safeSub</span><span style="color:#c0c5ce;">(uint a, uint b) </span><span style="color:#bf616a;">public pure returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint c</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">b </span><span style="color:#c0c5ce;">&lt;= </span><span style="color:#bf616a;">a</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">c </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">a </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">b</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">safeMul</span><span style="color:#c0c5ce;">(uint a, uint b) </span><span style="color:#bf616a;">public pure returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint c</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#bf616a;">c </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">a </span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">b</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">a </span><span style="color:#c0c5ce;">== </span><span style="color:#d08770;">0 </span><span style="color:#c0c5ce;">|| </span><span style="color:#bf616a;">c </span><span style="color:#c0c5ce;">/ </span><span style="color:#bf616a;">a </span><span style="color:#c0c5ce;">== </span><span style="color:#bf616a;">b</span><span style="color:#c0c5ce;">);
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">safeDiv</span><span style="color:#c0c5ce;">(uint a, uint b) </span><span style="color:#bf616a;">public pure returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint c</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">b </span><span style="color:#c0c5ce;">&gt; </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">c </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">a </span><span style="color:#c0c5ce;">/ </span><span style="color:#bf616a;">b</span><span style="color:#c0c5ce;">;
+    }
+}
+
+</span><span style="color:#bf616a;">contract _Base </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#bf616a;">address internal owner</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#bf616a;">address internal walletCenter</span><span style="color:#c0c5ce;">;
+    
+    </span><span style="color:#bf616a;">modifier onlyOwner </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">owner </span><span style="color:#c0c5ce;">== </span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender);
+        </span><span style="color:#bf616a;">_</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#bf616a;">modifier onlyWallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _addr</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">WalletCenter</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">walletCenter</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">isWallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_addr</span><span style="color:#c0c5ce;">));
+        </span><span style="color:#bf616a;">_</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#bf616a;">modifier onlyShop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _addr</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">WalletCenter</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">walletCenter</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">isShop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_addr</span><span style="color:#c0c5ce;">));
+        </span><span style="color:#bf616a;">_</span><span style="color:#c0c5ce;">;
+    }
+
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">balanceOf</span><span style="color:#c0c5ce;">(address _erc20) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint256 balance</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">))
+            </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">).balance;
+        </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">balanceOf</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">);
+    }
+
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">transfer</span><span style="color:#c0c5ce;">(address _to, address _erc20, uint256 _value) </span><span style="color:#bf616a;">internal returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">((</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)?</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">).balance:</span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">balanceOf</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">))&gt;=</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">))
+            </span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">transfer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">else
+            </span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">approve</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+    
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">withdrawal</span><span style="color:#c0c5ce;">(address _erc20, uint256 _value) </span><span style="color:#bf616a;">public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">);
+    
+    </span><span style="color:#bf616a;">event Pay</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _who</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _item</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _value</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#bf616a;">event Refund</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _who</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _item</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _value</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#bf616a;">event Prize</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _who</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _item</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 indexed _value</span><span style="color:#c0c5ce;">);
+}
+
+</span><span style="color:#bf616a;">contract _Wallet is _Base </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#bf616a;">constructor</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _who</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">public </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#bf616a;">owner           </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">_who</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#bf616a;">walletCenter    </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender;
+    }
+    
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">pay</span><span style="color:#c0c5ce;">(address _shop, uint256 _item) </span><span style="color:#bf616a;">private </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_Shop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">canBuy</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">));
+
+        </span><span style="color:#bf616a;">address _erc20</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#bf616a;">uint256 _value</span><span style="color:#c0c5ce;">;
+        (</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">) = </span><span style="color:#bf616a;">_Shop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">price</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">);
+        
+        </span><span style="color:#bf616a;">transfer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">_Shop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">pay</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">emit Pay</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+    }
+    
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">paySafe</span><span style="color:#c0c5ce;">(address _shop, uint256 _item) </span><span style="color:#bf616a;">onlyOwner onlyShop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#bf616a;">pay</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">payUnsafe</span><span style="color:#c0c5ce;">(address _shop, uint256 _item) </span><span style="color:#bf616a;">onlyOwner public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#bf616a;">pay</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">payCancel</span><span style="color:#c0c5ce;">(address _shop, uint256 _item) </span><span style="color:#bf616a;">onlyOwner public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#bf616a;">_Shop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">payCancel</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">refund</span><span style="color:#c0c5ce;">(address _erc20, uint256 _item, uint256 _value) </span><span style="color:#bf616a;">public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">((</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)?</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.value:</span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">allowance</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">))==</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">!=</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">))
+            </span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">transferFrom</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">emit Refund</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">prize</span><span style="color:#c0c5ce;">(address _erc20, uint256 _item, uint256 _value) </span><span style="color:#bf616a;">public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">((</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)?</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.value:</span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">allowance</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">))==</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">!=</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">))
+            </span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">transferFrom</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">emit Prize</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+    
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">withdrawal</span><span style="color:#c0c5ce;">(address _erc20, uint256 _value) </span><span style="color:#bf616a;">onlyOwner public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">((</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)?</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">).balance:</span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">balanceOf</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">))&gt;=</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">))
+            </span><span style="color:#bf616a;">owner</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">transfer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">else
+            </span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">transfer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">owner</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+}
+
+</span><span style="color:#bf616a;">contract _Shop is _Base</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">SafeMath</span><span style="color:#c0c5ce;">{
+    </span><span style="color:#bf616a;">address erc20</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#bf616a;">constructor</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _who</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address _erc20</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">public </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#bf616a;">owner           </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">_who</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#bf616a;">walletCenter    </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender;
+        </span><span style="color:#bf616a;">erc20           </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">;
+    }
+    
+    </span><span style="color:#bf616a;">struct item </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#bf616a;">uint8                       category</span><span style="color:#c0c5ce;">;   </span><span style="color:#65737e;">// 0 = disable, 1 = non Stock, non Expire, 2 = can Expire (after 1 week), 3 = stackable
+        </span><span style="color:#bf616a;">uint256                     price</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#bf616a;">uint256                     stockCount</span><span style="color:#c0c5ce;">;
+
+        </span><span style="color:#bf616a;">mapping</span><span style="color:#c0c5ce;">(address</span><span style="color:#b48ead;">=&gt;</span><span style="color:#bf616a;">uint256</span><span style="color:#c0c5ce;">)   </span><span style="color:#bf616a;">customer</span><span style="color:#c0c5ce;">;
+    }
+
+    </span><span style="color:#bf616a;">uint                    index</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#bf616a;">mapping</span><span style="color:#c0c5ce;">(uint256</span><span style="color:#b48ead;">=&gt;</span><span style="color:#bf616a;">item</span><span style="color:#c0c5ce;">)  </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">;
+    
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">pay</span><span style="color:#c0c5ce;">(uint256 _item) </span><span style="color:#bf616a;">onlyWallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender) </span><span style="color:#bf616a;">public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">canBuy</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender, </span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">));
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">((</span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)?</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.value:</span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">allowance</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">))==</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+        
+        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">!=</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">))
+            </span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">transferFrom</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+        
+        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">1 </span><span style="color:#c0c5ce;">|| </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">2 </span><span style="color:#c0c5ce;">&amp;&amp; </span><span style="color:#bf616a;">now </span><span style="color:#c0c5ce;">&gt; </span><span style="color:#bf616a;">safeAdd</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender], </span><span style="color:#d08770;">1 </span><span style="color:#bf616a;">weeks</span><span style="color:#c0c5ce;">))
+            </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender]   = </span><span style="color:#bf616a;">now</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#b48ead;">else if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">2 </span><span style="color:#c0c5ce;">&amp;&amp; </span><span style="color:#bf616a;">now </span><span style="color:#c0c5ce;">&lt; </span><span style="color:#bf616a;">safeAdd</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender], </span><span style="color:#d08770;">1 </span><span style="color:#bf616a;">weeks</span><span style="color:#c0c5ce;">) )
+            </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender]   = </span><span style="color:#bf616a;">safeAdd</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender], </span><span style="color:#d08770;">1 </span><span style="color:#bf616a;">weeks</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">else if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">) {
+            </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender]   = </span><span style="color:#bf616a;">safeAdd</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender],</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+            </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].stockCount             = </span><span style="color:#bf616a;">safeSub</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].stockCount,</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+        }
+
+        </span><span style="color:#bf616a;">emit Pay</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender]);
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+    
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">payCancel</span><span style="color:#c0c5ce;">(uint256 _item) </span><span style="color:#bf616a;">onlyWallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender) </span><span style="color:#bf616a;">public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">&amp;&amp;</span><span style="color:#bf616a;">safeAdd</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender],</span><span style="color:#d08770;">2 </span><span style="color:#bf616a;">weeks</span><span style="color:#c0c5ce;">)&gt;</span><span style="color:#bf616a;">now</span><span style="color:#c0c5ce;">&amp;&amp;</span><span style="color:#bf616a;">balanceOf</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">)&gt;=</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+
+        </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender]  = </span><span style="color:#bf616a;">safeSub</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender],</span><span style="color:#d08770;">1 </span><span style="color:#bf616a;">weeks</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">transfer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender, </span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+        </span><span style="color:#bf616a;">_Wallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender).</span><span style="color:#bf616a;">refund</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+        </span><span style="color:#bf616a;">emit Refund</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">refund</span><span style="color:#c0c5ce;">(address _to, uint256 _item) </span><span style="color:#bf616a;">onlyWallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">onlyOwner public payable returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">isBuyer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">)&amp;&amp;</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">&amp;&amp;(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">]&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">||(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">&amp;&amp;</span><span style="color:#bf616a;">safeAdd</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">],</span><span style="color:#d08770;">2 </span><span style="color:#bf616a;">weeks</span><span style="color:#c0c5ce;">)&gt;</span><span style="color:#bf616a;">now</span><span style="color:#c0c5ce;">)));
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">((</span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)?</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">).balance:</span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">balanceOf</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">))&gt;=</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+
+        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">]  = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#b48ead;">else if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">]  = </span><span style="color:#bf616a;">safeSub</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">],</span><span style="color:#d08770;">1 </span><span style="color:#bf616a;">weeks</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">else
+            </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">]  = </span><span style="color:#bf616a;">safeSub</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">],</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+            
+        </span><span style="color:#bf616a;">transfer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+        </span><span style="color:#bf616a;">_Wallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">refund</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+        </span><span style="color:#bf616a;">emit Refund</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_to</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+    
+    </span><span style="color:#bf616a;">event Item</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint256 indexed _item</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 _price</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">resister</span><span style="color:#c0c5ce;">(uint8 _category, uint256 _price, uint256 _stock) </span><span style="color:#bf616a;">onlyOwner public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">uint256 _itemId</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_category</span><span style="color:#c0c5ce;">&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">&amp;&amp;</span><span style="color:#bf616a;">_category</span><span style="color:#c0c5ce;">&lt;</span><span style="color:#d08770;">4</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_price</span><span style="color:#c0c5ce;">&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">index</span><span style="color:#c0c5ce;">]    = </span><span style="color:#bf616a;">item</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_category</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_price</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_stock</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">index </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">safeAdd</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">index</span><span style="color:#c0c5ce;">,</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">emit Item</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">index</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_price</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">safeSub</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">index</span><span style="color:#c0c5ce;">,</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">update</span><span style="color:#c0c5ce;">(uint256 _item, uint256 _price, uint256 _stock) </span><span style="color:#bf616a;">onlyOwner public </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_price</span><span style="color:#c0c5ce;">&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">uint256 temp </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price;
+        </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price      = </span><span style="color:#bf616a;">_price</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].stockCount = </span><span style="color:#bf616a;">safeAdd</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].stockCount,</span><span style="color:#bf616a;">_stock</span><span style="color:#c0c5ce;">);
+        
+        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">temp</span><span style="color:#c0c5ce;">!=</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price)
+            </span><span style="color:#bf616a;">emit Item</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">index</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+    }
+    
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">price</span><span style="color:#c0c5ce;">(uint256 _item) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _erc20</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">uint256 _value</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">erc20</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].price);
+    }
+    
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">canBuy</span><span style="color:#c0c5ce;">(address _who, uint256 _item) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool _canBuy</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#b48ead;">return  </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">) &amp;&amp;
+                !(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">&amp;&amp;</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_who</span><span style="color:#c0c5ce;">]&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">) &amp;&amp;
+                (</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].stockCount&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+    }
+    
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">isBuyer</span><span style="color:#c0c5ce;">(address _who, uint256 _item) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool _buyer</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">&amp;&amp;</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_who</span><span style="color:#c0c5ce;">]&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)||(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">&amp;&amp;</span><span style="color:#bf616a;">safeAdd</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_who</span><span style="color:#c0c5ce;">],</span><span style="color:#d08770;">1 </span><span style="color:#bf616a;">weeks</span><span style="color:#c0c5ce;">)&gt;</span><span style="color:#bf616a;">now</span><span style="color:#c0c5ce;">)||(</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].category==</span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">&amp;&amp;</span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_item</span><span style="color:#c0c5ce;">].customer[</span><span style="color:#bf616a;">_who</span><span style="color:#c0c5ce;">]&gt;</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+    }
+    
+    </span><span style="color:#bf616a;">uint lastWithdrawal</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">withdrawal</span><span style="color:#c0c5ce;">(address _erc20, uint256 _value) </span><span style="color:#bf616a;">onlyOwner public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">safeAdd</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">lastWithdrawal</span><span style="color:#c0c5ce;">,</span><span style="color:#d08770;">1 </span><span style="color:#bf616a;">weeks</span><span style="color:#c0c5ce;">)&lt;=</span><span style="color:#bf616a;">now</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">((</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)?</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">).balance:</span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">balanceOf</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">this</span><span style="color:#c0c5ce;">))&gt;=</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">==</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">))
+            </span><span style="color:#bf616a;">owner</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">transfer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">else
+            </span><span style="color:#bf616a;">ERC20Interface</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">transfer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">owner</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_value</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">lastWithdrawal </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">now</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+}
+
+</span><span style="color:#bf616a;">contract WalletCenter </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#bf616a;">mapping</span><span style="color:#c0c5ce;">(address</span><span style="color:#b48ead;">=&gt;</span><span style="color:#bf616a;">bool</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">public     wallet</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#bf616a;">event Wallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _owner</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address indexed _wallet</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">createWallet</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _wallet</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#bf616a;">_wallet </span><span style="color:#c0c5ce;">= new </span><span style="color:#bf616a;">_Wallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender);
+        </span><span style="color:#bf616a;">wallet</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_wallet</span><span style="color:#c0c5ce;">] = </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#bf616a;">emit Wallet</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">_wallet</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">_wallet</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">isWallet</span><span style="color:#c0c5ce;">(address _wallet) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">wallet</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_wallet</span><span style="color:#c0c5ce;">];
+    }
+    </span><span style="color:#bf616a;">mapping</span><span style="color:#c0c5ce;">(address</span><span style="color:#b48ead;">=&gt;</span><span style="color:#bf616a;">bool</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">public     shop</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#bf616a;">event Shop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed _owner</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address indexed _shop</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address indexed _erc20</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">createShop</span><span style="color:#c0c5ce;">(address _erc20) </span><span style="color:#bf616a;">public returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address _shop</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#bf616a;">_shop   </span><span style="color:#c0c5ce;">= new </span><span style="color:#bf616a;">_Shop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">shop</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">] = </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#bf616a;">emit Shop</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender,</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">_erc20</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">isShop</span><span style="color:#c0c5ce;">(address _shop) </span><span style="color:#bf616a;">public constant returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">shop</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">_shop</span><span style="color:#c0c5ce;">];
+    }
+}
+</span></code></pre><h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

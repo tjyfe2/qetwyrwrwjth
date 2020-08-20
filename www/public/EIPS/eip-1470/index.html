@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1470: Smart Contract Weakness Classification (SWC)</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1470.md" />
+<meta property="og:title" content="EIP-1470: Smart Contract Weakness Classification (SWC)" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1470 (EIP-1470): Smart Contract Weakness Classification (SWC)"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1470 (EIP-1470): Smart Contract Weakness Classification (SWC)"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1470.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1470 (EIP 1470): Smart Contract Weakness Classification (SWC)" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1470: Smart Contract Weakness Classification (SWC)
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/thec00n">Gerhard Wagner</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1469">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1469</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Informational</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-09-18</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<p>This EIP proposes a classification scheme for security weaknesses in Ethereum smart contracts. </p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>The SWC is a smart contract specific software weakness classification scheme for developers, tool vendors and security practitioners. The SWC is loosely aligned to the terminologies and structure used in the <a href="https://cwe.mitre.org">Common Weakness Enumeration - CWE</a> scheme while overlaying a wide range of weakness variants that are specific to smart contracts.</p>
+<p>The goals of the SWC scheme are as follows:</p>
+<ul>
+<li>Provide a straightforward way to classify weaknesses in smart contract systems.</li>
+<li>Provide a straightforward way to identify the weakness(es) that lead to a vulnerability in a smart contract system. </li>
+<li>Define a common language for describing weaknesses in smart contract systems' architecture, design and code.</li>
+<li>Train and increase the performance of smart contract security analysis tools.</li>
+</ul>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>In the software security industry, it is a widely accepted practice to use a common terminology and to classify security related bugs and errors with a standardized scheme. While this has not stopped vulnerabilities from appearing in software, it has helped communities focusing on web applications, network protocols, IOT devices and various other fields to educate users and developers to understand the nature of security related issues in their software. It has also allowed the security community to quickly understand vulnerabilities that occur in production systems to perform root cause analysis or triage findings from various security analysis sources. In recent years various organizations and companies also published vulnerability data to find the most widespread security issues based on collected vulnerability data. Two examples that are widely used and referred to are the <a href="https://www.sans.org/top25-software-errors">SANS TOP 25 Most Dangerous Software Errors</a> and the <a href="https://www.owasp.org/index.php/Top_10-2017_Top_10">OWASP TOP 10</a>. None of those publications would have been possible without a common classification scheme. </p>
+<p>At present no such weakness classification scheme exists for weaknesses specific to Ethereum Smart Contracts. Common language and awareness of security weaknesses is mostly derived from academic papers, best practice guides and published articles. Findings from audit reports and security tool analysis add to the wide range of terminologies that is used to describe the discovered weaknesses. It is often time consuming to understand the technical root cause and the risk associated to findings from different sources even for security experts. </p>
+<h2 id="rationale">Rationale</h2>
+<p>While recognizing the current gap, the SWC does not aim to reinvent the wheel in regards to classification of security weaknesses. It rather proposes to build on top of what has worked well in other parts of the software security community -  specifically the Common Weakness Enumeration (CWE), a list of software vulnerability types that stands out in terms of adoption and breadth of coverage. While CWE does not describe any weaknesses specific to smart contracts, it does describe related weaknesses at higher abstraction layers. This EIP proposes to create smart contract specific variants while linking back to the larger spectrum of software errors and mistakes listed in the CWE that different platforms and technologies have in common. </p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<p>Before discussing the SWC specification it is important to describe the terminology used:</p>
+<ul>
+<li>Weakness: A software error or mistake that in the right conditions can by itself or coupled with other weaknesses lead to a vulnerability. </li>
+<li>Vulnerability: A weakness or multiple weaknesses which directly or indirectly lead to an undesirable state in a smart contract system. </li>
+<li>Variant: A specific weakness that is described in a very low detail specific to Ethereum smart contracts. Each variant is assigned an unique SWC ID.</li>
+<li>Relationships: CWE has a wide range of <em>Base</em> and <em>Class</em> types that group weaknesses on higher abstraction layers. The CWE uses <em>Relationships</em> to link SWC smart contract weakness variants to existing <em>Base</em> or <em>Class</em> CWE types. <em>Relationships</em> are  used to provide context on how SWCs are linked to the wider group of software security weaknesses and to be able to generate useful visualisations and insights through issue data sets. In its current revision it is proposed to link a SWC to its closest parent in the CWE. </li>
+<li>SWC ID: A numeric identifier linked to a variant (e.g. SWC-101).</li>
+<li>Test Case: A test case constitutes a micro-sample or real-world smart contract that demonstrates concrete instances of one or multiple SWC variants. Test cases serve as the basis for meaningful weakness classification and are useful to security analysis tool developers. </li>
+</ul>
+<p>The SWC in its most basic form links a numeric identifier to a weakness variant. For example the identifier <em>SWC-101</em> is linked to the <em>Integer Overflow and Underflow</em> variant. While a list with the weakness title and a unique id is useful by itself, it would also be ambiguous without further details. Therefore the SWC recommends to add a definition and test cases to any weakness variant.</p>
+<p><strong>SWC definition</strong></p>
+<p>A SWC definition is formatted in markdown to allow good readability and tools to process them easily. It consists of the following attributes. </p>
+<ul>
+<li>Title: A name for the weakness that points to the technical root cause.</li>
+<li>Relationships: Links a CWE <em>Base</em> or <em>Class</em> type to its CWE variant. The <em>Integer Overflow and Underflow</em> variant for example is linked to <a href="https://cwe.mitre.org/data/definitions/682.html">CWE-682 - Incorrect Calculation</a>.</li>
+<li>Description: Describes the nature and potential impact of the weakness on the contract system. </li>
+<li>Remediation: Describes ways on how to fix the weakness. </li>
+<li>References: Links to external references that contain relevant additional information on the weakness.</li>
+</ul>
+<p><strong>Test cases</strong></p>
+<p>Test cases include crafted as well as real-world samples of vulnerable smart contracts. A single test case consists of three components:</p>
+<ol>
+<li>Source code of a smart contract sample; e.g. Solidity, Vyper, etc.</li>
+<li>Compiled asset from an EVM compiler in machine readable format; e.g. JSON or ethPM.</li>
+<li>Test result configuration that describes which and how many instances of a weakness variant can be found in a given sample. The YAML schema for the proposed test case configuration is listed below.</li>
+</ol>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">title</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">SWC config
+type</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">object
+required</span><span style="color:#c0c5ce;">:
+- </span><span style="color:#bf616a;">description
+</span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">issues
+properties</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">description</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">type</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">string
+  issues</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">title</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">Issues
+    type</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">array
+    items</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">title</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">Issue
+      type</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">object
+      required</span><span style="color:#c0c5ce;">:
+      - </span><span style="color:#bf616a;">id
+      </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">count
+      properties</span><span style="color:#c0c5ce;">:
+        </span><span style="color:#bf616a;">id</span><span style="color:#c0c5ce;">:
+          </span><span style="color:#bf616a;">type</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">string
+        count</span><span style="color:#c0c5ce;">:
+          </span><span style="color:#bf616a;">type</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">number
+        locations</span><span style="color:#c0c5ce;">:
+          </span><span style="color:#bf616a;">items</span><span style="color:#c0c5ce;">:
+            </span><span style="color:#bf616a;">bytecode_offsets</span><span style="color:#c0c5ce;">:
+              </span><span style="color:#bf616a;">type</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">object
+            line_numbers</span><span style="color:#c0c5ce;">:
+              </span><span style="color:#bf616a;">type</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">object
+</span></code></pre><h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>The Smart Contract Weakness Classification registry located in this <a href="https://github.com/SmartContractSecurity/SWC-registry">GitHub repository</a> uses the SWC scheme proposed in this EIP. A GitHub Pages rendered version is also available <a href="https://smartcontractsecurity.github.io/SWC-registry/">here</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

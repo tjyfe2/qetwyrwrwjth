@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-86: Abstraction of transaction origin and signature</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-86.md" />
+<meta property="og:title" content="EIP-86: Abstraction of transaction origin and signature" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 86 (EIP-86): Abstraction of transaction origin and signature"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 86 (EIP-86): Abstraction of transaction origin and signature"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-86.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 86 (EIP 86): Abstraction of transaction origin and signature" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-86: Abstraction of transaction origin and signature
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/vbuterin">Vitalik Buterin</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-02-10</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h1 id="summary">Summary</h1>
+<p>Implements a set of changes that serve the combined purpose of &quot;abstracting out&quot; signature verification and nonce checking, allowing users to create &quot;account contracts&quot; that perform any desired signature/nonce checks instead of using the mechanism that is currently hard-coded into transaction processing.</p>
+<h1 id="parameters">Parameters</h1>
+<ul>
+<li>METROPOLIS_FORK_BLKNUM: TBD</li>
+<li>CHAIN_ID: same as used for EIP 155 (ie. 1 for mainnet, 3 for testnet)</li>
+<li>NULL_SENDER: 2**160 - 1</li>
+</ul>
+<h1 id="specification">Specification</h1>
+<p>If <code>block.number &gt;= METROPOLIS_FORK_BLKNUM</code>, then:</p>
+<ol>
+<li>If the signature of a transaction is <code>(CHAIN_ID, 0, 0)</code> (ie. <code>r = s = 0</code>, <code>v = CHAIN_ID</code>), then treat it as valid and set the sender address to <code>NULL_SENDER</code></li>
+<li>Transactions of this form MUST have gasprice = 0, nonce = 0, value = 0, and do NOT increment the nonce of account NULL_SENDER.</li>
+<li>Create a new opcode at <code>0xfb</code>, <code>CREATE2</code>, with 4 stack arguments (value, salt, mem_start, mem_size) which sets the creation address to <code>sha3(sender + salt + sha3(init code)) % 2**160</code>, where <code>salt</code> is always represented as a 32-byte value.</li>
+<li>Add to <em>all</em> contract creation operations, including transactions and opcodes, the rule that if a contract at that address already exists and has non-empty code OR non-empty nonce, the operation fails and returns 0 as if the init code had run out of gas. If an account has empty code and nonce but nonempty balance, the creation operation may still succeed.</li>
+</ol>
+<h1 id="rationale">Rationale</h1>
+<p>The goal of these changes is to set the stage for abstraction of account security. Instead of having an in-protocol mechanism where ECDSA and the default nonce scheme are enshrined as the only &quot;standard&quot; way to secure an account, we take initial steps toward a model where in the long term all accounts are contracts, contracts can pay for gas, and users are free to define their own security model.</p>
+<p>Under EIP 86, we can expect users to store their ether in contracts, whose code might look like the following (example in Serpent):</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;"># Get signature from tx data
+</span><span style="color:#c0c5ce;">sig_v = ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)
+sig_r = ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">)
+sig_s = ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">64</span><span style="color:#c0c5ce;">)
+</span><span style="color:#65737e;"># Get tx arguments
+</span><span style="color:#c0c5ce;">tx_nonce = ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">96</span><span style="color:#c0c5ce;">)
+tx_to = ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">128</span><span style="color:#c0c5ce;">)
+tx_value = ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">160</span><span style="color:#c0c5ce;">)
+tx_gasprice = ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">192</span><span style="color:#c0c5ce;">)
+tx_data = </span><span style="color:#bf616a;">string</span><span style="color:#c0c5ce;">(~</span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">() - </span><span style="color:#d08770;">224</span><span style="color:#c0c5ce;">)
+~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(tx_data, </span><span style="color:#d08770;">224</span><span style="color:#c0c5ce;">, ~</span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">())
+</span><span style="color:#65737e;"># Get signing hash
+</span><span style="color:#c0c5ce;">signing_data = </span><span style="color:#bf616a;">string</span><span style="color:#c0c5ce;">(~</span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">() - </span><span style="color:#d08770;">64</span><span style="color:#c0c5ce;">)
+~</span><span style="color:#bf616a;">mstore</span><span style="color:#c0c5ce;">(signing_data, tx.startgas)
+~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(signing_data + </span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">96</span><span style="color:#c0c5ce;">, ~</span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">() - </span><span style="color:#d08770;">96</span><span style="color:#c0c5ce;">)
+signing_hash = </span><span style="color:#bf616a;">sha3</span><span style="color:#c0c5ce;">(signing_data:str)
+</span><span style="color:#65737e;"># Perform usual checks
+</span><span style="color:#c0c5ce;">prev_nonce = ~</span><span style="color:#bf616a;">sload</span><span style="color:#c0c5ce;">(-</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">)
+</span><span style="color:#b48ead;">assert </span><span style="color:#c0c5ce;">tx_nonce == prev_nonce + </span><span style="color:#d08770;">1
+</span><span style="color:#b48ead;">assert </span><span style="color:#bf616a;">self</span><span style="color:#c0c5ce;">.balance &gt;= tx_value + tx_gasprice * tx.startgas
+</span><span style="color:#b48ead;">assert </span><span style="color:#c0c5ce;">~</span><span style="color:#bf616a;">ecrecover</span><span style="color:#c0c5ce;">(signing_hash, sig_v, sig_r, sig_s) == &lt;pubkey </span><span style="color:#96b5b4;">hash </span><span style="color:#c0c5ce;">here&gt;
+</span><span style="color:#65737e;"># Update nonce
+</span><span style="color:#c0c5ce;">~</span><span style="color:#bf616a;">sstore</span><span style="color:#c0c5ce;">(-</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">, prev_nonce + </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">)
+</span><span style="color:#65737e;"># Pay for gas
+</span><span style="color:#c0c5ce;">~</span><span style="color:#bf616a;">send</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">MINER_CONTRACT</span><span style="color:#c0c5ce;">, tx_gasprice * tx.startgas)
+</span><span style="color:#65737e;"># Make the main call
+</span><span style="color:#c0c5ce;">~</span><span style="color:#bf616a;">call</span><span style="color:#c0c5ce;">(msg.gas - </span><span style="color:#d08770;">50000</span><span style="color:#c0c5ce;">, tx_to, tx_value, tx_data, </span><span style="color:#96b5b4;">len</span><span style="color:#c0c5ce;">(tx_data), </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)
+</span><span style="color:#65737e;"># Get remaining gas payments back
+</span><span style="color:#c0c5ce;">~</span><span style="color:#bf616a;">call</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">20000</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">MINER_CONTRACT</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, [msg.gas], </span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)
+</span></code></pre>
+<p>This can be thought of as a &quot;forwarding contract&quot;. It accepts data from the &quot;entry point&quot; address 2**160 - 1 (an account that anyone can send transactions from), expecting that data to be in the format <code>[sig, nonce, to, value, gasprice, data]</code>. The forwarding contract verifies the signature, and if the signature is correct it sets up a payment to the miner and then sends a call to the desired address with the provided value and data.</p>
+<p>The benefits that this provides lie in the most interesting cases:</p>
+<ul>
+<li><strong>Multisig wallets</strong>: currently, sending from a multisig wallet requires each operation to be ratified by the participants, and each ratification is a transaction. This could be simplified by having one ratification transaction include signatures from the other participants, but even still it introduces complexity because the participants' accounts all need to be stocked up with ETH. With this EIP, it will be possible to just have the contract store the ETH, send a transaction containing all signatures to the contract directly, and the contract can pay the fees.</li>
+<li><strong>Ring signature mixers</strong>: the way that ring signature mixers work is that N individuals send 1 coin into a contract, and then use a linkable ring signature to withdraw 1 coin later on. The linkable ring signature ensures that the withdrawal transaction cannot be linked to the deposit, but if someone attempts to withdraw twice then those two signatures can be linked and the second one prevented. However, currently there is a privacy risk: to withdraw, you need to have coins to pay for gas, and if these coins are not properly mixed then you risk compromising your privacy. With this EIP, you can pay for gas straight our of your withdrawn coins.</li>
+<li><strong>Custom cryptography</strong>: users can upgrade to ed25519 signatures, Lamport hash ladder signatures or whatever other scheme they want on their own terms; they do not need to stick with ECDSA.</li>
+<li><strong>Non-cryptographic modifications</strong>: users can require transactions to have expiry times (this being standard would allow old empty/dust accounts to be flushed from the state securely), use k-parallelizable nonces (a scheme that allows transactions to be confirmed slightly out-of-order, reducing inter-transaction dependence), or make other modifications.</li>
+</ul>
+<p>(2) and (3) introduce a feature similar to bitcoin's P2SH, allowing users to send funds to addresses that provably map to only one particular piece of code. Something like this is crucial in the long term because, in a world where all accounts are contracts, we need to preserve the ability to send to an account before that account exists on-chain, as that's a basic functionality that exists in all blockchain protocols today.</p>
+<h1 id="miner-and-transaction-replaying-strategy">Miner and transaction replaying strategy</h1>
+<p>Note that miners would need to have a strategy for accepting these transactions. This strategy would need to be very discriminating, because otherwise they run the risk of accepting transactions that do not pay them any fees, and possibly even transactions that have no effect (eg. because the transaction was already included and so the nonce is no longer current).</p>
+<p>One simple strategy is to have a set of regexps that the to address of an account would be checked against, each regexp corresponding to a &quot;standard account type&quot; which is known to be &quot;safe&quot; (in the sense that if an account has that code, and a particular check involving the account balances, account storage and transaction data passes, then if the transaction is included in a block the miner will get paid), and mine and relay transactions that pass these checks.</p>
+<p>One example would be to check as follows:</p>
+<ol>
+<li>Check that the to address has code which is the compiled version of the Serpent code above, with <code>&lt;pubkey hash here&gt;</code> replaced with any public key hash.</li>
+<li>Check that the signature in the transaction data verifies with that key hash.</li>
+<li>Check that the gasprice in the transaction data is sufficiently high</li>
+<li>Check that the nonce in the state matches the nonce in the transaction data</li>
+<li>Check that there is enough ether in the account to pay for the fee</li>
+</ol>
+<p>If all five checks pass, relay and/or mine the transaction.</p>
+<p>A looser but still effective strategy would be to accept any code that fits the same general format as the above, consuming only a limited amount of gas to perform nonce and signature checks and having a guarantee that transaction fees will be paid to the miner. Another strategy is to, alongside other approaches, try to process any transaction that asks for less than 250,000 gas, and include it only if the miner's balance is appropriately higher after executing the transaction than before it.</p>
+<h1 id="copyright">Copyright</h1>
+<p>Copyright and related rights waived via CC0.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

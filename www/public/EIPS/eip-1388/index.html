@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1388: Attestation Issuers Management List</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1388.md" />
+<meta property="og:title" content="EIP-1388: Attestation Issuers Management List" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1388 (EIP-1388): Attestation Issuers Management List"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1388 (EIP-1388): Attestation Issuers Management List"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1388.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1388 (EIP 1388): Attestation Issuers Management List" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1388: Attestation Issuers Management List
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:a@colourful.land">Weiwu Zhang</a>,
+        
+    
+        
+        
+            <a href="mailto:j.l.sangalli@gmail.com">James Sangalli</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1388">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1388</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-09-08</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h3 id="introduction">Introduction</h3>
+<p>In smart contracts, we will need methods to handle cryptographic attestations to a users identifier or abilities. Let's say we have a real estate agent, KiwiRealtors, that provides an &quot;expression of interest&quot; function though a smart contract and requires the users to provide an attestation that they are a resident of New Zealand or Australia, as a legal requirement. This has actually happened in the New Zealand property market and it is the perfect example of a need to handle such attestations.</p>
+<p>However, it is not practical for a smart contract to explicitly trust an attestation issuer. There are multiple issuers who can provide an attestation to a person's residency - a local Justice of the Peace, the land title office, local police, passport authority etc. We envision a model where the effort to manage the list of qualified issuers is practically outsourced to a list.</p>
+<p>Anyone can publish a list of issuers. Only the most trusted and carefully maintained lists gets popular use.</p>
+<h3 id="purpose">Purpose</h3>
+<p>This ERC provides a smart contract interface for anyone to manage a list of attestation issuers. A smart contract would explicitly trust a list, and therefore all attestations issued by the issuers on the list.</p>
+<h3 id="draft-implementation">Draft implementation</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    /* The purpose of this contract is to manage the list of attestation
+     * issuer contracts and their capacity to fulfill requirements
+     */
+ contract ManagedListERC
+    {
+      /* a manager is the steward of a list. Only he/she/it can change the
+       * list by removing/adding attestation issuers to the list.
+
+       * An issuer in the list is represented by their contract
+       * addresses, not by the attestation signing keys managed by such a
+       * contract.
+       */
+      struct List
+      {
+	      string name;
+	      string description; // short description of what the list entails
+	      string capacity; // serves as a filter for the attestation signing keys
+	  /* if a smart contract specifies a list, only attestation issued
+	   * by issuers on that list is accepted. Furthermore, if that
+	   * list has a non-empty capacity, only attestations signed by a
+	   * signing key with that capacity is accepted. */
+
+	    address[] issuerContracts; // all these addresses are contracts, no signing capacity
+	    uint expiry;
+      }
+
+      // find which list the sender is managing, then add an issuer to it
+      function addIssuer(address issuerContractAddress) public;
+
+      //return false if the list identified by the sender doesn&#39;t have this issuer in the list
+      function removeIssuer(address issuerContractAddress, List listToRemoveIssuerFrom) public returns(bool);
+
+      /* called by services, e.g. Kiwi Properties or James Squire */
+      /* loop through all issuer&#39;s contract and execute validateKey() on
+       * every one of them in the hope of getting a hit, return the
+       * contract address of the first hit. Note that there is an attack
+       * method for one issuer to claim to own the key of another which
+       * is mitigated by later design. */
+       //loop through the issuers array, calling validate on the signingKeyOfAttestation
+      function getIssuerCorrespondingToAttestationKey(bytes32 list_id, address signingKeyOfAttestation) public returns (address);
+
+       /* for simplicity we use sender&#39;s address as the list ID,
+	 * accepting these consequences: a) if one user wish to maintain
+	 * several lists with different capacity, he or she must use a
+	 * different sender address for each. b) if the user replaced the
+	 * sender&#39;s key, either because he or she suspects the key is
+	 * compromised or that it is lost and reset through special means,
+	 * then the list is still identified by the first sender&#39;s
+	 * address.
+      */
+
+      function createList(List list) public;
+
+      /* replace list manager&#39;s key with the new key */
+      function replaceListIndex(List list, address manager) public returns(bool);
+
+    }
+</span></code></pre>
+<p>Click <a href="https://github.com/alpha-wallet/blockchain-attestation/blob/master/ethereum/trustlist/ManagedList.sol">here</a> to see an example implementation of this ERC</p>
+<h3 id="related-erc-s">Related ERC's</h3>
+<p>#1387 #1386</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

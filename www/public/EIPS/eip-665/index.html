@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-665: Add precompiled contract for Ed25519 signature verification</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-665.md" />
+<meta property="og:title" content="EIP-665: Add precompiled contract for Ed25519 signature verification" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 665 (EIP-665): Add precompiled contract for Ed25519 signature verification"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 665 (EIP-665): Add precompiled contract for Ed25519 signature verification"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-665.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 665 (EIP 665): Add precompiled contract for Ed25519 signature verification" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-665: Add precompiled contract for Ed25519 signature verification
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:tobias.oberstein@crossbario.com">Tobias Oberstein</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-03-25</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Support performant and cheap verification of Ed25519 cryptographic signatures in smart contracts in general by adding a precompiled contract for Ed25519 signature verification to the EVM.</p>
+<h2 id="abstract">Abstract</h2>
+<p>Verification of Ed25519 cryptographic signatures is obviously possible in EVM bytecode. However, the gas cost will be very high, and computationally expensive, as such tight, wide word operations intensive code as required for Ed25519 is not a good fit for the EVM bytecode model.</p>
+<p>The addition of a native compiled function, in a precompiled contract, to the EVM solves both cost and performance problems.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Ed25519 and Ed448 (that is, EdDSA using Curve25519 or Curve448) are IETF recommendations (<a href="https://tools.ietf.org/html/rfc7748">RFC7748</a>) with some attractive properties:</p>
+<ul>
+<li>Ed25519 is intended to operate at around the 128-bit security level and Ed448 at around the 224-bit security level</li>
+<li>EdDSA uses small public keys (32 or 57 octets) and signatures (64 or 114 octets) for Ed25519 and Ed448, respectively</li>
+<li>Ed25519/Ed448 are designed so that fast, constant-time (timing attack resistant) and generally side-channel resistant  implementations are easier to produce</li>
+</ul>
+<p>Despite being around only for some years, post-Snowden, these curves <a href="https://ianix.com/pub/ed25519-deployment.html">have gained wide use</a> quickly in various protocols and systems:</p>
+<ul>
+<li>TLS / ECDH(E) (session keys)</li>
+<li>TLS / x.509 (client and server certificates)</li>
+<li>DNSSEC (zone signing)</li>
+<li>OpenSSH (user keys)</li>
+<li>GNUPG/OpenPGP (user keys)</li>
+<li>OpenBSD Signify (software signing)</li>
+</ul>
+<p>One motivation for Ed25519 signature verification in smart contracts is to <strong>associate</strong> existing off-chain systems, records or accounts that use Ed25519 (like above) with blockchain addresses or <strong>delegate</strong> by allowing to sign data with Ed25519 (only), and then submit this Ed25519-signed data anonymously (via any Eth sender address) to the blockchain, having the contract check the Ed25519 signature of the transaction.</p>
+<p>Another motivation is the processing of external, Ed25519 proof-of-stake based blockchains within Ethereum smart contracts.</p>
+<p>When a transactions contains data that comes with an Ed25519 signature, that proves that the sender of the Ethereum transaction was also in control of the private key (and the data), and this allows the contract to establish an association between the blockchain and the external system or account, and the external system establish the reverse relation.</p>
+<p>For example, a contract might check a Ed25519 signed piece of data submitted to the Ethereum transaction like the current block number. That proves to the contract, that the sender is in possession of both the Ethereum private key and the Ed25519 private key, and hence the contract will accept an association between both. This again can be the root anchor for various powerful applications, as now a potentially crypto holding key owner has proven to be in control of some external off-chain system or account, like e.g. a DNS server, a DNS domain, a cluster node and so on.</p>
+<h2 id="specification">Specification</h2>
+<p>If <code>block.number &gt;= CONSTANTINOPLE_FORK_BLKNUM</code>, add a precompiled contract for Ed25519 signature verification (<code>ED25519VFY</code>).</p>
+<p>The proposal adds a new precompiled function <code>ED25519VFY</code> with the following input and output.</p>
+<p><code>ED25519VFY</code> takes as <strong>input 128 octets</strong>:</p>
+<ol>
+<li><strong>message</strong>: the 32-octet message that was signed</li>
+<li><strong>public key</strong>: the 32-octet Ed25519 public key of the signer</li>
+<li><strong>signature</strong>: the 64-octet Ed25519 signature</li>
+</ol>
+<p><code>ED25519VFY</code> returns as <strong>output 4 octets</strong>:</p>
+<ul>
+<li><code>0x00000000</code> if signature is valid</li>
+<li>any non-zero value indicates a signature verification failure</li>
+</ul>
+<h3 id="address">Address</h3>
+<p>The address of <code>ED25519VFY</code> is <strong><code>0x9</code>.</strong></p>
+<h3 id="gas-costs">Gas costs</h3>
+<p>Gas cost for <code>ED25519VFY</code> is <strong>2000</strong>.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The proposed <code>ED25519VFY</code> function takes the signer public key as a call parameter, as with Ed25519, I don't believe it is possible to derive the signers public key from the signature and message alone.</p>
+<p>The proposed <code>ED25519VFY</code> function uses a zero return value to indicate success, since this allows for different errors to be distinguished by return value, as all non-zero return values signal a verification failure.</p>
+<p><code>ECRECOVER</code> has a gas cost of 3000. Since Ed25519 is computationally cheaper, the gas price should be less.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>As the proposed precompiled contract is deployed at a reserved (&lt;255) and previously unused address, an implementation of the proposal should not introduce any backward compatibility issues.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>Test vectors for Ed25519 can be found in this IETF ID https://tools.ietf.org/html/draft-josefsson-eddsa-ed25519-03#section-6.</p>
+<p>More test vectors can be found in the regression tests of NaCl (see references).</p>
+<h2 id="implementation">Implementation</h2>
+<h3 id="libsodium">libsodium</h3>
+<p>libsodium is a mature, high-quality C implementation of Ed25519, with bindings for many languages.</p>
+<p>Further, libsodium is (to my knowledge, and as of today 2018/04) the only Ed25519 implementation that has gone through a <a href="https://www.privateinternetaccess.com/blog/2017/08/libsodium-v1-0-12-and-v1-0-13-security-assessment/">Security Assessment</a>.</p>
+<p>To minimize consensus failure risks, the proposal recommends to use libsodium for adding the precompile in all Ethereum client implementations.</p>
+<blockquote>
+<p>Note: as an alternative to libsodium, I looked into HACL, an implementation of Ed25519 in F* (a ML dialect) that can be transpiled to C, and that was formally verified for functional correctness and memory safety of the resulting C code. However, this is new and compared to libsodium which is a &quot;know thing&quot; seems risky nevertheless.</p>
+</blockquote>
+<h3 id="libsodium-bindings">libsodium bindings</h3>
+<p>Here is an overview of the language bindings to libsodium for four Ethereum clients this proposal recommends:</p>
+<table><thead><tr><th>Client</th><th>Language</th><th>libsodium binding</th></tr></thead><tbody>
+<tr><td>Geth</td><td>Go</td><td>use cgo with C <a href="https://github.com/jedisct1/libsodium">libsodium</a></td></tr>
+<tr><td>Parity</td><td>Rust</td><td><a href="https://github.com/dnaq/sodiumoxide">sodiumoxide</a></td></tr>
+<tr><td>PyEthereum</td><td>Python</td><td><a href="https://github.com/pyca/pynacl">PyNaCl</a></td></tr>
+<tr><td>cpp-ethereum</td><td>C++</td><td><a href="https://github.com/jedisct1/libsodium">libsodium</a></td></tr>
+</tbody></table>
+<hr />
+<h3 id="prs">PRs</h3>
+<p>Implementations of this proposal are here:</p>
+<ol>
+<li><a href="https://github.com/ethereum/go-ethereum/pull/16453">go-ethereum PR #16453</a></li>
+<li><a href="https://github.com/ethereum/pyethereum/pull/862">pyethereum PR #862</a></li>
+<li><a href="https://github.com/paritytech/parity/pull/8330">parity PR #8330</a></li>
+<li><a href="https://github.com/ethereum/cpp-ethereum/pull/4945">cpp-ethereum PR #4945</a></li>
+</ol>
+<h2 id="references">References</h2>
+<ul>
+<li>RFC7748 - Elliptic Curves for Security https://tools.ietf.org/html/rfc7748</li>
+<li>Definition of Ed25519: https://ed25519.cr.yp.to/ed25519-20110926.pdf</li>
+<li>Ed25519 - high-speed high-security signatures: https://ed25519.cr.yp.to/</li>
+<li>NaCl - Networking and Cryptography library: https://nacl.cr.yp.to/sign.html</li>
+<li>NaCl Crypto Libraries (which contains Ed25519): https://ianix.com/pub/ed25519-deployment.html</li>
+<li>Test vectors for Ed25519: https://tools.ietf.org/html/draft-josefsson-eddsa-ed25519-03#section-6</li>
+<li>NaCl regression tests: https://ed25519.cr.yp.to/python/sign.py and https://ed25519.cr.yp.to/python/sign.input</li>
+<li>On the recoverability of public keys from signature+message (alone): https://crypto.stackexchange.com/questions/9936/what-signature-schemes-allow-recovering-the-public-key-from-a-signature</li>
+<li>Bernstein, D., &quot;Curve25519: new Diffie-Hellman speed records&quot;, DOI 10.1007/11745853_14, February 2006, https://cr.yp.to/ecdh.html</li>
+<li>Hamburg, M., &quot;Ed448-Goldilocks, a new elliptic curve&quot;, June 2015, https://eprint.iacr.org/2015/625&gt;</li>
+<li>RFC8080: Edwards-Curve Digital Security Algorithm (EdDSA) for DNSSEC (https://tools.ietf.org/html/rfc8080)</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

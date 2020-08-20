@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2098: Compact Signature Representation</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2098.md" />
+<meta property="og:title" content="EIP-2098: Compact Signature Representation" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2098 (EIP-2098): Compact Signature Representation"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2098 (EIP-2098): Compact Signature Representation"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2098.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2098 (EIP 2098): Compact Signature Representation" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2098: Compact Signature Representation
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/ricmoo">Richard Moore</a>,
+        
+    
+        
+        
+            <a href="mailto:nick@ethereum.org">Nick Johnson</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2440">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2440</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Informational</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-03-14</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>This proposal describes a compact representation of an Ethereum Signature.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The secp256k1 curve permits the computation of the public key of signed
+digest when coupled with a signature, which is used implicitly to
+establish the origin of a transaction from an Externally Owned Account
+as well as on-chain in EVM contracts for example, in meta-transactions and
+multi-sig contracts.</p>
+<p>Currently signatures require 65 bytes to represent, which when aligned
+to 256-bit words, requires 96 bytes (with 31 zero bytes injected). With
+compact signatures, this can be reduced to 64 bytes, which remains 64
+bytes when word-aligned.</p>
+<h2 id="motivation">Motivation</h2>
+<p>The motivations for a compact representation are to simplify handling
+transactions in client code, reduce gas costs and reduce transaction sizes.</p>
+<h2 id="specification">Specification</h2>
+<p>A secp256k1 signature is made up of 3 parameters, <code>r</code>, <code>s</code> and <code>v</code>. The <code>r</code>
+represents the <code>x</code> component on the curve (from which the <code>y</code> can be
+computed), and the <code>s</code> represents the challenge solution for signing by a
+private key. Due to the symmetric nature of an elliptic curve, a <code>v</code> is
+required, which indicates which of the 2 possible solutions was intended,
+by indicating its parity (odd-ness).</p>
+<p>Two key observations are required to create a compact representation.</p>
+<p>First, the <code>v</code> parameter is always either 0 or 1 (canonically the values used
+have been 27 and 28, as these values didn't collide with other binary prefixes
+used in Bitcoin.)</p>
+<p>Second, the top bit of the <code>s</code> parameters is <strong>always</strong> 0, due to the use of
+canonical signatures which flip the solution parity to prevent negative values,
+which was introduced as <a href="https://eips.ethereum.org/EIPS/eip-2">a constraint in Homestead</a>.</p>
+<p>So, we can hijack the top bit in the <code>s</code> parameter to store the value of <code>v</code>, resulting in:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">[256-bit r value][1-bit v value][255-bit s value]
+</span></code></pre><h3 id="example-implementation-in-python">Example Implementation In Python</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">to_compact</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">r</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">s</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">v</span><span style="color:#c0c5ce;">):
+    </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">{
+        &quot;</span><span style="color:#a3be8c;">r</span><span style="color:#c0c5ce;">&quot;: r,
+        &quot;</span><span style="color:#a3be8c;">vs</span><span style="color:#c0c5ce;">&quot;: ((v - </span><span style="color:#d08770;">27</span><span style="color:#c0c5ce;">) &lt;&lt; </span><span style="color:#d08770;">255</span><span style="color:#c0c5ce;">) | s
+    }
+
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">to_canonical</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">r</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">vs</span><span style="color:#c0c5ce;">):
+    </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">{
+        &quot;</span><span style="color:#a3be8c;">r</span><span style="color:#c0c5ce;">&quot;: r,
+        &quot;</span><span style="color:#a3be8c;">s</span><span style="color:#c0c5ce;">&quot;: vs &amp; ((</span><span style="color:#d08770;">1 </span><span style="color:#c0c5ce;">&lt;&lt; </span><span style="color:#d08770;">255</span><span style="color:#c0c5ce;">) - </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">),
+        &quot;</span><span style="color:#a3be8c;">v</span><span style="color:#c0c5ce;">&quot;: (</span><span style="color:#d08770;">27 </span><span style="color:#c0c5ce;">+ (vs &gt;&gt; </span><span style="color:#d08770;">255</span><span style="color:#c0c5ce;">))
+    }
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>The compact representation proposed is simple to both compose and decompose
+in clients and in Solidity, so that it can be easily (and intuitively) supported,
+while reducing transaction sizes and gas costs.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>The Compact Representation does not collide with canonical signature as
+it uses 2 parameters (r, vs) while canonical signatures involve 3
+separate parameters (r, s, v).</p>
+<h2 id="test-vectors">Test Vectors</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">Private Key: 0x1234567890123456789012345678901234567890123456789012345678901234
+Message: &quot;Hello World&quot;
+Signature:
+  r:  0x68a020a209d3d56c46f38cc50a33f704f4a9a10a59377f8dd762ac66910e9b90
+  s:  0x7e865ad05c4035ab5792787d4a0297a43617ae897930a6fe4d822b8faea52064
+  v:  27
+Compact Signature:
+  r:  0x68a020a209d3d56c46f38cc50a33f704f4a9a10a59377f8dd762ac66910e9b90
+  vs: 0x7e865ad05c4035ab5792787d4a0297a43617ae897930a6fe4d822b8faea52064
+</span></code></pre><pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">Private Key: 0x1234567890123456789012345678901234567890123456789012345678901234
+Message: &quot;It&#39;s a small(er) world&quot;
+Signature:
+  r:  0x9328da16089fcba9bececa81663203989f2df5fe1faa6291a45381c81bd17f76
+  s:  0x139c6d6b623b42da56557e5e734a43dc83345ddfadec52cbe24d0cc64f550793
+  v:  28
+Compact Signature:
+  r:  0x9328da16089fcba9bececa81663203989f2df5fe1faa6291a45381c81bd17f76
+  vs: 0x939c6d6b623b42da56557e5e734a43dc83345ddfadec52cbe24d0cc64f550793  
+</span></code></pre><h2 id="gas-analysis">Gas Analysis</h2>
+<p><strong>Solidity</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">// See: https://ropsten.etherscan.io/address/0xce826fbc499e3723df5668ea90a4bc51aeca13b8
+
+pragma solidity 0.5.6;
+
+contract TestCompact {
+    address _lastAddr;
+    
+    function recover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) public returns (address) {
+         _lastAddr = ecrecover(hash, v, r, s);
+    }
+
+    function recoverCompact(bytes32 hash, bytes32 r, bytes32 vs) public returns (address) {
+        bytes32 s = vs &amp; 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
+        uint8 v = 27 + uint8(uint256(vs) &gt;&gt; 255);
+        _lastAddr = ecrecover(hash, v, r, s);
+    }
+    
+    function lastAddr() public view returns (address) {
+        return _lastAddr;
+    }
+}
+</span></code></pre>
+<p><strong>JavaScript</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">let address = &quot;0xcE826fbC499e3723DF5668Ea90a4BC51AeCa13b8&quot;;
+let abi = [
+  &#39;function recover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) public returns (address)&#39;,
+  &#39;function recoverCompact(bytes32 hash, bytes32 r, bytes32 vs) public returns (address)&#39;,
+  &#39;function lastAddr() public view returns (address)&#39;
+];
+let wallet = Wallet.fromMnemonic(&quot;relief cousin sorry cabin burst frog slush flavor pitch tragic hip disagree&quot;).connect(provider);
+
+let hash = &quot;0x6ac9e083f46825a57816e023ae641ee45ac9b82cc2c370c10ec1ef4c835fa182&quot;;
+let sig = wallet.signingKey.signDigest(hash)
+
+let contract = new Contract(address, abi, wallet);
+(async function() {
+    let tx, receipt;
+
+    console.log(&quot;Canonical:&quot;);
+    tx = await contract.recover(hash, sig.v, sig.r, sig.s);
+    console.log(&quot;  Hash:    &quot;, tx.hash);
+    console.log(&quot;  Data:    &quot;, tx.data);
+    console.log(&quot;  Length:  &quot;, utils.hexDataLength(tx.data));  
+    receipt = await tx.wait();
+    console.log(&quot;  Gas Used:&quot;, receipt.gasUsed.toString());
+
+    console.log(&quot;Compact:&quot;);
+    tx = await contract.recoverCompact(hash, sig.r, sig._vs);
+    console.log(&quot;  Hash:    &quot;, tx.hash);
+    console.log(&quot;  Data:    &quot;, tx.data);
+    console.log(&quot;  Length:  &quot;, utils.hexDataLength(tx.data));
+    receipt = await tx.wait();
+    console.log(&quot;  Gas Used:&quot;, receipt.gasUsed.toString());
+})();
+</span></code></pre>
+<p><strong>Result</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/home/ricmoo&gt; ethers --network ropsten run test.js 
+Canonical:
+  Hash:     0x3280985011d2f25e76141681e865216e796cf065880eb9dd1f8221f3243028d2
+  Data:     0xc2bf17b06ac9e083f46825a57816e023ae641ee45ac9b82cc2c370c10ec1ef4c835fa182000000000000000000000000000000000000000000000000000000000000001be95b1a8633ee7ff851f68cf4303030b1e2596d686cafd9803cef74919a9139291c492d05696da754cf342bec961d00d9f7dfac3ab90b1e9352177c7b9bfa2a5d
+  Length:   132
+  Gas Used: 37541
+Compact:
+  Hash:     0x513bd8bd8710a84903235ca60591fc60f2f3db524d14cc1b6874edc628512176
+  Data:     0x1230abb66ac9e083f46825a57816e023ae641ee45ac9b82cc2c370c10ec1ef4c835fa182e95b1a8633ee7ff851f68cf4303030b1e2596d686cafd9803cef74919a9139291c492d05696da754cf342bec961d00d9f7dfac3ab90b1e9352177c7b9bfa2a5d
+  Length:   100
+  Gas Used: 37329
+</span></code></pre><h2 id="implementations">Implementations</h2>
+<p>The ethers.js library <a href="https://github.com/ethers-io/ethers.js/blob/ethers-v5-beta/packages/bytes/src.ts/index.ts#L323">supports this in v5</a>
+as an unofficial property of split signatures (i.e. <code>sig._vs</code>), but should be
+considered an internal property that may change at discretion of the community
+and any changes to this EIP.</p>
+<h2 id="acknowledgments">Acknowledgments</h2>
+<ul>
+<li><a href="https://twitter.com/nicksdjohnson/status/1030830279487709185">Original Tweet from Nick and conversation</a></li>
+<li><a href="https://github.com/HarryR/solcrypto/blob/01a3c5d91053f3b8bffde328146d5f18015ebfed/contracts/ECDSA.sol#L6">Original Solidity Inspiration</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2019: Fundable Token</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2019.md" />
+<meta property="og:title" content="EIP-2019: Fundable Token" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2019 (EIP-2019): Fundable Token"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2019 (EIP-2019): Fundable Token"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2019.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2019 (EIP 2019): Fundable Token" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2019: Fundable Token
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:fer@io.builders">Fernando Paris</a>,
+        
+    
+        
+        
+            <a href="mailto:julio@adhara.io">Julio Faura</a>,
+        
+    
+        
+        
+            <a href="mailto:daniel@io.builders">Daniel Lehrner</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2105">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2105</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-05-10</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>20</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>An extension to the <a href="https://eips.ethereum.org/EIPS/eip-20">ERC-20</a> standard token that allows Token wallet owners to request a wallet to be funded, by calling the smart contract and attaching a fund instruction string.</p>
+<h2 id="actors">Actors</h2>
+<h4 id="token-wallet-owners">Token Wallet Owners</h4>
+<p>The person or company who owns the wallet, and will order a token fund request into the wallet.</p>
+<h4 id="token-contract-owner-agent">Token contract owner / agent</h4>
+<p>The entity, company responsible/owner of the token contract, and token issuing/minting. This actor is in charge of trying to fulfill all fund request(s), reading the fund instruction(s), and correlate the private payment details.</p>
+<h4 id="orderer">Orderer</h4>
+<p>An actor who is enabled to initiate funding orders on behalf of a token wallet owner.</p>
+<h2 id="abstract">Abstract</h2>
+<p>Token wallet owners (or approved addresses) can order tokenization requests through  blockchain. This is done by calling the <code>orderFund</code> or <code>orderFundFrom</code> methods, which initiate the workflow for the token contract operator to either honor or reject the fund request. In this case, fund instructions are provided when submitting the request, which are used by the operator to determine the source of the funds to be debited in order to do fund the token wallet (through minting).</p>
+<p>In general, it is not advisable to place explicit routing instructions for debiting funds on a verbatim basis on the blockchain, and it is advised to use a private communication alternatives, such as private channels, encrypted storage or similar,  to do so (external to the blockchain ledger). Another (less desirable) possibility is to place these instructions on the instructions field in encrypted form.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Nowadays most of the token issuing/funding request, based on any fiat based payment method  need a previous centralized transaction, to be able to get the desired tokens issued on requester's wallet.
+In the aim of trying to bring all the needed steps into decentralization, exposing all the needed steps of token lifecycle and payment transactions, a funding request can allow wallet owner to initiate the funding request via  blockchain.
+Key benefits:</p>
+<ul>
+<li>Funding and payment traceability is enhanced bringing the initiation into the ledger. All payment stat
+s can be stored on chain.</li>
+<li>Almost all money/token lifecycle is covered via a decentralized approach, complemented with private communications which is common use in the ecosystem.</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface IFundable /* is ERC-20 */ {
+    enum FundStatusCode {
+        Nonexistent,
+        Ordered,
+        InProcess,
+        Executed,
+        Rejected,
+        Cancelled
+    }
+    function authorizeFundOperator(address orderer) external returns (bool);
+    function revokeFundOperator(address orderer) external returns (bool) ;
+    function orderFund(string calldata operationId, uint256 value, string calldata instructions) external returns (bool);
+    function orderFundFrom(string calldata operationId, address walletToFund, uint256 value, string calldata instructions) external returns (bool);
+    function cancelFund(string calldata operationId) external returns (bool);
+    function processFund(string calldata operationId) external returns (bool);
+    function executeFund(string calldata operationId) external returns (bool);
+    function rejectFund(string calldata operationId, string calldata reason) external returns (bool);
+
+    function isFundOperatorFor(address walletToFund, address orderer) external view returns (bool);
+    function retrieveFundData(address orderer, string calldata operationId) external view returns (address walletToFund,       uint256 value, string memory instructions, FundStatusCode status);
+
+    event FundOrdered(address indexed orderer, string indexed operationId, address indexed , uint256 value,         string instructions);
+    event FundInProcess(address indexed orderer, string indexed operationId);
+    event FundExecuted(address indexed orderer, string indexed operationId);
+    event FundRejected(address indexed orderer, string indexed operationId, string reason);
+    event FundCancelled(address indexed orderer, string indexed operationId);
+    event FundOperatorAuthorized(address indexed walletToFund, address indexed orderer);
+    event FundOperatorRevoked(address indexed walletToFund, address indexed orderer);
+}
+</span></code></pre><h3 id="functions">Functions</h3>
+<h4 id="authorizefundoperator">authorizeFundOperator</h4>
+<p>Wallet owner, authorizes a given address to be fund orderer.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the orderer.</td></tr>
+</tbody></table>
+<h4 id="revokefundoperator">revokeFundOperator</h4>
+<p>Wallet owner, revokes a given address to be fund orderer.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the orderer.</td></tr>
+</tbody></table>
+<h4 id="orderfund">orderFund</h4>
+<p>Creates a fund request, that will be processed by the token operator. The function must revert if the operation ID has been used before.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request</td></tr>
+<tr><td>value</td><td>The amount to be funded.</td></tr>
+<tr><td>instruction</td><td>A string including the payment instruction.</td></tr>
+</tbody></table>
+<h4 id="orderfundfrom">orderFundFrom</h4>
+<p>Creates a fund request, on behalf of a wallet owner, that will be processed by the token operator. The function must revert if the operation ID has been used before.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request</td></tr>
+<tr><td>walletToFund</td><td>The wallet to be funded on behalf.</td></tr>
+<tr><td>value</td><td>The amount to be funded.</td></tr>
+<tr><td>instruction</td><td>A string including the payment instruction.</td></tr>
+</tbody></table>
+<h4 id="cancelfund">cancelFund</h4>
+<p>Cancels a funding request.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request that is going to be cancelled. This can only be done by token holder, or the fund initiator.</td></tr>
+</tbody></table>
+<h4 id="processfund">processFund</h4>
+<p>Marks a funding request as on process. After the status is on process, order cannot be cancelled.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request is in process.</td></tr>
+</tbody></table>
+<h4 id="executefund">executeFund</h4>
+<p>Issues the amount of tokens and marks a funding request as executed.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request that has been executed.</td></tr>
+</tbody></table>
+<h4 id="rejectfund">rejectFund</h4>
+<p>Rejects a given operation with a reason.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request that has been executed.</td></tr>
+<tr><td>reason</td><td>The specific reason that explains why the fund request was rejected. EIP 1066 codes can be used</td></tr>
+</tbody></table>
+<h4 id="isfundoperatorfor">isFundOperatorFor</h4>
+<p>Checks that given player is allowed to order fund requests, for a given wallet.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>walletToFund</td><td>The wallet to be funded, and checked for approval permission.</td></tr>
+<tr><td>orderer</td><td>The address of the orderer, to be checked for approval permission.</td></tr>
+</tbody></table>
+<h4 id="retrievefunddata">retrieveFundData</h4>
+<p>Retrieves all the fund request data. Only operator, tokenHolder, and orderer can get the given operation data.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the fund order.</td></tr>
+</tbody></table>
+<h3 id="events">Events</h3>
+<h4 id="fundordered">FundOrdered</h4>
+<p>Emitted when an token wallet owner orders a funding request.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the request</td></tr>
+<tr><td>walletToFund</td><td>The wallet that the player is allowed to start funding requests</td></tr>
+<tr><td>value</td><td>The amount to be funded.</td></tr>
+<tr><td>instruction</td><td>A string including the payment instruction.</td></tr>
+</tbody></table>
+<h4 id="fundinprocess">FundInProcess</h4>
+<p>Emitted when an operator starts a funding request after validating the instruction, and the operation is marked as in process.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the fund request orderer.</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the fund.</td></tr>
+</tbody></table>
+<h4 id="fundexecuted">FundExecuted</h4>
+<p>Emitted when an operator has executed a funding request.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the fund request orderer.</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the fund.</td></tr>
+</tbody></table>
+<h4 id="fundrejected">FundRejected</h4>
+<p>Emitted when an operator has rejected a funding request.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the fund request orderer.</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the fund.</td></tr>
+<tr><td>reason</td><td>The specific reason that explains why the fund request was rejected. EIP 1066 codes can be used</td></tr>
+</tbody></table>
+<h4 id="fundcancelled">FundCancelled</h4>
+<p>Emitted when a token holder, orderer,  has cancelled a funding request. This can only be done if the operator hasn't put the funding order in process.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the fund request orderer.</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the fund.</td></tr>
+</tbody></table>
+<h4 id="fundoperatorauthorized">FundOperatorAuthorized</h4>
+<p>Emitted when a given player, operator, company or a given persona, has been approved to start fund request for a given token holder.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>walletToFund</td><td>The wallet that the player is allowed to start funding requests</td></tr>
+<tr><td>orderer</td><td>The address that allows the the player to start requests.</td></tr>
+</tbody></table>
+<h4 id="fundoperatorrevoked">FundOperatorRevoked</h4>
+<p>Emitted when a given player has been revoked initiate funding requests.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>walletToFund</td><td>The wallet that the player is allowed to start funding requests</td></tr>
+<tr><td>orderer</td><td>The address that allows the the player to start requests.</td></tr>
+</tbody></table>
+<h2 id="rationale">Rationale</h2>
+<p>This standards provides a functionality to allow token holders to start funding requests in a decentralized way.</p>
+<p>It's important to highlight that the token operator, need to process all funding request, updating the fund status based on the linked payment that will be done.</p>
+<p>Funding instruction format is open. ISO payment standard like is a good start point,</p>
+<p>The <code>operationId</code> is a string and not something more gas efficient to allow easy traceability of the hold and allow human readable ids. It is up to the implementer if the string should be stored on-chain or only its hash, as it is enough to identify a hold.</p>
+<p>The <code>operationId</code> is a competitive resource. It is recommended, but not required, that the hold issuers used a unique prefix to avoid collisions.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is fully backwards compatible as its implementation extends the functionality of <a href="https://eips.ethereum.org/EIPS/eip-20">ERC-20</a>.</p>
+<h2 id="implementation">Implementation</h2>
+<p>The GitHub repository <a href="https://github.com/IoBuilders/fundable-token">IoBuilders/fundable-token</a> contains the work in progress implementation.</p>
+<h2 id="contributors">Contributors</h2>
+<p>This proposal has been collaboratively implemented by <a href="https://adhara.io/">adhara.io</a> and <a href="https://io.builders/">io.builders</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1087: Net gas metering for SSTORE operations</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1087.md" />
+<meta property="og:title" content="EIP-1087: Net gas metering for SSTORE operations" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1087 (EIP-1087): Net gas metering for SSTORE operations"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1087 (EIP-1087): Net gas metering for SSTORE operations"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1087.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1087 (EIP 1087): Net gas metering for SSTORE operations" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1087: Net gas metering for SSTORE operations
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/arachnid">Nick Johnson</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-net-storage-gas-metering-for-the-evm&#x2F;383">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-net-storage-gas-metering-for-the-evm&#x2F;383</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-05-17</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This EIP proposes a change to how gas is charged for EVM SSTORE operations, in order to reduce excessive gas costs in situations where these are unwarranted, and to enable new use-cases for contract storage.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Presently, SSTORE operations are charged as follows:</p>
+<ul>
+<li>20,000 gas to set a slot from 0 to non-0</li>
+<li>5,000 gas for any other change</li>
+<li>A 10,000 gas refund when a slot is set from non-0 to 0. Refunds are applied at the end of the transaction.</li>
+</ul>
+<p>In situations where a single update is made to a storage value in a transaction, these gas costs have been determined to fairly reflect the resources consumed by the operation. However, this results in excessive gas costs for sequences of operations that make multiple updates.</p>
+<p>Some examples to illustrate the problem:</p>
+<ul>
+<li>If a contract with empty storage sets slot 0 to 1, then back to 0, it will be charged <code>20000 + 5000 - 10000 = 15000</code> gas, despite this sequence of operations not requiring any disk writes.</li>
+<li>A contract with empty storage that increments slot 0 5 times will be charged <code>20000 + 5 * 5000 = 45000</code> gas, despite this sequence of operations requiring no more disk activity than a single write, charged at 20000 gas.</li>
+<li>A balance transfer from account A to account B followed by a transfer from B to C, with all accounts having nonzero starting and ending balances, will cost <code>5000 * 4 = 20000</code> gas.</li>
+</ul>
+<p>Addressing this issue would also enable new use-cases that are currently cost-prohibitive, where a sequence of operations results in no net change to storage at the end of the transaction. For instance, mutexes to prevent reentrancy, or context information passed between multiple calls to the same contract. One such example is an <code>approveAndCall</code> operation, which would permit sending to and calling a contract in a single transaction, without that contract having to be updated for a new token standard.</p>
+<h2 id="specification">Specification</h2>
+<p>The following changes are made to the EVM:</p>
+<ul>
+<li>A 'dirty map' for each transaction is maintained, tracking all storage slots in all contracts that have been modified in the current transaction. The dirty map is scoped in the same manner as updates to storage, meaning that changes to the dirty map in a call that later reverts are not retained.</li>
+<li>When a storage slot is written to with the value it already contains, 200 gas is deducted.</li>
+<li>When a storage slot's value is changed for the first time, the slot is marked as dirty. If the slot was previously set to 0, 20000 gas is deducted; otherwise, 5000 gas is deducted.</li>
+<li>When a storage slot that is already in the dirty map is written to, 200 gas is deducted.</li>
+<li>At the end of the transaction, for each slot in the dirty map:
+<ul>
+<li>If the slot was 0 before the transaction and is 0 now, refund 19800 gas.</li>
+<li>If the slot was nonzero before the transaction and its value has not changed, refund 4800 gas.</li>
+<li>If the slot was nonzero before the transaction and is 0 now, refund 15000 gas.</li>
+</ul>
+</li>
+</ul>
+<p>After these changes, transactions that make only a single change to a storage slot will retain their existing costs. However, contracts that make multiple changes will see significantly reduced costs. Repeating the examples from the Motivation section:</p>
+<ul>
+<li>If a contract with empty storage sets slot 0 to 1, then back to 0, it will be charged <code>20000 + 200 - 19800 = 400</code> gas, down from 15000.</li>
+<li>A contract with empty storage that increments slot 0 5 times will be charged <code>20000 + 5 * 200 = 21000</code> gas, down from 45000.</li>
+<li>A balance transfer from account A to account B followed by a transfer from B to C, with all accounts having nonzero starting and ending balances, will cost <code>5000 * 3 + 200 - 4800 = 10400</code> gas, down from 20000.</li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<p>We believe the proposed mechanism represents the simplest way to reduce storage gas costs in situations where they do not reflect the actual costs borne by nodes. Several alternative designs were considered and dismissed:</p>
+<ul>
+<li>Charging a flat 200 gas for SSTORE operations, and an additional 19800 / 4800 at the end of a transaction for new or modified values is simpler, and removes the need for a dirty map, but pushes a significant source of gas consumption out of the EVM stack and applies it at the end of the transaction, which is likely to complicate debugging and reduces contracts' ability to limit the gas consumption of callees, as well as introducing a new mechanism to the EVM.</li>
+<li>Keeping a separate refund counter for storage gas refunds would avoid the issue of refunds being limited to half the gas consumed (not necessary here), but would introduce additional complexity in tracking this value.</li>
+<li>Refunding gas each time a storage slot is set back to its initial value would introduce a new mechanism (instant refunds) and complicate gas accounting for contracts calling other contracts; it would also permit the possibility of a contract call with negative execution cost.</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP requires a hard fork to implement.</p>
+<p>No contract should see an increase in gas cost for this change, and many will see decreased gas consumption, so no contract-layer backwards compatibility issues are anticipated.</p>
+<h2 id="test-cases">Test Cases</h2>
+<ul>
+<li>Writing x to a storage slot that contains 0, where x != 0 (20k gas, no refund)</li>
+<li>Writing y to a storage slot that contained x, where x != y and x != 0 (5k gas, no refund)</li>
+<li>Writing 0 to a storage slot that contains x, where x != 0 (5k gas, 10k refund)</li>
+<li>Writing 0 to a storage slot that already contains zero (200 gas, no refund)</li>
+<li>Writing x to a storage slot that already contains x, where x != 0 (200 gas, no refund)</li>
+<li>Writing x, then y to a storage slot that contains 0, where x != y (20200 gas, no refund)</li>
+<li>Writing x, then y to a storage slot that contains 0, where x != y != z and x != 0 (5200 gas, no refund)</li>
+<li>Writing x, then 0 to a storage slot that contains 0, where x != 0 (20200 gas, 19800 refund)</li>
+<li>Writing x, then y to a storage slot that contains y, where x != y != 0 (5200 gas, 4800 refund)</li>
+<li>Writing x, then 0 to a storage slot that contains 0, then reverting the stack frame in which the writes occurred (20200 gas, no refund)</li>
+<li>Writing x, then y to a storage slot that contains y, then reverting the stack frame in which the writes occurred (5200 gas, no refund)</li>
+<li>In a nested frame, writing x to a storage slot that contains 0, then returning, and writing 0 to that slot (20200 gas, 19800 refund)</li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+<p>TBD</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1484: Digital Identity Aggregator</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1484.md" />
+<meta property="og:title" content="EIP-1484: Digital Identity Aggregator" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1484 (EIP-1484): Digital Identity Aggregator"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1484 (EIP-1484): Digital Identity Aggregator"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1484.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1484 (EIP 1484): Digital Identity Aggregator" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1484: Digital Identity Aggregator
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:anurag.angara@gmail.com">Anurag Angara</a>,
+        
+    
+        
+        
+            <a href="mailto:andychorlian@gmail.com">Andy Chorlian</a>,
+        
+    
+        
+        
+            <a href="mailto:shanehampton1@gmail.com">Shane Hampton</a>,
+        
+    
+        
+        
+            <a href="mailto:noahwz@gmail.com">Noah Zinsmeister</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1495">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1495</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-10-12</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>191</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A protocol for aggregating digital identity information that's broadly interoperable with existing, proposed, and hypothetical future digital identity standards.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This EIP proposes an identity management and aggregation framework on the Ethereum blockchain. It allows entities to claim an <code>Identity</code> via a singular <code>Identity Registry</code> smart contract, associate it with Ethereum addresses in a variety of meaningful ways, and use it to interact with smart contracts. This enables arbitrarily complex identity-related functionality. Notably (among other features) ERC-1484 <code>Identities</code>: are self-sovereign, can natively support <a href="https://github.com/NoahZinsmeister/ERC-1484/tree/master/contracts/examples/Resolvers/ERC725">ERC-725</a> and <a href="https://github.com/NoahZinsmeister/ERC-1484/tree/master/contracts/examples/Resolvers/ERC1056">ERC-1056</a> identities, are <a href="https://github.com/NoahZinsmeister/ERC-1484/blob/master/best-practices/DID-Method.md">DID compliant</a>, and can be fully powered by <a href="https://github.com/NoahZinsmeister/ERC-1484/tree/master/contracts/examples/Providers/MetaTransactions">meta-transactions</a>.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Emerging identity standards and related frameworks proposed by the Ethereum community (including ERCs/EIPs <a href="https://eips.ethereum.org/EIPS/eip-725">725</a>, <a href="https://github.com/ethereum/EIPs/issues/735">735</a>, <a href="https://github.com/ethereum/EIPs/issues/780">780</a>, <a href="https://eips.ethereum.org/EIPS/eip-1056">1056</a>, etc.) define and instrumentalize digital identity in a variety of ways. As existing approaches mature, new standards emerge, and isolated, non-standard approaches to identity develop, coordinating on identity will become increasingly burdensome for blockchain users and developers, and involve the unnecessary duplication of work.</p>
+<p>The proliferation of on-chain identity solutions can be traced back to the fact that each codifies a notion of identity and links it to specific aspects of Ethereum (claims protocols, per-identity smart contracts, signature verification schemes, etc.). This proposal eschews that approach, instead introducing a protocol layer in between the Ethereum network and individual identity applications. This solves identity management and interoperability challenges by enabling any identity-driven application to leverage an un-opinionated identity management protocol.</p>
+<h2 id="definitions">Definitions</h2>
+<ul>
+<li>
+<p><code>Identity Registry</code>: A single smart contract which is the hub for all <code>Identities</code>. The primary responsibility of the <code>Registry</code> is to define and enforce the rules of a global namespace for <code>Identities</code>, which are individually denominated by Ethereum Identification Numbers (EINs).</p>
+</li>
+<li>
+<p><code>Identity</code>: A data structure containing all the core information relevant to an identity, namely: a <code>Recovery Address</code>, an <code>Associated Addresses</code> set, a <code>Providers</code> set, and a <code>Resolvers</code> set. <code>Identities</code> are denominated by EINs (incrementing <code>uint</code> identifiers starting at 1), which are unique but otherwise uninformative. Each <code>Identity</code> is a Solidity struct:</p>
+</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct Identity {
+    address recoveryAddress;
+    AddressSet.Set associatedAddresses;
+    AddressSet.Set providers;
+    AddressSet.Set resolvers;
+}
+</span></code></pre>
+<ul>
+<li>
+<p><code>Associated Address</code>: An Ethereum address publicly associated with an <code>Identity</code>. In order for an address to become an <code>Associated Address</code>, an <code>Identity</code> must either transact from or produce an appropriately signed message from the candidate address and an existing <code>Associated Address</code>, indicating intent to associate. An <code>Associated Address</code> can be removed from an <code>Identity</code> by transacting/producing a signature indicating intent to disassociate. A given address may only be an <code>Associated Address</code> for one <code>Identity</code> at any given time.</p>
+</li>
+<li>
+<p><code>Provider</code>: An Ethereum address (typically but not by definition a smart contract) authorized to act on behalf of <code>Identities</code> who have authorized them to do so. This includes but is not limited to managing the <code>Associated Address</code>, <code>Provider</code>, and <code>Resolver</code> sets for an <code>Identity</code>. <code>Providers</code> exist to facilitate user adoption by making it easier to manage <code>Identities</code>.</p>
+</li>
+<li>
+<p><code>Resolver</code>: A smart contract containing arbitrary information pertaining to <code>Identities</code>. A resolver may implement an identity standard, such as ERC-725, or may consist of a smart contract leveraging or declaring identifying information about <code>Identities</code>. These could be simple attestation structures or more sophisticated financial dApps, social media dApps, etc. Each <code>Resolver</code> added to an <code>Identity</code> makes the <code>Identity</code> more informative.</p>
+</li>
+<li>
+<p><code>Recovery Address</code>: An Ethereum address (either an account or smart contract) that can be used to recover lost <code>Identities</code> as outlined in the <a href="https://eips.ethereum.com/EIPS/eip-1484/#recovery">Recovery</a> section.</p>
+</li>
+<li>
+<p><code>Destruction</code>: In the event of irrecoverable loss of control of an <code>Identity</code>, <code>Destruction</code> is a contingency measure to permanently disable the <code>Identity</code>. It removes all <code>Associated Addresses</code>, <code>Providers</code>, and optionally <code>Resolvers</code> while preserving the <code>Identity</code>. Evidence of the existence of the <code>Identity</code> persists, while control over the <code>Identity</code> is nullified.</p>
+</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<p>A digital identity in this proposal can be viewed as an omnibus account, containing more information about an identity than any individual identity application could. This omnibus identity is resolvable to an unlimited number of sub-identities called <code>Resolvers</code>. This allows an atomic entity, the <code>Identity</code>, to be resolvable to abstract data structures, the <code>Resolvers</code>. <code>Resolvers</code> recognize <code>Identities</code> by any of their <code>Associated Addresses</code>, or by their <code>EIN</code>.</p>
+<p>The protocol revolves around claiming an <code>Identity</code> and managing <code>Associated Addresses</code>, <code>Providers</code> and <code>Resolvers</code>. Identities can delegate much or all of this responsibility to one or more <code>Providers</code>, or perform it directly from an <code>Associated Address</code>. <code>Associated Addresses</code>/<code>Providers</code> may add and remove <code>Resolvers</code> and <code>Providers</code> indiscriminately. <code>Associated Addresses</code> may only be added or removed with the appropriate permission.</p>
+<h3 id="identity-registry">Identity Registry</h3>
+<p>The <code>Identity Registry</code> contains functionality to create new <code>Identities</code> and for existing <code>Identities</code> to manage their <code>Associated Addresses</code>, <code>Providers</code>, and <code>Resolvers</code>. It is important to note that this registry fundamentally requires transactions for every aspect of building out an <code>Identity</code>. However, recognizing the importance of accessibility to dApps and identity applications, we empower <code>Providers</code> to build out <code>Identities</code> on the behalf of users, without requiring users to pay gas costs. An example of this pattern, often referred to as a meta transactions, can be <a href="https://github.com/NoahZinsmeister/ERC-1484/tree/master/contracts/examples/Providers/MetaTransactions">seen in the reference implementation</a>.</p>
+<p>Due to the fact that multiple addresses can be associated with a given identity (though not the reverse), <code>Identities</code> are denominated by <code>EIN</code>. This <code>uint</code> identifier can be encoded in QR format or mapped to more user-friendly formats, such as a <code>string</code>, in registries at the <code>Provider</code> or <code>Resolver</code> level.</p>
+<h3 id="address-management">Address Management</h3>
+<p>The address management function consists of trustlessly connecting multiple user-owned <code>Associated Addresses</code> to an <code>Identity</code>. It does not give special status to any particular <code>Associated Address</code>, rather leaving this (optional) specification to identity applications built on top of the protocol - for instance, <code>management</code>, <code>action</code>, <code>claim</code> and <code>encryption</code> keys denominated in the ERC-725 standard, or <code>identifiers</code> and <code>delegates</code> as denominated in ERC-1056. This allows a user to access common identity data from multiple wallets while still:</p>
+<ul>
+<li>retaining the ability to interact with contracts outside of their identity</li>
+<li>taking advantage of address-specific permissions established at the application layer of a user's identity.</li>
+</ul>
+<p>Trustlessness in the address management function is achieved through a robust permissioning scheme. To add an <code>Associated Address</code> to an <code>Identity</code>, implicit permission from a transaction sender or explicit permission from a signature is required from 1) an address already within the registry and 2) an address to be claimed. Importantly, the transaction need not come from any particular address, as long as permission is established, which allows not only users but third parties (companies, governments, etc.) to bear the overhead of managing identities. To prevent a compromised <code>Associated Address</code> from unilaterally removing other <code>Associated Addresses</code>, it's only possible to remove an <code>Associated Address</code> by transacting or producing a signature from it.</p>
+<p>All signatures required in ERC-1484 are designed per the <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-191.md">ERC-191</a> v0 specification. To avoid replay attacks, all signatures must include a timestamp within a rolling lagged window of the current <code>block.timestamp</code>. For more information, see this <a href="https://github.com/NoahZinsmeister/ERC-1484/blob/master/best-practices/VerifyingSignatures.md">best practices document</a> in the reference implementation.</p>
+<h3 id="provider-management">Provider Management</h3>
+<p>While the protocol allows users to directly call identity management functions, it also aims to be more robust and future-proof by allowing <code>Providers</code>, typically smart contracts, to perform identity management functions on a user's behalf. A <code>Provider</code> set by an <code>Identity</code> can perform address management and resolver management functions by passing a user's <code>EIN</code> in function calls.</p>
+<h3 id="resolver-management">Resolver Management</h3>
+<p>A <code>Resolver</code> is any smart contract that encodes information which resolves to an <code>Identity</code>. We remain agnostic about the specific information that can be encoded in a resolver and the functionality that this enables. The existence of <code>Resolvers</code> is primarily what makes this ERC an identity <em>protocol</em> rather than an identity <em>application</em>. <code>Resolvers</code> resolve abstract data in smart contracts to an atomic entity, the <code>Identity</code>.</p>
+<h3 id="recovery">Recovery</h3>
+<p>If users lose control over an <code>Associated Address</code>, the <code>Recovery Address</code> provides a fallback mechanism. Upon <code>Identity</code> creation, a <code>Recovery Address</code> is passed as a parameter by the creator. Recovery functionality is triggered in three scenarios:</p>
+<p><strong>1. Changing Recovery Address</strong>: If a recovery key is lost, an <code>Associated Address</code>/<code>Provider</code> can <a href="https://eips.ethereum.com/EIPS/eip-1484/#triggerrecoveryaddresschange">triggerRecoveryAddressChange</a>/<a href="https://eips.ethereum.com/EIPS/eip-1484/#triggerrecoveryaddresschangefor">triggerRecoveryAddressChangeFor</a>. To prevent malicious behavior from someone who has gained control of an <code>Associated Address</code> or <code>Provider</code> and is changing the <code>Recovery Address</code> to one under their control, this action triggers a 14 day challenge period during which the old <code>Recovery Address</code> may reject the change by <a href="https://eips.ethereum.com/EIPS/eip-1484/#triggerrecovery">triggering recovery</a>. If the <code>Recovery Address</code> does not reject the change within 14 days, the <code>Recovery Address</code> is changed.</p>
+<p><strong>2. Recovery</strong>: Recovery occurs when a user recognizes that an <code>Associated Address</code> or the <code>Recovery Address</code> belonging to the user is lost or stolen. In this instance the <code>Recovery Address</code> must call <a href="https://eips.ethereum.com/EIPS/eip-1484/#triggerrecovery">triggerRecovery</a>. This removes all <code>Associated Addresses</code> and <code>Providers</code> from the corresponding <code>Identity</code> and replaces them with an address passed in the function call. The <code>Identity</code> and associated <code>Resolvers</code> maintain integrity. The user is now responsible for adding the appropriate un-compromised addresses back to their <code>Identity</code>.</p>
+<p><em>Importantly, the <code>Recovery Address</code> can be a user-controlled wallet or another address, such as a multisig wallet or smart contract. This allows for arbitrarily sophisticated recovery logic! This includes the potential for recovery to be fully compliant with standards such as <a href="https://decentralized.id/">DID</a>.</em></p>
+<p><strong>3. Destruction</strong>
+The Recovery scheme offers considerable power to a <code>Recovery Address</code>; accordingly, <code>Destruction</code> is a nuclear option to combat malicious control over an <code>Identity</code> when a <code>Recovery Address</code> is compromised. If a malicious actor compromises a user's <code>Recovery Address</code> and triggers recovery, any address removed in the <code>Recovery</code> process can call <a href="https://eips.ethereum.com/EIPS/eip-1484/#triggerdestruction">triggerDestruction</a> within 14 days to permanently disable the <code>Identity</code>. The user would then need to create a new <code>Identity</code>, and would be responsible for engaging in recovery schemes for any identity applications built in the <code>Resolver</code> or <code>Provider</code> layers.</p>
+<h4 id="alternative-recovery-considerations">Alternative Recovery Considerations</h4>
+<p>We considered many possible alternatives when devising the Recovery process outlined above. We ultimately selected the scheme that was most un-opinionated, modular, and consistent with the philosophy behind the <code>Associated Address</code>, <code>Provider</code>, and <code>Resolver</code> components. Still, we feel that it is important to highlight some of the other recovery options we considered, to provide a rationale as to how we settled on what we did.</p>
+<p><strong>High Level Concerns</strong>
+Fundamentally, a Recovery scheme needs to be resilient to a compromised address taking control of a user's <code>Identity</code>. A secondary concern is preventing a compromised address from maliciously destroying a user's identity due to off-chain utility, which is not an optimal scenario, but is strictly better than if they've gained control.</p>
+<p><strong>Alternative 1: Nuclear Option</strong>
+This approach would allow any <code>Associated Address</code> to destroy an <code>Identity</code> whenever another <code>Associated Address</code> is compromised. While this may seem severe, we strongly considered it because this ERC is an identity <em>protocol</em>, not an identity <em>application</em>. This means that though a user's compromised <code>Identity</code> is destroyed, they should still have recourse to whatever restoration mechanisms are available in each of their actual identities at the <code>Resolver</code> and/or <code>Provider</code> level. We ultimately dismissed this approach for two main reasons:</p>
+<ul>
+<li>It is not robust in cases where a user has only one <code>Associated Address</code></li>
+<li>It would increase the frequency of recovery requests to identity applications due to its unforgiving nature.</li>
+</ul>
+<p><strong>Alternative 2: Unilateral Address Removal via Providers</strong>
+This would allow <code>Associated Addresses</code>/<code>Providers</code> to remove <code>Associated Addresses</code> without a signature from said address. This implementation would allow <code>Providers</code> to include arbitrarily sophisticated schemes for removing a rogue address - for instance, multi-sig requirements, centralized off-chain verification, user controlled master addresses, deferral to a jurisdictional contract, and more. To prevent a compromised <code>Associated Address</code> from simply setting a malicious <code>Provider</code> to remove un-compromised addresses, it would have required a waiting period between when a <code>Provider</code> is set and when they would be able to remove an <code>Associated Address</code>. We dismissed this approach because we felt it placed too high of a burden on <code>Providers</code>. If a <code>Provider</code> offered a sophisticated range of functionality to a user, but post-deployment a threat was found in the Recovery logic of the provider, <code>Provider</code>-specific infrastructure would need to be rebuilt. We also considered including a flag that would allow a user to decide whether or not a <code>Provider</code> may remove <code>Associated Addresses</code> unilaterally. Ultimately, we concluded that only allowing removal of <code>Associated Addresses</code> via the <code>Recovery Address</code> enables equally sophisticated recovery logic while separating the functionality from <code>Providers</code>, leaving less room for users to relinquish control to potentially flawed implementations.</p>
+<h2 id="rationale">Rationale</h2>
+<p>We find that at a protocol layer, identities should not rely on specific claim or attestation structures, but should instead be a part of a trustless framework upon which arbitrarily sophisticated claim and attestation structures may be built.</p>
+<p>The main criticism of existing identity solutions is that they're overly restrictive. We aim to limit requirements, keep identities modular and future-proof, and remain un-opinionated regarding any functionality a particular identity component may have. This proposal gives users the option to interact on the blockchain using an robust <code>Identity</code> rather than just an address.</p>
+<h2 id="implementation">Implementation</h2>
+<p><strong>The reference implementation for ERC-1484 may be found in <a href="https://github.com/NoahZinsmeister/ERC-1484">NoahZinsmeister/ERC-1484</a>.</strong></p>
+<h4 id="identityexists">identityExists</h4>
+<p>Returns a <code>bool</code> indicating whether or not an <code>Identity</code> denominated by the passed <code>EIN</code> exists.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function identityExists(uint ein) public view returns (bool);
+</span></code></pre><h4 id="hasidentity">hasIdentity</h4>
+<p>Returns a <code>bool</code> indicating whether or not the passed <code>_address</code> is associated with an <code>Identity</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function hasIdentity(address _address) public view returns (bool);
+</span></code></pre><h4 id="getein">getEIN</h4>
+<p>Returns the <code>EIN</code> associated with the passed <code>_address</code>. Throws if the address is not associated with an <code>EIN</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function getEIN(address _address) public view returns (uint ein);
+</span></code></pre><h4 id="isassociatedaddressfor">isAssociatedAddressFor</h4>
+<p>Returns a <code>bool</code> indicating whether or not the passed <code>_address</code> is associated with the passed <code>EIN</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function isAssociatedAddressFor(uint ein, address _address) public view returns (bool);
+</span></code></pre><h4 id="isproviderfor">isProviderFor</h4>
+<p>Returns a <code>bool</code> indicating whether or not the passed <code>provider</code> has been set by the passed <code>EIN</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function isProviderFor(uint ein, address provider) public view returns (bool);
+</span></code></pre><h4 id="isresolverfor">isResolverFor</h4>
+<p>Returns a <code>bool</code> indicating whether or not the passed <code>resolver</code> has been set by the passed <code>EIN</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function isResolverFor(uint ein, address resolver) public view returns (bool);
+</span></code></pre><h4 id="getidentity">getIdentity</h4>
+<p>Returns the <code>recoveryAddress</code>, <code>associatedAddresses</code>, <code>providers</code> and <code>resolvers</code> of the passed <code>EIN</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function getIdentity(uint ein) public view
+    returns (
+        address recoveryAddress,
+        address[] memory associatedAddresses, address[] memory providers, address[] memory resolvers
+    );
+</span></code></pre><h4 id="createidentity">createIdentity</h4>
+<p>Creates an <code>Identity</code>, setting the <code>msg.sender</code> as the sole <code>Associated Address</code>. Returns the <code>EIN</code> of the new <code>Identity</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function createIdentity(address recoveryAddress, address[] memory providers, address[] memory resolvers)
+    public returns (uint ein);
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#identitycreated">IdentityCreated</a></p>
+<h4 id="createidentitydelegated">createIdentityDelegated</h4>
+<p>Performs the same logic as <code>createIdentity</code>, but can be called by any address. This function requires a signature from the <code>associatedAddress</code> to ensure their consent.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function createIdentityDelegated(
+    address recoveryAddress, address associatedAddress, address[] memory providers, address[] memory resolvers,
+    uint8 v, bytes32 r, bytes32 s, uint timestamp
+)
+    public returns (uint ein);
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#identitycreated">IdentityCreated</a></p>
+<h4 id="addassociatedaddress">addAssociatedAddress</h4>
+<p>Adds the <code>addressToAdd</code> to the <code>EIN</code> of the <code>approvingAddress</code>. The <code>msg.sender</code> must be either of the <code>approvingAddress</code> or the <code>addressToAdd</code>, and the signature must be from the other one.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function addAssociatedAddress(
+    address approvingAddress, address addressToAdd, uint8 v, bytes32 r, bytes32 s, uint timestamp
+)
+    public
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#associatedaddressadded">AssociatedAddressAdded</a></p>
+<h4 id="addassociatedaddressdelegated">addAssociatedAddressDelegated</h4>
+<p>Adds the <code>addressToAdd</code> to the <code>EIN</code> of the <code>approvingAddress</code>. Requires signatures from both the <code>approvingAddress</code> and the <code>addressToAdd</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function addAssociatedAddressDelegated(
+    address approvingAddress, address addressToAdd,
+    uint8[2] memory v, bytes32[2] memory r, bytes32[2] memory s, uint[2] memory timestamp
+)
+    public
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#associatedaddressadded">AssociatedAddressAdded</a></p>
+<h4 id="removeassociatedaddress">removeAssociatedAddress</h4>
+<p>Removes the <code>msg.sender</code> as an <code>Associated Address</code> from its <code>EIN</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function removeAssociatedAddress() public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#associatedaddressremoved">AssociatedAddressRemoved</a></p>
+<h4 id="removeassociatedaddressdelegated">removeAssociatedAddressDelegated</h4>
+<p>Removes the <code>addressToRemove</code> from its associated <code>EIN</code>. Requires a signature from the <code>addressToRemove</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function removeAssociatedAddressDelegated(address addressToRemove, uint8 v, bytes32 r, bytes32 s, uint timestamp)
+    public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#associatedaddressremoved">AssociatedAddressRemoved</a></p>
+<h4 id="addproviders">addProviders</h4>
+<p>Adds an array of <code>Providers</code> to the <code>Identity</code> of the <code>msg.sender</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function addProviders(address[] memory providers) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#provideradded">ProviderAdded</a></p>
+<h4 id="addprovidersfor">addProvidersFor</h4>
+<p>Performs the same logic as <code>addProviders</code>, but must be called by a <code>Provider</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function addProvidersFor(uint ein, address[] memory providers) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#provideradded">ProviderAdded</a></p>
+<h4 id="removeproviders">removeProviders</h4>
+<p>Removes an array of <code>Providers</code> from the <code>Identity</code> of the <code>msg.sender</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function removeProviders(address[] memory providers) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#providerremoved">ProviderRemoved</a></p>
+<h4 id="removeprovidersfor">removeProvidersFor</h4>
+<p>Performs the same logic as <code>removeProviders</code>, but is called by a <code>Provider</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function removeProvidersFor(uint ein, address[] memory providers) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#providerremoved">ProviderRemoved</a></p>
+<h4 id="addresolvers">addResolvers</h4>
+<p>Adds an array of <code>Resolvers</code> to the <code>EIN</code> of the <code>msg.sender</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function addResolvers(address[] memory resolvers) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#resolveradded">ResolverAdded</a></p>
+<h4 id="addresolversfor">addResolversFor</h4>
+<p>Performs the same logic as <code>addResolvers</code>, but must be called by a <code>Provider</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function addResolversFor(uint ein, address[] memory resolvers) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#resolveradded">ResolverAdded</a></p>
+<h4 id="removeresolvers">removeResolvers</h4>
+<p>Removes an array of <code>Resolvers</code> from the <code>EIN</code> of the <code>msg.sender</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function removeResolvers(address[] memory resolvers) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#resolverremoved">ResolverRemoved</a></p>
+<h4 id="removeresolversfor">removeResolversFor</h4>
+<p>Performs the same logic as <code>removeResolvers</code>, but must be called by a <code>Provider</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function removeResolversFor(uint ein, address[] memory resolvers) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#resolverremoved">ResolverRemoved</a></p>
+<h4 id="triggerrecoveryaddresschange">triggerRecoveryAddressChange</h4>
+<p>Initiates a change in the current <code>recoveryAddress</code> for the <code>EIN</code> of the <code>msg.sender</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function triggerRecoveryAddressChange(address newRecoveryAddress) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#recoveryaddresschangetriggered">RecoveryAddressChangeTriggered</a></p>
+<h4 id="triggerrecoveryaddresschangefor">triggerRecoveryAddressChangeFor</h4>
+<p>Initiates a change in the current <code>recoveryAddress</code> for a given <code>EIN</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function triggerRecoveryAddressChangeFor(uint ein, address newRecoveryAddress) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#recoveryaddresschangetriggered">RecoveryAddressChangeTriggered</a></p>
+<h4 id="triggerrecovery">triggerRecovery</h4>
+<p>Triggers <code>EIN</code> recovery from the current <code>recoveryAddress</code>, or the old <code>recoveryAddress</code> if changed within the last 2 weeks.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function triggerRecovery(uint ein, address newAssociatedAddress, uint8 v, bytes32 r, bytes32 s, uint timestamp) public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#recoverytriggered">RecoveryTriggered</a></p>
+<h4 id="triggerdestruction">triggerDestruction</h4>
+<p>Triggers destruction of an <code>EIN</code>. This renders the <code>Identity</code> permanently unusable.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function triggerDestruction(uint ein, address[] memory firstChunk, address[] memory lastChunk, bool clearResolvers)
+  public;
+</span></code></pre>
+<p>Triggers event: <a href="https://eips.ethereum.com/EIPS/eip-1484/#identitydestroyed">IdentityDestroyed</a></p>
+<h3 id="events">Events</h3>
+<h4 id="identitycreated">IdentityCreated</h4>
+<p>MUST be triggered when an <code>Identity</code> is created.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event IdentityCreated(
+    address indexed initiator, uint indexed ein,
+    address recoveryAddress, address associatedAddress, address[] providers, address[] resolvers, bool delegated
+);
+</span></code></pre><h4 id="associatedaddressadded">AssociatedAddressAdded</h4>
+<p>MUST be triggered when an address is added to an <code>Identity</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event AssociatedAddressAdded(
+    address indexed initiator, uint indexed ein, address approvingAddress, address addedAddress, bool delegated
+);
+</span></code></pre><h4 id="associatedaddressremoved">AssociatedAddressRemoved</h4>
+<p>MUST be triggered when an address is removed from an <code>Identity</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event AssociatedAddressRemoved(address indexed initiator, uint indexed ein, address removedAddress, bool delegated);
+</span></code></pre><h4 id="provideradded">ProviderAdded</h4>
+<p>MUST be triggered when a provider is added to an <code>Identity</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event ProviderAdded(address indexed initiator, uint indexed ein, address provider, bool delegated);
+</span></code></pre><h4 id="providerremoved">ProviderRemoved</h4>
+<p>MUST be triggered when a provider is removed.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event ProviderRemoved(address indexed initiator, uint indexed ein, address provider, bool delegated);
+</span></code></pre><h4 id="resolveradded">ResolverAdded</h4>
+<p>MUST be triggered when a resolver is added.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event ResolverAdded(address indexed initiator, uint indexed ein, address resolvers, bool delegated);
+</span></code></pre><h4 id="resolverremoved">ResolverRemoved</h4>
+<p>MUST be triggered when a resolver is removed.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event ResolverRemoved(address indexed initiator, uint indexed ein, address resolvers, bool delegated);
+</span></code></pre><h4 id="recoveryaddresschangetriggered">RecoveryAddressChangeTriggered</h4>
+<p>MUST be triggered when a recovery address change is triggered.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event RecoveryAddressChangeTriggered(
+    address indexed initiator, uint indexed ein,
+    address oldRecoveryAddress, address newRecoveryAddress, bool delegated
+);
+</span></code></pre><h4 id="recoverytriggered">RecoveryTriggered</h4>
+<p>MUST be triggered when recovery is triggered.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event RecoveryTriggered(
+    address indexed initiator, uint indexed ein, address[] oldAssociatedAddresses, address newAssociatedAddress
+);
+</span></code></pre><h4 id="identitydestroyed">IdentityDestroyed</h4>
+<p>MUST be triggered when an <code>Identity</code> is destroyed.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event IdentityDestroyed(address indexed initiator, uint indexed ein, address recoveryAddress, bool resolversReset);
+</span></code></pre><h3 id="solidity-interface">Solidity Interface</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface IdentityRegistryInterface {
+    function isSigned(address _address, bytes32 messageHash, uint8 v, bytes32 r, bytes32 s)
+        external pure returns (bool);
+
+    // Identity View Functions /////////////////////////////////////////////////////////////////////////////////////////
+    function identityExists(uint ein) external view returns (bool);
+    function hasIdentity(address _address) external view returns (bool);
+    function getEIN(address _address) external view returns (uint ein);
+    function isAssociatedAddressFor(uint ein, address _address) external view returns (bool);
+    function isProviderFor(uint ein, address provider) external view returns (bool);
+    function isResolverFor(uint ein, address resolver) external view returns (bool);
+    function getIdentity(uint ein) external view returns (
+        address recoveryAddress,
+        address[] memory associatedAddresses, address[] memory providers, address[] memory resolvers
+    );
+
+    // Identity Management Functions ///////////////////////////////////////////////////////////////////////////////////
+    function createIdentity(address recoveryAddress, address[] calldata providers, address[] calldata resolvers)
+        external returns (uint ein);
+    function createIdentityDelegated(
+        address recoveryAddress, address associatedAddress, address[] calldata providers, address[] calldata resolvers,
+        uint8 v, bytes32 r, bytes32 s, uint timestamp
+    ) external returns (uint ein);
+    function addAssociatedAddress(
+        address approvingAddress, address addressToAdd, uint8 v, bytes32 r, bytes32 s, uint timestamp
+    ) external;
+    function addAssociatedAddressDelegated(
+        address approvingAddress, address addressToAdd,
+        uint8[2] calldata v, bytes32[2] calldata r, bytes32[2] calldata s, uint[2] calldata timestamp
+    ) external;
+    function removeAssociatedAddress() external;
+    function removeAssociatedAddressDelegated(address addressToRemove, uint8 v, bytes32 r, bytes32 s, uint timestamp)
+        external;
+    function addProviders(address[] calldata providers) external;
+    function addProvidersFor(uint ein, address[] calldata providers) external;
+    function removeProviders(address[] calldata providers) external;
+    function removeProvidersFor(uint ein, address[] calldata providers) external;
+    function addResolvers(address[] calldata resolvers) external;
+    function addResolversFor(uint ein, address[] calldata resolvers) external;
+    function removeResolvers(address[] calldata resolvers) external;
+    function removeResolversFor(uint ein, address[] calldata resolvers) external;
+
+    // Recovery Management Functions ///////////////////////////////////////////////////////////////////////////////////
+    function triggerRecoveryAddressChange(address newRecoveryAddress) external;
+    function triggerRecoveryAddressChangeFor(uint ein, address newRecoveryAddress) external;
+    function triggerRecovery(uint ein, address newAssociatedAddress, uint8 v, bytes32 r, bytes32 s, uint timestamp)
+        external;
+    function triggerDestruction(
+        uint ein, address[] calldata firstChunk, address[] calldata lastChunk, bool resetResolvers
+    ) external;
+
+    // Events //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    event IdentityCreated(
+        address indexed initiator, uint indexed ein,
+        address recoveryAddress, address associatedAddress, address[] providers, address[] resolvers, bool delegated
+    );
+    event AssociatedAddressAdded(
+        address indexed initiator, uint indexed ein, address approvingAddress, address addedAddress
+    );
+    event AssociatedAddressRemoved(address indexed initiator, uint indexed ein, address removedAddress);
+    event ProviderAdded(address indexed initiator, uint indexed ein, address provider, bool delegated);
+    event ProviderRemoved(address indexed initiator, uint indexed ein, address provider, bool delegated);
+    event ResolverAdded(address indexed initiator, uint indexed ein, address resolvers);
+    event ResolverRemoved(address indexed initiator, uint indexed ein, address resolvers);
+    event RecoveryAddressChangeTriggered(
+        address indexed initiator, uint indexed ein, address oldRecoveryAddress, address newRecoveryAddress
+    );
+    event RecoveryTriggered(
+        address indexed initiator, uint indexed ein, address[] oldAssociatedAddresses, address newAssociatedAddress
+    );
+    event IdentityDestroyed(address indexed initiator, uint indexed ein, address recoveryAddress, bool resolversReset);
+}
+</span></code></pre><h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p><code>Identities</code> established under this standard consist of existing Ethereum addresses; accordingly, there are no backwards compatibility issues. Deployed, non-upgradeable smart contracts that wish to become <code>Resolvers</code> for <code>Identities</code> will need to write wrapper contracts that resolve addresses to <code>EIN</code>-denominated <code>Identities</code>.</p>
+<h2 id="additional-references">Additional References</h2>
+<ul>
+<li><a href="https://github.com/NoahZinsmeister/ERC-1484">ERC-1484 Reference Implementation</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-191">ERC-191 Signatures</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-725">ERC-725 Identities</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1056">ERC-1056 Identities</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

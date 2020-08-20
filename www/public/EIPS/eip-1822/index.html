@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1822: Universal Upgradeable Proxy Standard (UUPS)</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1822.md" />
+<meta property="og:title" content="EIP-1822: Universal Upgradeable Proxy Standard (UUPS)" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1822 (EIP-1822): Universal Upgradeable Proxy Standard (UUPS)"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1822 (EIP-1822): Universal Upgradeable Proxy Standard (UUPS)"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1822.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1822 (EIP 1822): Universal Upgradeable Proxy Standard (UUPS)" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1822: Universal Upgradeable Proxy Standard (UUPS)
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:gabriel@terminal.co">Gabriel Barros</a>,
+        
+    
+        
+        
+            <a href="mailto:blockchainbuddha@gmail.com">Patrick Gallagher</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1822-universal-upgradeable-proxy-standard-uups">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1822-universal-upgradeable-proxy-standard-uups</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-03-04</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="table-of-contents">Table of contents</h2>
+<!-- TOC -->
+<ul>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#table-of-contents">Table of contents</a></li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#simple-summary">Simple Summary</a></li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#abstract">Abstract</a></li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#motivation">Motivation</a></li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#terminology">Terminology</a></li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#specification">Specification</a>
+<ul>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#proxy-contract">Proxy Contract</a>
+<ul>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#functions">Functions</a>
+<ul>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#fallback"><code>fallback</code></a></li>
+</ul>
+</li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#constructor"><code>constructor</code></a></li>
+</ul>
+</li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#proxiable-contract">Proxiable Contract</a>
+<ul>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#functions-1">Functions</a>
+<ul>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#proxiable"><code>proxiable</code></a></li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#updatecodeaddress"><code>updateCodeAddress</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#pitfalls-when-using-a-proxy">Pitfalls when using a proxy</a>
+<ul>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#separating-variables-from-logic">Separating Variables from Logic</a></li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#restricting-dangerous-functions">Restricting dangerous functions</a></li>
+</ul>
+</li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#examples">Examples</a>
+<ul>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#owned">Owned</a></li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#erc-20-token">ERC-20 Token</a>
+<ul>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#proxy-contract-1">Proxy Contract</a></li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#token-logic-contract">Token Logic Contract</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#references">References</a></li>
+<li><a href="https://eips.ethereum.com/EIPS/eip-1822/#copyright">Copyright</a><!-- /TOC -->
+</li>
+</ul>
+<h2 id="simple-summary">Simple Summary</h2>
+<p>Standard upgradeable proxy contract.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The following describes a standard for proxy contracts which is universally compatible with all contracts, and does not create incompatibility between the proxy and business-logic contracts. This is achieved by utilizing a unique storage position in the proxy contract to store the Logic Contract's address. A compatibility check ensures successful upgrades. Upgrading can be performed unlimited times, or as determined by custom logic. In addition, a method for selecting from multiple constructors is provided, which does not inhibit the ability to verify bytecode.</p>
+<h2 id="motivation">Motivation</h2>
+<ul>
+<li>
+<p>Improve upon existing proxy implementations to improve developer experience for deploying and maintaining Proxy and Logic Contracts.</p>
+</li>
+<li>
+<p>Standardize and improve the methods for verifying the bytecode used by the Proxy Contract.</p>
+</li>
+</ul>
+<h2 id="terminology">Terminology</h2>
+<ul>
+<li><code>delegatecall()</code> - Function in contract <strong>A</strong> which allows an external contract <strong>B</strong> (delegating) to modify <strong>A</strong>'s storage (see diagram below, <a href="https://solidity.readthedocs.io/en/v0.5.3/introduction-to-smart-contracts.html#delegatecall-callcode-and-libraries">Solidity docs</a>)</li>
+<li><strong>Proxy Contract</strong> - The contract <strong>A</strong> which stores data, but uses the logic of external contract <strong>B</strong> by way of <code>delegatecall()</code>.</li>
+<li><strong>Logic Contract</strong> - The contract <strong>B</strong> which contains the logic used by Proxy Contract <strong>A</strong></li>
+<li><strong>Proxiable Contract</strong> - Inherited in Logic Contract <strong>B</strong> to provide the upgrade functionality</li>
+</ul>
+<p align="center"><img src="../assets/eip-1822/proxy-diagram.png" alt="diagram" width="600"/></p>
+<h2 id="specification">Specification</h2>
+<p>The Proxy Contract proposed here should be deployed <em>as is</em>, and used as a drop-in replacement for any existing methods of lifecycle management of contracts. In addition to the Proxy Contract, we propose the Proxiable Contract interface/base which establishes a pattern for the upgrade which does not interfere with existing business rules. The logic for allowing upgrades can be implemented as needed.</p>
+<h3 id="proxy-contract">Proxy Contract</h3>
+<h4 id="functions">Functions</h4>
+<h5 id="fallback"><code>fallback</code></h5>
+<p>The proposed fallback function follows the common pattern seen in other Proxy Contract implementations such as <a href="https://github.com/maraoz/solidity-proxy/blob/master/contracts/Dispatcher.sol">Zeppelin</a> or <a href="https://blog.gnosis.pm/solidity-delegateproxy-contracts-e09957d0f201">Gnosis</a>.</p>
+<p>However, rather than forcing use of a variable, the address of the Logic Contract is stored at the defined storage position <code>keccak256(&quot;PROXIABLE&quot;)</code>. This eliminates the possibility of collision between variables in the Proxy and Logic Contracts, thus providing &quot;universal&quot; compatibility with any Logic Contract.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">external payable </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#bf616a;">assembly </span><span style="color:#c0c5ce;">{ </span><span style="color:#65737e;">// solium-disable-line
+        </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">contractLogic</span><span style="color:#c0c5ce;"> := </span><span style="color:#bf616a;">sload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">)
+        </span><span style="color:#bf616a;">calldatacopy</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0x0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0x0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">)
+        </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">success</span><span style="color:#c0c5ce;"> := </span><span style="color:#bf616a;">delegatecall</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">sub</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">gas</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">10000</span><span style="color:#c0c5ce;">), </span><span style="color:#bf616a;">contractLogic</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0x0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)
+        </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;"> := </span><span style="color:#bf616a;">returndatasize
+        returndatacopy</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;">)
+        </span><span style="color:#b48ead;">switch </span><span style="color:#bf616a;">success
+        case </span><span style="color:#d08770;">0 </span><span style="color:#c0c5ce;">{
+            </span><span style="color:#bf616a;">revert</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;">)
+        }
+        </span><span style="color:#bf616a;">default </span><span style="color:#c0c5ce;">{
+            </span><span style="color:#b48ead;">return</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;">)
+        }
+    }
+}
+</span></code></pre><h4 id="constructor"><code>constructor</code></h4>
+<p>The proposed constructor accepts any number of arguments of any type, and thus is compatible with any Logic Contract constructor function.</p>
+<p>In addition, the arbitrary nature of the Proxy Contract's constructor provides the ability to select from one or more constructor functions available in the Logic Contract source code (e.g., <code>constructor1</code>, <code>constructor2</code>, ... etc. ). Note that if multiple constructors are included in the Logic Contract, a check should be included to prohibit calling a constructor again post-initialization.</p>
+<p>It's worth noting that the added functionality of supporting multiple constructors does not inhibit verification of the Proxy Contract's bytecode, since the initialization tx call data (input) can be decoded by first using the Proxy Contract ABI, and then using the Logic Contract ABI.</p>
+<p>The contract below shows the proposed implementation of the Proxy Contract.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">contract </span><span style="color:#ebcb8b;">Proxy </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#65737e;">// Code position in storage is keccak256(&quot;PROXIABLE&quot;) = &quot;0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7&quot;
+    </span><span style="color:#bf616a;">constructor</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bytes memory constructData</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address contractLogic</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">public </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#65737e;">// save the code address
+        </span><span style="color:#bf616a;">assembly </span><span style="color:#c0c5ce;">{ </span><span style="color:#65737e;">// solium-disable-line
+            </span><span style="color:#bf616a;">sstore</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">contractLogic</span><span style="color:#c0c5ce;">)
+        }
+        (</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">bytes memory _ </span><span style="color:#c0c5ce;">) = </span><span style="color:#bf616a;">contractLogic</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">delegatecall</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">constructData</span><span style="color:#c0c5ce;">); </span><span style="color:#65737e;">// solium-disable-line
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">success</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">Construction failed</span><span style="color:#c0c5ce;">&quot;);
+    }
+
+    </span><span style="color:#b48ead;">function</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">external payable </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#bf616a;">assembly </span><span style="color:#c0c5ce;">{ </span><span style="color:#65737e;">// solium-disable-line
+            </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">contractLogic</span><span style="color:#c0c5ce;"> := </span><span style="color:#bf616a;">sload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#bf616a;">calldatacopy</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0x0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0x0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">success</span><span style="color:#c0c5ce;"> := </span><span style="color:#bf616a;">delegatecall</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">sub</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">gas</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">10000</span><span style="color:#c0c5ce;">), </span><span style="color:#bf616a;">contractLogic</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0x0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;"> := </span><span style="color:#bf616a;">returndatasize
+            returndatacopy</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#b48ead;">switch </span><span style="color:#bf616a;">success
+            case </span><span style="color:#d08770;">0 </span><span style="color:#c0c5ce;">{
+                </span><span style="color:#bf616a;">revert</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;">)
+            }
+            </span><span style="color:#bf616a;">default </span><span style="color:#c0c5ce;">{
+                </span><span style="color:#b48ead;">return</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;">)
+            }
+        }
+    }
+}
+</span></code></pre><h3 id="proxiable-contract">Proxiable Contract</h3>
+<p>The Proxiable Contract is included in the Logic Contract, and provides the functions needed to perform an upgrade. The compatibility check <code>proxiable</code> prevents irreparable updates during an upgrade.</p>
+<blockquote>
+<p>:warning: Warning: <code>updateCodeAddress</code> and <code>proxiable</code> must be present in the Logic Contract. Failure to include these may prevent upgrades, and could allow the Proxy Contract to become entirely unusable. See below <a href="https://eips.ethereum.com/EIPS/eip-1822/#restricting-dangerous-functions">Restricting dangerous functions</a></p>
+</blockquote>
+<h4 id="functions-1">Functions</h4>
+<h5 id="proxiable"><code>proxiable</code></h5>
+<p>Compatibility check to ensure the new Logic Contract implements the Universal Upgradeable Proxy Standard. Note that in order to support future implementations, the <code>bytes32</code> comparison could be changed e.g., <code>keccak256(&quot;PROXIABLE-ERC1822-v1&quot;)</code>.</p>
+<h5 id="updatecodeaddress"><code>updateCodeAddress</code></h5>
+<p>Stores the Logic Contract's address at storage <code>keccak256(&quot;PROXIABLE&quot;)</code> in the Proxy Contract.</p>
+<p>The contract below shows the proposed implementation of the Proxiable Contract.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">contract Proxiable </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#65737e;">// Code position in storage is keccak256(&quot;PROXIABLE&quot;) = &quot;0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7&quot;
+
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">updateCodeAddress</span><span style="color:#c0c5ce;">(address newAddress) </span><span style="color:#bf616a;">internal </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(
+            </span><span style="color:#bf616a;">bytes32</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">) == </span><span style="color:#bf616a;">Proxiable</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">newAddress</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">proxiableUUID</span><span style="color:#c0c5ce;">(),
+            &quot;</span><span style="color:#a3be8c;">Not compatible</span><span style="color:#c0c5ce;">&quot;
+        );
+        </span><span style="color:#bf616a;">assembly </span><span style="color:#c0c5ce;">{ </span><span style="color:#65737e;">// solium-disable-line
+            </span><span style="color:#bf616a;">sstore</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">newAddress</span><span style="color:#c0c5ce;">)
+        }
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">proxiableUUID</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">public pure returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bytes32</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">;
+    }
+}
+</span></code></pre><h2 id="pitfalls-when-using-a-proxy">Pitfalls when using a proxy</h2>
+<p>The following common best practices should be employed for all Logic Contracts when using a proxy contract.</p>
+<h3 id="separating-variables-from-logic">Separating Variables from Logic</h3>
+<p>Careful consideration should be made when designing a new Logic Contract to prevent incompatibility with the existing storage of the Proxy Contract after an upgrade. Specifically, the order in which variables are instantiated in the new contract should not be modified, and any new variables should be added after all existing variables from the previous Logic Contract</p>
+<p>To facilitate this practice, we recommend utilizing a single &quot;base&quot; contract which holds all variables, and which is inherited in subsequent logic contract(s). This practice greatly reduces the chances of accidentally reordering variables or overwriting them in storage.</p>
+<h3 id="restricting-dangerous-functions">Restricting dangerous functions</h3>
+<p>The compatibility check in the Proxiable Contract is a safety mechanism to prevent upgrading to a Logic Contract which does not implement the Universal Upgradeable Proxy Standard. However, as occurred in the parity wallet hack, it is still possible to perform irreparable damage to the Logic Contract itself.</p>
+<p>In order to prevent damage to the Logic Contract, we recommend restricting permissions for any potentially damaging functions to <code>onlyOwner</code>, and giving away ownership of the Logic Contract immediately upon deployment to a null address (e.g., address(1)). Potentially damaging functions include native functions such as <code>SELFDESTRUCT</code>, as well functions whose code may originate externally such as <code>CALLCODE</code>, and <code>delegatecall()</code>. In the <a href="https://eips.ethereum.com/EIPS/eip-1822/#erc-20-token">ERC-20 Token</a> example below, a <code>LibraryLock</code> contract is used to prevent destruction of the logic contract.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="owned">Owned</h3>
+<p>In this example, we show the standard ownership example, and restrict the <code>updateCodeAddress</code> to only the owner.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">contract Owned is Proxiable </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#65737e;">// ensures no one can manipulate this contract once it is deployed
+    </span><span style="color:#bf616a;">address public owner </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">constructor1</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">{
+        </span><span style="color:#65737e;">// ensures this can be called only once per *proxy* contract deployed
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">owner </span><span style="color:#c0c5ce;">== </span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">));
+        </span><span style="color:#bf616a;">owner </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender;
+    }
+
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">updateCode</span><span style="color:#c0c5ce;">(address newCode) </span><span style="color:#bf616a;">onlyOwner public </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#bf616a;">updateCodeAddress</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">newCode</span><span style="color:#c0c5ce;">);
+    }
+
+    </span><span style="color:#bf616a;">modifier onlyOwner</span><span style="color:#c0c5ce;">() {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender == </span><span style="color:#bf616a;">owner</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">Only owner is allowed to perform this action</span><span style="color:#c0c5ce;">&quot;);
+        </span><span style="color:#bf616a;">_</span><span style="color:#c0c5ce;">;
+    }
+}
+</span></code></pre><h3 id="erc-20-token">ERC-20 Token</h3>
+<h4 id="proxy-contract-1">Proxy Contract</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">pragma solidity </span><span style="color:#c0c5ce;">^</span><span style="color:#d08770;">0.5</span><span style="color:#c0c5ce;">.</span><span style="background-color:#bf616a;color:#2b303b;">1</span><span style="color:#c0c5ce;">;
+
+</span><span style="color:#bf616a;">contract </span><span style="color:#ebcb8b;">Proxy </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#65737e;">// Code position in storage is keccak256(&quot;PROXIABLE&quot;) = &quot;0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7&quot;
+    </span><span style="color:#bf616a;">constructor</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bytes memory constructData</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">address contractLogic</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">public </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#65737e;">// save the code address
+        </span><span style="color:#bf616a;">assembly </span><span style="color:#c0c5ce;">{ </span><span style="color:#65737e;">// solium-disable-line
+            </span><span style="color:#bf616a;">sstore</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">contractLogic</span><span style="color:#c0c5ce;">)
+        }
+        (</span><span style="color:#bf616a;">bool success</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">bytes memory _ </span><span style="color:#c0c5ce;">) = </span><span style="color:#bf616a;">contractLogic</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">delegatecall</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">constructData</span><span style="color:#c0c5ce;">); </span><span style="color:#65737e;">// solium-disable-line
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">success</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">Construction failed</span><span style="color:#c0c5ce;">&quot;);
+    }
+
+    </span><span style="color:#b48ead;">function</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">external payable </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#bf616a;">assembly </span><span style="color:#c0c5ce;">{ </span><span style="color:#65737e;">// solium-disable-line
+            </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">contractLogic</span><span style="color:#c0c5ce;"> := </span><span style="color:#bf616a;">sload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#bf616a;">calldatacopy</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0x0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0x0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">success</span><span style="color:#c0c5ce;"> := </span><span style="color:#bf616a;">delegatecall</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">sub</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">gas</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">10000</span><span style="color:#c0c5ce;">), </span><span style="color:#bf616a;">contractLogic</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0x0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;"> := </span><span style="color:#bf616a;">returndatasize
+            returndatacopy</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;">)
+            </span><span style="color:#b48ead;">switch </span><span style="color:#bf616a;">success
+            case </span><span style="color:#d08770;">0 </span><span style="color:#c0c5ce;">{
+                </span><span style="color:#bf616a;">revert</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;">)
+            }
+            </span><span style="color:#bf616a;">default </span><span style="color:#c0c5ce;">{
+                </span><span style="color:#b48ead;">return</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">retSz</span><span style="color:#c0c5ce;">)
+            }
+        }
+    }
+}
+</span></code></pre><h4 id="token-logic-contract">Token Logic Contract</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">
+</span><span style="color:#bf616a;">contract Proxiable </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#65737e;">// Code position in storage is keccak256(&quot;PROXIABLE&quot;) = &quot;0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7&quot;
+
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">updateCodeAddress</span><span style="color:#c0c5ce;">(address newAddress) </span><span style="color:#bf616a;">internal </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(
+            </span><span style="color:#bf616a;">bytes32</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">) == </span><span style="color:#bf616a;">Proxiable</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">newAddress</span><span style="color:#c0c5ce;">).</span><span style="color:#bf616a;">proxiableUUID</span><span style="color:#c0c5ce;">(),
+            &quot;</span><span style="color:#a3be8c;">Not compatible</span><span style="color:#c0c5ce;">&quot;
+        );
+        </span><span style="color:#bf616a;">assembly </span><span style="color:#c0c5ce;">{ </span><span style="color:#65737e;">// solium-disable-line
+            </span><span style="color:#bf616a;">sstore</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">newAddress</span><span style="color:#c0c5ce;">)
+        }
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">proxiableUUID</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">public pure returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bytes32</span><span style="color:#c0c5ce;">) {
+        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7</span><span style="color:#c0c5ce;">;
+    }
+}
+
+
+</span><span style="color:#bf616a;">contract Owned </span><span style="color:#c0c5ce;">{
+
+    </span><span style="color:#bf616a;">address owner</span><span style="color:#c0c5ce;">;
+
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">setOwner</span><span style="color:#c0c5ce;">(address _owner) </span><span style="color:#bf616a;">internal </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#bf616a;">owner </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">_owner</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#bf616a;">modifier onlyOwner</span><span style="color:#c0c5ce;">() {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender == </span><span style="color:#bf616a;">owner</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">Only owner is allowed to perform this action</span><span style="color:#c0c5ce;">&quot;);
+        </span><span style="color:#bf616a;">_</span><span style="color:#c0c5ce;">;
+    }
+}
+
+</span><span style="color:#bf616a;">contract LibraryLockDataLayout </span><span style="color:#c0c5ce;">{
+  </span><span style="color:#bf616a;">bool public initialized </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">false</span><span style="color:#c0c5ce;">;
+}
+
+</span><span style="color:#bf616a;">contract LibraryLock is LibraryLockDataLayout </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#65737e;">// Ensures no one can manipulate the Logic Contract once it is deployed.
+    // PARITY WALLET HACK PREVENTION
+
+    </span><span style="color:#bf616a;">modifier delegatedOnly</span><span style="color:#c0c5ce;">() {
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">initialized </span><span style="color:#c0c5ce;">== </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">The library is locked. No direct &#39;call&#39; is allowed</span><span style="color:#c0c5ce;">&quot;);
+        </span><span style="color:#bf616a;">_</span><span style="color:#c0c5ce;">;
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">initialize</span><span style="color:#c0c5ce;">() </span><span style="color:#bf616a;">internal </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#bf616a;">initialized </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">;
+    }
+}
+
+</span><span style="color:#bf616a;">contact ERC20DataLayout is LibraryLockDataLayout </span><span style="color:#c0c5ce;">{
+  </span><span style="color:#bf616a;">uint256 public totalSupply</span><span style="color:#c0c5ce;">;
+  </span><span style="color:#bf616a;">mapping</span><span style="color:#c0c5ce;">(address</span><span style="color:#b48ead;">=&gt;</span><span style="color:#bf616a;">uint256</span><span style="color:#c0c5ce;">) </span><span style="color:#bf616a;">public tokens</span><span style="color:#c0c5ce;">;
+}
+
+</span><span style="color:#bf616a;">contract ERC20 </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#65737e;">//  ...
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">transfer</span><span style="color:#c0c5ce;">(address to, uint256 amount) </span><span style="color:#bf616a;">public </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#96b5b4;">require</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">tokens</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender] &gt;= </span><span style="color:#bf616a;">amount</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">Not enough funds for transfer</span><span style="color:#c0c5ce;">&quot;);
+        </span><span style="color:#bf616a;">tokens</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">to</span><span style="color:#c0c5ce;">] += </span><span style="color:#bf616a;">amount</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#bf616a;">tokens</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender] -= </span><span style="color:#bf616a;">amount</span><span style="color:#c0c5ce;">;
+    }
+}
+
+</span><span style="color:#bf616a;">contract MyToken is ERC20DataLayout</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ERC20</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Owned</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Proxiable</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">LibraryLock </span><span style="color:#c0c5ce;">{
+
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">constructor1</span><span style="color:#c0c5ce;">(uint256 _initialSupply) </span><span style="color:#bf616a;">public </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#bf616a;">totalSupply </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">_initialSupply</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#bf616a;">tokens</span><span style="color:#c0c5ce;">[</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender] = </span><span style="color:#bf616a;">_initialSupply</span><span style="color:#c0c5ce;">;
+        </span><span style="color:#bf616a;">initialize</span><span style="color:#c0c5ce;">();
+        </span><span style="color:#bf616a;">setOwner</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">msg</span><span style="color:#c0c5ce;">.sender);
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">updateCode</span><span style="color:#c0c5ce;">(address newCode) </span><span style="color:#bf616a;">public onlyOwner delegatedOnly  </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#bf616a;">updateCodeAddress</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">newCode</span><span style="color:#c0c5ce;">);
+    }
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">transfer</span><span style="color:#c0c5ce;">(address to, uint256 amount) </span><span style="color:#bf616a;">public delegatedOnly </span><span style="color:#c0c5ce;">{
+        </span><span style="color:#ebcb8b;">ERC20</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">transfer</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">to</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">amount</span><span style="color:#c0c5ce;">);
+    }
+}
+</span></code></pre><h2 id="references">References</h2>
+<ul>
+<li><a href="https://medium.com/terminaldotco/escape-hatch-proxy-efb681de108d">&quot;Escape-hatch&quot; proxy Medium Post</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

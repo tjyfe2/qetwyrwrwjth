@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-158: State clearing</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-158.md" />
+<meta property="og:title" content="EIP-158: State clearing" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 158 (EIP-158): State clearing"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 158 (EIP-158): State clearing"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-158.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 158 (EIP 158): State clearing" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-158: State clearing
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/italik Buteri">Vitalik Buter</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Superseded
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2016-10-16</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+          <tr>
+              <th>Superseded by</th>
+              <td>161</td>
+          </tr>
+        
+
+        
+  </table>
+
+  
+    <h1 id="specification">Specification</h1>
+<p>For all blocks where <code>block.number &gt;= FORK_BLKNUM</code> (TBA):</p>
+<ol>
+<li>In all cases where a state change is made to an account, and this state change results in the account state being saved with nonce = 0, balance = 0, code empty, storage empty (hereinafter &quot;empty account&quot;), the account is instead deleted.</li>
+<li>If a address is &quot;touched&quot; and that address contains an empty account, then it is deleted. A &quot;touch&quot; is defined as any situation where if the account at the given address were nonexistent it would be created.</li>
+<li>Whenever the EVM checks if an account exists, emptiness is treated as equivalent to nonexistence. Particularly, note that this implies that, once this change is enabled, there is no longer a meaningful difference between emptiness and nonexistence from the point of view of EVM execution.</li>
+<li>Zero-value calls and zero-value suicides no longer consume the 25000 account creation gas cost in any circumstance</li>
+</ol>
+<p>The cases where a &quot;touch&quot; takes place can be enumerated as follows:</p>
+<ul>
+<li>Zero-value-bearing CALLs</li>
+<li>CREATEs (if the code that is ultimately saved is empty and there is no ether remaining in the account when it is saved)</li>
+<li>Zero-value-bearing SUICIDEs</li>
+<li>Transaction recipients</li>
+<li>Contracts created in contract creation transactions</li>
+<li>Miners receiving transaction fees (note the case where the gasprice is zero, and the account does not yet exist because it only receives the block/uncle/nephew rewards <em>after</em> processing every transaction)</li>
+</ul>
+<h3 id="specification-1b">Specification (1b)</h3>
+<p>When the EVM checks for emptiness (for the purpose of possibly applying the 25000 gas cost), emptiness is defined by <code>is_empty(acct): return get_balance(acct) == 0 and get_code(acct) == &quot;&quot; and get_nonce(acct) == 0</code>; emptiness of storage does not matter. This simplifies client implementation because there is no need to add extra complexity to make caches enumerable in the correct way and does not significantly affect the intended result, as the cases where balance/code/nonce are empty but storage is nonempty where this change would lead to an extra 25000 gas being paid are pathological and have no real use value.</p>
+<h3 id="specification-1c">Specification (1c)</h3>
+<p>Do not implement point 2 above (ie. no new empty accounts can be created, but existing ones are not automatically destroyed unless their state is actually <em>changed</em>). Instead, during each block starting from (and including) N and ending when there are no null accounts left, select the 1000 null accounts that are left-most in order of sha3(address), and delete them (ordering by hash is necessary so as to allow the accounts to be easily found by iterating the tree).</p>
+<h1 id="rationale">Rationale</h1>
+<p>This removes a large number of empty accounts that have been put in the state at very low cost due to flaws in earlier versions of the Ethereum protocol, thereby greatly reducing state size and hence both reducing the hard disk load of a full client and reducing the time for a fast sync. Additionally, it simplifies the protocol in the long term, as once all &quot;empty&quot; objects are cleared out there is no longer any meaningful distinction between an account being empty and being nonexistent, and indeed one can simply view nonexistence as a compact representation of emptiness.</p>
+<p>Note that this proposal does introduce a <strong>temporary</strong> breaking of existing guarantees, in that by repeatedly zero-value-calling already existing empty accounts one can create a state change at a cost of 700 gas per account instead of the usual 5000 per gas minimum (with SUICIDE refunds this goes down further to 350 gas per account). Allowing such a large number of state writes per block will lead to heightened block processing times and increase uncle rates in the short term while the existing empty accounts are being cleared, and eventually once all empty accounts are cleared this issue will no longer exist.</p>
+<h1 id="references">References</h1>
+<ol>
+<li>EIP-158 issue and discussion: https://github.com/ethereum/EIPs/issues/158</li>
+<li>EIP-161 issue and discussion: https://github.com/ethereum/EIPs/issues/161</li>
+</ol>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

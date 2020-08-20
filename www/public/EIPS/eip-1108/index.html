@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1108: Reduce alt_bn128 precompile gas costs</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1108.md" />
+<meta property="og:title" content="EIP-1108: Reduce alt_bn128 precompile gas costs" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1108 (EIP-1108): Reduce alt_bn128 precompile gas costs"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1108 (EIP-1108): Reduce alt_bn128 precompile gas costs"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1108.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1108 (EIP 1108): Reduce alt_bn128 precompile gas costs" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1108: Reduce alt_bn128 precompile gas costs
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/shadowfiend">Antonio Salazar Cardozo</a>,
+        
+    
+        
+        
+            <a href="https://github.com/zac-williamson"> Zachary Williamson</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1108-reduce-alt-bn128-precompile-gas-costs&#x2F;3206">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1108-reduce-alt-bn128-precompile-gas-costs&#x2F;3206</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-05-21</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>196, 197</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>The elliptic curve arithmetic precompiles are currently overpriced. Re-pricing the precompiles would greatly assist a number of privacy solutions and scaling solutions on Ethereum. </p>
+<h2 id="abstract">Abstract</h2>
+<p>Changes in 2018 to the underlying library used by the official Go reference
+implementation led to significant performance gains for the <code>ECADD</code>, <code>ECMUL</code>,
+and pairing check precompiled contracts on the <code>alt_bn128</code> elliptic curve.</p>
+<p>In the Parity client, field operations used by the precompile algorithms were optimized in 2018, 
+and recent changes to the pairing algorithm used by the <code>bn</code> crate have brought considerable speedups.</p>
+<p>Faster operations on Ethereum clients should be reflected in reduced gas costs.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Recently, the underlying library used by the <a href="https://github.com/ethereum/go-ethereum">official Go reference
+implementation</a> to implement the
+<code>ECADD</code> (at address <code>0x06</code>), <code>ECMUL</code> (at address <code>0x07</code>), and pairing check (at
+address <code>0x08</code>) precompiled contracts was shifted to <a href="https://github.com/cloudflare/bn256">Cloudflare's bn256
+library</a>. Based on the <a href="https://github.com/ethereum/go-ethereum/pull/16203">initial PR that
+introduced this change</a>,
+and corroborated in <a href="https://github.com/ethereum/go-ethereum/pull/16301#issuecomment-372687543">a later
+note</a>,
+the computational cost of <code>ECADD</code>, <code>ECMUL</code>, and pairing checks (excepting the
+constant) has dropped roughly an order of magnitude across the board.</p>
+<p>Also, optimizations in the bn library <a href="https://github.com/paritytech/bn/pull/9">in 2018</a> and <a href="https://github.com/paritytech/bn/pull/14">2019</a>
+used by the <a href="https://github.com/paritytech/parity-ethereum">Parity client</a> led to a 
+significant performance boost we 
+<a href="https://gist.github.com/zac-williamson/838410a3da179d47d31b25b586c15e53">benchmarked</a> 
+and compared against the <a href="https://gist.github.com/pdyraga/4649b74436940a01e8221d85e80bfeef">previous 
+results</a>.</p>
+<h2 id="specification">Specification</h2>
+<p>Following is a table with the current gas cost and new gas cost:</p>
+<table><thead><tr><th>Contract</th><th>Address</th><th>Current Gas Cost</th><th>Updated Gas Cost</th></tr></thead><tbody>
+<tr><td><code>ECADD</code></td><td><code>0x06</code></td><td>500<sup>[1]</sup></td><td>150</td></tr>
+<tr><td><code>ECMUL</code></td><td><code>0x07</code></td><td>40 000<sup>[1]</sup></td><td>6 000</td></tr>
+<tr><td>Pairing check</td><td><code>0x08</code></td><td>80 000 * k + 100 000<sup>[2]</sup></td><td>34 000 * k + 45 000</td></tr>
+</tbody></table>
+<p>The gas costs for <code>ECADD</code> and <code>ECMUL</code> are updates to the costs listed in
+EIP-196, while the gas costs for the pairing check are updates to the cost
+listed in EIP-197. Updated gas costs have been adjusted to the less performant 
+client which is Parity, according to benchmarks<sup>[3]</sup>.</p>
+<p>To come up with these updates gas costs, the performance of the <code>ecrecover</code> precompile
+was measured at 116 microseconds per <code>ecrecover</code> invocation. Assuming the <code>ecrecover</code>
+gas price is fair at 3,000 gas, we get a price of 25.86 gas per microsecond of a precompile
+algorithm's runtime. With this in mind, the pairing precompile took 3,037 microseconds to
+compute 1 pairing, and 14,663 microseconds to compute 10 pairings. From this, the pairing
+algorithm has a fixed 'base' run-time of 1,745 microseconds, plus 1,292 microseconds per
+pairing. We can split the run-time into 'fixed cost' and 'linear cost per pairing'
+components because of the structure of the algorithm.</p>
+<p>Thus using a 'fair' price of 25.86 gas per microsecond, we get a gas formula of
+~<code>35,000 * k + 45,000</code> gas, where <code>k</code> is the number of pairings being computed. [4]</p>
+<p>[1]- Per <a href="https://github.com/ethereum/EIPs/blob/984cf5de90bbf5fbe7e49be227b0c2f9567e661e/EIPS/eip-196.md#gas-costs">EIP-196</a>.</p>
+<p>[2]- Per <a href="https://github.com/ethereum/EIPs/blob/df132cd37efb3986f9cd3ef4922b15a767d2c54a/EIPS/eip-197.md#specification">EIP-197</a>.</p>
+<p>[3]- <a href="https://gist.github.com/zac-williamson/838410a3da179d47d31b25b586c15e53">Parity benchmarks.</a></p>
+<p>[4]- <a href="https://github.com/ethereum/EIPs/pull/1987#discussion_r280977066">PR comment clarifying gas cost math</a>.</p>
+<h2 id="rationale">Rationale</h2>
+<h3 id="existing-protocols-would-benefit-immensely-from-cheaper-elliptic-curve-cryptography">Existing protocols would benefit immensely from cheaper elliptic curve cryptography</h3>
+<p>Fast elliptic curve cryptography is a keystone of a growing number of protocols built on top of Ethereum. To list a few:</p>
+<ul>
+<li><a href="https://github.com/AztecProtocol/AZTEC">The AZTEC protocol</a> utilizes the elliptic curve precompiles to construct private tokens, with zero-knowledge transaction logic, via the <a href="https://github.com/ethereum/EIPs/issues/1723">ERC1723</a> and <a href="https://github.com/ethereum/EIPs/issues/1724">ERC1724</a> standard.</li>
+<li><a href="https://github.com/matter-labs/matter-network">Matter Labs</a> utilizes the precompiles to implement Ignis, a scaling solution with a throughput of 500txns per second</li>
+<li><a href="https://github.com/rollup/rollup">Rollup</a> utilizes the precompiles to create L2 scaling solutions, where the correctness of transactions is guaranteed by main-net, without an additional consensus layer</li>
+<li><a href="https://crypto.stanford.edu/%7Ebuenz/papers/zether.pdf">ZEther</a> uses precompiles <code>ECADD</code> and <code>ECMUL</code> to construct confidential transactions</li>
+</ul>
+<p>These are all technologies that have been, or are in the process of being, deployed to main-net. There protocols would all benefit from reducing the gas cost of the precompiles.</p>
+<p>To give a concrete example, it currently costs <code>820,000</code> gas to validate the cryptography in a typical AZTEC confidential transaction. If the gas schedule for the precompiles correctly reflected their load on the Ethereum network, this cost would be <code>197,000</code> gas. This significantly increases the potential use cases for private assets on Ethereum. AZTEC is planning to deploy several cryptographic protocols Ethereum, but these are at the limits of what is practical given the current precompile costs:</p>
+<ul>
+<li>Confidential weighted voting</li>
+<li>Partial-order filling over encrypted orders, for private decentralized exchanges</li>
+<li>Anonymous identity sharing proofs (e.g. proving you are on a whitelist, without revealing who you are)</li>
+<li>Many-to-one payments and one-to-many confidential payments, as encrypted communication channels between main-net and L2 applications</li>
+</ul>
+<p>For zk-SNARK based protocols on Ethereum, EIP-1108 will not only reduce the gas costs of verifying zk-SNARKs substantially, but can also aid in <a href="https://github.com/matter-labs/Groth16BatchVerifier">batching together multiple zk-SNARK proofs</a>. This is also a technique that can be used to split up monolithic zk-SNARK circuits into a batch of zk-SNARKs with smaller individual circuit sizes, which makes zk-SNARKs both easier to construct and deploy.</p>
+<p>ZEther transactions currently cost ~<code>6,000,000</code> gas. This EIP would reduce this to ~<code>1,000,000</code> gas, which makes the protocol more practical.</p>
+<p>To summarise, there are several protocols that currently exist on main-net, that would benefit immensely from this EIP. Elliptic curve cryptography can provide valuable solutions for Ethereum, such as scaling and privacy, and the scope and scale of these solutions can be increased if the gas costs for the <code>bn128</code> precompiles accurately reflects their computational load on the network.</p>
+<h3 id="cheaper-elliptic-curve-cryptography-can-be-used-to-trade-storage-for-computation">Cheaper elliptic curve cryptography can be used to trade storage for computation</h3>
+<p>Solutions such as Rollup and Ignis can be used to batch groups of individual transactions into a zk-SNARK proof, with the on-chain state being represented by a small Merkle root, instead of multiple account balances.</p>
+<p>If zk-SNARK verification costs are decreased, these solutions can be deployed for a wider range of use cases and more Rollup-style transactions can be processed per block.</p>
+<h3 id="parity-and-geth-already-have-fast-algorithms-that-justify-reduced-gas-costs">Parity and Geth already have fast algorithms that justify reduced gas costs</h3>
+<p>This EIP does not require Parity or Geth to deploy new cryptographic libraries, as fast bn128 algorithms have already been integrated into these clients. This goal of proposing this EIP for Istanbul, is to supplement <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1829.md">EIP-1829</a> (arithmetic over generic elliptic curves), providing an immediate solution to the pressing problem of expensive cryptography, while more advanced solutions are developed, defined and deployed.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>As no underlying algorithms are being changed, there are no additional test cases to specify.</p>
+<h2 id="implementation">Implementation</h2>
+<p>Both the Parity and Geth clients have already implemented cryptographic libraries that are fast enough to justify reducing the precompile gas costs. As a reference, here are a list of elliptic curve libraries, in <code>C++</code>, <code>golang</code> and <code>rust</code>, that support the <code>bn128</code> curve, and have run-times that are equal to or faster than the Parity benchmarks.</p>
+<ul>
+<li><a href="https://github.com/paritytech/bn">Parity bn crate (rust)</a></li>
+<li><a href="https://github.com/ethereum/go-ethereum/tree/master/crypto/bn256/cloudflare">Geth bn256 library (golang)</a></li>
+<li><a href="https://github.com/herumi/mcl">MCL, a portable C++ pairing library</a></li>
+<li><a href="https://github.com/scipr-lab/libff">Libff, a C++ pairing library used in many zk-SNARK libraries</a></li>
+</ul>
+<h2 id="additional-references">Additional References</h2>
+<p>@vbuterin independently proposed a similar reduction after this EIP was originally created, with similar rationale, as <a href="https://github.com/ethereum/EIPs/issues/1187">ethereum/EIPs#1187</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

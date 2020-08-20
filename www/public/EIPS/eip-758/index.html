@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-758: Subscriptions and filters for completed transactions</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-758.md" />
+<meta property="og:title" content="EIP-758: Subscriptions and filters for completed transactions" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 758 (EIP-758): Subscriptions and filters for completed transactions"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 758 (EIP-758): Subscriptions and filters for completed transactions"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-758.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 758 (EIP 758): Subscriptions and filters for completed transactions" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-758: Subscriptions and filters for completed transactions
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:jack@tinybike.net">Jack Peterson</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Interface</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-11-09</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>1474</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Provide a way for external callers to be notified of completed transactions, and access the return data of functions executed when a transaction is mined.</p>
+<h2 id="abstract">Abstract</h2>
+<p>When a new transaction is submitted successfully to an Ethereum node, the node responds with the transaction's hash.  If the transaction involved the execution of a contract function that returns data, the data is discarded.  If the return data is state-dependent, which is common, there is no straightforward way for the caller to access or compute the return data.  This EIP proposes that callers should be able to subscribe to (or poll for) completed transactions.  The Ethereum node sends the return data to the caller when the transactions are sealed.</p>
+<h2 id="motivation">Motivation</h2>
+<p>External callers presently have no way of accessing return data from Ethereum, if the function was executed via <code>eth_sendTransaction</code> or <code>eth_sendRawTransaction</code> RPC request.  Access to function return data is in many cases a desirable feature.  Making return data available to external callers also addresses the inconsistency between internal callers, which have access to return data within the context of the transaction, and external callers, which do not.  Presently, a common workaround is to log the return data, which is bad for several reasons: it contributes to chain bloat, imposes additional gas costs on the caller, and can result in unused logs being written if the externally called function involves other (internal) function calls that log their return data.  While implementing the original version of this EIP, it was decided to expand this functionality slightly to allow for external callers to be notified of their completed transactions even in the case where there is <em>no</em> return data.  This could be either because the method called doesn't return a value, or because the transaction is a simple transfer of value.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="subscription">Subscription</h3>
+<p>A caller who wants to be notified when transactions of theirs complete sends an <code>eth_subscribe</code> RPC request with the first parameter <code>&quot;completedTransaction&quot;</code>:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{&quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">eth_subscribe</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: [&quot;</span><span style="color:#a3be8c;">completedTransaction</span><span style="color:#c0c5ce;">&quot;, </span><span style="background-color:#bf616a;color:#2b303b;">filter</span><span style="color:#c0c5ce;">]}
+</span></code></pre>
+<p>The <code>filter</code> parameter is a dictionary containing 3 optional named arguments:  <code>from</code>, <code>to</code>, and <code>hasReturnData</code>.  <code>from</code> and <code>to</code> can each either be single addresses, or a list of addresses.  They are used to filter out any transactions not sent from an address in the <code>from</code> list and sent to an address in the to list.  <code>hasReturnData</code> is a boolean--if it is specified and <code>true</code>, then notifications will be received only for completed transactions containing returnData.</p>
+<p>For example, to restrict results to contract creations originating from either of two addresses (0x3f7d39bDBf1f5cE649c194571aEd3D2BbB2F85ce or 0x7097f41F1C1847D52407C629d0E0ae0fDD24fd58):</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">filter = { &quot;</span><span style="color:#a3be8c;">from</span><span style="color:#c0c5ce;">&quot; : [&quot;</span><span style="color:#a3be8c;">0x3f7d39bDBf1f5cE649c194571aEd3D2BbB2F85ce</span><span style="color:#c0c5ce;">&quot;,
+                      &quot;</span><span style="color:#a3be8c;">0x7097f41F1C1847D52407C629d0E0ae0fDD24fd58</span><span style="color:#c0c5ce;">&quot;],
+           &quot;</span><span style="color:#a3be8c;">to</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">0x0</span><span style="color:#c0c5ce;">&quot; 
+         }
+</span></code></pre>
+<p>To restrict results to method calls on contract address 0xD9Cb531aB97A652c8fC60dcF6D263fcA2F5764e9:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">filter = { &quot;</span><span style="color:#a3be8c;">to</span><span style="color:#c0c5ce;">&quot; : &quot;</span><span style="color:#a3be8c;">0xD9Cb531aB97A652c8fC60dcF6D263fcA2F5764e9</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">hasReturnData</span><span style="color:#c0c5ce;">&quot; : </span><span style="color:#d08770;">true </span><span style="color:#c0c5ce;">}
+</span></code></pre>
+<p>Or to be notified of any transactions submitted by this rpc client when they complete, with no further restrictions:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">filter = {}
+</span></code></pre>
+<p>After the request is received, the Ethereum node responds with a subscription ID:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{&quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x00000000000000000000000000000b0b</span><span style="color:#c0c5ce;">&quot;}
+</span></code></pre>
+<p>Suppose the caller then submits a transaction via <code>eth_sendTransaction</code> or <code>eth_sendRawTransaction</code> RPC request which has the transaction hash <code>&quot;0x00000000000000000000000000000000000000000000000000000000deadbeef&quot;</code>.  When the transaction is sealed (mined), the Ethereum node pushes a notification to the caller.  If the transaction is a method call on a contract, this will include the return value (eg. <code>&quot;0x000000000000000000000000000000000000000000000000000000000000002a&quot;</code>) of the called function:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">eth_subscription</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {
+    &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot;: {
+      &quot;</span><span style="color:#a3be8c;">transactionHash</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x00000000000000000000000000000000000000000000000000000000deadbeef</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">returnData</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x000000000000000000000000000000000000000000000000000000000000002a</span><span style="color:#c0c5ce;">&quot;
+    },
+    &quot;</span><span style="color:#a3be8c;">subscription</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x00000000000000000000000000000b0b</span><span style="color:#c0c5ce;">&quot;
+  }
+}
+</span></code></pre>
+<p>The caller receives notifications about their transactions in two cases: first when a transaction is sealed, and again (with an extra <code>&quot;removed&quot;: true</code> field) if a transaction is affected by a chain reorganization.  Notifications are sent to the client for all transactions submitted from the client that are sealed <em>after</em> subscribing.  If <code>from</code>, <code>to</code>, or <code>hasReturnData</code> is specified, then only those matching the filter criteria will generate notifications.  As with other subscriptions, the caller can send an <code>eth_unsubscribe</code> RPC request to stop receiving push notifications:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{&quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">eth_unsubscribe</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: [&quot;</span><span style="color:#a3be8c;">0x00000000000000000000000000000b0b</span><span style="color:#c0c5ce;">&quot;]}
+</span></code></pre><h3 id="polling">Polling</h3>
+<p>Push notifications require full duplex connections (i.e., websocket or IPC).  Instead of subscribing, callers using HTTP send an <code>eth_newCompletedTransactionFilter</code> request:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{&quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">eth_newCompletedTransactionFilter</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: [</span><span style="background-color:#bf616a;color:#2b303b;">filter</span><span style="color:#c0c5ce;">] }
+</span></code></pre>
+<p>The Ethereum node responds with a filter ID:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{&quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x1</span><span style="color:#c0c5ce;">&quot;}
+</span></code></pre>
+<p>When a transaction is submitted, the Ethereum node pushes the transaction notification, including return value, into a queue which is emptied when the caller polls using <code>eth_getFilterChanges</code>:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{&quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">eth_getFilterChanges</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: [&quot;</span><span style="color:#a3be8c;">0x1</span><span style="color:#c0c5ce;">&quot;]}
+</span></code></pre>
+<p>The node responds with an array of transaction hashes and their corresponding return data, in the order they were computed:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot;: [{
+    &quot;</span><span style="color:#a3be8c;">transactionHash</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x00000000000000000000000000000000000000000000000000000000deadbeef</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">returnData</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x000000000000000000000000000000000000000000000000000000000000002a</span><span style="color:#c0c5ce;">&quot;
+  }]
+}
+</span></code></pre>
+<p>All transactions that were sealed <em>after</em> the initial <code>eth_newCompletedTransactionFilter</code> request are included in this array.  Again, if the <code>filter</code> param is a non-empty dictionary (contains either <code>from</code>, <code>to</code>, or <code>hasReturnData</code>) then only transactions matching the filter criteria generate notifications.  Note that in the polling case, there is no way for the Ethereum node to be sure that an RPC client which submits a transaction was the same as the one who created the filter, so there is no restriction based on where the transaction was submitted.</p>
+<h2 id="rationale">Rationale</h2>
+<p><a href="https://eips.ethereum.com/EIPS/eip-658/">EIP 658</a> originally proposed adding return data to transaction receipts.  However, return data is not charged for (as it is not stored on the blockchain), so adding it to transaction receipts could result in DoS and spam opportunities.  Instead, a simple Boolean <code>status</code> field was added to transaction receipts.  This modified version of EIP 658 was included in the Byzantium hard fork.  While the <code>status</code> field is useful, applications often need the return data as well.</p>
+<p>The primary advantage of using the strategy outlined here is efficiency: no extra data needs to be stored on the blockchain, and minimal extra computational load is imposed on nodes.  Although after-the-fact lookups of the return value would not be supported, this is consistent with the conventional use of return data, which are only accessible to the caller when the function returns, and are not stored for later use.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2537: Precompile for BLS12-381 curve operations</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2537.md" />
+<meta property="og:title" content="EIP-2537: Precompile for BLS12-381 curve operations" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2537 (EIP-2537): Precompile for BLS12-381 curve operations"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2537 (EIP-2537): Precompile for BLS12-381 curve operations"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2537.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2537 (EIP 2537): Precompile for BLS12-381 curve operations" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2537: Precompile for BLS12-381 curve operations
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/shamatar">Alex Vlasov</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip2537-bls12-precompile-discussion-thread&#x2F;4187">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip2537-bls12-precompile-discussion-thread&#x2F;4187</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-02-21</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>This precompile adds operation on BLS12-381 curve as a precompile in a set necessary to <em>efficiently</em> perform operations such as BLS signature verification and perform SNARKs verifications.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>If <code>block.number &gt;= X</code> we introduce <em>nine</em> separate precompiles to perform the following operations:</p>
+<ul>
+<li>BLS12_G1ADD - to perform point addition on a curve defined over prime field</li>
+<li>BLS12_G1MUL - to perform point multiplication on a curve defined over prime field</li>
+<li>BLS12_G1MULTIEXP - to perform multiexponentiation on a curve defined over prime field</li>
+<li>BLS12_G2ADD - to perform point addition on a curve twist defined over quadratic extension of the base field</li>
+<li>BLS12_G2MUL - to perform point multiplication on a curve twist defined over quadratic extension of the base field</li>
+<li>BLS12_G2MULTIEXP - to perform multiexponentiation on a curve twist defined over quadratic extension of the base field</li>
+<li>BLS12_PAIRING - to perform a pairing operations between a set of <em>pairs</em> of (G1, G2) points</li>
+<li>BLS12_MAP_FP_TO_G1 - maps base field element into the G1 point</li>
+<li>BLS12_MAP_FP2_TO_G2 - maps extension field element into the G2 point</li>
+</ul>
+<p>Mapping functions are implemented according to <a href="https://github.com/cfrg/draft-irtf-cfrg-hash-to-curve/blob/master/draft-irtf-cfrg-hash-to-curve.md#deterministic-mappings-mappings">IEFT specification</a> version <code>v7</code>(!) using an simplified SWU method. It does NOT perform mapping of the byte string into field element that can be implemented in many different ways and can be efficiently performed in EVM, but only does field arithmetic to map field element into curve point. Such functionality is required for signature schemes.</p>
+<p>Multiexponentiation operation is included to efficiently aggregate public keys or individual signer's signatures during BLS signature verification.</p>
+<h3 id="proposed-addresses-table">Proposed addresses table</h3>
+<table><thead><tr><th>Precompile</th><th>Address</th></tr></thead><tbody>
+<tr><td>BLS12_G1ADD</td><td>0x0a</td></tr>
+<tr><td>BLS12_G1MUL</td><td>0x0b</td></tr>
+<tr><td>BLS12_G1MULTIEXP</td><td>0x0c</td></tr>
+<tr><td>BLS12_G2ADD</td><td>0x0d</td></tr>
+<tr><td>BLS12_G2MUL</td><td>0x0e</td></tr>
+<tr><td>BLS12_G2MULTIEXP</td><td>0x0f</td></tr>
+<tr><td>BLS12_PAIRING</td><td>0x10</td></tr>
+<tr><td>BLS12_MAP_FP_TO_G1</td><td>0x11</td></tr>
+<tr><td>BLS12_MAP_FP2_TO_G2</td><td>0x12</td></tr>
+</tbody></table>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>Motivation of this precompile is to add a cryptographic primitive that allows to get 120+ bits of security for operations over pairing friendly curve compared to the existing BN254 precompile that only provides 80 bits of security.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<p>Curve parameters:</p>
+<p>BLS12 curve is fully defined by the following set of parameters (coefficient <code>A=0</code> for all BLS12 curves):</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">Base field modulus = 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
+B coefficient = 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004
+Main subgroup order = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+Extension tower
+Fp2 construction:
+Fp quadratic non-residue = 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaaa
+Fp6/Fp12 construction:
+Fp2 cubic non-residue c0 = 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+Fp2 cubic non-residue c1 = 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+Twist parameters:
+Twist type: M
+B coefficient for twist c0 = 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004
+B coefficient for twist c1 = 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004
+Generators:
+G1:
+X = 0x17f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb
+Y = 0x08b3f481e3aaa0f1a09e30ed741d8ae4fcf5e095d5d00af600db18cb2c04b3edd03cc744a2888ae40caa232946c5e7e1
+G2:
+X c0 = 0x024aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb8
+X c1 = 0x13e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e
+Y c0 = 0x0ce5d527727d6e118cc9cdc6da2e351aadfd9baa8cbdd3a76d429a695160d12c923ac9cc3baca289e193548608b82801
+Y c1 = 0x0606c4a02ea734cc32acd2b02bc28b99cb3e287e85a763af267492ab572e99ab3f370d275cec1da1aaa9075ff05f79be
+Pairing parameters:
+|x| (miller loop scalar) = 0xd201000000010000
+x is negative = true
+</span></code></pre>
+<p>One should note that base field modulus is equal to <code>3 mod 4</code> that allows an efficient square root extraction, although as described below gas cost of decompression is larger than gas cost of supplying decompressed point data in <code>calldata</code>.</p>
+<h4 id="fine-points-and-encoding-of-base-elements">Fine points and encoding of base elements</h4>
+<h5 id="field-elements-encoding">Field elements encoding:</h5>
+<p>To encode points involved in the operation one has to encode elements of the base field and the extension field.</p>
+<p>Base field element (Fp) is encoded as <code>64</code> bytes by performing BigEndian encoding of the corresponding (unsigned) integer (top <code>16</code> bytes are always zeroes). <code>64</code> bytes are chosen to have <code>32</code> byte aligned ABI (representable as e.g. <code>bytes32[2]</code> or <code>uint256[2]</code>). Corresponding integer <strong>must</strong> be less than field modulus.</p>
+<p>For elements of the quadratic extension field (Fp2) encoding is byte concatenation of individual encoding of the coefficients totaling in <code>128</code> bytes for a total encoding. For an Fp2 element in a form <code>el = c0 + c1 * v</code> where <code>v</code> is formal quadratic non-residue and <code>c0</code> and <code>c1</code> are Fp elements the corresponding byte encoding will be <code>encode(c0) || encode(c1)</code> where <code>||</code> means byte concatenation (or one can use <code>bytes32[4]</code> or <code>uint256[4]</code> in terms of Solidity types).</p>
+<p><em>Note on the top <code>16</code> bytes being zero</em>: it's required that encoded element is &quot;in a field&quot; that means strictly <code>&lt; modulus</code>. In BigEndian encoding it automatically means that for a modulus that is just <code>381</code> bit long top <code>16</code> bytes in <code>64</code> bytes encoding are zeroes and it <strong>must</strong> be checked if only a subslice of input data is used for actual decoding.</p>
+<p>If encodings do not follow this spec anywhere during parsing in the precompile the precompile <em>must</em> return an error.</p>
+<h5 id="encoding-of-points-in-g1-g2">Encoding of points in G1/G2:</h5>
+<p>Points in either G1 (in base field) or in G2 (in extension field) are encoded as byte concatenation of encodings of the <code>x</code> and <code>y</code> affine coordinates. Total encoding length for G1 point is thus <code>128</code> bytes and for G2 point is <code>256</code> bytes.</p>
+<h5 id="point-of-infinity-encoding">Point of infinity encoding:</h5>
+<p>Also referred as &quot;zero point&quot;. For BLS12 curves point with coordinates <code>(0, 0)</code> (formal zeroes in Fp or Fp2) is <em>not</em> on the curve, so encoding of such point <code>(0, 0)</code> is used as a convention to encode point of infinity.</p>
+<h5 id="encoding-of-scalars-for-multiplication-operation">Encoding of scalars for multiplication operation:</h5>
+<p>Scalar for multiplication operation is encoded as <code>32</code> bytes by performing BigEndian encoding of the corresponding (unsigned) integer. Corresponding integer is <strong>not</strong> required to be less than or equal than main subgroup size.</p>
+<h5 id="behavior-on-empty-inputs">Behavior on empty inputs:</h5>
+<p>Certain operations have variable length input, such as multiexponentiations (takes a list of pairs <code>(point, scalar)</code>), or pairing (takes a list of <code>(G1, G2)</code> points). While their behavior is well-defined (from arithmetic perspective) on empty inputs, this EIP discourages such use cases and variable input length operations must return an error if input is empty. Also note special case of DDoS protection in <em>Error handling on the variable-length input</em> section below.</p>
+<h4 id="abi-for-operations">ABI for operations</h4>
+<h5 id="abi-for-g1-addition">ABI for G1 addition</h5>
+<p>G1 addition call expects <code>256</code> bytes as an input that is interpreted as byte concatenation of two G1 points (<code>128</code> bytes each). Output is an encoding of addition operation result - single G1 point (<code>128</code> bytes).</p>
+<p>Error cases:</p>
+<ul>
+<li>Either of points being not on the curve must result in error</li>
+<li>Field elements encoding rules apply (obviously)</li>
+<li>Input has invalid length</li>
+</ul>
+<h5 id="abi-for-g1-multiplication">ABI for G1 multiplication</h5>
+<p>G1 multiplication call expects <code>160</code> bytes as an input that is interpreted as byte concatenation of encoding of G1 point (<code>128</code> bytes) and encoding of a scalar value (<code>32</code> bytes). Output is an encoding of multiplication operation result - single G1 point (<code>128</code> bytes).</p>
+<p>Error cases:</p>
+<ul>
+<li>Point being not on the curve must result in error</li>
+<li>Field elements encoding rules apply (obviously)</li>
+<li>Input has invalid length</li>
+</ul>
+<h5 id="abi-for-g1-multiexponentiation">ABI for G1 multiexponentiation</h5>
+<p>G1 multiexponentiation call expects <code>160*k</code> bytes as an input that is interpreted as byte concatenation of <code>k</code> slices each of them being a byte concatenation of encoding of G1 point (<code>128</code> bytes) and encoding of a scalar value (<code>32</code> bytes). Output is an encoding of multiexponentiation operation result - single G1 point (<code>128</code> bytes).</p>
+<p>Error cases:</p>
+<ul>
+<li>Any of G1 points being not on the curve must result in error</li>
+<li>Field elements encoding rules apply (obviously)</li>
+<li>Input has invalid length</li>
+<li>Input is empty</li>
+</ul>
+<h5 id="abi-for-g2-addition">ABI for G2 addition</h5>
+<p>G2 addition call expects <code>512</code> bytes as an input that is interpreted as byte concatenation of two G2 points (<code>256</code> bytes each). Output is an encoding of addition operation result - single G2 point (<code>256</code> bytes).</p>
+<p>Error cases:</p>
+<ul>
+<li>Either of points being not on the curve must result in error</li>
+<li>Field elements encoding rules apply (obviously)</li>
+<li>Input has invalid length</li>
+</ul>
+<h5 id="abi-for-g2-multiplication">ABI for G2 multiplication</h5>
+<p>G2 multiplication call expects <code>288</code> bytes as an input that is interpreted as byte concatenation of encoding of G2 point (<code>256</code> bytes) and encoding of a scalar value (<code>32</code> bytes). Output is an encoding of multiplication operation result - single G2 point (<code>256</code> bytes).</p>
+<p>Error cases:</p>
+<ul>
+<li>Point being not on the curve must result in error</li>
+<li>Field elements encoding rules apply (obviously)</li>
+<li>Input has invalid length</li>
+</ul>
+<h5 id="abi-for-g2-multiexponentiation">ABI for G2 multiexponentiation</h5>
+<p>G2 multiexponentiation call expects <code>288*k</code> bytes as an input that is interpreted as byte concatenation of <code>k</code> slices each of them being a byte concatenation of encoding of G2 point (<code>256</code> bytes) and encoding of a scalar value (<code>32</code> bytes). Output is an encoding of multiexponentiation operation result - single G2 point (<code>256</code> bytes).</p>
+<p>Error cases:</p>
+<ul>
+<li>Any of G2 points being not on the curve must result in error</li>
+<li>Field elements encoding rules apply (obviously)</li>
+<li>Input has invalid length</li>
+<li>Input is empty</li>
+</ul>
+<h5 id="abi-for-pairing">ABI for pairing</h5>
+<p>Pairing call expects <code>384*k</code> bytes as an inputs that is interpreted as byte concatenation of <code>k</code> slices. Each slice has the following structure:</p>
+<ul>
+<li><code>128</code> bytes of G1 point encoding</li>
+<li><code>256</code> bytes of G2 point encoding</li>
+</ul>
+<p>Output is a <code>32</code> bytes where first <code>31</code> bytes are equal to <code>0x00</code> and the last byte is <code>0x01</code> if pairing result is equal to multiplicative identity in a pairing target field and <code>0x00</code> otherwise.</p>
+<p>Error cases:</p>
+<ul>
+<li>Any of G1 or G2 points being not on the curve must result in error</li>
+<li>Any of G1 or G2 points are not in the correct subgroup</li>
+<li>Field elements encoding rules apply (obviously)</li>
+<li>Input has invalid length</li>
+<li>Input is empty</li>
+</ul>
+<h5 id="abi-for-mapping-fp-element-to-g1-point">ABI for mapping Fp element to G1 point</h5>
+<p>Field-to-curve call expects <code>64</code> bytes an an input that is interpreted as a an element of the base field. Output of this call is <code>128</code> bytes and is G1 point following respective encoding rules.</p>
+<p>Error cases:</p>
+<ul>
+<li>Input has invalid length</li>
+<li>Input is not a valid field element</li>
+</ul>
+<h5 id="abi-for-mapping-fp2-element-to-g2-point">ABI for mapping Fp2 element to G2 point</h5>
+<p>Field-to-curve call expects <code>128</code> bytes an an input that is interpreted as a an element of the quadratic extension field. Output of this call is <code>256</code> bytes and is G2 point following respective encoding rules.</p>
+<p>Error cases:</p>
+<ul>
+<li>Input has invalid length</li>
+<li>Input is not a valid field element</li>
+</ul>
+<h4 id="gas-burinig-on-error">Gas burinig on error</h4>
+<p>Following the current state of all other precompiles if call to one of the precompiles in this EIP results in an error then all the gas supplied along with a <code>CALL</code> or <code>STATICCALL</code> is burned.</p>
+<h4 id="ddos-protection">DDoS protection</h4>
+<p>Sane implementation of this EIP <em>should not</em> contain infinite cycles (it is possible and not even hard to implement all the functionality without <code>while</code> cycles) and gas schedule accurately reflects a time spent on computations of the corresponding function (precompiles pricing reflects an amount of gas consumed in the worst case where such case exists).</p>
+<h4 id="gas-schedule">Gas schedule</h4>
+<p>Assuming a constant <code>30 MGas/second</code> following prices are suggested.</p>
+<h5 id="g1-addition">G1 addition</h5>
+<p><code>600</code> gas</p>
+<h5 id="g1-multiplication">G1 multiplication</h5>
+<p><code>12000</code> gas</p>
+<h5 id="g2-addition">G2 addition</h5>
+<p><code>4500</code> gas</p>
+<h5 id="g2-multiplication">G2 multiplication</h5>
+<p><code>55000</code> gas</p>
+<h5 id="g1-g2-multiexponentiation">G1/G2 Multiexponentiation</h5>
+<p>Multiexponentiations are expected to be performed by the Peppinger algorithm (we can also say that is <strong>must</strong> be performed by Peppinger algorithm to have a speedup that results in a discount over naive implementation by multiplying each pair separately and adding the results). For this case there was a table prepared for discount in case of <code>k &lt;= 128</code> points in the multiexponentiation with a discount cup <code>max_discount</code> for <code>k &gt; 128</code>.</p>
+<p>To avoid non-integer arithmetic call cost is calculated as <code>k * multiplication_cost * discount / multiplier</code> where <code>multiplier = 1000</code>, <code>k</code> is a number of (scalar, point) pairs for the call, <code>multiplication_cost</code> is a corresponding single multiplication call cost for G1/G2.</p>
+<p>Discounts table as a vector of pairs <code>[k, discount]</code>:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">[[1, 1200], [2, 888], [3, 764], [4, 641], [5, 594], [6, 547], [7, 500], [8, 453], [9, 438], [10, 423], [11, 408], [12, 394], [13, 379], [14, 364], [15, 349], [16, 334], [17, 330], [18, 326], [19, 322], [20, 318], [21, 314], [22, 310], [23, 306], [24, 302], [25, 298], [26, 294], [27, 289], [28, 285], [29, 281], [30, 277], [31, 273], [32, 269], [33, 268], [34, 266], [35, 265], [36, 263], [37, 262], [38, 260], [39, 259], [40, 257], [41, 256], [42, 254], [43, 253], [44, 251], [45, 250], [46, 248], [47, 247], [48, 245], [49, 244], [50, 242], [51, 241], [52, 239], [53, 238], [54, 236], [55, 235], [56, 233], [57, 232], [58, 231], [59, 229], [60, 228], [61, 226], [62, 225], [63, 223], [64, 222], [65, 221], [66, 220], [67, 219], [68, 219], [69, 218], [70, 217], [71, 216], [72, 216], [73, 215], [74, 214], [75, 213], [76, 213], [77, 212], [78, 211], [79, 211], [80, 210], [81, 209], [82, 208], [83, 208], [84, 207], [85, 206], [86, 205], [87, 205], [88, 204], [89, 203], [90, 202], [91, 202], [92, 201], [93, 200], [94, 199], [95, 199], [96, 198], [97, 197], [98, 196], [99, 196], [100, 195], [101, 194], [102, 193], [103, 193], [104, 192], [105, 191], [106, 191], [107, 190], [108, 189], [109, 188], [110, 188], [111, 187], [112, 186], [113, 185], [114, 185], [115, 184], [116, 183], [117, 182], [118, 182], [119, 181], [120, 180], [121, 179], [122, 179], [123, 178], [124, 177], [125, 176], [126, 176], [127, 175], [128, 174]]
+</span></code></pre>
+<p><code>max_discount = 174</code></p>
+<h5 id="pairing-operation">Pairing operation</h5>
+<p>Cost of the pairing operation is <code>23000*k + 115000</code> where <code>k</code> is a number of pairs.</p>
+<h5 id="fp-to-g1-mappign-operation">Fp-to-G1 mappign operation</h5>
+<p>Fp -&gt; G1 mapping is <code>5500</code> gas.</p>
+<h5 id="fp2-to-g2-mappign-operation">Fp2-to-G2 mappign operation</h5>
+<p>Fp2 -&gt; G2 mapping is <code>110000</code> gas</p>
+<h4 id="gas-schedule-clarifications-for-the-variable-length-input">Gas schedule clarifications for the variable-length input</h4>
+<p>For multiexponentiation and pairing functions gas cost depends on the input length. The current state of how gas schedule is implemented in major clients (at the time of writing) is that gas cost function does <em>not</em> perform any validation of the length of the input and never returns an error. So we present a list of rules how gas cost functions <strong>must</strong> be implemented to ensure consistency between clients and safety.</p>
+<h5 id="gas-schedule-clarifications-for-g1-g2-multiexponentiation">Gas schedule clarifications for G1/G2 Multiexponentiation</h5>
+<p>Define a constant <code>LEN_PER_PAIR</code> that is equal to <code>160</code> for G1 operation and to <code>288</code> for G2 operation. Define a function <code>discount(k)</code> following the rules in the corresponding section, where <code>k</code> is number of pairs.</p>
+<p>The following pseudofunction reflects how gas should be calculated:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">  k = floor(len(input) / LEN_PER_PAIR);
+  if k == 0 {
+    return 0;
+  }
+
+  gas_cost = k * multiplication_cost * discount(k) / multiplier;
+
+  return gas_cost;
+
+</span></code></pre>
+<p>We use floor division to get number of pairs. If length of the input is not divisible by <code>LEN_PER_PAIR</code> we still produce <em>some</em> result, but later on precompile will return an error. Also, case when <code>k = 0</code> is safe: <code>CALL</code> or <code>STATICCALL</code> cost is non-zero, and case with formal zero gas cost is already used in <code>Blake2f</code> precompile. In any case, main precompile routine <strong>must</strong> produce an error on such an input because it violated encoding rules.</p>
+<h5 id="gas-schedule-clarifications-for-pairing">Gas schedule clarifications for pairing</h5>
+<p>Define a constant <code>LEN_PER_PAIR = 384</code>;</p>
+<p>The following pseudofunction reflects how gas should be calculated:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">  k = floor(len(input) / LEN_PER_PAIR);
+
+  gas_cost = 23000*k + 115000;
+
+  return gas_cost;
+
+</span></code></pre>
+<p>We use floor division to get number of pairs. If length of the input is not divisible by <code>LEN_PER_PAIR</code> we still produce <em>some</em> result, but later on precompile will return an error (precompile routine <strong>must</strong> produce an error on such an input because it violated encoding rules).</p>
+<h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<p>Motivation section covers a total motivation to have operations over BLS12-381 curve available. We also extend a rationale for move specific fine points.</p>
+<h4 id="multiexponentiation-as-a-separate-call">Multiexponentiation as a separate call</h4>
+<p>Explicit separate multiexponentiation operation that allows one to save execution time (so gas) by both the algorithm used (namely Peppinger algorithm) and (usually forgotten) by the fact that <code>CALL</code> operation in Ethereum is expensive (at the time of writing), so one would have to pay non-negigible overhead if e.g. for multiexponentiation of <code>100</code> points would have to call the multipication precompile <code>100</code> times and addition for <code>99</code> times (roughly <code>138600</code> would be saved).</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<!--All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards compatibility treatise may be rejected outright.-->
+<p>There are no backward compatibility questions.</p>
+<h2 id="important-notes">Important notes</h2>
+<h3 id="subgroup-checks">Subgroup checks</h3>
+<p>Subgroup check <strong>is mandatory</strong> during the pairing call. Implementations <em>should</em> use fast subgroup checks: at the time of writing multiplication gas cost is based on <code>double-and-add</code> multiplication method that has a clear &quot;worst case&quot; (all bits are equal to one). For pairing operation it's expected that implementation uses faster subgroup check, e.g. by using wNAF multiplication method for elliptic curves that is ~ <code>40%</code> cheaper with windows size equal to 4. (Tested empirically. Savings are due to lower hamming weight of the group order and even lower hamming weight for wNAF. Concretely, subgroup check for both G1 and G2 points in a pair are around <code>35000</code> combined).</p>
+<h3 id="field-to-curve-mapping">Field to curve mapping</h3>
+<p>Set of parameters for SWU mapping method is provided by <a href="https://github.com/cfrg/draft-irtf-cfrg-hash-to-curve/blob/master/draft-irtf-cfrg-hash-to-curve.md#suites-for-bls12-381-suites-bls12381">IETF</a>. </p>
+<p>One should pay particular attention to the following fine points during implementation:</p>
+<ul>
+<li>SWU method <a href="https://github.com/cfrg/draft-irtf-cfrg-hash-to-curve/blob/master/draft-irtf-cfrg-hash-to-curve.md#simplified-swu-for-ab--0-simple-swu-ab0">itself</a></li>
+<li><a href="https://github.com/cfrg/draft-irtf-cfrg-hash-to-curve/blob/master/draft-irtf-cfrg-hash-to-curve.md#clearing-the-cofactor-cofactor-clearing">Cofactor cleanup</a></li>
+</ul>
+<p>Once again, <a href="https://github.com/cfrg/draft-irtf-cfrg-hash-to-curve/blob/master/draft-irtf-cfrg-hash-to-curve.md#hashing-to-a-finite-field-hashtofield">hash to field</a> is NOT a part of this EIP as it can be implemented in EVM and with different strategies.</p>
+<h2 id="test-cases">Test Cases</h2>
+<!--Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Other EIPs can choose to include links to test cases if applicable.-->
+<p>Due to the large test parameters space we first provide properties that various operations must satisfy. We use additive notation for point operations, capital letters (<code>P</code>, <code>Q</code>) for points, small letters (<code>a</code>, <code>b</code>) for scalars. Generator for G1 is labeled as <code>G</code>, generator for G2 is labeled as <code>H</code>, otherwise we assume random point on a curve in a correct subgroup. <code>0</code> means either scalar zero or point of infinity. <code>1</code> means either scalar one or multiplicative identity. <code>group_order</code> is a main subgroup order. <code>e(P, Q)</code> means pairing operation where <code>P</code> is in G1, <code>Q</code> is in G2. </p>
+<p>Requeired properties for basic ops (add/multiply):</p>
+<ul>
+<li>Commutativity: <code>P + Q = Q + P</code></li>
+<li>Additive negation: <code>P + (-P) = 0</code></li>
+<li>Doubling <code>P + P = 2*P</code></li>
+<li>Subgroup check: <code>group_order * P = 0</code></li>
+<li>Trivial multiplication check: <code>1 * P = P</code></li>
+<li>Multiplication by zero: <code>0 * P = 0</code></li>
+<li>Multiplication by the unnormalized scalar <code>(scalar + group_order) * P = scalar * P</code></li>
+</ul>
+<p>Required properties for pairing operation:</p>
+<ul>
+<li>Degeneracy <code>e(P, 0*Q) = e(0*P, Q) = 1</code> </li>
+<li>Bilinearity <code>e(a*P, b*Q) = e(a*b*P, Q) = e(P, a*b*Q)</code> (internal test, not visible through ABI)</li>
+</ul>
+<p>Test vector for all operations are expanded in this <code>csv</code> files in <a href="https://github.com/matter-labs/eip1962/tree/master/src/test/test_vectors/eip2537">repo</a>.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>There is a various choice of existing implementations of the curve operations. It may require extra work to add an ABI:</p>
+<ul>
+<li>BLS12-381 code bases for Eth 2.0 clients
+<ul>
+<li>Chia's library in <a href="https://github.com/Chia-Network/bls-signatures">C++</a></li>
+<li>Milagro in <a href="https://github.com/apache/incubator-milagro">various languages</a> </li>
+</ul>
+</li>
+<li>EIP1962 code bases with fixed parameters
+<ul>
+<li><a href="https://github.com/matter-labs/eip1962">Rust</a></li>
+<li><a href="https://github.com/kilic/eip2537">Go</a></li>
+<li><a href="https://github.com/matter-labs/eip1962_cpp">C++</a></li>
+</ul>
+</li>
+<li>Original implementation by zCash in <a href="https://github.com/zcash/librustzcash/tree/master/pairing">Rust</a></li>
+<li><a href="https://github.com/herumi/mcl">MCL library</a> and it's bindings in other languages</li>
+</ul>
+<h2 id="security-considerations">Security Considerations</h2>
+<!--All EIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life cycle of the proposal. E.g. include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. EIP submissions missing the "Security Considerations" section will be rejected. An EIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.-->
+<p>Strictly following the spec will eliminate security implications or consensus implications in a contrast to the previous BN254 precompile.</p>
+<p>Important topic is a &quot;constant time&quot; property for performed operations. We explicitly state that this precompile <strong>IS NOT REQUIRED</strong> to perform all the operations using constant time algorithms.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

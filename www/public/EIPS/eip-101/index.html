@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-101: Serenity Currency and Crypto Abstraction</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-101.md" />
+<meta property="og:title" content="EIP-101: Serenity Currency and Crypto Abstraction" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 101 (EIP-101): Serenity Currency and Crypto Abstraction"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 101 (EIP-101): Serenity Currency and Crypto Abstraction"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-101.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 101 (EIP 101): Serenity Currency and Crypto Abstraction" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-101: Serenity Currency and Crypto Abstraction
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:v@buterin.com">Vitalik Buterin</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2015-11-15</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h3 id="specification">Specification</h3>
+<ol>
+<li>Accounts now have only two fields in their RLP encoding: <strong>code</strong> and <strong>storage</strong>.</li>
+<li>Ether is no longer stored in account objects directly; instead, at address <code>0</code>, we premine a contract which contains all ether holdings. The <code>eth.getBalance</code> command in web3 is remapped appropriately.</li>
+<li><code>msg.value</code> no longer exists as an opcode.</li>
+<li>A transaction now only has four fields: <strong>to</strong>, <strong>startgas</strong>, <strong>data</strong> and <strong>code</strong>.</li>
+<li>Aside from an RLP validity check, and checking that the <strong>to</strong> field is twenty bytes long, the <strong>startgas</strong> is an integer, and <strong>code</strong> is either empty or hashes to the <strong>to</strong> address, there are no other validity constraints; anything goes. However, the block gas limit remains, so miners are disincentivized from including junk.</li>
+<li>Gas is charged for bytes in <strong>code</strong> at the same rate as <strong>data</strong>.</li>
+<li>When a transaction is sent, if the receiving account does not yet exist, the account is created, and its code is set to the code provided in the transaction; otherwise the code is ignored.</li>
+<li>A <code>tx.gas</code> opcode is added alongside the existing <code>msg.gas</code> at index <code>0x5c</code>; this new opcode allows the transaction to access the original amount of gas allotted for the transaction</li>
+</ol>
+<p>Note that <code>ECRECOVER</code>, sequence number/nonce incrementing and ether are now nowhere in the bottom-level spec (NOTE: ether is going to continue to have a privileged role in Casper PoS). To replicate existing functionality under the new model, we do the following.</p>
+<p>Simple user accounts can have the following default standardized code:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;"># We assume that data takes the following schema:
+# bytes 0-31: v (ECDSA sig)
+# bytes 32-63: r (ECDSA sig)
+# bytes 64-95: s (ECDSA sig)
+# bytes 96-127: sequence number (formerly called &quot;nonce&quot;)
+# bytes 128-159: gasprice
+# bytes 172-191: to
+# bytes 192+: data
+
+# Get the hash for transaction signing
+</span><span style="color:#c0c5ce;">~</span><span style="color:#bf616a;">mstore</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, msg.gas)
+~</span><span style="color:#bf616a;">calldatacopy</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">96</span><span style="color:#c0c5ce;">, ~</span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">() - </span><span style="color:#d08770;">96</span><span style="color:#c0c5ce;">)
+h = </span><span style="color:#bf616a;">sha3</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">96</span><span style="color:#c0c5ce;">, ~</span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">() - </span><span style="color:#d08770;">96</span><span style="color:#c0c5ce;">)
+</span><span style="color:#65737e;"># Call ECRECOVER contract to get the sender
+</span><span style="color:#c0c5ce;">~</span><span style="color:#bf616a;">call</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">5000</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">, [h, ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">), ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">), ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">64</span><span style="color:#c0c5ce;">)], </span><span style="color:#d08770;">128</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">ref</span><span style="color:#c0c5ce;">(addr), </span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">)
+</span><span style="color:#65737e;"># Check sender correctness
+</span><span style="color:#b48ead;">assert </span><span style="color:#c0c5ce;">addr == </span><span style="color:#d08770;">0x82a978b3f5962a5b0957d9ee9eef472ee55b42f1
+</span><span style="color:#65737e;"># Check sequence number correctness
+</span><span style="color:#b48ead;">assert </span><span style="color:#c0c5ce;">~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">96</span><span style="color:#c0c5ce;">) == </span><span style="color:#bf616a;">self</span><span style="color:#c0c5ce;">.storage[-</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">]
+</span><span style="color:#65737e;"># Increment sequence number
+</span><span style="color:#bf616a;">self</span><span style="color:#c0c5ce;">.storage[-</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">] += </span><span style="color:#d08770;">1
+</span><span style="color:#65737e;"># Make the sub-call and discard output
+</span><span style="color:#c0c5ce;">~</span><span style="color:#bf616a;">call</span><span style="color:#c0c5ce;">(msg.gas - </span><span style="color:#d08770;">50000</span><span style="color:#c0c5ce;">, ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">160</span><span style="color:#c0c5ce;">), </span><span style="color:#d08770;">192</span><span style="color:#c0c5ce;">, ~</span><span style="color:#bf616a;">calldatasize</span><span style="color:#c0c5ce;">() - </span><span style="color:#d08770;">192</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)
+</span><span style="color:#65737e;"># Pay for gas
+</span><span style="color:#c0c5ce;">~</span><span style="color:#bf616a;">call</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">40000</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, [</span><span style="color:#bf616a;">SEND</span><span style="color:#c0c5ce;">, block.coinbase, ~</span><span style="color:#bf616a;">calldataload</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">128</span><span style="color:#c0c5ce;">) * (tx.gas - msg.gas + </span><span style="color:#d08770;">50000</span><span style="color:#c0c5ce;">)], </span><span style="color:#d08770;">96</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">)
+</span></code></pre>
+<p>This essentially implements signature and nonce checking, and if both checks pass then it uses all remaining gas minus 50000 to send the actual desired call, and then finally pays for gas.</p>
+<p>Miners can follow the following algorithm upon receiving transactions:</p>
+<ol>
+<li>Run the code for a maximum of 50000 gas, stopping if they see an operation or call that threatens to go over this limit</li>
+<li>Upon seeing that operation, make sure that it leaves at last 50000 gas to spare (either by checking that the static gas consumption is small enough or by checking that it is a call with <code>msg.gas - 50000</code> as its gas limit parameter)</li>
+<li>Pattern-match to make sure that gas payment code at the end is <em>exactly</em> the same as in the code above.</li>
+</ol>
+<p>This process ensures that miners <em>waste</em> at most 50000 gas before knowing whether or not it will be worth their while to include the transaction, and is also highly general so users can experiment with new cryptography (eg. ed25519, Lamport), ring signatures, quasi-native multisig, etc. Theoretically, one can even create an account for which the <em>valid signature</em> type is a valid Merkle branch of a receipt, creating a quasi-native alarm clock.</p>
+<p>If someone wants to send a transaction with nonzero value, instead of the current <code>msg.sender</code> approach, we compile into a three step process:</p>
+<ol>
+<li>In the outer scope just before calling, call the ether contract to create a cheque for the desired amount</li>
+<li>In the inner scope, if a contract uses the <code>msg.value</code> opcode anywhere in the function that is being called, then we have the contract cash out the cheque at the start of the function call and store the amount cashed out in a standardized address in memory</li>
+<li>In the outer scope just after calling, send a message to the ether contract to disable the cheque if it has not yet been cashed</li>
+</ol>
+<h3 id="rationale">Rationale</h3>
+<p>This allows for a large increase in generality, particularly in a few
+areas:</p>
+<ol>
+<li>Cryptographic algorithms used to secure accounts (we could reasonably say that Ethereum is quantum-safe, as one is perfectly free to secure one's account with Lamport signatures). The nonce-incrementing approach is now also open to revision on the part of account holders, allowing for experimentation in k-parallelizable nonce techniques, UTXO schemes, etc.</li>
+<li>Moving ether up a level of abstraction, with the particular benefit of allowing ether and sub-tokens to be treated similarly by contracts</li>
+<li>Reducing the level of indirection required for custom-policy accounts such as multisigs</li>
+</ol>
+<p>It also substantially simplifies and <em>purifies</em> the underlying Ethereum protocol, reducing the minimal consensus implementation complexity.</p>
+<h3 id="implementation">Implementation</h3>
+<p>Coming soon.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

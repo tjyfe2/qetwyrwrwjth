@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1363: ERC-1363 Payable Token</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1363.md" />
+<meta property="og:title" content="EIP-1363: ERC-1363 Payable Token" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1363 (EIP-1363): ERC-1363 Payable Token"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1363 (EIP-1363): ERC-1363 Payable Token"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1363.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1363 (EIP 1363): ERC-1363 Payable Token" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1363: ERC-1363 Payable Token
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/vittominacori">Vittorio Minacori</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;eips&#x2F;issues&#x2F;1363">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;eips&#x2F;issues&#x2F;1363</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-01-31</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>20, 165</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Description of a <strong>Payable Token</strong> compatible with the ERC-20 definition. 
+Also description of a Token <strong>Receiver</strong> and/or <strong>Spender</strong> that accepts Payable Token payments.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The following describes standard functions a token contract and contracts working with specified token can implement to make a Token Payable.</p>
+<h2 id="motivation">Motivation</h2>
+<p>This proposal allows to implement an ERC-20 compatible token that can be used for payments.</p>
+<p>It defines <code>transferAndCall</code> and <code>transferFromAndCall</code> functions that will call an <code>onTransferReceived</code> on a <code>ERC1363Receiver</code> contract.
+It defines <code>approveAndCall</code> functions that will call an <code>onApprovalReceived</code> on a <code>ERC1363Spender</code> contract.</p>
+<p>This proposal is inspired by the ERC-721 <code>onERC721Received</code> and <code>ERC721TokenReceiver</code> behaviours. </p>
+<h2 id="specification">Specification</h2>
+<p>Every Payable Token compliant contract MUST implement the ERC-1363 interface other than ERC-20 and ERC-165 interfaces.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.6.0;
+
+
+interface ERC1363 /* is ERC20, ERC165 */ {
+  /*
+   * Note: the ERC-165 identifier for this interface is 0x4bbee2df.
+   * 0x4bbee2df ===
+   *   bytes4(keccak256(&#39;transferAndCall(address,uint256)&#39;)) ^
+   *   bytes4(keccak256(&#39;transferAndCall(address,uint256,bytes)&#39;)) ^
+   *   bytes4(keccak256(&#39;transferFromAndCall(address,address,uint256)&#39;)) ^
+   *   bytes4(keccak256(&#39;transferFromAndCall(address,address,uint256,bytes)&#39;))
+   */
+
+  /*
+   * Note: the ERC-165 identifier for this interface is 0xfb9ec8ce.
+   * 0xfb9ec8ce ===
+   *   bytes4(keccak256(&#39;approveAndCall(address,uint256)&#39;)) ^
+   *   bytes4(keccak256(&#39;approveAndCall(address,uint256,bytes)&#39;))
+   */
+
+  /**
+   * @notice Transfer tokens from `msg.sender` to another address and then call `onTransferReceived` on receiver
+   * @param to address The address which you want to transfer to
+   * @param value uint256 The amount of tokens to be transferred
+   * @return true unless throwing
+   */
+  function transferAndCall(address to, uint256 value) external returns (bool);
+
+  /**
+   * @notice Transfer tokens from `msg.sender` to another address and then call `onTransferReceived` on receiver
+   * @param to address The address which you want to transfer to
+   * @param value uint256 The amount of tokens to be transferred
+   * @param data bytes Additional data with no specified format, sent in call to `to`
+   * @return true unless throwing
+   */
+  function transferAndCall(address to, uint256 value, bytes memory data) external returns (bool);
+
+  /**
+   * @notice Transfer tokens from one address to another and then call `onTransferReceived` on receiver
+   * @param from address The address which you want to send tokens from
+   * @param to address The address which you want to transfer to
+   * @param value uint256 The amount of tokens to be transferred
+   * @return true unless throwing
+   */
+  function transferFromAndCall(address from, address to, uint256 value) external returns (bool);
+
+
+  /**
+   * @notice Transfer tokens from one address to another and then call `onTransferReceived` on receiver
+   * @param from address The address which you want to send tokens from
+   * @param to address The address which you want to transfer to
+   * @param value uint256 The amount of tokens to be transferred
+   * @param data bytes Additional data with no specified format, sent in call to `to`
+   * @return true unless throwing
+   */
+  function transferFromAndCall(address from, address to, uint256 value, bytes memory data) external returns (bool);
+
+  /**
+   * @notice Approve the passed address to spend the specified amount of tokens on behalf of msg.sender
+   * and then call `onApprovalReceived` on spender.
+   * Beware that changing an allowance with this method brings the risk that someone may use both the old
+   * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
+   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+   * @param spender address The address which will spend the funds
+   * @param value uint256 The amount of tokens to be spent
+   */
+  function approveAndCall(address spender, uint256 value) external returns (bool);
+
+  /**
+   * @notice Approve the passed address to spend the specified amount of tokens on behalf of msg.sender
+   * and then call `onApprovalReceived` on spender.
+   * Beware that changing an allowance with this method brings the risk that someone may use both the old
+   * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
+   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+   * @param spender address The address which will spend the funds
+   * @param value uint256 The amount of tokens to be spent
+   * @param data bytes Additional data with no specified format, sent in call to `spender`
+   */
+  function approveAndCall(address spender, uint256 value, bytes memory data) external returns (bool);
+}
+
+interface ERC20 {
+  function totalSupply() external view returns (uint256);
+  function balanceOf(address account) external view returns (uint256);
+  function transfer(address recipient, uint256 amount) external returns (bool);
+  function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+  function allowance(address owner, address spender) external view returns (uint256);
+  function approve(address spender, uint256 amount) external returns (bool);
+  event Transfer(address indexed from, address indexed to, uint256 value);
+  event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+interface ERC165 {
+  function supportsInterface(bytes4 interfaceId) external view returns (bool);
+}
+</span></code></pre>
+<p>A contract that wants to accept token payments via <code>transferAndCall</code> or <code>transferFromAndCall</code> MUST implement the following interface:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/**
+ * @title ERC1363Receiver interface
+ * @dev Interface for any contract that wants to support transferAndCall or transferFromAndCall
+ *  from ERC1363 token contracts.
+ */
+interface ERC1363Receiver {
+  /*
+   * Note: the ERC-165 identifier for this interface is 0x88a7ca5c.
+   * 0x88a7ca5c === bytes4(keccak256(&quot;onTransferReceived(address,address,uint256,bytes)&quot;))
+   */
+
+  /**
+   * @notice Handle the receipt of ERC1363 tokens
+   * @dev Any ERC1363 smart contract calls this function on the recipient
+   * after a `transfer` or a `transferFrom`. This function MAY throw to revert and reject the
+   * transfer. Return of other than the magic value MUST result in the
+   * transaction being reverted.
+   * Note: the token contract address is always the message sender.
+   * @param operator address The address which called `transferAndCall` or `transferFromAndCall` function
+   * @param from address The address which are token transferred from
+   * @param value uint256 The amount of tokens transferred
+   * @param data bytes Additional data with no specified format
+   * @return `bytes4(keccak256(&quot;onTransferReceived(address,address,uint256,bytes)&quot;))`
+   *  unless throwing
+   */
+  function onTransferReceived(address operator, address from, uint256 value, bytes memory data) external returns (bytes4);
+}
+</span></code></pre>
+<p>A contract that wants to accept token payments via <code>approveAndCall</code> MUST implement the following interface:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/**
+ * @title ERC1363Spender interface
+ * @dev Interface for any contract that wants to support approveAndCall
+ *  from ERC1363 token contracts.
+ */
+interface ERC1363Spender {
+  /*
+   * Note: the ERC-165 identifier for this interface is 0x7b04a2d0.
+   * 0x7b04a2d0 === bytes4(keccak256(&quot;onApprovalReceived(address,uint256,bytes)&quot;))
+   */
+
+  /**
+   * @notice Handle the approval of ERC1363 tokens
+   * @dev Any ERC1363 smart contract calls this function on the recipient
+   * after an `approve`. This function MAY throw to revert and reject the
+   * approval. Return of other than the magic value MUST result in the
+   * transaction being reverted.
+   * Note: the token contract address is always the message sender.
+   * @param owner address The address which called `approveAndCall` function
+   * @param value uint256 The amount of tokens to be spent
+   * @param data bytes Additional data with no specified format
+   * @return `bytes4(keccak256(&quot;onApprovalReceived(address,uint256,bytes)&quot;))`
+   *  unless throwing
+   */
+  function onApprovalReceived(address owner, uint256 value, bytes memory data) external returns (bytes4);
+}
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>There are many proposed uses of Ethereum smart contracts that can accept ERC-20 payments (i.e. to create a token payable crowdsale, selling services for tokens, paying invoices, making subscriptions, use them for a specific utility and many other purposes). </p>
+<p>This proposal wants to make token payments easier and working without the use of any other listener. It also allows to make a callback after a transfer in a single transaction.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This proposal is inspired also by ERC-223 and ERC-677 but it uses the ERC-721 approach so it doesn't override the ERC-20 <code>transfer</code> and <code>transferFrom</code> methods and defines the interfaces IDs to be implemented maintaining the ERC-20 backwards compatibility.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p><a href="https://github.com/vittominacori/erc1363-payable-token/tree/master/test">https://github.com/vittominacori/erc1363-payable-token/tree/master/test</a></p>
+<h2 id="implementation">Implementation</h2>
+<p><a href="https://github.com/vittominacori/erc1363-payable-token/tree/master/contracts/token/ERC1363">https://github.com/vittominacori/erc1363-payable-token/tree/master/contracts/token/ERC1363</a></p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

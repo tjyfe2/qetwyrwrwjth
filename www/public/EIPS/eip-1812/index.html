@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1812: Ethereum Verifiable Claims</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1812.md" />
+<meta property="og:title" content="EIP-1812: Ethereum Verifiable Claims" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1812 (EIP-1812): Ethereum Verifiable Claims"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1812 (EIP-1812): Ethereum Verifiable Claims"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1812.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1812 (EIP 1812): Ethereum Verifiable Claims" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1812: Ethereum Verifiable Claims
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/pelle">Pelle Braendgaard</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;erc-1812-ethereum-verifiable-claims&#x2F;2814">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;erc-1812-ethereum-verifiable-claims&#x2F;2814</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-03-03</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>712</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h1 id="ethereum-verifiable-claims">Ethereum Verifiable Claims</h1>
+<h2 id="simple-summary">Simple Summary</h2>
+<p>Reusable Verifiable Claims using <a href="https://eips.ethereum.org/EIPS/eip-712">EIP 712 Signed Typed Data</a>.</p>
+<h2 id="abstract">Abstract</h2>
+<p>A new method for Off-Chain Verifiable Claims built on <a href="https://eips.ethereum.org/EIPS/eip-712">EIP 712</a>. These Claims can be issued by any user with a EIP 712 compatible web3 provider. Claims can be stored off chain and verified on-chain by Solidity Smart Contracts, State Channel Implementations or off-chain libraries.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Reusable Off-Chain Verifiable Claims provide an important piece of integrating smart contracts with real world organizational requirements such as meeting regulatory requirements such as KYC, GDPR, Accredited Investor rules etc.</p>
+<p><a href="https://github.com/ethereum/EIPs/issues/735">ERC 735</a> and <a href="https://github.com/ethereum/EIPs/issues/780">ERC 780</a> provide methods of making claims that live on chain. This is useful for some particular use cases, where some claim about an address must be verified on chain. </p>
+<p>In most cases though it is both dangerous and in some cases illegal (according to EU GDPR rules for example) to record Identity Claims containing Personal Identifying Information (PII) on an immutable public database such as the Ethereum blockchain.</p>
+<p>The W3C <a href="https://www.w3.org/TR/verifiable-claims-data-model/">Verifiable Claims Data Model and Representations</a> as well as uPorts <a href="https://developer.uport.me/messages/verification">Verification Message Spec</a> are proposed off-chain solutions. </p>
+<p>While built on industry standards such as <a href="https://json-ld.org">JSON-LD</a> and <a href="https://jwt.io">JWT</a> neither of them are easy to integrate with the Ethereum ecosystem.</p>
+<p><a href="https://eips.ethereum.org/EIPS/eip-712">EIP 712</a> introduces a new method of signing off chain Identity data. This provides both a data format based on Solidity ABI encoding that can easily be parsed on-chain an a new JSON-RPC call that is easily supported by existing Ethereum wallets and Web3 clients.</p>
+<p>This format  allows reusable off-chain Verifiable Claims to be cheaply issued to users, who can present them when needed.</p>
+<h2 id="prior-art">Prior Art</h2>
+<p>Verified Identity Claims such as those proposed by <a href="https://developer.uport.me/messages/verification">uPort</a> and <a href="https://www.w3.org/2017/vc/WG/">W3C Verifiable Claims Working Group</a> form an important part of building up reusable identity claims.</p>
+<p><a href="https://github.com/ethereum/EIPs/issues/735">ERC 735</a> and <a href="https://github.com/ethereum/EIPs/issues/780">ERC 780</a> provide on-chain storage and lookups of Verifiable Claims.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="claims">Claims</h3>
+<p>Claims can be generalized like this:</p>
+<blockquote>
+<p>Issuer makes the claim that Subject is something or has some attribute and value.</p>
+</blockquote>
+<p>Claims should be deterministic, in that the same claim signed multiple times by the same signer.</p>
+<h3 id="claims-data-structure">Claims data structure</h3>
+<p>Each claim should be typed based on its specific use case, which EIP 712 lets us do effortlessly. But there are 3 minimal attributes required of the claims structure.</p>
+<ul>
+<li><code>subject</code> the subject of the claim as an <code>address</code> (who the claim is about)</li>
+<li><code>validFrom</code> the time in seconds encoded as a <code>uint256</code> of start of validity of claim. In most cases this would be the time of issuance, but some claims may be valid in the future or past.</li>
+<li><code>validTo</code> the time in seconds encoded as a <code>uint256</code> of when the validity of  the claim expires. If you intend for the claim not to expire use <code>0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</code>.</li>
+</ul>
+<p>The basic minimal claim data structure as a Solidity struct:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct [CLAIM TYPE] {
+	address subject;
+	uint256 validFrom;
+	uint256 validTo;
+}
+</span></code></pre>
+<p>The CLAIM TYPE is the actual name of the claim. While not required, in most cases use the taxonomy developed by <a href="https://schema.org/docs/full.html">schema.org</a> which is also commonly used in other Verifiable Claims formats.</p>
+<p>Example claim that issuer knows a subject:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct Know {
+	address subject;
+	uint256 validFrom;
+	uint256 validTo;
+}
+</span></code></pre><h3 id="presenting-a-verifiable-claim">Presenting a Verifiable Claim</h3>
+<h4 id="verifying-contract">Verifying Contract</h4>
+<p>When defining Verifiable Claims formats a Verifying Contract should be created with a public <code>verify()</code>  view function. This makes it very easy for other smart contracts to verify a claim correctly. </p>
+<p>It also provides a convenient interface for web3 and state channel apps to verify claims securely.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function verifyIssuer(Know memory claim, uint8 v, bytes32 r, bytes32 s) public returns (address) {
+	bytes32 digest = keccak256(
+	  abi.encodePacked(
+	    &quot;\x19\x01&quot;,
+	    DOMAIN_SEPARATOR,
+	    hash(claim)
+	  )
+	);
+	require(
+		(claim.validFrom &gt;= block.timestamp) &amp;&amp; (block.timestamp &lt; claim.validTo)
+, &quot;invalid issuance timestamps&quot;);
+	return ecrecover(digest, v, r, s);
+}
+</span></code></pre><h4 id="calling-a-smartcontract-function">Calling a SmartContract function</h4>
+<p>Verifiable Claims can be presented to a solidity function call as it’s struct together with the <code>v</code>, <code>r</code> and <code>s</code> signature components.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function vouch(Know memory claim, uint8 v, bytes32 r, bytes32 s) public returns (bool) {
+	address issuer = verifier.verifyIssuer(claim, v, r, s);
+	require(issuer !== &#39;0x0&#39;);
+	knows[issuer][claim.subject] = block.number;
+	return true;
+}
+</span></code></pre><h4 id="embedding-a-verifiable-claim-in-another-signed-typed-data-structure">Embedding a Verifiable Claim in another Signed Typed Data  structure</h4>
+<p>The Claim struct should be embedded in another struct together with the <code>v</code>, <code>r</code> and <code>s</code> signature parameters.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct Know {
+	address subject;
+	uint256 validFrom;
+	uint256 validTo;
+}
+
+struct VerifiableReference {
+	Know delegate;
+	uint8 v;
+	bytes32 r;
+	bytes32 s;
+}
+
+struct Introduction {
+	address recipient;
+	VerifiableReference issuer;
+}
+</span></code></pre>
+<p>Each Verifiable Claim should be individually verified  together with the parent Signed Typed Data structure.</p>
+<p>Verifiable Claims issued to different EIP 712 Domains can be embedded within each other.</p>
+<h4 id="state-channels">State Channels</h4>
+<p>This proposal will not show how to use Eth Verifiable Claims  as part of a specific State Channel method.</p>
+<p>Any State Channel based on EIP712 should be able to include the embeddable Verifiable Claims as part of its protocol. This could be useful for exchanging private Identity Claims between the parties for regulatory reasons, while ultimately not posting them to the blockchain on conclusion of a channel.</p>
+<h3 id="key-delegation">Key Delegation</h3>
+<p>In most simple cases the issuer of a Claim is the signer of the data. There are cases however where signing should be delegated to an intermediary key.</p>
+<p>KeyDelegation can be used to implement off chain signing for smart contract based addresses, server side key rotation as well as employee permissions in complex  business use cases.</p>
+<h4 id="erc1056-signing-delegation">ERC1056 Signing Delegation</h4>
+<p><a href="https://github.com/ethereum/EIPs/issues/1056">ERC-1056</a> provides a method for addresses to assign delegate signers. One of the primary use cases for this is that a smart contract can allow a key pair to sign on its behalf for a certain period. It also allows server based issuance tools to institute key rotation.</p>
+<p>To support this an additional <code>issuer</code> attribute can be added to the Claim Type struct. In this case the verification code should lookup the EthereumDIDRegistry to see if the signer of the data is an allowed signing delegate for the <code>issuer</code></p>
+<p>The following is the minimal struct for a Claim containing an issuer:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct [CLAIM TYPE] {
+	address subject;
+  address issuer;
+	uint256 validFrom;
+	uint256 validTo;
+}
+</span></code></pre>
+<p>If the <code>issuer</code> is specified in the struct In addition to performing the standard ERC712 verification the verification code MUST also verify that the signing address is a valid <code>veriKey</code> delegate for the address specified in the issuer.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">registry.validDelegate(issuer, &#39;veriKey&#39;, recoveredAddress)
+</span></code></pre><h4 id="embedded-delegation-proof">Embedded Delegation Proof</h4>
+<p>There may be applications, in particularly where organizations want to allow delegates to issue claims about specific domains and types.</p>
+<p>For this purpose instead of the <code>issuer</code> we allow a special claim to be embedded following this same format:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct Delegate {
+	address issuer;
+	address subject;
+	uint256 validFrom;
+	uint256 validTo;
+}
+
+struct VerifiableDelegate {
+	Delegate delegate;
+	uint8 v;
+	bytes32 r;
+	bytes32 s;
+}
+
+
+struct [CLAIM TYPE] {
+	address subject;
+	VerifiedDelegate issuer;
+	uint256 validFrom;
+	uint256 validTo;
+}
+</span></code></pre>
+<p>Delegates should be created for specific EIP 712 Domains and not be reused across Domains.</p>
+<p>Implementers of new EIP 712 Domains can add further data to the <code>Delegate</code> struct to allow finer grained application specific rules to it.</p>
+<h3 id="claim-types">Claim Types</h3>
+<h4 id="binary-claims">Binary Claims</h4>
+<p>A Binary claim is something that doesn’t have a particular value. It either is issued or not.</p>
+<p>Examples:</p>
+<ul>
+<li>subject is a Person</li>
+<li>subject is my owner (eg. Linking an ethereum account to an owner identity)</li>
+</ul>
+<p>Example:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct Person {
+	address issuer;
+	address subject;
+	uint256 validFrom;
+	uint256 validTo;
+}
+</span></code></pre>
+<p>This is exactly the same as the minimal claim above with the CLAIM TYPE set to <a href="https://schema.org/Person">Person</a>.</p>
+<h3 id="value-claims">Value Claims</h3>
+<p>Value claims can be used to make a claim about the subject containing a specific readable value.</p>
+<p><strong>WARNING</strong>: Be very careful about  using Value Claims  as part of Smart Contract transactions. Identity Claims containing values could be a GDPR violation for the business or developer encouraging a user to post it to a public blockchain.</p>
+<p>Examples:</p>
+<ul>
+<li>subject’s name is Alice</li>
+<li>subjects average account balance is 1234555</li>
+</ul>
+<p>Each value should use the <code>value</code> field to indicate the value.</p>
+<p>A Name Claim</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct Name {
+	address issuer;
+	address subject;
+	string name;
+	uint256 validFrom;
+	uint256 validTo;
+}
+</span></code></pre>
+<p>Average Balance</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct AverageBalance {
+	address issuer;
+	address subject;
+	uint256 value;
+	uint256 validFrom;
+	uint256 validTo;
+}
+</span></code></pre><h3 id="hashed-claims">Hashed Claims</h3>
+<p>Hashed claims can be used to make a claim about the subject containing the hash of a claim value. Hashes should use ethereum standard <code>keccak256</code> hashing function.</p>
+<p><strong>WARNING</strong>: Be very careful about  using Hashed Claims  as part of Smart Contract transactions. Identity Claims containing hashes of known values could be a GDPR violation for the business or developer encouraging a user to post it to a public blockchain.</p>
+<p>Examples:</p>
+<ul>
+<li>[ ] hash of subject’s name is <code>keccak256(“Alice Torres”)</code></li>
+<li>[ ] hash of subject’s email is <code>keccak256(“alice@example.com”)</code></li>
+</ul>
+<p>Each value should use the <code>keccak256 </code> field to indicate the hashed value. Question. The choice of using this name  is that we can easily add support for future algorithms as well as maybe zkSnark proofs.</p>
+<p>A Name Claim</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct Name {
+	address issuer;
+	address subject;
+	bytes32 keccak256;
+	uint256 validFrom;
+	uint256 validTo;
+}
+</span></code></pre>
+<p>Email Claim</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct Email {
+	address issuer;
+	address subject;
+	bytes32 keccak256;
+	uint256 validFrom;
+	uint256 validTo;
+}
+</span></code></pre><h3 id="eip-712-domain">EIP 712 Domain</h3>
+<p>The EIP 712 Domain specifies what kind of message that is to be signed and is used to differentiate between signed data types. The content MUST contain the following:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  name: &quot;EIP1???Claim&quot;,
+  version: 1,
+  chainId: 1, // for mainnet
+  verifyingContract: 0x // TBD
+  salt: ...
+}
+</span></code></pre><h4 id="full-combined-format-for-eip-712-signing">Full Combined format for EIP 712 signing:</h4>
+<p>Following the EIP 712 standard we can combine the Claim Type with the EIP 712 Domain and the claim itself (in the <code>message</code>)  attribute.</p>
+<p>Eg:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">  {
+    &quot;types&quot;: {
+      &quot;EIP712Domain&quot;: [
+        {
+          &quot;name&quot;: &quot;name&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;name&quot;: &quot;version&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;name&quot;: &quot;chainId&quot;,
+          &quot;type&quot;: &quot;uint256&quot;
+        },
+        {
+          &quot;name&quot;: &quot;verifyingContract&quot;,
+          &quot;type&quot;: &quot;address&quot;
+        }
+      ],
+      &quot;Email&quot;: [
+        { 
+          &quot;name&quot;: &quot;subject&quot;,
+          &quot;type&quot;: &quot;address&quot;
+        },
+        {
+          &quot;name&quot;: &quot;keccak256&quot;,
+          &quot;type&quot;: &quot;bytes32&quot;
+        },
+        {
+          &quot;name&quot;: &quot;validFrom&quot;,
+          &quot;type&quot;: &quot;uint256&quot;
+        },
+        {
+          &quot;name&quot;: &quot;validTo&quot;,
+          &quot;type&quot;: &quot;uint256&quot;
+        }
+      ]
+    },
+    &quot;primaryType&quot;: &quot;Email&quot;,
+    &quot;domain&quot;: {
+      &quot;name&quot;: &quot;EIP1??? Claim&quot;,
+      &quot;version&quot;: &quot;1&quot;,
+      &quot;chainId&quot;: 1,
+      &quot;verifyingContract&quot;: &quot;0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC&quot;
+    },
+    &quot;message&quot;: {
+      &quot;subject&quot;: &quot;0x5792e817336f41de1d8f54feab4bc200624a1d9d&quot;,
+      &quot;value&quot;: &quot;9c8465d9ae0b0bc167dee7f62880034f59313100a638dcc86a901956ea52e280&quot;,
+      &quot;validFrom&quot;: &quot;0x0000000000000000000000000000000000000000000000000001644b74c2a0&quot;,
+      &quot;validTo&quot;: &quot;0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff&quot;
+    }
+  }
+</span></code></pre><h3 id="revocation">Revocation</h3>
+<p>Both Issuers and Subjects should be allowed to revoke Verifiable Claims. Revocations can be handled through a simple on-chain registry. </p>
+<p>The ultimate rules of who should be able to revoke a claim is determined by the Verifying contract.</p>
+<p>The <code>digest</code> used for revocation is the EIP712 Signed Typed Data digest.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract RevocationRegistry {
+  mapping (bytes32 =&gt; mapping (address =&gt; uint)) public revocations;
+
+  function revoke(bytes32 digest) public returns (bool) {
+    revocations[digest][msg.sender] = block.number;
+    return true;
+  }
+
+  function revoked(address party, bytes32 digest) public view returns (bool) {
+    return revocations[digest][party] &gt; 0;
+  }
+}
+</span></code></pre>
+<p>A verifying contract can query the Revocation Registry as such:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">bytes32 digest = keccak256(
+  abi.encodePacked(
+    &quot;\x19\x01&quot;,
+    DOMAIN_SEPARATOR,
+    hash(claim)
+  )
+);
+require(valid(claim.validFrom, claim.validTo), &quot;invalid issuance timestamps&quot;);
+address issuer = ecrecover(digest, v, r, s);
+require(!revocations.revoked(issuer, digest), &quot;claim was revoked by issuer&quot;);
+require(!revocations.revoked(claim.subject, digest), &quot;claim was revoked by subject&quot;);
+</span></code></pre><h3 id="creation-of-verifiable-claims-domains">Creation of Verifiable Claims Domains</h3>
+<p>Creating specific is Verifiable Claims Domains is out of the scope of this EIP.   The Example Code has a few examples.</p>
+<p>EIP’s or another process could be used to standardize specific important Domains that are universally useful across the Ethereum world.</p>
+<h2 id="rationale">Rationale</h2>
+<p>Signed Typed Data provides a strong foundation for Verifiable Claims that can be used in many different kinds of applications built on both Layer 1 and Layer 2 of Ethereum.</p>
+<h3 id="rationale-for-using-not-using-a-single-eip-712-domain">Rationale for using not using a single EIP 712 Domain</h3>
+<p>EIP712 supports complex types and domains in itself, that we believe are perfect building blocks for building Verifiable Claims for specific purposes.</p>
+<p>The Type and Domain of a Claim is itself an important part of a claim and ensures that Verifiable Claims are used for the specific purposes required and not misused.</p>
+<p>EIP712 Domains also allow rapid experimentation, allowing taxonomies to be built up by the community.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>There is a repo with a few example verifiers and consuming smart contracts written in Solidity:</p>
+<p><strong>Example Verifiers</strong></p>
+<ul>
+<li><a href="https://github.com/uport-project/eip712-claims-experiments/blob/master/contracts/IdentityClaimsVerifier.sol">Verifier for very simple IdVerification Verifiable Claims containing minimal Personal Data</a></li>
+<li><a href="https://github.com/uport-project/eip712-claims-experiments/blob/master/contracts/OwnershipProofVerifier.sol">Verifier for OwnershipProofs signed by a users wallet</a></li>
+</ul>
+<p><strong>Example Smart Contracts</strong></p>
+<ul>
+<li><a href="https://github.com/uport-project/eip712-claims-experiments/blob/master/contracts/KYCCoin.sol">KYCCoin.sol</a> - Example Token allows reusable IdVerification claims issued by trusted verifiers and users to whitelist their own addresses using OwnershipProofs</li>
+<li><a href="https://github.com/uport-project/eip712-claims-experiments/blob/master/contracts/ConsortiumAgreements.sol">ConsortiumAgreement.sol</a> - Example Consortium Agreement smart contract. Consortium Members can issue Delegated Claims to employees or servers to interact on their behalf.</li>
+</ul>
+<p><strong>Shared Registries</strong></p>
+<ul>
+<li><a href="https://github.com/uport-project/eip712-claims-experiments/blob/master/contracts/RevocationRegistry.sol">RevocationRegistry.sol</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2848: My Own Messages (MOM)</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2848.md" />
+<meta property="og:title" content="EIP-2848: My Own Messages (MOM)" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2848 (EIP-2848): My Own Messages (MOM)"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2848 (EIP-2848): My Own Messages (MOM)"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2848.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2848 (EIP 2848): My Own Messages (MOM)" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2848: My Own Messages (MOM)
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/Neurone">Giuseppe Bertone</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;InternetOfPeers&#x2F;EIPs&#x2F;issues&#x2F;1">https:&#x2F;&#x2F;github.com&#x2F;InternetOfPeers&#x2F;EIPs&#x2F;issues&#x2F;1</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-08-02</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>My Own Messages (MOM) is a standard to create your very own public, always updated, unstoppable, verifiable, message board.</p>
+<h2 id="abstract">Abstract</h2>
+<p>My Own Messages (MOM) use Ethereum as a certification layer for commands and multihash of your messages. It don't use smart contracts but simple self-send transactions with specific payload attached.</p>
+<h2 id="motivation">Motivation</h2>
+<p><em>Note: contents are all here but I'm trying to improve this section to be clearer</em></p>
+<p>As a <em>developer</em> or <em>pool's owner</em>, I'd like to send messages to my users in a decentralized way. They must be able to easily verify my role in the smart contract context (owner, user, and so on) and they must be able to do it without relying on external, insecure and hackable social media sites (Facebook, Twitter, you name it). Also, I'd like to read messages from my userbase, in the same secure and verifiable manner.</p>
+<p>As a <em>user</em>, I want a method to easily share my thoughts and idea, publish content, send messages, receive feedback, receive tips, and so on, without dealing with any complexity: just write a message, send it and it's done. Also, I want to write to some smart contract's owner or to the sender of some transaction.</p>
+<p>As an <em>explorer service</em>, I want to give my users an effective way to read information by smart contract owners and a place to share ideas and information without using third party services (i.e. Etherscan uses Disqus, and so on)</p>
+<p>And in <em>any role</em>, I want a method that does not allow scams - transactions without values, no smart contract's address to remember or to fake - and it does not allow spam - it's cheap but not free, and even if you can link/refer other accounts, you cannot send them messages directly, and others must explicitly follow and listen to your transactions if they want to read your messages.</p>
+<p>Main advantages:</p>
+<ul>
+<li>You can send messages to users of your ÐApp or Smart Contract, and they always know it is a voice reliable as the smart contract is.</li>
+<li>Create your Ethereum account dedicated to your personal messages, say something only once and it can be seen on every social platform (no more reply of the same post/opinion on dozens of sites like Reddit, Twitter, Facebook, Medium, Disqus, and so on...)</li>
+<li>Small fee to be free: pay just few cents of dollar to notarize your messages, and distribute them with IPFS, Swarm or any other storage you prefer. Because the multihash of the content is notarized, you can always check the integrity of the message you download even from centralized storage services.</li>
+<li>Finally, you can ask and get tips for your words directly into your wallet.</li>
+</ul>
+<p>I know, My Own Messages (MOM) sounds like <em>mom</em>. And yes, pun intended :)</p>
+<h2 id="specification">Specification</h2>
+<p>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a> when, and only when, they appear in all capitals as shown here.</p>
+<p>Clients following MOM standard <strong>MUST</strong> allow users to send and to read MOM transaction, creating an <em>updated message list</em> for each address the users are interested in.</p>
+<p>Reading MOM transactions, MOM clients <strong>MUST</strong> be able to show the current and updated message list, and they <strong>SHOULD</strong> be able to show also all the message history if users ask for it.</p>
+<p>Apart from message list, MOM clients <strong>SHOULD</strong> be able to download the content of the messages and to show them to the user.</p>
+<p>Clients <strong>SHOULD</strong> allow users to choose and set the source to download content from, and they <strong>SHOULD</strong> be able to use common Content Addressable Networks - i.e. IPFS or Swarm - or HTTP servers. If content is downloaded from HTTP servers, clients <strong>MUST</strong> check the content against the declared multihash.</p>
+<p>As the default setting, clients <strong>MUST</strong> consider <code>text/markdown</code> (<a href="https://www.ietf.org/rfc/rfc7763.txt">RFC 7763</a>) as the media type of the content represented by a multihash, and in particular <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> text in <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> without <a href="https://en.wikipedia.org/wiki/Byte_order_mark">BOM</a>.</p>
+<p>Clients <strong>MAY</strong> let users choose to parse messages considering other content types. In this case they <strong>SHOULD</strong> cast a warning to users stating that a content type other than <code>text/markdown</code> is used while processing messages.</p>
+<p>It's <strong>RECOMMENDED</strong> that clients inform users about the actual setting of the default content type.</p>
+<h3 id="mom-transactions">MOM transactions</h3>
+<p>Clients <strong>MUST</strong> assume that <strong>invalid MOM transactions don't exist</strong>. If a transaction does not strictly follow the MOM standard, clients <strong>MUST</strong> ignore it and they <strong>MUST NOT</strong> consider it a MOM transaction at all.</p>
+<p>Because there can be security implications parsing data sent by users, clients <strong>SHOULD NOT</strong> try to keep track or interpret transactions as <em>invalid</em> MOM transactions.</p>
+<h4 id="valid-mom-transaction-s-data-structure">Valid MOM transaction's data structure</h4>
+<table><thead><tr><th align="left">ATTRIBUTE</th><th align="left">VALUE</th></tr></thead><tbody>
+<tr><td align="left"><code>to</code></td><td align="left"><strong>MUST</strong> be the same account signing the transaction.</td></tr>
+<tr><td align="left"><code>value</code></td><td align="left"><strong>MUST</strong> be <code>0</code> wei.</td></tr>
+<tr><td align="left"><code>data</code></td><td align="left"><strong>MUST</strong> be at least <code>2</code> bytes. The first byte <strong>MUST</strong> be operational code and following bytes <strong>MUST</strong> be based on the operational codes listed below.</td></tr>
+</tbody></table>
+<h4 id="list-of-supported-operations-and-messages">List of supported operations and messages</h4>
+<p>Each operational code has one or more parameters, and all parameters <strong>MUST</strong> be considered mandatory.</p>
+<p>Optional parameters don't exist: if parameters for the specific operational code are not all present or they don't follow the rules, clients <strong>MUST</strong> ignore the transaction completely.</p>
+<p>Messages <strong>MUST</strong> be always referenced with the multihash of their content.</p>
+<p>Operations are divided into two sets: <strong>CORE</strong> and <strong>EXTENDED</strong> operations. </p>
+<ul>
+<li>Clients <strong>MUST</strong> support all core operations and they <strong>SHOULD</strong> support as much extended operations as possible.</li>
+<li>Clients <strong>SHOULD</strong> support and implement as much extended operations as possible, but they <strong>MAY</strong> choose to implement only some specific extended operations they are interested in.</li>
+</ul>
+<h4 id="core-operations">Core operations</h4>
+<table><thead><tr><th>OPERATION</th><th align="center">CODE</th><th>PARAMETERS</th><th>MEANING</th><th>EFFECT</th></tr></thead><tbody>
+<tr><td>ADD</td><td align="center"><code>0x00</code></td><td>multihash</td><td>Add a message. The parameter <strong>MUST</strong> be the multihash of the message.</td><td>Clients <strong>MUST</strong> add the message to the message list of the sender.</td></tr>
+<tr><td>UPDATE</td><td align="center"><code>0x01</code></td><td>multihash, multihash</td><td>Update a message. The first parameter <strong>MUST</strong> be the multihash of the message to be updated. The second parameter <strong>MUST</strong> be the multihash of the updated message.</td><td>Clients <strong>MUST</strong> update the message list to show the updated message.</td></tr>
+<tr><td>REPLY</td><td align="center"><code>0x02</code></td><td>multihash, multihash</td><td>Reply to a message. The first parameter <strong>MUST</strong> be the multihash of the message to reply to. The second parameter <strong>MUST</strong> the multihash of the message.</td><td>Clients <strong>MUST</strong> insert a new message in the message list and they <strong>MUST</strong> preserve the relationship with the referenced message.</td></tr>
+<tr><td>DELETE</td><td align="center"><code>0x03</code></td><td>multihash</td><td>Delete a message. The parameter <strong>MUST</strong> be the multihash of the message to delete.</td><td>Clients <strong>MUST</strong> remove the message from the message list.</td></tr>
+<tr><td>CLOSE ACCOUNT</td><td align="center"><code>0xFD</code></td><td>multihash</td><td>Close an account. The parameter <strong>MUST</strong> be the multihash of the message with the motivations for closing the account.</td><td>Clients <strong>MUST</strong> add the message with motivations to the message list and they <strong>MUST NOT</strong> consider MOM messages sent by that address to be valid anymore, ever. In other words, MOM clients <strong>MUST</strong> ignore any other transaction sent by that address while creating the message list. This is useful when users want to change account, for example because the private key seems compromised.</td></tr>
+<tr><td>RAW</td><td align="center"><code>0xFF</code></td><td>any</td><td>The parameter <strong>MUST</strong> be at least <code>1</code> byte. Content type is not disclosed and it <strong>MUST NOT</strong> be considered as <code>text/markdown</code>.</td><td>Clients <strong>MUST</strong> add the message to the message list but they <strong>MUST NOT</strong> try to decode the content. Clients <strong>SHOULD</strong> allow users to see this message only if explicitly asked for. This operation can be used for <em>blind</em> notarization that general client can ignore.</td></tr>
+</tbody></table>
+<h4 id="note-about-delete-operational-code">Note about <code>DELETE</code> operational code</h4>
+<p>Please note that sending a <code>DELETE</code> command users are not asking to actually delete anything from the blockchain, they are just asking clients to hide that specific message because it's not valid anymore for some reasons. You can think of it like if users say: <em>I changed my mind so please ÐApps don't show this anymore</em>. As already stated in the specifications above, clients <strong>MUST</strong> follow this request by the author, unless expressly asked otherwise by the user. </p>
+<p>Please also note that, because it's usually up to the author of a message to be sure the content is available to everyone, if a <code>DELETE</code> message was sent it's very likely the content referenced by the multihash isn't available anymore, simply because probably it's not shared by anyone.</p>
+<h4 id="extended-operations">Extended operations</h4>
+<table><thead><tr><th>OPERATION</th><th align="center">CODE</th><th>PARAMETERS</th><th>MEANING</th><th>EFFECT</th></tr></thead><tbody>
+<tr><td>ADD &amp; REFER</td><td align="center"><code>0x04</code></td><td>multihash, address</td><td>Add a message and refer an account. The first parameter <strong>MUST</strong> be the multihash of the message. The second parameter <strong>MUST</strong> be an address referenced by the message.</td><td>Clients <strong>MUST</strong> add the message to the message list and they <strong>MUST</strong> track the reference to the specified account. This can be useful <em>to invite</em> the owner of the referenced account to read this specific message.</td></tr>
+<tr><td>UPDATE &amp; REFER</td><td align="center"><code>0x05</code></td><td>multihash, multihash, address</td><td>Update a message. The first parameter <strong>MUST</strong> be the multihash of the message to be updated. The second parameter <strong>MUST</strong> be the multihash of the updated message. The third parameter <strong>MUST</strong> be an address referenced by the message.</td><td>Clients <strong>MUST</strong> update the message list to show the updated message and they <strong>MUST</strong> track the reference to the specified account. This can be useful <em>to invite</em> the owner of the referenced account to read this specific message.</td></tr>
+<tr><td>ENDORSE</td><td align="center"><code>0x06</code></td><td>multihash</td><td>Endorse a message identified by the specified multihash. The parameter <strong>MUST</strong> be the multihash of the message to be endorsed.</td><td>Clients <strong>MUST</strong> record and track the endorsement for that specific message. Think it as a <em>like</em>, a <em>retwitt</em>, etc.</td></tr>
+<tr><td>REMOVE ENDORSEMENT</td><td align="center"><code>0x07</code></td><td>multihash</td><td>Remove endorsement to the message identified by the specified multihash. The parameter <strong>MUST</strong> be the multihash of the message.</td><td>Clients <strong>MUST</strong> remove the endorsement for that specific message.</td></tr>
+<tr><td>DISAPPROVE</td><td align="center"><code>0x08</code></td><td>multihash</td><td>Disapprove a message identified by the specified multihash. The parameter <strong>MUST</strong> be the multihash of the message to disapprove.</td><td>Clients <strong>MUST</strong> record and track the disapproval for that specific message. Think it as a <em>I don't like it</em>.</td></tr>
+<tr><td>REMOVE DISAPPROVAL</td><td align="center"><code>0x09</code></td><td>multihash</td><td>Remove disapproval of a message identified by the specified multihash. The parameter <strong>MUST</strong> be the multihash of the message.</td><td>Clients <strong>MUST</strong> remove the disapproval for that specific message.</td></tr>
+<tr><td>ENDORSE &amp; REPLY</td><td align="center"><code>0x0A</code></td><td>multihash, multihash</td><td>Endorse a message and reply to it. The first parameter <strong>MUST</strong> be the multihash of the message to reply to. The second parameter <strong>MUST</strong> be the multihash of the message.</td><td>Clients <strong>MUST</strong> insert a new message in the message list and they <strong>MUST</strong> preserve the relationship with the referenced message. Clients <strong>MUST</strong> also record and track the endorsement for that specific message.</td></tr>
+<tr><td>DISAPPROVE &amp; REPLY</td><td align="center"><code>0x0B</code></td><td>multihash, multihash</td><td>Disapprove a message and reply to it. The first parameter <strong>MUST</strong> be the multihash of the message to reply to. The second parameter <strong>MUST</strong> be the multihash of the message.</td><td>Clients <strong>MUST</strong> insert a new message in the message list and they <strong>MUST</strong> preserve the relationship with the referenced message. Clients <strong>MUST</strong> also record and track the disapproval for that specific message.</td></tr>
+</tbody></table>
+<h2 id="rationale">Rationale</h2>
+<p>Ethereum is <em>account based</em>, so it's good to be identified as a single source of information.</p>
+<p>It is also able of doing notarization very well and to impose some restrictions on transaction's structure, so it's good for commands.</p>
+<p>IPFS, Swarm or other CANs (Content Addressable Networks) or storage methods are good to store a lot of information. So, the union of both worlds it's a good solution to achieve the objectives of this message standard.</p>
+<p>The objective is also to avoid in the first place any kind of scam and malicious behaviors, so MOM don't allow to send transactions to other accounts and the value of a MOM transaction is always 0.</p>
+<h3 id="why-not-using-a-smart-contract">Why not using a smart contract?</h3>
+<p>MOM wants to be useful, easy to implement and read, error proof, fast and cheap, but:</p>
+<ul>
+<li>using a smart contract for messages can leads more easily to errors and misunderstandings:
+<ul>
+<li>address of the contract can be wrong</li>
+<li>smart contract must be deployed on that specific network to send messages</li>
+</ul>
+</li>
+<li>executing a smart contract costs much more than sending transactions</li>
+<li>executing a smart contract just to store static data is the best example of an anti-pattern (expensive and almost useless)</li>
+</ul>
+<p>Without a specific smart contract to rely on, the MOM standard can be implemented and used right now in any existing networks, and even in future ones.</p>
+<p>Finally, if you can achieve exactly the same result without a smart contract, you didn't need a smart contract at the first place.</p>
+<h3 id="why-not-storing-messages-directly-on-chain">Why not storing messages directly on-chain?</h3>
+<p>There's no benefit to store <em>static</em> messages on-chain, if they are not related to some smart contract's state or if they don't represent exchange of value. The cost of storing data on-chain is also very high.</p>
+<h3 id="why-not-storing-op-codes-inside-the-message">Why not storing op codes inside the message?</h3>
+<p>While cost effectiveness is a very important feature in a blockchain related standard, there's also a compromise to reach with usability and usefulness.</p>
+<p>Storing commands inside the messages forces the client to actually download messages to understand what to do with them. This is very inefficient, bandwidth and time consuming.</p>
+<p>Being able to see the commands before downloading the content, it allows the client to recreate the history of all messages and then, at the end, download only updated messages.</p>
+<p>Creating a structure for the content of the messages leads to many issues and considerations in parsing the content, if it's correct, misspelled, and so on.</p>
+<p>Finally, the <strong>content must remain clean</strong>. You really want to notarize the content and not to refer to a data structure, because this can lead to possible false-negative when checking if a content is the same of another.</p>
+<h3 id="why-multihash">Why multihash?</h3>
+<p><a href="https://github.com/multiformats/multihash">Multihash</a> is flexible, future-proof and there are already tons of library supporting it. Ethereum must be easily integrable with many different platforms and architectures, so MOM standard follows that idea.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>You can already find few transactions over the Ethereum network that use a pattern similar to this EIP. Sometimes it's done to invalidate a previous transaction in memory pool, using the same nonce but with more gas price, so that transaction is mined cancelling the previous one still in the memory pool. This kind of transactions can be easily ignored if created before the approval of this EIP or just checking if the payload follows the correct syntax.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>A MOM-compliant client can be found and tested on <a href="https://github.com/InternetOfPeers/mom-client">GitHub</a>.</p>
+<p>You can use the latest version of MOM client directly via <a href="https://internetofpeers.github.io/mom-client">GitHub Pages</a> or via IPFS (see the <a href="https://github.com/InternetOfPeers/mom-client">client repo</a> for the latest updated address).</p>
+<h2 id="implementation">Implementation</h2>
+<p>You can use an already working MOM JavaScript package on <a href="https://github.com/InternetOfPeers/mom-js/packages/323930">GitHub Packages</a> or <a href="https://www.npmjs.com/package/@internetofpeers/mom-js">npmjs</a>. The package is already used by the MOM client above, and you can use it in your ÐApps too with:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">npm install @internetofpeers/mom-js
+</span></code></pre>
+<p>Transaction <a href="https://etherscan.io/tx/0x8e49485c56897757a6f2707b92cd5dad06126afed92261b9fe1a19b110bc34e6"><code>0x8e49485c56897757a6f2707b92cd5dad06126afed92261b9fe1a19b110bc34e6</code></a> is an example of a valid MOM transaction already mined on the Main net; it's an <code>ADD</code> message.</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<p>MOM is very simple and it has no real security concerns by itself. The standard already considers valid only transactions with <code>0</code> value and where <code>from</code> and <code>to</code> addresses are equals.</p>
+<p>The only concerns can come from the payload, but it is more related to the client and not to the standard itself, so here you can find some security suggestions related to clients implementing the standard.</p>
+<h3 id="parsing-commands">Parsing commands</h3>
+<p>MOM standard involves parsing payloads generated by potentially malicious clients, so attention must be made to avoid unwanted code execution.</p>
+<ul>
+<li>Strictly follow only the standard codes</li>
+<li>Don't execute any commands outside of the standard ones, unless expressly acknowledged by the user</li>
+<li>Ignore malformed transactions (transactions that don't strictly follow the rules)</li>
+</ul>
+<h3 id="messages">Messages</h3>
+<p>Default content-type of a message following the MOM standard is Markdown text in UTF8 without BOM. It is highly recommended to disallow the reading of any not-text content-type, unless expressly acknowledged by the user.</p>
+<p>Because content multihash is always stored into the chain, clients can download that content from Content Addressable Network (like IPFS or Swarm) or from central servers. In the latter case, a client should always check the integrity of the received messages, or it must warn the user if it cannot do that (feature not implemented or in error).</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

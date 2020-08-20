@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-165: ERC-165 Standard Interface Detection</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-165.md" />
+<meta property="og:title" content="EIP-165: ERC-165 Standard Interface Detection" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 165 (EIP-165): ERC-165 Standard Interface Detection"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 165 (EIP-165): ERC-165 Standard Interface Detection"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-165.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 165 (EIP 165): ERC-165 Standard Interface Detection" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-165: ERC-165 Standard Interface Detection
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:chris@ethereum.org">Christian Reitwießner</a>,
+        
+    
+        
+        
+            <a href="mailto:nick@ethereum.org">Nick Johnson</a>,
+        
+    
+        
+        
+            <a href="mailto:fabian@lukso.network">Fabian Vogelsteller</a>,
+        
+    
+        
+        
+            <a href="mailto:jordi@baylina.cat">Jordi Baylina</a>,
+        
+    
+        
+        
+            <a href="mailto:konrad.feldmeier@brainbot.com">Konrad Feldmeier</a>,
+        
+    
+        
+        
+            <a href="mailto:github.com@phor.net">William Entriken</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-01-23</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>214</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Creates a standard method to publish and detect what interfaces a smart contract implements.</p>
+<h2 id="abstract">Abstract</h2>
+<p>Herein, we standardize the following:</p>
+<ol>
+<li>How interfaces are identified</li>
+<li>How a contract will publish the interfaces it implements</li>
+<li>How to detect if a contract implements ERC-165</li>
+<li>How to detect if a contract implements any given interface</li>
+</ol>
+<h2 id="motivation">Motivation</h2>
+<p>For some &quot;standard interfaces&quot; like <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md">the ERC-20 token interface</a>, it is sometimes useful to query whether a contract supports the interface and if yes, which version of the interface, in order to adapt the way in which the contract is to be interacted with. Specifically for ERC-20, a version identifier has already been proposed. This proposal standardizes the concept of interfaces and standardizes the identification (naming) of interfaces.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="how-interfaces-are-identified">How Interfaces are Identified</h3>
+<p>For this standard, an <em>interface</em> is a set of <a href="https://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector">function selectors as defined by the Ethereum ABI</a>. This a subset of <a href="https://solidity.readthedocs.io/en/develop/abi-spec.html">Solidity's concept of interfaces</a> and the  <code>interface</code> keyword definition which also defines return types, mutability and events.</p>
+<p>We define the interface identifier as the XOR of all function selectors in the interface. This code example shows how to calculate an interface identifier:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.4.20;
+
+interface Solidity101 {
+    function hello() external pure;
+    function world(int) external pure;
+}
+
+contract Selector {
+    function calculateSelector() public pure returns (bytes4) {
+        Solidity101 i;
+        return i.hello.selector ^ i.world.selector;
+    }
+}
+</span></code></pre>
+<p>Note: interfaces do not permit optional functions, therefore, the interface identity will not include them.</p>
+<h3 id="how-a-contract-will-publish-the-interfaces-it-implements">How a Contract will Publish the Interfaces it Implements</h3>
+<p>A contract that is compliant with ERC-165 shall implement the following interface (referred as <code>ERC165.sol</code>):</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.4.20;
+
+interface ERC165 {
+    /// @notice Query if a contract implements an interface
+    /// @param interfaceID The interface identifier, as specified in ERC-165
+    /// @dev Interface identification is specified in ERC-165. This function
+    ///  uses less than 30,000 gas.
+    /// @return `true` if the contract implements `interfaceID` and
+    ///  `interfaceID` is not 0xffffffff, `false` otherwise
+    function supportsInterface(bytes4 interfaceID) external view returns (bool);
+}
+</span></code></pre>
+<p>The interface identifier for this interface is <code>0x01ffc9a7</code>. You can calculate this by running <code>        bytes4(keccak256('supportsInterface(bytes4)'));</code> or using the <code>Selector</code> contract above.</p>
+<p>Therefore the implementing contract will have a <code>supportsInterface</code> function that returns:</p>
+<ul>
+<li><code>true</code> when <code>interfaceID</code> is <code>0x01ffc9a7</code> (EIP165 interface)</li>
+<li><code>false</code> when <code>interfaceID</code> is <code>0xffffffff</code></li>
+<li><code>true</code> for any other <code>interfaceID</code> this contract implements</li>
+<li><code>false</code> for any other <code>interfaceID</code></li>
+</ul>
+<p>This function must return a bool and use at most 30,000 gas.</p>
+<p>Implementation note, there are several logical ways to implement this function. Please see the example implementations and the discussion on gas usage.</p>
+<h3 id="how-to-detect-if-a-contract-implements-erc-165">How to Detect if a Contract Implements ERC-165</h3>
+<ol>
+<li>The source contract makes a <code>STATICCALL</code> to the destination address with input data: <code>0x01ffc9a701ffc9a700000000000000000000000000000000000000000000000000000000</code> and gas 30,000. This corresponds to <code>contract.supportsInterface(0x01ffc9a7)</code>.</li>
+<li>If the call fails or return false, the destination contract does not implement ERC-165.</li>
+<li>If the call returns true, a second call is made with input data <code>0x01ffc9a7ffffffff00000000000000000000000000000000000000000000000000000000</code>.</li>
+<li>If the second call fails or returns true, the destination contract does not implement ERC-165.</li>
+<li>Otherwise it implements ERC-165.</li>
+</ol>
+<h3 id="how-to-detect-if-a-contract-implements-any-given-interface">How to Detect if a Contract Implements any Given Interface</h3>
+<ol>
+<li>If you are not sure if the contract implements ERC-165, use the above procedure to confirm.</li>
+<li>If it does not implement ERC-165, then you will have to see what methods it uses the old-fashioned way.</li>
+<li>If it implements ERC-165 then just call <code>supportsInterface(interfaceID)</code> to determine if it implements an interface you can use.</li>
+</ol>
+<h2 id="rationale">Rationale</h2>
+<p>We tried to keep this specification as simple as possible. This implementation is also compatible with the current Solidity version.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>The mechanism described above (with <code>0xffffffff</code>) should work with most of the contracts previous to this standard to determine that they do not implement ERC-165.</p>
+<p>Also <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-137.md">the ENS</a> already implements this EIP.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>Following is a contract that detects which interfaces other contracts implement. From @fulldecent and @jbaylina.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.4.20;
+
+contract ERC165Query {
+    bytes4 constant InvalidID = 0xffffffff;
+    bytes4 constant ERC165ID = 0x01ffc9a7;
+
+    function doesContractImplementInterface(address _contract, bytes4 _interfaceId) external view returns (bool) {
+        uint256 success;
+        uint256 result;
+
+        (success, result) = noThrowCall(_contract, ERC165ID);
+        if ((success==0)||(result==0)) {
+            return false;
+        }
+
+        (success, result) = noThrowCall(_contract, InvalidID);
+        if ((success==0)||(result!=0)) {
+            return false;
+        }
+
+        (success, result) = noThrowCall(_contract, _interfaceId);
+        if ((success==1)&amp;&amp;(result==1)) {
+            return true;
+        }
+        return false;
+    }
+
+    function noThrowCall(address _contract, bytes4 _interfaceId) constant internal returns (uint256 success, uint256 result) {
+        bytes4 erc165ID = ERC165ID;
+
+        assembly {
+                let x := mload(0x40)               // Find empty storage location using &quot;free memory pointer&quot;
+                mstore(x, erc165ID)                // Place signature at beginning of empty storage
+                mstore(add(x, 0x04), _interfaceId) // Place first argument directly next to signature
+
+                success := staticcall(
+                                    30000,         // 30k gas
+                                    _contract,     // To addr
+                                    x,             // Inputs are stored at location x
+                                    0x24,          // Inputs are 36 bytes long
+                                    x,             // Store output over input (saves space)
+                                    0x20)          // Outputs are 32 bytes long
+
+                result := mload(x)                 // Load the result
+        }
+    }
+}
+</span></code></pre><h2 id="implementation">Implementation</h2>
+<p>This approach uses a <code>view</code> function implementation of <code>supportsInterface</code>. The execution cost is 586 gas for any input. But contract initialization requires storing each interface (<code>SSTORE</code> is 20,000 gas). The <code>ERC165MappingImplementation</code> contract is generic and reusable.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.4.20;
+
+import &quot;./ERC165.sol&quot;;
+
+contract ERC165MappingImplementation is ERC165 {
+    /// @dev You must not set element 0xffffffff to true
+    mapping(bytes4 =&gt; bool) internal supportedInterfaces;
+
+    function ERC165MappingImplementation() internal {
+        supportedInterfaces[this.supportsInterface.selector] = true;
+    }
+
+    function supportsInterface(bytes4 interfaceID) external view returns (bool) {
+        return supportedInterfaces[interfaceID];
+    }
+}
+
+interface Simpson {
+    function is2D() external returns (bool);
+    function skinColor() external returns (string);
+}
+
+contract Lisa is ERC165MappingImplementation, Simpson {
+    function Lisa() public {
+        supportedInterfaces[this.is2D.selector ^ this.skinColor.selector] = true;
+    }
+
+    function is2D() external returns (bool){}
+    function skinColor() external returns (string){}
+}
+</span></code></pre>
+<p>Following is a <code>pure</code> function implementation of <code>supportsInterface</code>. The worst-case execution cost is 236 gas, but increases linearly with a higher number of supported interfaces.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.4.20;
+
+import &quot;./ERC165.sol&quot;;
+
+interface Simpson {
+    function is2D() external returns (bool);
+    function skinColor() external returns (string);
+}
+
+contract Homer is ERC165, Simpson {
+    function supportsInterface(bytes4 interfaceID) external view returns (bool) {
+        return
+          interfaceID == this.supportsInterface.selector || // ERC165
+          interfaceID == this.is2D.selector
+                         ^ this.skinColor.selector; // Simpson
+    }
+
+    function is2D() external returns (bool){}
+    function skinColor() external returns (string){}
+}
+</span></code></pre>
+<p>With three or more supported interfaces (including ERC165 itself as a required supported interface), the mapping approach (in every case) costs less gas than the pure approach (at worst case).</p>
+<h2 id="version-history">Version history</h2>
+<ul>
+<li>
+<p>PR 1640, finalized 2019-01-23 -- This corrects the noThrowCall test case to use 36 bytes rather than the previous 32 bytes. The previous code was an error that still silently worked in Solidity 0.4.x but which was broken by new behavior introduced in Solidity 0.5.0. This change was discussed at <a href="https://github.com/ethereum/EIPs/pull/1640">#1640</a>.</p>
+</li>
+<li>
+<p>EIP 165, finalized 2018-04-20 -- Original published version.</p>
+</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

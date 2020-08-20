@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-663: Unlimited SWAP and DUP instructions</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-663.md" />
+<meta property="og:title" content="EIP-663: Unlimited SWAP and DUP instructions" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 663 (EIP-663): Unlimited SWAP and DUP instructions"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 663 (EIP-663): Unlimited SWAP and DUP instructions"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-663.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 663 (EIP 663): Unlimited SWAP and DUP instructions" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-663: Unlimited SWAP and DUP instructions
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-663-unlimited-swap-and-dup-instructions&#x2F;3346">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-663-unlimited-swap-and-dup-instructions&#x2F;3346</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-07-03</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>Currently, <code>SWAP</code> and <code>DUP</code> instructions are limited to a stack depth of 16. Introduce two new instructions, <code>SWAPn</code> and <code>DUPn</code>, which lift this limitation and allow accessing the stack up to its full depth of 1024 items.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Implementing higher level constructs, such as functions, on top of EVM will result in a list of input and output parameters as well as an instruction offset to return to.</p>
+<p>The number of these arguments (or stack items) can easily exceed 16 and thus will require extra care from a compiler to lay them out in a way that all of them are still accessible.</p>
+<p>Introducing <code>SWAPn</code> and <code>DUPn</code> will provide an option to compilers to simplify accessing deep stack items at the price of possibly increased gas costs.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="option-a">Option A</h3>
+<p>Instructions <code>DUPn</code> (<code>0xb0</code>) and <code>SWAPn</code> (<code>0xb1</code>) are introduced, which take the top item from stack (referred to as <code>n</code>).</p>
+<p>If <code>n</code> exceeds 1024 or the current stack depth is less than <code>n</code>, then a stack underflow exception is issued. If the current stack depth is at the limit, a stack overflow exception is issued.
+In both of these cases the EVM stops and all gas is consumed.</p>
+<p>Otherwise</p>
+<ul>
+<li>for <code>DUPn</code> the stack item at depth <code>n</code> is duplicated at the top of the stack</li>
+<li>for <code>SWAPn</code> the top stack item is swapped with the item at depth <code>n</code></li>
+</ul>
+<p>The gas cost for both instructions is set at 3. In reality the cost for such an operation is 6 including the required <code>PUSH</code>.</p>
+<p>Since both of these instructions require the top stack item to contain the position, it is still only possible to reach more than 16 stack items if there is at least one free stack slot.</p>
+<p>This option has no effect no static analyzers, given no immediate value is introduced.</p>
+<h3 id="option-a-1">Option A+</h3>
+<p>The difference to Option A is that <code>DUPn</code> and <code>SWAPn</code> must be preceded by a <code>PUSHn</code> opcode. Encountering <code>DUPn</code> and <code>SWAPn</code> without a preceding <code>PUSHn</code> results in out of gas.</p>
+<h3 id="option-b">Option B</h3>
+<p>The difference to Option A is that <code>DUPn</code> and <code>SWAPn</code> do not take the value of <code>n</code> from the top stack item, but instead encode it as a 16-bit big endian immediate value following the opcode.</p>
+<p>This results in wasting a byte in the cases of only referring to the top 255 stack items.</p>
+<h3 id="option-c">Option C</h3>
+<p>This option extends Option B with two new instructions, <code>DUPSn</code> (<code>0xb2</code>) and <code>SWAPSn</code> (<code>0xb3</code>), where the value of <code>n</code> is encoded as an 8-bit immediate value following the opcode.</p>
+<p>The value <code>n</code> has a range of 0 to 255, but otherwise the same rules apply as in Option A.</p>
+<h2 id="rationale">Rationale</h2>
+<p>TBA</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This has no effect on backwards compatibility.</p>
+<h2 id="test-cases">Test Cases</h2>
+<ul>
+<li>executing <code>602a600160026003600460056006600760086009600a600b600c600d600e600f60106011b0</code> should have <code>42</code> as the top stack item</li>
+<li>executing <code>602a600160026003600460056006600760086009600a600b600c600d600e600f60106011b1</code> should have <code>42</code> as the top stack item</li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+<p>TBA</p>
+<h2 id="references">References</h2>
+<p>A similar proposal was made with <a href="https://github.com/ethereum/EIPs/issues/174">EIP-174</a>. Read the thread for some detailed discussion.</p>
+<p>Rootstock <a href="https://github.com/rsksmart/RSKIPs/blob/master/IPs/RSKIP26.md">RSKIP26</a> also introduced <code>SWAPN</code> and <code>DUPN</code> with Option A described above.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

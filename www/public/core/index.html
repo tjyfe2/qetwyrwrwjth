@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+<title>Core | Ethereum Improvement Proposals</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;core&#x2F;" />
+<meta property="og:title" content="Core" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal Core"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal Core"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;core&#x2F;" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal Core" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<style type="text/css">
+  .eiptable .title {
+    width: 67%;
+  }
+
+  .eiptable .author {
+    width: 33%;
+  }
+</style>
+<h1>Core</h1>
+
+
+
+
+    
+
+    
+        
+    
+
+
+
+    
+    
+    
+        <h2 id="last-call">Last Call</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2565&#x2F;">2565</a></td>
+                    <td class="title">Repricing of the EIP-198 ModExp precompile</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/ineffectualproperty">Kelly Olson</a>,
+        
+    
+        
+        
+            <a href="https://github.com/sean-sn"> Sean Gulley</a>,
+        
+    
+        
+        
+            <a href="https://github.com/simonatsn"> Simon Peffers</a>,
+        
+    
+        
+        
+            <a href="https://github.com/justindrake"> Justin Drake</a>,
+        
+    
+        
+        
+            <a href="https://github.com/dankrad"> Dankrad Feist</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+        <h2 id="final">Final</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-100&#x2F;">100</a></td>
+                    <td class="title">Change difficulty adjustment to target mean block time including uncles</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/vbuterin">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1014&#x2F;">1014</a></td>
+                    <td class="title">Skinny CREATE2</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/vbuterin">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1052&#x2F;">1052</a></td>
+                    <td class="title">EXTCODEHASH opcode</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:arachnid@notdot.net">Nick Johnson</a>,
+        
+    
+        
+        
+            <a href="mailto:pawel@ethereum.org">Paweł Bylica</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1108&#x2F;">1108</a></td>
+                    <td class="title">Reduce alt_bn128 precompile gas costs</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/shadowfiend">Antonio Salazar Cardozo</a>,
+        
+    
+        
+        
+            <a href="https://github.com/zac-williamson"> Zachary Williamson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1234&#x2F;">1234</a></td>
+                    <td class="title">Constantinople Difficulty Bomb Delay and Block Reward Adjustment</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/5chdn">Afri Schoedon</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1283&#x2F;">1283</a></td>
+                    <td class="title">Net gas metering for SSTORE without dirty maps</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/sorpaas">Wei Tang</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1344&#x2F;">1344</a></td>
+                    <td class="title">ChainID opcode</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/rmeissner">Richard Meissner</a>,
+        
+    
+        
+        
+            <a href="https://github.com/fubuloubu"> Bryant Eisenbach</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-140&#x2F;">140</a></td>
+                    <td class="title">REVERT instruction</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>,
+        
+    
+        
+        
+            <a href="mailto:nikolai@nexusdev.us">Nikolai Mushegian</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-141&#x2F;">141</a></td>
+                    <td class="title">Designated invalid EVM instruction</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-145&#x2F;">145</a></td>
+                    <td class="title">Bitwise shifting instructions in EVM</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>,
+        
+    
+        
+        
+            <a href="https://github.com/chfast"> Paweł Bylica</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-150&#x2F;">150</a></td>
+                    <td class="title">Gas cost changes for IO-heavy operations</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/vbuterin">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-152&#x2F;">152</a></td>
+                    <td class="title">Add BLAKE2 compression function `F` precompile</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:tah83@cornell.edu">Tjaden Hess</a>,
+        
+    
+        
+        
+            <a href="https://github.com/mhluongo"> Matt Luongo</a>,
+        
+    
+        
+        
+            <a href="https://github.com/pdyraga"> Piotr Dyraga</a>,
+        
+    
+        
+        
+            <a href="https://github.com/MadeOfTin"> James Hancock</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-155&#x2F;">155</a></td>
+                    <td class="title">Simple replay attack protection</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/vbuterin">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-160&#x2F;">160</a></td>
+                    <td class="title">EXP cost increase</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/vbuterin">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-161&#x2F;">161</a></td>
+                    <td class="title">State trie clearing (invariant-preserving alternative)</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/avin Woo">Gavin Wo</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-170&#x2F;">170</a></td>
+                    <td class="title">Contract code size limit</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/vbuterin">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1884&#x2F;">1884</a></td>
+                    <td class="title">Repricing for trie-size-dependent opcodes</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/holiman">Martin Holst Swende</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-196&#x2F;">196</a></td>
+                    <td class="title">Precompiled contracts for addition and scalar multiplication on the elliptic curve alt_bn128</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:chris@ethereum.org">Christian Reitwiessner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-197&#x2F;">197</a></td>
+                    <td class="title">Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:vitalik@ethereum.org">Vitalik Buterin</a>,
+        
+    
+        
+        
+            <a href="mailto:chris@ethereum.org">Christian Reitwiessner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-198&#x2F;">198</a></td>
+                    <td class="title">Big integer modular exponentiation</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:v@buterin.com">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2&#x2F;">2</a></td>
+                    <td class="title">Homestead Hard-fork Changes</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:v@buterin.com">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2028&#x2F;">2028</a></td>
+                    <td class="title">Transaction data gas cost reduction</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/AlexeyAkhunov">Alexey Akhunov</a>,
+        
+    
+        
+        
+            <a href="mailto:eli@starkware.co">Eli Ben Sasson</a>,
+        
+    
+        
+        
+            <a href="mailto:tom@starkware.co">Tom Brand</a>,
+        
+    
+        
+        
+            <a href="mailto:louis@starkware.co">Louis Guthmann</a>,
+        
+    
+        
+        
+            <a href="mailto:avihu@starkware.co">Avihu Levy</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-211&#x2F;">211</a></td>
+                    <td class="title">New opcodes: RETURNDATASIZE and RETURNDATACOPY</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:chris@ethereum.org">Christian Reitwiessner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-214&#x2F;">214</a></td>
+                    <td class="title">New opcode STATICCALL</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:vitalik@ethereum.org">Vitalik Buterin</a>,
+        
+    
+        
+        
+            <a href="mailto:chris@ethereum.org">Christian Reitwiessner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2200&#x2F;">2200</a></td>
+                    <td class="title">Structured Definitions for Net Gas Metering</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/sorpaas">Wei Tang</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-225&#x2F;">225</a></td>
+                    <td class="title">Clique proof-of-authority consensus protocol</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:peterke@gmail.com">Péter Szilágyi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2384&#x2F;">2384</a></td>
+                    <td class="title">Muir Glacier Difficulty Bomb Delay</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/econoar">Eric Conner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-649&#x2F;">649</a></td>
+                    <td class="title">Metropolis Difficulty Bomb Delay and Block Reward Reduction</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/5chdn">Afri Schoedon</a>,
+        
+    
+        
+        
+            <a href="https://github.com/vbuterin"> Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-658&#x2F;">658</a></td>
+                    <td class="title">Embedding transaction status code in receipts</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:nick@ethereum.org">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-7&#x2F;">7</a></td>
+                    <td class="title">DELEGATECALL</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:v@buterin.com">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+        <h2 id="accepted">Accepted</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1057&#x2F;">1057</a></td>
+                    <td class="title">ProgPoW, a Programmatic Proof-of-Work</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:greg@colvin.org">Greg Colvin</a>,
+        
+    
+        
+        
+            <a href="https://github.com/AndreaLanfranchi"> Andrea Lanfranchi</a>,
+        
+    
+        
+        
+            <a href="https://github.com/bitsbetrippin"> Michael Carter</a>,
+        
+    
+        
+        
+            <a href="mailto:ifdefelse@protonmail.com">IfDefElse</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+
+    
+    
+    
+        <h2 id="draft">Draft</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-101&#x2F;">101</a></td>
+                    <td class="title">Serenity Currency and Crypto Abstraction</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:v@buterin.com">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1010&#x2F;">1010</a></td>
+                    <td class="title">Uniformity Between 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B and 0x15E55EF43efA8348dDaeAa455F16C43B64917e3c</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/andywesley">Anderson Wesley</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1011&#x2F;">1011</a></td>
+                    <td class="title">Hybrid Casper FFG</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/djrtwo">Danny Ryan</a>,
+        
+    
+        
+        
+            <a href="https://github.com/ChihChengLiang"> Chih-Cheng Liang</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1015&#x2F;">1015</a></td>
+                    <td class="title">Configurable On Chain Issuance</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:avsa@ethereum.org">Alex Van de Sande</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1051&#x2F;">1051</a></td>
+                    <td class="title">Overflow checking for the EVM</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:arachnid@notdot.net">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1087&#x2F;">1087</a></td>
+                    <td class="title">Net gas metering for SSTORE operations</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/arachnid">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1109&#x2F;">1109</a></td>
+                    <td class="title">PRECOMPILEDCALL opcode (Remove CALL costs for precompiled contracts)</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/jbaylina">Jordi Baylina</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1153&#x2F;">1153</a></td>
+                    <td class="title">Transient storage opcodes</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/AlexeyAkhunov">Alexey Akhunov</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1227&#x2F;">1227</a></td>
+                    <td class="title">Defuse Difficulty Bomb and Reset Block Reward</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/SmeargleUsedFly">SmeargleUsedFly</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1240&#x2F;">1240</a></td>
+                    <td class="title">Remove Difficulty Bomb</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1276&#x2F;">1276</a></td>
+                    <td class="title">Eliminate Difficulty Bomb and Adjust Block Reward on Constantinople Shift</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/eosclassicteam">EOS Classic</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1285&#x2F;">1285</a></td>
+                    <td class="title">Increase Gcallstipend gas in the CALL OPCODE</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:ben@daostack.io">Ben Kaufman</a>,
+        
+    
+        
+        
+            <a href="mailto:adam@daostack.io">Adam Levi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1295&#x2F;">1295</a></td>
+                    <td class="title">Modify Ethereum PoW Incentive Structure and Delay Difficulty Bomb</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/atlanticcrypto">Brian Venturo</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1352&#x2F;">1352</a></td>
+                    <td class="title">Specify restricted address range for precompiles&#x2F;system contracts</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1380&#x2F;">1380</a></td>
+                    <td class="title">Reduced gas cost for call to self</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>,
+        
+    
+        
+        
+            <a href="https://github.com/jacqueswww"> Jacques Wagener</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1418&#x2F;">1418</a></td>
+                    <td class="title">Blockchain Storage Rent Payment</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/fulldecent">William Entriken</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1482&#x2F;">1482</a></td>
+                    <td class="title">Define a maximum block timestamp drift</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/Maurelian">Maurelian</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1485&#x2F;">1485</a></td>
+                    <td class="title">TEthashV1</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:trustfarm.info@gmail.com">trustfarm</a>,
+        
+    
+        
+        
+            <a href="mailto:cpplover@trustfarm.net">trustfarm</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1559&#x2F;">1559</a></td>
+                    <td class="title">Fee market change for ETH 1.0 chain</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/vbuterin">Vitalik Buterin</a>,
+        
+    
+        
+        
+            <a href="https://github.com/econoar"> Eric Conner</a>,
+        
+    
+        
+        
+            <a href="https://github.com/AFDudley"> Rick Dudley</a>,
+        
+    
+        
+        
+            <a href="https://github.com/mslipper"> Matthew Slipper</a>,
+        
+    
+        
+        
+            <a href="https://github.com/i-norden"> Ian Norden</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1681&#x2F;">1681</a></td>
+                    <td class="title">Temporal Replay Protection</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/holiman">Martin Holst Swende</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1702&#x2F;">1702</a></td>
+                    <td class="title">Generalized Account Versioning Scheme</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/sorpaas">Wei Tang</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1829&#x2F;">1829</a></td>
+                    <td class="title">Precompile for Elliptic Curve Linear Combinations</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:Recmo@0x.org">Remco Bloemen</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1890&#x2F;">1890</a></td>
+                    <td class="title">Commitment to Sustainable Ecosystem Funding</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:greg@chainsafe.io">Gregory Markou</a>,
+        
+    
+        
+        
+            <a href="mailto:kevin@gitcoin.co">Kevin Owocki</a>,
+        
+    
+        
+        
+            <a href="mailto:lane@ethereum.org">Lane Rettig</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1895&#x2F;">1895</a></td>
+                    <td class="title">Support for an Elliptic Curve Cycle</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:alexandrebelling8@gmail.com">Alexandre Belling</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1930&#x2F;">1930</a></td>
+                    <td class="title">CALLs with strict gas semantic. Revert if not enough gas available.</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/wighawag">Ronan Sandford</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1959&#x2F;">1959</a></td>
+                    <td class="title">New Opcode to check if a chainID is part of the history of chainIDs</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/wighawag">Ronan Sandford</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1962&#x2F;">1962</a></td>
+                    <td class="title">EC arithmetic and pairings with runtime definitions</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/shamatar">Alex Vlasov</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1965&#x2F;">1965</a></td>
+                    <td class="title">Method to check if a chainID is valid at a specific block Number</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/wighawag">Ronan Sandford</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1985&#x2F;">1985</a></td>
+                    <td class="title">Sane limits for certain EVM parameters</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>,
+        
+    
+        
+        
+            <a href="https://github.com/chfast"> Paweł Bylica</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2014&#x2F;">2014</a></td>
+                    <td class="title">Extended State Oracle</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2025&#x2F;">2025</a></td>
+                    <td class="title">Block Rewards Proposal for funding Eth1.x</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/madeoftin">James Hancock</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2026&#x2F;">2026</a></td>
+                    <td class="title">State Rent H - Fixed Prepayment for accounts</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/AlexeyAkhunov">Alexey Akhunov</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2027&#x2F;">2027</a></td>
+                    <td class="title">State Rent C - Net contract size accounting</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/AlexeyAkhunov">Alexey Akhunov</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2029&#x2F;">2029</a></td>
+                    <td class="title">State Rent A - State counters contract</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/AlexeyAkhunov">Alexey Akhunov</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2031&#x2F;">2031</a></td>
+                    <td class="title">State Rent B - Net transaction counter</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/AlexeyAkhunov">Alexey Akhunov</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2035&#x2F;">2035</a></td>
+                    <td class="title">Stateless Clients - Repricing SLOAD and SSTORE to pay for block proofs</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/AlexeyAkhunov">Alexey Akhunov</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2045&#x2F;">2045</a></td>
+                    <td class="title">Particle gas costs for EVM opcodes</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/cdetrio">Casey Detrio</a>,
+        
+    
+        
+        
+            <a href="https://github.com/axic"> Alex Beregszaszi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2046&#x2F;">2046</a></td>
+                    <td class="title">Reduced gas cost for static calls made to precompiles</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-210&#x2F;">210</a></td>
+                    <td class="title">Blockhash refactoring</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/vbuterin">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2242&#x2F;">2242</a></td>
+                    <td class="title">Transaction Postdata</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/adlerjohn">John Adler</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2315&#x2F;">2315</a></td>
+                    <td class="title">Simple Subroutines for the EVM</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/reg@colvin.org">Greg Colvin</a>,
+        
+    
+        
+        
+            <a href="https://github.com/holiman"> Martin Holst Swende</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2327&#x2F;">2327</a></td>
+                    <td class="title">BEGINDATA opcode</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/MrChico">Martin Lundfall</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2330&#x2F;">2330</a></td>
+                    <td class="title">EXTSLOAD opcode</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/dominicletz">Dominic Letz</a>,
+        
+    
+        
+        
+            <a href="https://github.com/spalladino"> Santiago Palladino</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2515&#x2F;">2515</a></td>
+                    <td class="title">Implement Difficulty Freeze</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/madeoftin">James Hancock</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2537&#x2F;">2537</a></td>
+                    <td class="title">Precompile for BLS12-381 curve operations</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/shamatar">Alex Vlasov</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2542&#x2F;">2542</a></td>
+                    <td class="title">New opcodes TXGASLIMIT and CALLGASLIMIT</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:forshtat1@gmail.com">Alex Forshtat</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2681&#x2F;">2681</a></td>
+                    <td class="title">Limit account nonce to 2^64-1</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2711&#x2F;">2711</a></td>
+                    <td class="title">Sponsored, expiring and batch transactions.</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2718&#x2F;">2718</a></td>
+                    <td class="title">Typed Transaction Envelope</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2733&#x2F;">2733</a></td>
+                    <td class="title">Transaction package</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/lightclient">Matt Garnett</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2780&#x2F;">2780</a></td>
+                    <td class="title">Reduce intrinsic transaction gas</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/lightclient">Matt Garnett</a>,
+        
+    
+        
+        
+            <a href="https://github.com/uriklarman"> Uri Klarman</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2803&#x2F;">2803</a></td>
+                    <td class="title">Rich Transactions</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-615&#x2F;">615</a></td>
+                    <td class="title">Subroutines and Static Jumps for the EVM</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:greg@colvin.org">Greg Colvin</a>,
+        
+    
+        
+        
+            <a href="https://github.com/expede"> Brooklyn Zelenka</a>,
+        
+    
+        
+        
+            <a href="https://github.com/chfast"> Paweł Bylica</a>,
+        
+    
+        
+        
+            <a href="https://github.com/chriseth"> Christian Reitwiessne</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-616&#x2F;">616</a></td>
+                    <td class="title">SIMD Operations for the EVM</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:greg@colvin.org">Greg Colvin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-663&#x2F;">663</a></td>
+                    <td class="title">Unlimited SWAP and DUP instructions</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-665&#x2F;">665</a></td>
+                    <td class="title">Add precompiled contract for Ed25519 signature verification</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:tobias.oberstein@crossbario.com">Tobias Oberstein</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-689&#x2F;">689</a></td>
+                    <td class="title">Address Collision of Contract Address Causes Exceptional Halt</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:i@yoichihirai.com">Yoichi Hirai</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-698&#x2F;">698</a></td>
+                    <td class="title">OPCODE 0x46 BLOCKREWARD</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:dontPanic@codywburns.com">Cody Burns</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-858&#x2F;">858</a></td>
+                    <td class="title">Reduce block reward and delay difficulty bomb</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:cslarson@gmail.com">Carl Larson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-86&#x2F;">86</a></td>
+                    <td class="title">Abstraction of transaction origin and signature</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/vbuterin">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-908&#x2F;">908</a></td>
+                    <td class="title">Reward clients for a sustainable network</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/jamesray1">James Ray</a>,
+        
+    
+        
+        
+            <a href="https://github.com/MicahZoltu"> Micah Zoltu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-969&#x2F;">969</a></td>
+                    <td class="title">Modifications to ethash to invalidate existing dedicated hardware implementations</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:david@airsquirrels.com">David Stanfill</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+        <h2 id="superseded">Superseded</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-158&#x2F;">158</a></td>
+                    <td class="title">State clearing</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/italik Buteri">Vitalik Buter</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-5&#x2F;">5</a></td>
+                    <td class="title">Gas Usage for `RETURN` and `CALL*`</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:c@ethdev.com">Christian Reitwiessner</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+
+    
+    
+    
+        <h2 id="abandoned">Abandoned</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1355&#x2F;">1355</a></td>
+                    <td class="title">Ethash 1a</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/chfast">Paweł Bylica</a>,
+        
+    
+        
+        
+            <a href="https://github.com/jean-m-cyr"> Jean M. Cyr</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1682&#x2F;">1682</a></td>
+                    <td class="title">Storage Rent</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/fjl">Felix J Lange</a>,
+        
+    
+        
+        
+            <a href="https://github.com/holiman"> Martin Holst Swende</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1706&#x2F;">1706</a></td>
+                    <td class="title">Disable SSTORE with gasleft lower than call stipend</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:alex@tabookey.com">Alex Forshtat</a>,
+        
+    
+        
+        
+            <a href="mailto:yoav@tabookey.com">Yoav Weiss</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-3&#x2F;">3</a></td>
+                    <td class="title">Addition of CALLDEPTH opcode</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:martin@swende.se">Martin Holst Swende</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-999&#x2F;">999</a></td>
+                    <td class="title">Restore Contract Code at 0x863DF6BFa4469f3ead0bE8f9F2AAE51c91A907b4</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/5chdn">Afri Schoedon</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

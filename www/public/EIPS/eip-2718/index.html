@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2718: Typed Transaction Envelope</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2718.md" />
+<meta property="og:title" content="EIP-2718: Typed Transaction Envelope" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2718 (EIP-2718): Typed Transaction Envelope"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2718 (EIP-2718): Typed Transaction Envelope"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2718.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2718 (EIP 2718): Typed Transaction Envelope" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2718: Typed Transaction Envelope
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2718-typed-transaction-envelope&#x2F;4355">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2718-typed-transaction-envelope&#x2F;4355</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-06-13</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>155</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Defines a new transaction type that is an envelope for future transaction types.</p>
+<h2 id="abstract">Abstract</h2>
+<p><code>rlp([TransactionType, Payload])</code> will become a valid transaction and <code>rlp([TransactionType, Payload])</code> will become a valid transaction receipt where <code>TransactionType</code> is a number identifying the format of the transaction and <code>payload</code> is the transaction/receipt contents, whose definition is defined in future EIPs.  The first new transaction type will be a wrapped legacy transaction with the format <code>rlp([0, rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])])</code> and a wrapped legacy receipt with the format <code>rlp([0, rlp([status, cumulativeGasUsed, logsBloom, logs])])</code>.</p>
+<h2 id="motivation">Motivation</h2>
+<p>In the past, when we have wanted to add new transaction types we have had to ensure they were backward compatible with all other transactions, meaning that you could differentiate them based only on the encoded payload, and it was not possible to have a transaction that matched both types.  This was seen in <a href="https://eips.ethereum.com/EIPS/eip-155/">EIP-155</a> where the new value was bit-packed into one of the encoded fields.  There are multiple proposals in discussion that define new transaction types such as one that allows EOA accounts to execute code directly within their context, one that enables someone besides <code>msg.sender</code> to pay for gas, and proposals related to layer 0 multi-sig transactions.  These all need to be defined in a way that is mutually compatible, which quickly becomes burdensome to EIP authors and to clients who now have to follow complex rules for differentiating transaction type.</p>
+<p>By introducing an envolope transaction type, we only need to ensure backward compatibility with existing transactions and from then on we just need to solve the much simpler problem of ensuring there is no numbering conflict between <code>TransactionType</code>s.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="transactions">Transactions</h3>
+<p>As of <code>FORK_BLOCK_NUMBER</code>, <code>rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])</code> (legacy transaction) will no longer be a valid Ethereum transaction over the devp2p protocol or in a block.</p>
+<p>As of <code>FORK_BLOCK_NUMBER</code>, all transactions sent over devp2p or included in a block <strong>MUST</strong> be of the form <code>rlp([TransactionType, Payload])</code> where <code>TransactionType</code> is a number that represents the type of the transcation and <code>Payload</code> is an opaque value (byte array) whose interpretation is dependent on the <code>TransactionType</code>.  Transactions <strong>SHOULD</strong> include the <code>TransactionType</code> in any signatures they include to minimize the chance of unintentional replay attacks between different transaction types.  The transaction hash of all transactions <strong>MUST</strong> be <code>keccak256(rlp([TransactionType, Payload]))</code></p>
+<p>As of <code>FORK_BLOCK_NUMBER</code>, <code>rlp([0, rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])])</code> will be a valid transaction where the <code>Payload</code> will be signed/processed/handled exactly the same as legacy transactions were processed/handled.</p>
+<h3 id="receipts">Receipts</h3>
+<p>As of <code>FORK_BLOCK_NUMBER</code>, <code>rlp([status, cumulativeGasUsed, logsBloom, logs])</code> (legacy receipt) will no longer be a valid Ethereum transaction receipt over the devp2p protocol or in a block.</p>
+<p>As of <code>FORK_BLOCK_NUMBER</code>, all receipts sent over devp2p or included in a block <strong>MUST</strong> be of the form <code>rlp([TransactionType, Payload])</code> where <code>TransactionType</code> is a number that represents the type of the transaction and <code>Payload</code> is an opaque value (byte array) whose interpretation is dependent on the <code>TransactionType</code>.</p>
+<p>As of <code>FORK_BLOCK_NUMBER</code>, <code>rlp([0, rlp([status, cumulativeGasUsed, logsBloom, logs])])</code> will be a valid receipt where the <code>Payload</code> will be processed/handled exactly the same as legacy receipts were processed/handled.</p>
+<h3 id="fork-block-transition">Fork Block Transition</h3>
+<p>Between <code>FORK_BLOCK_NUMBER - 1</code> and <code>FORK_BLOCK_NUMBER</code> clients <strong>SHOULD</strong> wrap all transactions in their local pending pool as type 0 transactions.  Clients <strong>MAY</strong> choose to flush their pending pool instead, if it is not possible to do the wrapping in time for the next block, though this is discouraged.</p>
+<p>As of <code>FORK_BLOCK_NUMBER</code>, clients <strong>SHOULD</strong> accept incoming transactions over user/application facing APIs such as JSON-RPC in both the new wrapped format and the legacy format.  If a legacy format transaction is received, the client <strong>MUST</strong> wrap it in a type 0 envelope before sending it over devp2p or including it in a block.</p>
+<p>As of <code>FORK_BLOCK_NUMBER</code>, clients <strong>SHOULD</strong> return type 0 receipts over user/application facing APIs such as JSON-RPC in the legacy format.  Clients <strong>SHOULD</strong> devise a long term strategy for deprecating the legacy format over APIs in favor of the typed receipt envelope format.</p>
+<h2 id="rationale">Rationale</h2>
+<h3 id="transactiontype-high-bit">TransactionType high bit</h3>
+<p>Setting the high bit of the <code>TransactionType</code> so that a decoder could identify transaction type early on in the decoding process was discussed, but decided against.  The problem with this solution is that due to the way RLP encoding works, this would result in the <code>TransactionType</code> being 5 bytes long rather than 1 byte long.  RLP decoders also do not need to know the shape of the result before decoding, and thus in most (possibly all) clients it will be just be a matter of first decoding the RLP transaction, and then checking to see if the decoded result is a 2 item array or a 9 item array, which is likely simpler than checking the high bit of the first item.</p>
+<h3 id="transactiontype-selection-algorithm">TransactionType selection algorithm</h3>
+<p>There was discussion about defining the <code>TransactionType</code> identifier assignment/selection algorithm in this standard.  While it would be nice to have a standardized mechanism for assignment, at the time of writing of this standard there is not a strong need for it so it was deemed out of scope.  A future EIP may introduce a standard for TransactionType identifier assignment if it is deemed necessary.</p>
+<h3 id="opaque-second-item-rather-than-an-array">Opaque second item rather than an array</h3>
+<p>By having the second item of the array just be opaque bytes, rather than a list, we can support different encoding formats for the transaction payload in the future, such as SSZ or a fixed width format.</p>
+<h3 id="n-item-list-instead-of-2-item-list"><code>n</code>-item list instead of 2-item list</h3>
+<p>We could have chosen the format <code>rlp([TransactionType, ...])</code> where <code>...</code> represents whatever items the transaction wants.  This format however would require us to remain vigilant in the future about using the shape of the transaction to identify its type, as it is possible that there could be an overlap between an EIP-2718 transaction type and a legacy transaction type with a nonce that matches the <code>TransactionType</code>.  By having a strict 2-item array with the second item potentially being an encoded list, we avoid needing to worry about any conflict between TransactionTypes beyond choosing uinque numbers.</p>
+<h3 id="origin-and-caller">ORIGIN and CALLER</h3>
+<p>There was discussion about having ORIGIN and CALLER opcodes be dependent on the transaction type, so that each transaction type could define what those opcodes returned.  However, there is a desire to make transaction type opaque to the contracts to discourage contracts treating different different types of transactions differently and there also were concerns over backward compatibility with existing contracts which make assumptions about ORIGIN and CALLER opcodes.  Going forward, we will assume that all transaction types will have an address that reasonably represents a <code>CALLER</code> of the first EVM frame and <code>ORIGIN</code> will be the same address in all cases.  If a transaction type needs to supply additional information to contracts, they will need a new opcode.</p>
+<h3 id="hashing-the-outer-transaction">Hashing the outer transaction</h3>
+<p>If you submit a transaction prior to the fork block and it is mined after the fork block, the transaction hash of the mined transaction will not match the the transaction hash of the transaction you originally submitted.  This is because the mined transaction will be a wrapped one, while the submitted transaction will be unwrapped.  Applications that use the transaction hash to lookup the transaction result will fail to ever find it or see it ever mined.  Clients can optionally choose to track type 0 transactions internally by both hashes for a period of time so that lookups of the old hash won't fail for the user, but this is not required for consensus.</p>
+<h3 id="signing-the-inner-transaction-for-type-0">Signing the inner transaction for type 0</h3>
+<p>While this EIP recommends that the envelope be included in any signatures, it also specifies that for Transaction Type 0 the envelope is not included in the signature.  This EIP disobayes its own recommendation because we don't want all signing tools to break on the fork block and require updates to start working again.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>Clients can differentiate between the legacy transactions and typed transactions by noting that the RLP decoded transaction has 2 elements rather than 9.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>TBD</p>
+<h2 id="implementation">Implementation</h2>
+<p>TBD</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<p>Due to the way RLP encoding works, the risk of a new transaction being mis-interpreted as a legacy transaction is deemed low.  The authors of this EIP consider it unlikely that there are any transaction decoders in production that will accept a transaction with not enough elements (perhaps reading off the end of the array).</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1504: ERC-1504 Upgradable Smart Contract</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1504.md" />
+<meta property="og:title" content="EIP-1504: ERC-1504 Upgradable Smart Contract" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1504 (EIP-1504): ERC-1504 Upgradable Smart Contract"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1504 (EIP-1504): ERC-1504 Upgradable Smart Contract"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1504.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1504 (EIP 1504): ERC-1504 Upgradable Smart Contract" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1504: ERC-1504 Upgradable Smart Contract
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:wukd94@pku.edu.cn">Kaidong Wu</a>,
+        
+    
+        
+        
+            <a href="mailto:cr025@bucknell.edu">Chuqiao Ren</a>,
+        
+    
+        
+        
+            <a href="mailto:rujiahe@gmail.com">Ruthia He</a>,
+        
+    
+        
+        
+            <a href="mailto:mayun@pku.edu.cn">Yun Ma</a>,
+        
+    
+        
+        
+            <a href="mailto:liuxuanzhe@pku.edu.cn">Xuanzhe Liu</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1503">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1503</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-10-17</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard interface/guideline that makes a smart contract upgradable. </p>
+<h2 id="abstract">Abstract</h2>
+<p>Ethereum smart contracts have suffered a number of security issues in the past few years. The cost of fixing such a bug in smart contract is significant; for example, the consequences of The DAO attack in June 2016 caused tremendous financial loss and the hard fork of Ethereum blockchain.</p>
+<p>The following standard makes it possible to upgrade a standard API within smart contracts. This standard provides basic functionalities to upgrade the operations of the contract without data migration. To ensure the decentralization/community interests, it also contains a voting mechanism to control the upgrading process. </p>
+<h2 id="motivation">Motivation</h2>
+<p>Smart contract is immutable after deployment. If any security risk is identified or program bug is detected, developers always have to destruct the old contract, deploy a new one and potentially migrate the data (hard fork) to the new contract. In some cases, deploying a smart contract with bugs and potential security vulnerabilities can cause a significant amount of financial loss.</p>
+<p>We propose this upgradable contract to fix the current situation. With the upgradable contract, developers can deploy a new version of smart contract after previous deployment and retain the data at the same time. </p>
+<p>For example, after an ERC20-compliant token contract is deployed, the users exploit a vulnerability in the source code.  Without the support of upgradable contract, developers have to fix this issue by deploy a new, secured contract otherwise the attackers would take advantage of the security hole, which may cause a tremendous financial loss. A challenge is how to migrate data from the old contract to a new one. With the upgradable contract below, this will become relatively easy as developers only have to upgrade the Handler contract to fix bugs while the Data contract will remain the same.</p>
+<h2 id="specification">Specification</h2>
+<p>The upgradable contract consists of three parts:</p>
+<ul>
+<li><strong>Handler contract</strong> (implements <strong>Handler interface</strong>) defines operations and provides services. This contract can be upgraded;</li>
+<li><strong>Data contract</strong> keeps the resources (data) and is controlled by the Handler contract;</li>
+<li><strong>Upgrader contract (optional)</strong> deals with the voting mechanism and upgrades the Handler contract. The voters are pre-defined by the contract owner. </li>
+</ul>
+<blockquote>
+<p>The following codes are exact copies of the <a href="https://gist.github.com/swordghost/77c96a972106af6ec6ccea9c2d66e768">ERC-1504 Upgradable Smart Contract.</a></p>
+</blockquote>
+<h3 id="handler-contract-and-handler-interface">Handler contract and Handler interface</h3>
+<p>Functions of the Handler contract vary with requirements, so developers would better design interfaces for Handler contracts to limit them and make sure external applications are always supported.</p>
+<p>Below is the specification of Handler interface. In the Handler interface we define the following actions:</p>
+<ul>
+<li>Initialize the Data contract;</li>
+<li>Register the Upgrader contract address;</li>
+<li>Destruct the Handler contract after upgrading is done;</li>
+<li>Verify the current Handler is the working one → it should always return true.</li>
+</ul>
+<p>Developers have to define their business-related functions as well.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/// Handler interface.
+/// Handler defines business related functions.
+/// Use the interface to ensure that your external services are always supported.
+/// Because of function live(), we design IHandler as an abstract contract rather than a true interface.
+contract IHandler {
+
+    /// Initialize the data contarct.
+    /// @param  _str    value of exmStr of Data contract.
+    /// @param  _int    value of exmInt of Data contract.
+    /// @param  _array  value of exmArray of Data contract.
+    function initialize (string _str, uint256 _int, uint16 [] _array) public;
+
+    /// Register Upgrader contract address.
+    /// @param  _upgraderAddr   address of the Upgrader contract.
+    function registerUpgrader (address _upgraderAddr) external;
+
+    /// Upgrader contract calls this to check if it is registered.
+    /// @return if the Upgrader contract is registered.
+    function isUpgraderRegistered () external view returns(bool);
+
+    /// Handler has been upgraded so the original one has to self-destruct.
+    function done() external;
+
+    /// Check if the Handler contract is a working Handler contract.
+    /// It is used to prove the contract is a Handler contract.
+    /// @return always true.
+    function live() external pure returns(bool) {
+        return true;
+    }
+
+    /** Functions - define functions here */
+
+    /** Events - add events here */
+}
+</span></code></pre>
+<p>The process of deploying a Handler contract:</p>
+<ol>
+<li>Deploy Data contract;</li>
+<li>Deploy a Handler contract at a given address specified in the Data contract;</li>
+<li>Register the Handler contract address by calling setHandler() in the Data contract, or use an Upgrader contract to switch the Handler contract, which requires that Data contract is initialized;</li>
+<li>Initialize Data contract if haven’t done it already.</li>
+</ol>
+<h3 id="data-contract">Data Contract</h3>
+<p>Below is the specification of Data contract. There are three parts in the Data contract:</p>
+<ul>
+<li><strong>Administrator Data</strong>: owner’s address, Handler contract’s address and a boolean indicating whether the contract is initialized or not;</li>
+<li><strong>Upgrader Data</strong>: Upgrader contract’s address, upgrade proposal’s submission timestamp and proposal’s time period;</li>
+<li><strong>Resource Data</strong>: all other resources that the contract needs to keep and manage.</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/// Data Contract
+contract DataContract {
+
+    /** Management data */
+    /// Owner and Handler contract
+    address private owner;
+    address private handlerAddr;
+
+    /// Ready?
+    bool private valid;
+
+    /** Upgrader data */
+    address private upgraderAddr;
+    uint256 private proposalBlockNumber;
+    uint256 private proposalPeriod;
+    /// Upgrading status of the Handler contract
+    enum UpgradingStatus {
+        /// Can be upgraded
+        Done,
+        /// In upgrading
+        InProgress,
+        /// Another proposal is in progress
+        Blocked,
+        /// Expired
+        Expired,
+        /// Original Handler contract error
+        Error
+    }
+
+    /** Data resources - define variables here */
+
+    /** Modifiers */
+
+    /// Check if msg.sender is the Handler contract. It is used for setters.
+    /// If fail, throw PermissionException.
+    modifier onlyHandler;
+
+    /// Check if msg.sender is not permitted to call getters. It is used for getters (if necessary).
+    /// If fail, throw GetterPermissionException.
+    modifier allowedAddress;
+
+    /// Check if the contract is working.
+    /// It is used for all functions providing services after initialization.
+    /// If fail, throw UninitializationException.
+    modifier ready;
+
+    /** Management functions */
+
+    /// Initializer. Just the Handler contract can call it. 
+    /// @param  _str    default value of this.exmStr.
+    /// @param  _int    default value of this.exmInt.
+    /// @param  _array  default value of this.exmArray.
+    /// exception   PermissionException msg.sender is not the Handler contract.
+    /// exception   ReInitializationException   contract has been initialized.
+    /// @return if the initialization succeeds.
+    function initialize (string _str, uint256 _int, uint16 [] _array) external onlyHandler returns(bool);
+
+    /// Set Handler contract for the contract. Owner must set one to initialize the Data contract.
+    /// Handler can be set by owner or Upgrader contract.
+    /// @param  _handlerAddr    address of a deployed Handler contract.
+    /// @param  _originalHandlerAddr    address of the original Handler contract, only used when an Upgrader contract want to set the Handler contract.
+    /// exception   PermissionException msg.sender is not the owner nor a registered Upgrader contract.
+    /// exception   UpgraderException   Upgrader contract does not provide a right address of the original Handler contract.
+    /// @return if Handler contract is successfully set.
+    function setHandler (address _handlerAddr, address _originalHandlerAddr) external returns(bool);
+
+    /** Upgrader contract functions */
+
+    /// Register an Upgrader contract in the contract.
+    /// If a proposal has not been accepted until proposalBlockNumber + proposalPeriod, it can be replaced by a new one.
+    /// @param  _upgraderAddr  address of a deployed Upgrader contract.
+    /// exception   PermissionException msg.sender is not the owner.
+    /// exception   UpgraderConflictException   Another Upgrader contract is working.
+    /// @return if Upgrader contract is successfully registered.
+    function startUpgrading (address _upgraderAddr) public returns(bool);
+
+    /// Getter of proposalPeriod.
+    /// exception   UninitializationException   uninitialized contract.
+    /// exception   GetterPermissionException   msg.sender is not permitted to call the getter.
+    /// @return this.proposalPeriod.
+    function getProposalPeriod () public view isReady allowedAddress returns(uint256);
+
+    /// Setter of proposalPeriod.
+    /// @param  _proposalPeriod new value of this.proposalPeriod.
+    /// exception   UninitializationException   uninitialized contract.
+    /// exception   PermissionException msg.sender is not the owner.
+    /// @return if this.proposalPeriod is successfully set.
+    function setProposalPeriod (uint256 _proposalPeriod) public isReady returns(bool);
+
+    /// Return upgrading status for Upgrader contracts.
+    /// @param  _originalHandlerAddr    address of the original Handler contract.
+    /// exception   UninitializationException   uninitialized contract.
+    /// @return Handler contract&#39;s upgrading status.
+    function canBeUpgraded (address _originalHandlerAddr) external view isReady returns(UpgradingStatus);
+
+    /// Check if the contract has been initialized.
+    /// @return if the contract has been initialized.
+    function live () external view returns(bool);
+
+    /** Getters and setters of data resources: define functions here */
+}
+</span></code></pre><h3 id="upgrader-contract-optional">Upgrader Contract (Optional)</h3>
+<p>Handler contract can be upgraded by calling setHandler() of Data contract. If the owner wants to collect ideas from users, an Upgrader contract will help him/her manage voting and upgrading.</p>
+<p>Below is the specification of Upgrader contract:</p>
+<ul>
+<li>The Upgrader contract has the ability to take votes from the registered voters.
+<ul>
+<li>The contract owner is able to add voters any time before the proposal expires;</li>
+<li>Voter can check the current status of the proposal (succeed or expired).</li>
+</ul>
+</li>
+<li>Developers are able to delete this Upgrader contract by calling done() any time after deployment.</li>
+</ul>
+<p>The Upgrader contract works as follows:</p>
+<ol>
+<li>Verify the Data contract, its corresponding Handler contract and the new Handler contract have all been deployed;</li>
+<li>Deploy an Upgrader contract using Data contract address, previous Handler contract address and new Handler contract address;</li>
+<li>Register upgrader address in the new Handler contract first, then the original handler and finally the Data contract;</li>
+<li>Call startProposal() to start the voting process;</li>
+<li>Call getResolution() before the expiration;</li>
+<li>Upgrading succeed or proposal is expired.</li>
+</ol>
+<p>Note:</p>
+<ul>
+<li>Function done() can be called at any time to let upgrader destruct itself.</li>
+<li>Function status() can be called at any time to show caller status of the upgrader.</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">/// Handler upgrader
+contract Upgrader {
+    // Data contract
+    DataContract public data;
+    // Original Handler contract
+    IHandler public originalHandler;
+    // New Handler contract
+    address public newHandlerAddr;
+
+    /** Marker */
+    enum UpgraderStatus {
+        Preparing,
+        Voting,
+        Success,
+        Expired,
+        End
+    }
+    UpgraderStatus public status;
+
+    /// Check if the proposal is expired.
+    /// If so, contract would be marked as expired.
+    /// exception   PreparingUpgraderException  proposal has not been started.
+    /// exception   ReupgradingException    upgrading has been done.
+    /// exception   ExpirationException proposal is expired.
+    modifier notExpired {
+        require(status != UpgraderStatus.Preparing, &quot;Invalid proposal!&quot;);
+        require(status != UpgraderStatus.Success, &quot;Upgrading has been done!&quot;);
+        require(status != UpgraderStatus.Expired, &quot;Proposal is expired!&quot;);
+        if (data.canBeUpgraded(address(originalHandler)) != DataContract.UpgradingStatus.InProgress) {
+            status = UpgraderStatus.Expired;
+            require(false, &quot;Proposal is expired!&quot;);
+        }
+        _;
+    }
+
+    /// Start voting.
+    /// Upgrader must do upgrading check, namely checking if Data contract and 2 Handler contracts are ok.
+    /// exception   RestartingException proposal has been already started.
+    /// exception   PermissionException msg.sender is not the owner.
+    /// exception   UpgraderConflictException   another upgrader is working.
+    /// exception   NoPreparationException  original or new Handler contract is not prepared.
+    function startProposal () external;
+
+    /// Anyone can try to get resolution.
+    /// If voters get consensus, upgrade the Handler contract.
+    /// If expired, self-destruct.
+    /// Otherwise, do nothing.
+    /// exception   PreparingUpgraderException  proposal has not been started.
+    /// exception   ExpirationException proposal is expired.
+    /// @return     status of proposal.
+    function getResolution() external returns(UpgraderStatus);
+
+    /// Destruct itself.
+    /// exception   PermissionException msg.sender is not the owner.
+    function done() external;
+
+    /** Other voting mechanism related variables and functions */
+}
+</span></code></pre><h3 id="caveats">Caveats</h3>
+<p>Since the Upgrader contract in <a href="https://gist.github.com/swordghost/969648793ed54fdf027cb6df1b894b75">ERC-1504</a> has a simple voting mechanism, it is prone to all the limitations that the voting contract is facing:</p>
+<ul>
+<li>The administrator can only be the owner of data and Handler contracts. Furthermore, only the administrator has the power to add voters and start a proposal. </li>
+<li>It requires voters to be constantly active, informative and attentive to make a upgrader succeed.</li>
+<li>The voting will only be valid in a given time period. If in a given time period the contract cannot collect enough “yes” to proceed, the proposal will be marked expired. </li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<h3 id="data-contract-and-handler-contract">Data Contract and Handler Contract</h3>
+<p>A smart contract is actually a kind of software, which provides some kind of services. From the perspective of software engineering, a service consists of <strong>resources</strong> that abstract the data and <strong>operations</strong> that abstract the process logic on the data. The requirement of upgrading is mostly on the logic part. Therefore, in order to make a smart contract upgradable, we divide it into two parts:</p>
+<ol>
+<li>Data contract keeps the resources;</li>
+<li>Handler contract contains operations.</li>
+</ol>
+<p>The Handler contract can be upgraded in the future while the Data contract is permanent. Handler contract can manipulate the variables in Data contract through the getter and setter functions provided by Data contract.</p>
+<h3 id="upgrader-contract-and-voting-mechanism">Upgrader Contract and Voting Mechanism</h3>
+<p>In order to prevent centralization and protect the interests of the community and stakeholders, we also design a voting mechanism in the Upgrader contract. Upgrader contract contains addresses of Data contract and two Handler contracts, and collects votes from pre-defined voters to upgrade the Handler contract when the pre-set condition is fulfilled.</p>
+<p>For simplicity, the upgradable contract comes with a very minimal version of the voting mechanism. If the contract owner wants to implement a more complex voting mechanism, he/she can modify the existing voting mechanism to incorporate upgradability. The expiration mechanism (see modifier notExpried in Upgrader contract and related functions in Data contract) and upgrading check (see function startProposal() in Upgrader contract) to the contract are mandatory.</p>
+<h3 id="gas-and-complexity-regarding-the-enumeration-extension">Gas and Complexity (regarding the enumeration extension)</h3>
+<p>Using an upgrader will cost some gas. If the Handler contract is upgraded by the owner, it just costs gas that a contract call will cost, which is usually significantly lower than creating and deploying a new contract.</p>
+<p>Although upgrading contract may take some efforts and gas, it is a much less painful than deprecating the insecure contract/creating a new contract or hard fork (e.g. DAO attack). Contract creation requires a significant amount of effort and gas. One of the advantages of upgradable contracts is that the contract owners don’t have to create new contracts; instead, they only need to upgrade parts of contract that cause issues, which is less expensive compared to data loss and blockchain inconsistency. In other words, upgradable contracts make Data contract more scalable and flexible. </p>
+<h3 id="community-consensus">Community Consensus</h3>
+<p>Thank you to those who helped on review and revise the proposal:</p>
+<ul>
+<li><a href="https://github.com/lsankar4033">@lsankar4033</a> from MIT</li>
+<li>more</li>
+</ul>
+<p>The proposal is initiated and developed by the team Renaissance and the Research Group of Blockchain System @ Center for Operating System at Peking University.</p>
+<p>We have been very inclusive in this process and invite anyone with questions or contributions into our discussion. However, this standard is written only to support the identified use cases which are listed herein.</p>
+<h2 id="implementations">Implementations</h2>
+<ol>
+<li><a href="https://www.renaissance.app">Renaissance</a> - a protocol that connect creators and fans financially</li>
+<li><a href="https://gist.github.com/swordghost/969648793ed54fdf027cb6df1b894b75">ERC-1504</a> - a reference implementation</li>
+</ol>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1066: Status Codes</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1066.md" />
+<meta property="og:title" content="EIP-1066: Status Codes" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1066 (EIP-1066): Status Codes"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1066 (EIP-1066): Status Codes"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1066.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1066 (EIP 1066): Status Codes" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1066: Status Codes
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/expede">Brooklyn Zelenka</a>,
+        
+    
+        
+        
+            <a href="https://github.com/carchrae"> Tom Carchrae</a>,
+        
+    
+        
+        
+            <a href="https://github.com/naumenkogs"> Gleb Naumenko</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;erc-1066-ethereum-status-codes-esc&#x2F;">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;erc-1066-ethereum-status-codes-esc&#x2F;</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-05-05</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Broadly applicable status codes for smart contracts.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This standard outlines a common set of status codes in a similar vein to HTTP statuses. This provides a shared set of signals to allow smart contracts to react to situations autonomously, expose localized error messages to users, and so on.</p>
+<p>The current state of the art is to either <code>revert</code> on anything other than a clear success (ie: require human intervention), or return a low-context <code>true</code> or <code>false</code>. Status codes are similar-but-orthogonal to <code>revert</code>ing with a reason, but aimed at automation, debugging, and end-user feedback (including translation). <em>They are fully compatible with both <code>revert</code> and <code>revert</code>-with-reason.</em></p>
+<p>As is the case with HTTP, having a standard set of known codes has many benefits for developers. They remove friction from needing to develop your own schemes for every contract, makes inter-contract automation easier, and makes it easier to broadly understand which of the finite states your request produced. Importantly, it makes it much easier to distinguish between expected errors states, truly exceptional conditions that require halting execution, normal state transitions, and various success cases.</p>
+<h2 id="motivation">Motivation</h2>
+<h3 id="semantic-density">Semantic Density</h3>
+<p>HTTP status codes are widely used for this purpose. BEAM languages use atoms and tagged tuples to signify much the same information. Both provide a lot of information both to the programmer (debugging for instance), and to the program that needs to decide what to do next.</p>
+<p>Status codes convey a much richer set of information <a href="https://existentialtype.wordpress.com/2011/03/15/boolean-blindness/">than Booleans</a>, and are able to be reacted to autonomously unlike arbitrary strings.</p>
+<h3 id="user-experience-ux">User Experience (UX)</h3>
+<p><em>End users get little to no feedback, and there is no translation layer.</em></p>
+<p>Since ERC1066 status codes are finite and known in advance, we can leverage <a href="https://eips.ethereum.org/EIPS/eip-1444">ERC1444</a> to provide global, human-readable sets of status messages. These may also be translated into any language, differing levels of technical detail, added as <code>revert</code> messages, natspecs, and so on.</p>
+<p>Status codes convey a much richer set of information than Booleans, and are able to be reacted to autonomously unlike arbitrary strings.</p>
+<h3 id="developer-experience-dx">Developer Experience (DX)</h3>
+<p><em>Developers currently have very little context exposed by their smart contracts.</em></p>
+<p>At time of writing, other than stepping through EVM execution and inspecting memory dumps directly, it is very difficult to understand what is happening during smart contract execution. By returning more context, developers can write well-decomposed tests and assert certain codes are returned as an expression of where the smart contract got to. This includes status codes as bare values, <code>event</code>s, and <code>revert</code>s.</p>
+<p>Having a fixed set of codes also makes it possible to write common helper functions to react in common ways to certain signals. This can live off- or on-chain library, lowering the overhead in building smart contracts, and helping raise code quality with trusted shared components.</p>
+<p>We also see a desire for this <a href="https://eips.ethereum.org/EIPS/eip-658">in transactions</a>, and there's no reason that these status codes couldn't be used by the EVM itself.</p>
+<h3 id="smart-contract-autonomy">Smart Contract Autonomy</h3>
+<p><em>Smart contracts don’t know much about the result of a request beyond pass/fail; they can be smarter with more context.</em></p>
+<p>Smart contracts are largely intended to be autonomous. While each contract may define a specific interface, having a common set of semantic codes can help developers write code that can react appropriately to various situations.</p>
+<p>While clearly related, status codes are complementary to <code>revert</code>-with-reason. Status codes are not limited to rolling back the transaction, and may represent known error states without halting execution. They may also represent off-chain conditions, supply a string to revert, signal time delays, and more.</p>
+<p>All of this enables contracts to share a common vocabulary of state transitions, results, and internal changes, without having to deeply understand custom status enums or the internal business logic of collaborator contracts.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="format">Format</h3>
+<p>Codes are returned either on their own, or as the first value of a multiple return.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">// Status only
+
+function isInt(uint num) public pure returns (byte status) {
+    return hex&quot;01&quot;;
+}
+
+// Status and value
+
+uint8 private counter;
+
+function safeIncrement(uint8 interval) public returns (byte status, uint8 newCounter) {
+    uint8 updated = counter + interval;
+
+    if (updated &gt;= counter) {
+        counter = updated;
+        return (hex&quot;01&quot;, updated);
+    } else {
+        return (hex&quot;00&quot;, counter);
+    }
+}
+</span></code></pre><h3 id="code-table">Code Table</h3>
+<p>Codes break nicely into a 16x16 matrix, represented as a 2-digit hex number. The high nibble represents the code's kind or &quot;category&quot;, and the low nibble contains the state or &quot;reason&quot;. We present them below as separate tables per range for explanatory and layout reasons.</p>
+<p><strong>NB: Unspecified codes are <em>not</em> free for arbitrary use, but rather open for further specification.</strong></p>
+<h4 id="0x0-generic"><code>0x0*</code> Generic</h4>
+<p>General codes. These double as bare &quot;reasons&quot;, since <code>0x01 == 1</code>.</p>
+<table><thead><tr><th>Code</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>0x00</code></td><td>Failure</td></tr>
+<tr><td><code>0x01</code></td><td>Success</td></tr>
+<tr><td><code>0x02</code></td><td>Awaiting Others</td></tr>
+<tr><td><code>0x03</code></td><td>Accepted</td></tr>
+<tr><td><code>0x04</code></td><td>Lower Limit or Insufficient</td></tr>
+<tr><td><code>0x05</code></td><td>Receiver Action Requested</td></tr>
+<tr><td><code>0x06</code></td><td>Upper Limit</td></tr>
+<tr><td><code>0x07</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x08</code></td><td>Duplicate, Unnecessary, or Inapplicable</td></tr>
+<tr><td><code>0x09</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x0A</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x0B</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x0C</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x0D</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x0E</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x0F</code></td><td>Informational or Metadata</td></tr>
+</tbody></table>
+<h4 id="0x1-permission-control"><code>0x1*</code> Permission &amp; Control</h4>
+<p>Also used for common state machine actions (ex. &quot;stoplight&quot; actions).</p>
+<table><thead><tr><th>Code</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>0x10</code></td><td>Disallowed or Stop</td></tr>
+<tr><td><code>0x11</code></td><td>Allowed or Go</td></tr>
+<tr><td><code>0x12</code></td><td>Awaiting Other's Permission</td></tr>
+<tr><td><code>0x13</code></td><td>Permission Requested</td></tr>
+<tr><td><code>0x14</code></td><td>Too Open / Insecure</td></tr>
+<tr><td><code>0x15</code></td><td>Needs Your Permission or Request for Continuation</td></tr>
+<tr><td><code>0x16</code></td><td>Revoked or Banned</td></tr>
+<tr><td><code>0x17</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x18</code></td><td>Not Applicable to Current State</td></tr>
+<tr><td><code>0x19</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x1A</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x1B</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x1C</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x1D</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x1E</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x1F</code></td><td>Permission Details or Control Conditions</td></tr>
+</tbody></table>
+<h4 id="0x2-find-inequalities-range"><code>0x2*</code> Find, Inequalities &amp; Range</h4>
+<p>This range is broadly intended for finding and matching. Data lookups and order matching are two common use cases.</p>
+<table><thead><tr><th>Code</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>0x20</code></td><td>Not Found, Unequal, or Out of Range</td></tr>
+<tr><td><code>0x21</code></td><td>Found, Equal or In Range</td></tr>
+<tr><td><code>0x22</code></td><td>Awaiting Match</td></tr>
+<tr><td><code>0x23</code></td><td>Match Request Sent</td></tr>
+<tr><td><code>0x24</code></td><td>Below Range or Underflow</td></tr>
+<tr><td><code>0x25</code></td><td>Request for Match</td></tr>
+<tr><td><code>0x26</code></td><td>Above Range or Overflow</td></tr>
+<tr><td><code>0x27</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x28</code></td><td>Duplicate, Conflict, or Collision</td></tr>
+<tr><td><code>0x29</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x2A</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x2B</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x2C</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x2D</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x2E</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x2F</code></td><td>Matching Meta or Info</td></tr>
+</tbody></table>
+<h4 id="0x3-negotiation-governance"><code>0x3*</code> Negotiation &amp; Governance</h4>
+<p>Negotiation, and very broadly the flow of such transactions. Note that &quot;other party&quot; may be more than one actor (not necessarily the sender).</p>
+<table><thead><tr><th>Code</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>0x30</code></td><td>Sender Disagrees or Nay</td></tr>
+<tr><td><code>0x31</code></td><td>Sender Agrees or Yea</td></tr>
+<tr><td><code>0x32</code></td><td>Awaiting Ratification</td></tr>
+<tr><td><code>0x33</code></td><td>Offer Sent or Voted</td></tr>
+<tr><td><code>0x34</code></td><td>Quorum Not Reached</td></tr>
+<tr><td><code>0x35</code></td><td>Receiver's Ratification Requested</td></tr>
+<tr><td><code>0x36</code></td><td>Offer or Vote Limit Reached</td></tr>
+<tr><td><code>0x37</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x38</code></td><td>Already Voted</td></tr>
+<tr><td><code>0x39</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x3A</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x3B</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x3C</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x3D</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x3E</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x3F</code></td><td>Negotiation Rules or Participation Info</td></tr>
+</tbody></table>
+<h4 id="0x4-availability-time"><code>0x4*</code> Availability &amp; Time</h4>
+<p>Service or action availability.</p>
+<table><thead><tr><th>Code</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>0x40</code></td><td>Unavailable</td></tr>
+<tr><td><code>0x41</code></td><td>Available</td></tr>
+<tr><td><code>0x42</code></td><td>Paused</td></tr>
+<tr><td><code>0x43</code></td><td>Queued</td></tr>
+<tr><td><code>0x44</code></td><td>Not Available Yet</td></tr>
+<tr><td><code>0x45</code></td><td>Awaiting Your Availability</td></tr>
+<tr><td><code>0x46</code></td><td>Expired</td></tr>
+<tr><td><code>0x47</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x48</code></td><td>Already Done</td></tr>
+<tr><td><code>0x49</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x4A</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x4B</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x4C</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x4D</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x4E</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x4F</code></td><td>Availability Rules or Info (ex. time since or until)</td></tr>
+</tbody></table>
+<h4 id="0x5-tokens-funds-finance"><code>0x5*</code> Tokens, Funds &amp; Finance</h4>
+<p>Special token and financial concepts. Many related concepts are included in other ranges.</p>
+<table><thead><tr><th>Code</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>0x50</code></td><td>Transfer Failed</td></tr>
+<tr><td><code>0x51</code></td><td>Transfer Successful</td></tr>
+<tr><td><code>0x52</code></td><td>Awaiting Payment From Others</td></tr>
+<tr><td><code>0x53</code></td><td>Hold or Escrow</td></tr>
+<tr><td><code>0x54</code></td><td>Insufficient Funds</td></tr>
+<tr><td><code>0x55</code></td><td>Funds Requested</td></tr>
+<tr><td><code>0x56</code></td><td>Transfer Volume Exceeded</td></tr>
+<tr><td><code>0x57</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x58</code></td><td>Funds Not Required</td></tr>
+<tr><td><code>0x59</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x5A</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x5B</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x5C</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x5D</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x5E</code></td><td>[reserved]</td></tr>
+<tr><td><code>0x5F</code></td><td>Token or Financial Information</td></tr>
+</tbody></table>
+<h4 id="0x6-tbd"><code>0x6*</code> TBD</h4>
+<p>Currently unspecified. (Full range reserved)</p>
+<h4 id="0x7-tbd"><code>0x7*</code> TBD</h4>
+<p>Currently unspecifie. (Full range reserved)</p>
+<h4 id="0x8-tbd"><code>0x8*</code> TBD</h4>
+<p>Currently unspecified. (Full range reserved)</p>
+<h4 id="0x9-tbd"><code>0x9*</code> TBD</h4>
+<p>Currently unspecified. (Full range reserved)</p>
+<h4 id="0xa-application-specific-codes"><code>0xA*</code> Application-Specific Codes</h4>
+<p>Contracts may have special states that they need to signal. This proposal only outlines the broadest meanings, but implementers may have very specific meanings for each, as long as they are coherent with the broader definition.</p>
+<table><thead><tr><th>Code</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>0xA0</code></td><td>App-Specific Failure</td></tr>
+<tr><td><code>0xA1</code></td><td>App-Specific Success</td></tr>
+<tr><td><code>0xA2</code></td><td>App-Specific Awaiting Others</td></tr>
+<tr><td><code>0xA3</code></td><td>App-Specific Acceptance</td></tr>
+<tr><td><code>0xA4</code></td><td>App-Specific Below Condition</td></tr>
+<tr><td><code>0xA5</code></td><td>App-Specific Receiver Action Requested</td></tr>
+<tr><td><code>0xA6</code></td><td>App-Specific Expiry or Limit</td></tr>
+<tr><td><code>0xA7</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xA8</code></td><td>App-Specific Inapplicable Condition</td></tr>
+<tr><td><code>0xA9</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xAA</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xAB</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xAC</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xAD</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xAE</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xAF</code></td><td>App-Specific Meta or Info</td></tr>
+</tbody></table>
+<h4 id="0xb-tbd"><code>0xB*</code> TBD</h4>
+<p>Currently unspecified. (Full range reserved)</p>
+<h4 id="0xc-tbd"><code>0xC*</code> TBD</h4>
+<p>Currently unspecified. (Full range reserved)</p>
+<h4 id="0xd-tbd"><code>0xD*</code> TBD</h4>
+<p>Currently unspecified. (Full range reserved)</p>
+<h4 id="0xe-encryption-identity-proofs"><code>0xE*</code> Encryption, Identity &amp; Proofs</h4>
+<p>Actions around signatures, cryptography, signing, and application-level authentication.</p>
+<p>The meta code <code>0xEF</code> is often used to signal a payload describing the algorithm or process used.</p>
+<table><thead><tr><th>Code</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>0xE0</code></td><td>Decrypt Failure</td></tr>
+<tr><td><code>0xE1</code></td><td>Decrypt Success</td></tr>
+<tr><td><code>0xE2</code></td><td>Awaiting Other Signatures or Keys</td></tr>
+<tr><td><code>0xE3</code></td><td>Signed</td></tr>
+<tr><td><code>0xE4</code></td><td>Unsigned or Untrusted</td></tr>
+<tr><td><code>0xE5</code></td><td>Signature Required</td></tr>
+<tr><td><code>0xE6</code></td><td>Known to be Compromised</td></tr>
+<tr><td><code>0xE7</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xE8</code></td><td>Already Signed or Not Encrypted</td></tr>
+<tr><td><code>0xE9</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xEA</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xEB</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xEC</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xED</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xEE</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xEF</code></td><td>Cryptography, ID, or Proof Metadata</td></tr>
+</tbody></table>
+<h4 id="0xf-off-chain"><code>0xF*</code> Off-Chain</h4>
+<p>For off-chain actions. Much like th <code>0x0*: Generic</code> range, <code>0xF*</code> is very general, and does little to modify the reason.</p>
+<p>Among other things, the meta code <code>0xFF</code> may be used to describe what the off-chain process is.</p>
+<table><thead><tr><th>Code</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>0xF0</code></td><td>Off-Chain Failure</td></tr>
+<tr><td><code>0xF1</code></td><td>Off-Chain Success</td></tr>
+<tr><td><code>0xF2</code></td><td>Awaiting Off-Chain Process</td></tr>
+<tr><td><code>0xF3</code></td><td>Off-Chain Process Started</td></tr>
+<tr><td><code>0xF4</code></td><td>Off-Chain Service Unreachable</td></tr>
+<tr><td><code>0xF5</code></td><td>Off-Chain Action Required</td></tr>
+<tr><td><code>0xF6</code></td><td>Off-Chain Expiry or Limit Reached</td></tr>
+<tr><td><code>0xF7</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xF8</code></td><td>Duplicate Off-Chain Request</td></tr>
+<tr><td><code>0xF9</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xFA</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xFB</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xFC</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xFD</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xFE</code></td><td>[reserved]</td></tr>
+<tr><td><code>0xFF</code></td><td>Off-Chain Info or Meta</td></tr>
+</tbody></table>
+<h3 id="as-a-grid">As a Grid</h3>
+<table><thead><tr><th></th><th><code>0x0*</code> General</th><th><code>0x1*</code> Permission &amp; Control</th><th><code>0x2*</code> Find, Inequalities &amp; Range</th><th><code>0x3*</code> Negotiation &amp; Governance</th><th><code>0x4*</code> Availability &amp; Time</th><th><code>0x5*</code> Tokens, Funds &amp; Finance</th><th><code>0x6*</code> TBD</th><th><code>0x7*</code> TBD</th><th><code>0x8*</code> TBD</th><th><code>0x9*</code> TBD</th><th><code>0xA*</code> Application-Specific Codes</th><th><code>0xB*</code> TBD</th><th><code>0xC*</code> TBD</th><th><code>0xD*</code> TBD</th><th><code>0xE*</code> Encryption, Identity &amp; Proofs</th><th><code>0xF*</code> Off-Chain</th></tr></thead><tbody>
+<tr><td><code>0x*0</code></td><td><code>0x00</code> Failure</td><td><code>0x10</code> Disallowed or Stop</td><td><code>0x20</code> Not Found, Unequal, or Out of Range</td><td><code>0x30</code> Sender Disagrees or Nay</td><td><code>0x40</code> Unavailable</td><td><code>0x50</code> Transfer Failed</td><td><code>0x60</code> [reserved]</td><td><code>0x70</code> [reserved]</td><td><code>0x80</code> [reserved]</td><td><code>0x90</code> [reserved]</td><td><code>0xA0</code> App-Specific Failure</td><td><code>0xB0</code> [reserved]</td><td><code>0xC0</code> [reserved]</td><td><code>0xD0</code> [reserved]</td><td><code>0xE0</code> Decrypt Failure</td><td><code>0xF0</code> Off-Chain Failure</td></tr>
+<tr><td><code>0x*1</code></td><td><code>0x01</code> Success</td><td><code>0x11</code> Allowed or Go</td><td><code>0x21</code> Found, Equal or In Range</td><td><code>0x31</code> Sender Agrees or Yea</td><td><code>0x41</code> Available</td><td><code>0x51</code> Transfer Successful</td><td><code>0x61</code> [reserved]</td><td><code>0x71</code> [reserved]</td><td><code>0x81</code> [reserved]</td><td><code>0x91</code> [reserved]</td><td><code>0xA1</code> App-Specific Success</td><td><code>0xB1</code> [reserved]</td><td><code>0xC1</code> [reserved]</td><td><code>0xD1</code> [reserved]</td><td><code>0xE1</code> Decrypt Success</td><td><code>0xF1</code> Off-Chain Success</td></tr>
+<tr><td><code>0x*2</code></td><td><code>0x02</code> Awaiting Others</td><td><code>0x12</code> Awaiting Other's Permission</td><td><code>0x22</code> Awaiting Match</td><td><code>0x32</code> Awaiting Ratification</td><td><code>0x42</code> Paused</td><td><code>0x52</code> Awaiting Payment From Others</td><td><code>0x62</code> [reserved]</td><td><code>0x72</code> [reserved]</td><td><code>0x82</code> [reserved]</td><td><code>0x92</code> [reserved]</td><td><code>0xA2</code> App-Specific Awaiting Others</td><td><code>0xB2</code> [reserved]</td><td><code>0xC2</code> [reserved]</td><td><code>0xD2</code> [reserved]</td><td><code>0xE2</code> Awaiting Other Signatures or Keys</td><td><code>0xF2</code> Awaiting Off-Chain Process</td></tr>
+<tr><td><code>0x*3</code></td><td><code>0x03</code> Accepted</td><td><code>0x13</code> Permission Requested</td><td><code>0x23</code> Match Request Sent</td><td><code>0x33</code> Offer Sent or Voted</td><td><code>0x43</code> Queued</td><td><code>0x53</code> Hold or Escrow</td><td><code>0x63</code> [reserved]</td><td><code>0x73</code> [reserved]</td><td><code>0x83</code> [reserved]</td><td><code>0x93</code> [reserved]</td><td><code>0xA3</code> App-Specific Acceptance</td><td><code>0xB3</code> [reserved]</td><td><code>0xC3</code> [reserved]</td><td><code>0xD3</code> [reserved]</td><td><code>0xE3</code> Signed</td><td><code>0xF3</code> Off-Chain Process Started</td></tr>
+<tr><td><code>0x*4</code></td><td><code>0x04</code> Lower Limit or Insufficient</td><td><code>0x14</code> Too Open / Insecure</td><td><code>0x24</code> Below Range or Underflow</td><td><code>0x34</code> Quorum Not Reached</td><td><code>0x44</code> Not Available Yet</td><td><code>0x54</code> Insufficient Funds</td><td><code>0x64</code> [reserved]</td><td><code>0x74</code> [reserved]</td><td><code>0x84</code> [reserved]</td><td><code>0x94</code> [reserved]</td><td><code>0xA4</code> App-Specific Below Condition</td><td><code>0xB4</code> [reserved]</td><td><code>0xC4</code> [reserved]</td><td><code>0xD4</code> [reserved]</td><td><code>0xE4</code> Unsigned or Untrusted</td><td><code>0xF4</code> Off-Chain Service Unreachable</td></tr>
+<tr><td><code>0x*5</code></td><td><code>0x05</code> Receiver Action Required</td><td><code>0x15</code> Needs Your Permission or Request for Continuation</td><td><code>0x25</code> Request for Match</td><td><code>0x35</code> Receiver's Ratification Requested</td><td><code>0x45</code> Awaiting Your Availability</td><td><code>0x55</code> Funds Requested</td><td><code>0x65</code> [reserved]</td><td><code>0x75</code> [reserved]</td><td><code>0x85</code> [reserved]</td><td><code>0x95</code> [reserved]</td><td><code>0xA5</code> App-Specific Receiver Action Requested</td><td><code>0xB5</code> [reserved]</td><td><code>0xC5</code> [reserved]</td><td><code>0xD5</code> [reserved]</td><td><code>0xE5</code> Signature Required</td><td><code>0xF5</code> Off-Chain Action Required</td></tr>
+<tr><td><code>0x*6</code></td><td><code>0x06</code> Upper Limit</td><td><code>0x16</code> Revoked or Banned</td><td><code>0x26</code> Above Range or Overflow</td><td><code>0x36</code> Offer or Vote Limit Reached</td><td><code>0x46</code> Expired</td><td><code>0x56</code> Transfer Volume Exceeded</td><td><code>0x66</code> [reserved]</td><td><code>0x76</code> [reserved]</td><td><code>0x86</code> [reserved]</td><td><code>0x96</code> [reserved]</td><td><code>0xA6</code> App-Specific Expiry or Limit</td><td><code>0xB6</code> [reserved]</td><td><code>0xC6</code> [reserved]</td><td><code>0xD6</code> [reserved]</td><td><code>0xE6</code> Known to be Compromised</td><td><code>0xF6</code> Off-Chain Expiry or Limit Reached</td></tr>
+<tr><td><code>0x*7</code></td><td><code>0x07</code> [reserved]</td><td><code>0x17</code> [reserved]</td><td><code>0x27</code> [reserved]</td><td><code>0x37</code> [reserved]</td><td><code>0x47</code> [reserved]</td><td><code>0x57</code> [reserved]</td><td><code>0x67</code> [reserved]</td><td><code>0x77</code> [reserved]</td><td><code>0x87</code> [reserved]</td><td><code>0x97</code> [reserved]</td><td><code>0xA7</code> [reserved]</td><td><code>0xB7</code> [reserved]</td><td><code>0xC7</code> [reserved]</td><td><code>0xD7</code> [reserved]</td><td><code>0xE7</code> [reserved]</td><td><code>0xF7</code> [reserved]</td></tr>
+<tr><td><code>0x*8</code></td><td><code>0x08</code> Duplicate, Unnecessary, or Inapplicable</td><td><code>0x18</code> Not Applicable to Current State</td><td><code>0x28</code> Duplicate, Conflict, or Collision</td><td><code>0x38</code> Already Voted</td><td><code>0x48</code> Already Done</td><td><code>0x58</code> Funds Not Required</td><td><code>0x68</code> [reserved]</td><td><code>0x78</code> [reserved]</td><td><code>0x88</code> [reserved]</td><td><code>0x98</code> [reserved]</td><td><code>0xA8</code> App-Specific Inapplicable Condition</td><td><code>0xB8</code> [reserved]</td><td><code>0xC8</code> [reserved]</td><td><code>0xD8</code> [reserved]</td><td><code>0xE8</code> Already Signed or Not Encrypted</td><td><code>0xF8</code> Duplicate Off-Chain Request</td></tr>
+<tr><td><code>0x*9</code></td><td><code>0x09</code> [reserved]</td><td><code>0x19</code> [reserved]</td><td><code>0x29</code> [reserved]</td><td><code>0x39</code> [reserved]</td><td><code>0x49</code> [reserved]</td><td><code>0x59</code> [reserved]</td><td><code>0x69</code> [reserved]</td><td><code>0x79</code> [reserved]</td><td><code>0x89</code> [reserved]</td><td><code>0x99</code> [reserved]</td><td><code>0xA9</code> [reserved]</td><td><code>0xB9</code> [reserved]</td><td><code>0xC9</code> [reserved]</td><td><code>0xD9</code> [reserved]</td><td><code>0xE9</code> [reserved]</td><td><code>0xF9</code> [reserved]</td></tr>
+<tr><td><code>0x*A</code></td><td><code>0x0A</code> [reserved]</td><td><code>0x1A</code> [reserved]</td><td><code>0x2A</code> [reserved]</td><td><code>0x3A</code> [reserved]</td><td><code>0x4A</code> [reserved]</td><td><code>0x5A</code> [reserved]</td><td><code>0x6A</code> [reserved]</td><td><code>0x7A</code> [reserved]</td><td><code>0x8A</code> [reserved]</td><td><code>0x9A</code> [reserved]</td><td><code>0xAA</code> [reserved]</td><td><code>0xBA</code> [reserved]</td><td><code>0xCA</code> [reserved]</td><td><code>0xDA</code> [reserved]</td><td><code>0xEA</code> [reserved]</td><td><code>0xFA</code> [reserved]</td></tr>
+<tr><td><code>0x*B</code></td><td><code>0x0B</code> [reserved]</td><td><code>0x1B</code> [reserved]</td><td><code>0x2B</code> [reserved]</td><td><code>0x3B</code> [reserved]</td><td><code>0x4B</code> [reserved]</td><td><code>0x5B</code> [reserved]</td><td><code>0x6B</code> [reserved]</td><td><code>0x7B</code> [reserved]</td><td><code>0x8B</code> [reserved]</td><td><code>0x9B</code> [reserved]</td><td><code>0xAB</code> [reserved]</td><td><code>0xBB</code> [reserved]</td><td><code>0xCB</code> [reserved]</td><td><code>0xDB</code> [reserved]</td><td><code>0xEB</code> [reserved]</td><td><code>0xFB</code> [reserved]</td></tr>
+<tr><td><code>0x*C</code></td><td><code>0x0C</code> [reserved]</td><td><code>0x1C</code> [reserved]</td><td><code>0x2C</code> [reserved]</td><td><code>0x3C</code> [reserved]</td><td><code>0x4C</code> [reserved]</td><td><code>0x5C</code> [reserved]</td><td><code>0x6C</code> [reserved]</td><td><code>0x7C</code> [reserved]</td><td><code>0x8C</code> [reserved]</td><td><code>0x9C</code> [reserved]</td><td><code>0xAC</code> [reserved]</td><td><code>0xBC</code> [reserved]</td><td><code>0xCC</code> [reserved]</td><td><code>0xDC</code> [reserved]</td><td><code>0xEC</code> [reserved]</td><td><code>0xFC</code> [reserved]</td></tr>
+<tr><td><code>0x*D</code></td><td><code>0x0D</code> [reserved]</td><td><code>0x1D</code> [reserved]</td><td><code>0x2D</code> [reserved]</td><td><code>0x3D</code> [reserved]</td><td><code>0x4D</code> [reserved]</td><td><code>0x5D</code> [reserved]</td><td><code>0x6D</code> [reserved]</td><td><code>0x7D</code> [reserved]</td><td><code>0x8D</code> [reserved]</td><td><code>0x9D</code> [reserved]</td><td><code>0xAD</code> [reserved]</td><td><code>0xBD</code> [reserved]</td><td><code>0xCD</code> [reserved]</td><td><code>0xDD</code> [reserved]</td><td><code>0xED</code> [reserved]</td><td><code>0xFD</code> [reserved]</td></tr>
+<tr><td><code>0x*E</code></td><td><code>0x0E</code> [reserved]</td><td><code>0x1E</code> [reserved]</td><td><code>0x2E</code> [reserved]</td><td><code>0x3E</code> [reserved]</td><td><code>0x4E</code> [reserved]</td><td><code>0x5E</code> [reserved]</td><td><code>0x6E</code> [reserved]</td><td><code>0x7E</code> [reserved]</td><td><code>0x8E</code> [reserved]</td><td><code>0x9E</code> [reserved]</td><td><code>0xAE</code> [reserved]</td><td><code>0xBE</code> [reserved]</td><td><code>0xCE</code> [reserved]</td><td><code>0xDE</code> [reserved]</td><td><code>0xEE</code> [reserved]</td><td><code>0xFE</code> [reserved]</td></tr>
+<tr><td><code>0x*F</code></td><td><code>0x0F</code> Informational or Metadata</td><td><code>0x1F</code> Permission Details or Control Conditions</td><td><code>0x2F</code> Matching Meta or Info</td><td><code>0x3F</code> Negotiation Rules or Participation Info</td><td><code>0x4F</code> Availability Rules or Info (ex. time since or until)</td><td><code>0x5F</code> Token or Financial Information</td><td><code>0x6F</code> [reserved]</td><td><code>0x7F</code> [reserved]</td><td><code>0x8F</code> [reserved]</td><td><code>0x9F</code> [reserved]</td><td><code>0xAF</code> App-Specific Meta or Info</td><td><code>0xBF</code> [reserved]</td><td><code>0xCF</code> [reserved]</td><td><code>0xDF</code> [reserved]</td><td><code>0xEF</code> Cryptography, ID, or Proof Metadata</td><td><code>0xFF</code> Off-Chain Info or Meta</td></tr>
+</tbody></table>
+<h3 id="example-function-change">Example Function Change</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">uint256 private startTime;
+mapping(address =&gt; uint) private counters;
+
+// Before
+function increase() public returns (bool _available) {
+    if (now &lt; startTime &amp;&amp; counters[msg.sender] == 0) {
+        return false;
+    };
+
+    counters[msg.sender] += 1;
+    return true;
+}
+
+// After
+function increase() public returns (byte _status) {
+    if (now &lt; start) { return hex&quot;44&quot;; } // Not yet available
+    if (counters[msg.sender] == 0) { return hex&quot;10&quot;; } // Not authorized
+
+    counters[msg.sender] += 1;
+    return hex&quot;01&quot;; // Success
+}
+</span></code></pre><h3 id="example-sequence-diagrams">Example Sequence Diagrams</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">0x03 = Waiting
+0x31 = Other Party (ie: not you) Agreed
+0x41 = Available
+0x44 = Not Yet Available
+
+
+                          Exchange
+
+
+AwesomeCoin                 DEX                     TraderBot
+     +                       +                          +
+     |                       |       buy(AwesomeCoin)   |
+     |                       | &lt;------------------------+
+     |         buy()         |                          |
+     | &lt;---------------------+                          |
+     |                       |                          |
+     |     Status [0x44]     |                          |
+     +---------------------&gt; |       Status [0x44]      |
+     |                       +------------------------&gt; |
+     |                       |                          |
+     |                       |        isDoneYet()       |
+     |                       | &lt;------------------------+
+     |                       |                          |
+     |                       |       Status [0x44]      |
+     |                       +------------------------&gt; |
+     |                       |                          |
+     |                       |                          |
+     |     Status [0x41]     |                          |
+     +---------------------&gt; |                          |
+     |                       |                          |
+     |       buy()           |                          |
+     | &lt;---------------------+                          |
+     |                       |                          |
+     |                       |                          |
+     |     Status [0x31]     |                          |
+     +---------------------&gt; |      Status [0x31]       |
+     |                       +------------------------&gt; |
+     |                       |                          |
+     |                       |                          |
+     |                       |                          |
+     |                       |                          |
+     +                       +                          +
+</span></code></pre><pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">0x01 = Generic Success
+0x10 = Disallowed
+0x11 = Allowed
+
+                                              Token Validation
+
+
+           Buyer                  RegulatedToken           TokenValidator               IDChecker          SpendLimiter
+             +                          +                         +                         +                   +
+             |        buy()             |                         |                         |                   |
+             +------------------------&gt; |          check()        |                         |                   |
+             |                          +-----------------------&gt; |          check()        |                   |
+             |                          |                         +-----------------------&gt; |                   |
+             |                          |                         |                         |                   |
+             |                          |                         |         Status [0x10]   |                   |
+             |                          |       Status [0x10]     | &lt;-----------------------+                   |
+             |        revert()          | &lt;-----------------------+                         |                   |
+             | &lt;------------------------+                         |                         |                   |
+             |                          |                         |                         |                   |
++---------------------------+           |                         |                         |                   |
+|                           |           |                         |                         |                   |
+| Updates ID with provider  |           |                         |                         |                   |
+|                           |           |                         |                         |                   |
++---------------------------+           |                         |                         |                   |
+             |                          |                         |                         |                   |
+             |         buy()            |                         |                         |                   |
+             +------------------------&gt; |        check()          |                         |                   |
+             |                          +-----------------------&gt; |         check()         |                   |
+             |                          |                         +-----------------------&gt; |                   |
+             |                          |                         |                         |                   |
+             |                          |                         |       Status [0x11]     |                   |
+             |                          |                         | &lt;-----------------------+                   |
+             |                          |                         |                         |                   |
+             |                          |                         |                         |   check()         |
+             |                          |                         +-------------------------------------------&gt; |
+             |                          |                         |                         |                   |
+             |                          |                         |                         |  Status [0x11]    |
+             |                          |       Status [0x11]     | &lt;-------------------------------------------+
+             |        Status [0x01]     | &lt;-----------------------+                         |                   |
+             | &lt;------------------------+                         |                         |                   |
+             |                          |                         |                         |                   |
+             |                          |                         |                         |                   |
+             |                          |                         |                         |                   |
+             +                          +                         +                         +                   +
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<h3 id="encoding">Encoding</h3>
+<p>Status codes are encoded as a <code>byte</code>. Hex values break nicely into high and low nibbles: <code>category</code> and <code>reason</code>. For instance, <code>0x01</code> stands for general success (ie: <code>true</code>) and <code>0x00</code> for general failure (ie: <code>false</code>).</p>
+<p>As a general approach, all even numbers are blocking conditions (where the receiver does not have control), and odd numbers are nonblocking (the receiver is free to contrinue as they wish). This aligns both a simple bit check with the common encoding of Booleans.</p>
+<p><code>bytes1</code> is very lightweight, portable, easily interoperable with <code>uint8</code>, cast from <code>enum</code>s, and so on.</p>
+<h4 id="alternatives">Alternatives</h4>
+<p>Alternate schemes include <code>bytes32</code> and <code>uint8</code>. While these work reasonably well, they have drawbacks.</p>
+<p><code>uint8</code> feels even more similar to HTTP status codes, and enums don't require as much casting. However does not break as evenly as a square table (256 doesn't look as nice in base 10).</p>
+<p>Packing multiple codes into a single <code>bytes32</code> is nice in theory, but poses additional challenges. Unused space may be interpreted as <code>0x00 Failure</code>, you can only efficiently pack four codes at once, and there is a challenge in ensuring that code combinations are sensible. Forcing four codes into a packed representation encourages multiple status codes to be returned, which is often more information than strictly necessarily. This can lead to paradoxical results (ex <code>0x00</code> and <code>0x01</code> together), or greater resources allocated to interpreting 256<sup>4</sup> (4.3 billion) permutations.</p>
+<h3 id="multiple-returns">Multiple Returns</h3>
+<p>While there may be cases where packing a byte array of status codes may make sense, the simplest, most forwards-compatible method of transmission is as the first value of a multiple return.</p>
+<p>Familiarity is also a motivating factor. A consistent position and encoding together follow the principle of least surprise. It is both viewable as a &quot;header&quot; in the HTTP analogy, or like the &quot;tag&quot; in BEAM tagged tuples.</p>
+<h3 id="human-readable">Human Readable</h3>
+<p>Developers should not be required to memorize 256 codes. However, they break nicely into a table. Cognitive load is lowered by organizing the table into categories and reasons. <code>0x10</code> and <code>0x11</code> belong to the same category, and <code>0x04</code> shares a reason with <code>0x24</code></p>
+<p>While this repository includes helper enums, we have found working directly in the hex values to be quite natural. Status code <code>0x10</code> is just as comfortable as HTTP 401, for example.</p>
+<h4 id="localizations">Localizations</h4>
+<p>One commonly requested application of this spec is human-readable translations of codes. This has been moved to its own proposal: <a href="https://github.com/ethereum/EIPs/pull/1444/">ERC-1444</a>, primarily due to a desire to keep both specs focused.</p>
+<h3 id="extensibility">Extensibility</h3>
+<p>The <code>0xA</code> category is reserved for application-specific statuses. In the case that 256 codes become insufficient, <code>bytes1</code> may be embedded in larger byte arrays.</p>
+<h3 id="evm-codes">EVM Codes</h3>
+<p>The EVM also returns a status code in transactions; specifically <code>0x00</code> and <code>0x01</code>. This proposal both matches the meanings of those two codes, and could later be used at the EVM level.</p>
+<h3 id="empty-space">Empty Space</h3>
+<p>Much like how HTTP status codes have large unused ranges, there are totally empty sections in this proposal. The intent is to not impose a complete set of codes up front, and to allow users to suggest uses for these spaces as time progresses.</p>
+<h3 id="beyond-errors">Beyond Errors</h3>
+<p>This spec is intended to be much more than a set of common errors. One design goal is to enable easier contract-to-contract communication, protocols built on top of status codes, and flows that cross off-chain. Many of these cases include either expected kinds of exception state (as opposed to true errors), neutral states, time logic, and various successes.</p>
+<p>Just like how HTTP 200 has a different meaning from HTTP 201, ERC-1066 status codes can relay information between contract beyond simply pass or fail. They can be thought of as the edges in a graph that has smart contracts as nodes.</p>
+<h3 id="fully-revertable">Fully <code>revert</code>able</h3>
+<p><em>This spec is fully compatible with <code>revert</code>-with-reason and does not intend to supplant it in any way.</em> Both by reverting with a common code, the developer can determine what went wrong from a set of known error states.</p>
+<p>Further, by leveraging ERC-1066 and a translation table (such as in ERC-1444) in conjunction, developers and end users alike can receive fully automated human-readable error messages in the language and phrasing of their choice.</p>
+<h3 id="nibble-order">Nibble Order</h3>
+<p>Nibble order makes no difference to the machine, and is purely mnemonic. This design was originally in opposite order, but changed it for a few convenience factors. Since it's a different scheme from HTTP, it may feel strange initially, but becomes very natural after a couple hours of use.</p>
+<h4 id="short-forms">Short Forms</h4>
+<p>Generic is <code>0x0*</code>, general codes are consistent with their integer representations</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">hex&quot;1&quot; == hex&quot;01&quot; == 1 // with casting
+</span></code></pre><h4 id="contract-categories">Contract Categories</h4>
+<p>Many applications will always be part of the same category. For instance, validation will generally be in the <code>0x10</code> range.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract Whitelist {
+    mapping(address =&gt; bool) private whitelist;
+    uint256 private deadline;
+    byte constant private prefix = hex&quot;10&quot;;
+
+    check(address _, address _user) returns (byte _status) {
+        if (now &gt;= deadline)  { return prefix | 5; }
+        if (whitelist[_user]) { return prefix | 1; }
+        return prefix;
+    }
+}
+</span></code></pre><h4 id="helpers">Helpers</h4>
+<p>This above also means that working with app-specific enums is slightly easier, and also saves gas (fewer operations required).</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">enum Sleep {
+    Awake,
+    Asleep,
+    BedOccupied,
+    WindingDown
+}
+
+// From the helper library
+
+function appCode(Sleep _state) returns (byte code) {
+    return byte(160 + _state); // 160 = 0xA0
+}
+
+// Versus
+
+function appCode(Sleep _state) returns (byte code) {
+    return byte((16 * _state) + 10); // 10 = 0xA
+}
+</span></code></pre><h2 id="implementation">Implementation</h2>
+<p>Reference cases and helper libraries (Solidity and JS) can be found at:</p>
+<ul>
+<li><a href="https://github.com/fission-suite/fission-codes/">Source Code</a></li>
+<li><a href="https://www.npmjs.com/package/fission-codes/">Package on npm</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

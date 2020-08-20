@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2330: EXTSLOAD opcode</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2330.md" />
+<meta property="og:title" content="EIP-2330: EXTSLOAD opcode" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2330 (EIP-2330): EXTSLOAD opcode"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2330 (EIP-2330): EXTSLOAD opcode"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2330.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2330 (EIP 2330): EXTSLOAD opcode" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2330: EXTSLOAD opcode
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/dominicletz">Dominic Letz</a>,
+        
+    
+        
+        
+            <a href="https://github.com/spalladino"> Santiago Palladino</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2330-extsload-and-abi-for-lower-gas-cost-and-off-chain-apps&#x2F;3733">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2330-extsload-and-abi-for-lower-gas-cost-and-off-chain-apps&#x2F;3733</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-10-29</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>A new <code>EXTSLOAD &lt;contract&gt; &lt;slot&gt;</code> EVM opcode to read external contract storage data and corresponding allowing to build registry and token contracts that use less gas.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>While any off-chain application can read all contract storage data of all contracts, this is not possible for deployed smart contracts themselves. These are bound to use contract calls for any interaction including reading data from other contracts. This EIP adds an EVM opcode to directly read external contract storage.</p>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>The gas cost when reading from registry style contract such as ERC-20s, ENS and other data contracts is very high, because they incur cross contract call cost, cost for ABI encoding,  decoding and dispatching and finally loading the data. In many cases the underlying storage that is being queried is though just a simple mapping. In these cases a new <code>EXTSLOAD</code> call directly accessing the mapping in storage could not only <strong>reduce the gas cost</strong> of the interaction more than 10x, but also it would make the gas cost <strong>predictable</strong> for the reading contract. Furthermore with the use of the existing <code>EXTCODEHASH</code> an external contracts implementation can be verified and allows <code>EXTSLOAD</code> to make deterministic reads even from third-party smart contracts.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<p><strong>Proposal</strong></p>
+<p>A new EVM instruction <code>EXTSLOAD (0x5c)</code> that works like <code>SLOAD (0x54)</code> but an additional parameter representing the contract that is to be read from. The gas cost of <code>EXTSLOAD</code> would be the sum of the <a href="https://ethereum.github.io/yellowpaper/paper.pdf">fee schedule G</a> for G[EXTCODE](700) + G[SLOAD](800) = 1500 gas</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">EXTSLOAD (0x5c)
+</span></code></pre>
+<p>The <code>EXTSLOAD</code> instruction pops 2 values from the stack, first <code>contract</code> a contract address and then second <code>slot</code> a storage address within <code>contract</code>. As result <code>EXTSLOAD</code> pushes on the stack the value from the contract storage of <code>contract</code> at the storage <code>slot</code> address or <code>0</code> in case the account <code>contract</code> does not exist.</p>
+<p><strong>Example</strong></p>
+<p>An example assuming <a href="https://github.com/ethereum/solidity/issues/7593">further Solidity changes</a> for illustration:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface MemberList {
+  public fixed(@5) mapping(address =&gt; bool) members;
+}
+</span></code></pre>
+<p>And a corresponding contract function that uses this member list. Similarly tokens or other registries could be implemented.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function membersOnly(address list, address member) {
+  MemberList ml = MemberList(list);
+  if (ml.members[client] == false) revert(&quot;Nonmember!&quot;);
+}
+</span></code></pre>
+<p>The call <code>ml.members[client]</code> here could let the Solidity compiler generate the normal map access logic but using the new <code>EXTSLOAD &lt;contract&gt; &lt;slot&gt;</code> instructions to read from the <code>ml</code> contract storage instead of the local contract storage.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This change is fully backwards compatible since it adds a new instruction.</p>
+<h2 id="test-cases">Test Cases</h2>
+<!--Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Other EIPs can choose to include links to test cases if applicable.-->
+<p>Not started yet.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p><a href="https://github.com/ethereum/aleth/pull/5805">Aleth Pull Request</a></p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2711: Sponsored, expiring and batch transactions.</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2711.md" />
+<meta property="og:title" content="EIP-2711: Sponsored, expiring and batch transactions." />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2711 (EIP-2711): Sponsored, expiring and batch transactions."
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2711 (EIP-2711): Sponsored, expiring and batch transactions."
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2711.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2711 (EIP 2711): Sponsored, expiring and batch transactions." />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2711: Sponsored, expiring and batch transactions.
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2711-separate-gas-payer-from-msg-sender&#x2F;4353">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2711-separate-gas-payer-from-msg-sender&#x2F;4353</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-06-11</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>2718</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>Creates a new transaction type that supports sponsored transactions (separate gas payer from sender), batch transactions (multiple transactions executed in sequence), and expiring transactions (transactions which are not valid after a certain timestamp).</p>
+<h2 id="abstract">Abstract</h2>
+<p>An EIP-2718 transaction with the type number <code>2</code> is a new type of transaction that includes support for:</p>
+<ol>
+<li><strong>Sponsored Transactions</strong>: an optional additional signature from which the account that will pay for gas (<code>GAS_PAYER</code>) can be recovered</li>
+<li><strong>Batch Transactions</strong>: multiple transactions from the same sender that will be executed in sequence</li>
+<li><strong>Expiring Transactions</strong>: an optional <code>validUntil</code> field that makes the transaction invalid after a certain point in time</li>
+</ol>
+<h2 id="motivation">Motivation</h2>
+<h3 id="sponsored-transactions">Sponsored Transactions</h3>
+<p>With the advent of tokens and especially stable coins, it has become common for users to not hold ETH in an account while they may have other assets of value in that account.  Some users don't want to be exposed to the perceived volatility of ETH and instead would prefer to transact using other assets.  Unfortunately, since gas <strong>MUST</strong> be paid for with ETH, this prevents the user from transacting with their assets without first acquiring some ETH using some other means, and then using that ETH to pay fees.</p>
+<p>This EIP proposes a mechanism by which we can allow people to transact without ever having to own any ETH by allowing someone else to cover gas costs.  The arrangements that enable the covering of gas costs is out of scope for this EIP but it could be an extra-protocol monthly subscription, payment could occur as part of the transaction being submitted, the recpient may be willing to cover gas costs, or it could be a free service offered as a value-add by a company that you are working with.</p>
+<p>While it is possible to implement these sort of mechanisms at the individual contract layer, such solutions require integration by just about every contract and those solutions also end up depending on gas costs being stable with time in order to appropriately bake them into contracts without putting either party at risk of malicious participants in the system.  For this reason, it is believed that separating out <code>GAS_PAYER</code> from <code>msg.sender</code> at the protocol layer is valuable.</p>
+<h3 id="batch-transactions">Batch Transactions</h3>
+<p>Often times an EOA may want to execute a series of transactions with a strong guarantee that they happen in order with nothing occurring between them.  For example, one may want to send some tokens to a contract and then follow that up with another transaction that makes a contract call on the destination address that causes those tokens to be registered to them.  By supporting transaction batching at layer 1, we can ensure that the user can get strong guarantees at signing time of cross-transaction atomicity.</p>
+<h3 id="expiring-transactions">Expiring Transactions</h3>
+<ul>
+<li>If any form of dust-account clearing is introduced, e.g. (https://github.com/ethereum/EIPs/issues/168), it will be necessary to introduce a replay protection, such as https://github.com/ethereum/EIPs/issues/169 . Having temporal replay protection removes the need to change nonce-behaviour in the state, since transactions would not be replayable at a later date than explicitly set by the user.</li>
+<li>In many cases, such as during ICOs, a lot of people want their transactions to either become included soon (within a couple of hours) or not at all. Currently, transactions are queued and may not execute for several days, at a cost for both the user (who ends up paying gas for a failing purchase) and the network, dealing with the large transaction queues.</li>
+<li>Node implementations have no commonly agreed metric for which transactions to keep, discard or propagate. Having a TTL on transactions would make it easier to remove stale transactions from the system.</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<h3 id="definitions">Definitions</h3>
+<p><strong><code>TransactionType</code></strong> 2.  See <a href="https://eips.ethereum.com/EIPS/eip-2718/">EIP-2718</a></p>
+<p><strong><code>TransactionSubtype</code></strong> is either 1, 2, 3, or 4.</p>
+<p><strong><code>ChainId</code></strong> The transaction is valid if this value is <code>0</code> or it is included in a block on a chain whose ID is equal to this value.</p>
+<p><strong><code>ValidUntil</code></strong> The transaction is valid if this value is <code>0</code> or it is included in a block whose <code>timestamp</code> is less than or equal to this value.</p>
+<p><strong><code>YParity</code></strong> The parity (0 for even, 1 for odd) of the y-value of a secp256k1 signature.</p>
+<p><strong><code>ChildTransaction</code></strong> A nested transaction consisting of <code>[to, value, data]</code>.</p>
+<p><strong><code>SenderPayload</code></strong> Defined based on the <code>TransactionSubtype</code> as follows:</p>
+<ol>
+<li><code>[1, ChildTransaction[], nonce, ChainId, ValidUntil, gasLimit, gasPrice]</code></li>
+<li><code>[2, ChildTransaction[], nonce, ChainId, ValidUntil, gasLimit, gasPrice]</code></li>
+<li><code>[3, ChildTransaction[], nonce, ChainId, ValidUntil, gasLimit]</code></li>
+<li><code>[4, ChildTransaction[], nonce, ChainId, ValidUntil]</code></li>
+</ol>
+<p><strong><code>SenderSignature</code></strong> <code>[YParity, r, s]</code> of <code>secp256k1(keccak256(rlp([TransactionType, SenderPayload])))</code></p>
+<p><strong><code>GasPayerPayload</code></strong> Defined based on the <code>TransactionSubtype</code> as follows:</p>
+<ol>
+<li><code>[]</code></li>
+<li><code>[]</code></li>
+<li><code>[gasPrice]</code></li>
+<li><code>[gasLimit, gasPrice]</code></li>
+</ol>
+<p><strong><code>GasPayerSignature</code></strong> is <code>[]</code> for <code>TransactionSubType</code> <code>1</code> or <code>[YParity, r, s]</code> of <code>secp256k1(keccak256(rlp([SenderPayload, SenderSignature, GasPayerPayload])))</code> for others.</p>
+<h3 id="new-transaction-type">New Transaction Type</h3>
+<p>As of <code>FORK_BLOCK_NUMBER</code> an <a href="https://eips.ethereum.com/EIPS/eip-2718/">EIP-2718</a> transaction with a <code>TransactionType</code> of <code>2</code> will have its <code>Payload</code> interpreted as an RLP encoded tuple of:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">[...SenderPayload, ...SenderSignature, ...GasPayerPayload, ...GasPayerSignature]
+</span></code></pre>
+<p>The address recovered from <code>SenderSignature</code> is the address...</p>
+<ol>
+<li>...returned by the <code>CALLER</code> opcode (0x33, aka <code>msg.sender</code>) during the first call frame of the transaction</li>
+<li>...returned by the <code>ORIGIN</code> opcode (0x32, aka <code>tx.origin</code>)</li>
+<li>...whose <code>nonce</code> is used</li>
+<li>...whose ETH balance is deducted if any value is attached to the transaction</li>
+<li>...whose ETH balance is deducted to pay for gas if <code>GasPayerSignature</code> is not present</li>
+</ol>
+<p>If <code>GasPayerSignature</code> is present, then the address recovered from it is the address...</p>
+<ol>
+<li>...whose ETH balance is deducted to pay for gas</li>
+</ol>
+<p>The base gas cost of transactions of this type will be <code>TRANSACTION_TYPE_2_BASE_GAS_PRICE</code> + <code>TRANSACTION_TYPE_2_CHILD_GAS_PRICE</code> * <code>n</code>, rather than the cost associated with transactions of type <code>0</code> and legacy transactions.</p>
+<h3 id="new-transaction-receipt">New Transaction Receipt</h3>
+<p>As of <code>FORK_BLOCK_NUMBER</code> an <a href="https://eips.ethereum.com/EIPS/eip-2718/">EIP-2718</a> transaction receipt with a <code>TransactionType</code> of <code>2</code> will have its <code>Payload</code> interpreted as a <code>rlp([status, cumulativeGasUsed, logsBloom, logs][])</code> where each item of the array corresponds to the child-transaction at matching offset in the transaction type 2 <code>Payload</code>.</p>
+<h2 id="rationale">Rationale</h2>
+<h3 id="one-monolithic-eip">One Monolithic EIP</h3>
+<p>This EIP could be split up into multiple EIPs, one for each of the subtypes and one for the meta-type.  Alternatively, each of the subtypes could be a unique TransactionType.  The reason we chose to go with a single EIP with subtypes is because these 4 transactions all have a <em>lot</em> in common and each separate EIP would be almost identical to the previous.  We felt that in this case, splitting into multiple EIPs wasn't worth the duplication of EIP content.</p>
+<h3 id="chainid-not-encoded-with-v">ChainID not encoded with <code>v</code></h3>
+<p>While we could save one byte in the common case by bundling the y-parity bit of the signature with the Chain ID like in EIP-155, this adds complexity to signing tools that the authors deem not worth it given the size of the transaction overall.</p>
+<h3 id="optionality-of-chainid">Optionality of ChainID</h3>
+<p>Sometimes it is useful to have a transaction that <em>can</em> be replayed on multiple chains.  An example of this is when you construct a vanity signature for a transaction and have the <code>from</code> be whatever address that signature recovers to.  With the ability to have someone else be a gas payer (setting both the gas limit and the gas price), one can have transactions that deploy contracts which live at the same address on every chain.  While this can be accomplished with CREATE2 using legacy transactions, we have the opportunity here to simplify the process and enable potentially other future uses of deterministic transactions by making ChainID optional.</p>
+<h3 id="optionality-of-validuntil">Optionality of ValidUntil</h3>
+<p>A user can set <code>ValidUntil</code> to a very large number which effectively makes it non-expiring.  By making <code>ValidUntil</code> optional, we can save some bytes on the wire by allowing such transcations to simply have a <code>0</code> (1 byte in RLP) value for this field.</p>
+<h3 id="sender-sets-gaslimit-and-gasprice"><code>SENDER</code> sets <code>gasLimit</code> and <code>gasPrice</code></h3>
+<p>This type of transaction is useful when the transaction may execute differently depending on what these values are set to.  By having the <code>SENDER</code> set both, we ensure that the <code>SENDER</code> has full control over the transaction details.</p>
+<h3 id="sender-sets-gaslimit-gas-payer-sets-gasprice"><code>SENDER</code> sets <code>gasLimit</code>, <code>GAS_PAYER</code> sets <code>gasPrice</code></h3>
+<p>This type of transaction is useful when the transaction may execute differently depending on how much gas it is allowed (e.g., number of loops) but where the <code>SENDER</code> would like to give the <code>GAS_PAYER</code> the ability to price the transaction to maximize chances of inclusion.</p>
+<h3 id="gas-payer-sets-gaslimit-and-gasprice"><code>GAS_PAYER</code> sets <code>gasLimit</code> and <code>gasPrice</code></h3>
+<p>This type of transaction allows the <code>SENDER</code> to define what they want to do, and leaves all worry about gas to the <code>GAS_PAYER</code>.  This is useful for transactions where the sender doesn't care how much gas is used or the price that is paid and also either trusts the <code>GAS_PAYER</code> to be non-malicious or doesn't care if the <code>SENDER</code>'s nonce is increased.  Such situations are useful when you have extra-protocol trust between the <code>SENDER</code> and <code>GAS_PAYER</code> and you want to separate concerns (what to do vs how to get included) for security or complexity reasons.</p>
+<h3 id="nonces">Nonces</h3>
+<p>The inner transaction needs a nonce to protect themselves from replay attacks.  Since the inner transaction has a nonce, we get replay protection on the outer transaction as well, so it is not critical for security to have multiple parties provide a nonce.</p>
+<p>We could have the <code>GAS_PAYER</code> provide a second nonce, but this would increase the payload size and require <code>GAS_PAYER</code> to do replace-by-fee (noisy for gossip) if they want to slip in a new (different inner) transaction with a higher gas price.  It would also create the possibility of a deadlock if the <code>SENDER</code> nonces aren't ordered the same as the <code>GAS_PAYER</code> nonces, and if the <code>SENDER</code> nonce isn't the lowest valid nonce for the <code>SENDER</code> then the <code>GAS_PAYER</code> can't sign and submit yet.  Finally, client complexity increases slightly if a transaction has two nonces because you have to protect yourself from deadlocks and do more work to determine validity.</p>
+<h3 id="validuntil">ValidUntil</h3>
+<p>For the dust-account clearing usecase, </p>
+<ul>
+<li>This change is much less invasive in the consensus engine. 
+<ul>
+<li>No need to maintain a consensus-field of 'highest-known-nonce' or cap the number of transactions from a sender in a block. </li>
+<li>Only touches the transaction validation part of the consensus engine</li>
+<li>Other schemas which uses the <code>nonce</code> can have unintended side-effects, 
+<ul>
+<li>such as inability to create contracts at certain addresses.</li>
+<li>more difficult to integrate with offline signers, since more elaborate nonce-schemes requires state access to determine. </li>
+<li>More intricate schemes like <code>highest-nonce</code> are a lot more difficult, since highest-known-nonce will be a consensus-struct that is incremented and possibly reverted during transaction execution, requiring one more journalled field.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="validuntil-as-timestamp-instead-of-block-number">ValidUntil as timestamp instead of block number</h3>
+<ul>
+<li>The unix time is generally available in most settings, even on a computer which is offline. This means that even a setup where blockchain information is unavailable, the party signing a transaction can generate a transaction with the desired properties. </li>
+<li>The correlation between time and block number is not fixed; even though a 13s blocktime is 'desired', this varies due to both network hashrate and difficulty bomb progression. </li>
+<li>The block number is even more unreliable as a timestamp for testnets and private networks.</li>
+<li>unix time is more user-friendly, a user can more easily decide on reasonable end-date for a transaction, rather than a suitalbe number of valid blocks.</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>No known issues.</p>
+<h2 id="test-cases">Test Cases</h2>
+<!--Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Other EIPs can choose to include links to test cases if applicable.-->
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<h2 id="security-considerations">Security Considerations</h2>
+<!--All EIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life cycle of the proposal. E.g. include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. EIP submissions missing the "Security Considerations" section will be rejected. An EIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.-->
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+sudo: false 
+
+language: rust
+
+cache: cargo
+
+before_install:
+  - cargo install eipv --version=0.0.5
+
+matrix:
+  fast_finish: true
+  include:
+    - script:
+      - eipv EIPS/ --ignore=title_max_length,missing_discussions_to --skip=eip-20-token-standard.md
+
+notifications:
+  webhooks:
+    urls:
+      - https://ethlab-183014.appspot.com/merge/
+    on_success: always

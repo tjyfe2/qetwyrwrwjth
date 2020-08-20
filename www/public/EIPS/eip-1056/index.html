@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1056: Ethereum Lightweight Identity</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1056.md" />
+<meta property="og:title" content="EIP-1056: Ethereum Lightweight Identity" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1056 (EIP-1056): Ethereum Lightweight Identity"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1056 (EIP-1056): Ethereum Lightweight Identity"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1056.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1056 (EIP 1056): Ethereum Lightweight Identity" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1056: Ethereum Lightweight Identity
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:pelle.braendgaard@consensys.net">Pelle Braendgaard</a>,
+        
+    
+        
+        
+            <a href="mailto:oed@consensys.net">Joel Torstensson</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1056">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1056</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-05-03</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A registry for key and attribute management of lightweight blockchain identities.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This ERC describes a standard for creating and updating identities with a limited use of blockchain resources. An identity can have an unlimited number of <code>delegates</code> and <code>attributes</code> associated with it. Identity creation is as simple as creating a regular key pair ethereum account, which means that it's free (no gas costs) and all ethereum accounts are valid identities. Furthermore this ERC is fully <a href="https://w3c-ccg.github.io/did-spec/">DID compliant</a>.</p>
+<h2 id="motivation">Motivation</h2>
+<p>As we have been developing identity systems for the last couple of years at uPort it has become apparent that the cost of identity creation is a large issue. The previous Identity proposal <a href="https://eips.ethereum.org/EIPS/eip-725">ERC725</a> faces this exact issue. Our requirements when creating this ERC is that identity creation should be free, and should be possible to do in an offline environment (e.g. refugee scenario). However it must also be possible to rotate keys without changing the primary identifier of the identity. The identity system should be fit to use off-chain as well as on-chain.</p>
+<h2 id="definitions">Definitions</h2>
+<ul>
+<li>
+<p><code>Identifier</code>: a piece of data that uniquely identifies the identity, an ethereum address</p>
+</li>
+<li>
+<p><code>delegate</code>: an address that is delegated for a specific time to perform some sort of function on behalf of an identity</p>
+</li>
+<li>
+<p><code>delegateType</code>: the type of a delegate, is determined by a protocol or application higher up
+Examples:</p>
+<ul>
+<li><code>did-jwt</code></li>
+<li><code>raiden</code></li>
+</ul>
+</li>
+<li>
+<p><code>attribute</code>: a piece of data associated with the identity</p>
+</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<p>This ERC specifies a contract called <code>EthereumDIDRegistry</code> that is deployed once and can then be commonly used by everyone.</p>
+<h3 id="identity-ownership">Identity ownership</h3>
+<p>By default an identity is owned by itself, meaning whoever controls the ethereum account with that address. The owner can be updated to a new key pair account or to a multisig account etc.</p>
+<h4 id="identityowner">identityOwner</h4>
+<p>Returns the owner of the given identity.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">identityOwner</span><span style="color:#c0c5ce;">(address identity) </span><span style="color:#bf616a;">public view returns</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address</span><span style="color:#c0c5ce;">);
+</span></code></pre><h4 id="changeowner">changeOwner</h4>
+<p>Sets the owner of the given identity to another ethereum account.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">changeOwner</span><span style="color:#c0c5ce;">(address identity, address newOwner) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="changeownersigned">changeOwnerSigned</h4>
+<p>Same as above but with raw signature.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">changeOwnerSigned</span><span style="color:#c0c5ce;">(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, address newOwner) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h3 id="delegate-management">Delegate management</h3>
+<p>Delegates can be used both on- and off-chain. They all have a <code>delegateType</code> which can be used to specify the purpose of the delegate.</p>
+<h4 id="validdelegate">validDelegate</h4>
+<p>Returns true if the given <code>delegate</code> is a delegate with type <code>delegateType</code> of <code>identity</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">validDelegate</span><span style="color:#c0c5ce;">(address identity, bytes32 delegateType, address delegate) </span><span style="color:#bf616a;">public view returns</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bool</span><span style="color:#c0c5ce;">);
+</span></code></pre><h4 id="adddelegate">addDelegate</h4>
+<p>Adds a new delegate with the given type. <code>validity</code> indicates the number of seconds that the delegate will be valid for, after which it will no longer be a delegate of <code>identity</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">addDelegate</span><span style="color:#c0c5ce;">(address identity, bytes32 delegateType, address delegate, uint validity) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="adddelegatesigned">addDelegateSigned</h4>
+<p>Same as above but with raw signature.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">addDelegateSigned</span><span style="color:#c0c5ce;">(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, bytes32 delegateType, address delegate, uint validity) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="revokedelegate">revokeDelegate</h4>
+<p>Revokes the given <code>delegate</code> for the given <code>identity</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">revokeDelegate</span><span style="color:#c0c5ce;">(address identity, bytes32 delegateType, address delegate) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="revokedelegatesigned">revokeDelegateSigned</h4>
+<p>Same as above but with raw signature.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">revokeDelegateSigned</span><span style="color:#c0c5ce;">(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, bytes32 delegateType, address delegate) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h3 id="attribute-management">Attribute management</h3>
+<p>Attributes contain simple data about the identity. They can be managed only by the owner of the identity.</p>
+<h4 id="setattribute">setAttribute</h4>
+<p>Sets an attribute with the given <code>name</code> and <code>value</code>, valid for <code>validity</code> seconds.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">setAttribute</span><span style="color:#c0c5ce;">(address identity, bytes32 name, bytes value, uint validity) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="setattributesigned">setAttributeSigned</h4>
+<p>Same as above but with raw signature.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">setAttributeSigned</span><span style="color:#c0c5ce;">(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, bytes32 name, bytes value, uint validity) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="revokeattrubte">revokeAttrubte</h4>
+<p>Revokes an attribute.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">revokeAttribute</span><span style="color:#c0c5ce;">(address identity, bytes32 name, bytes value) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="revokeattributesigned">revokeAttributeSigned</h4>
+<p>Same as above but with raw signature.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">revokeAttributeSigned</span><span style="color:#c0c5ce;">(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, bytes32 name, bytes value) </span><span style="color:#bf616a;">public</span><span style="color:#c0c5ce;">;
+</span></code></pre><h3 id="events">Events</h3>
+<h4 id="didownerchanged">DIDOwnerChanged</h4>
+<p>MUST be triggered when <code>changeOwner</code> or <code>changeOwnerSigned</code> was successfully called.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event DIDOwnerChanged</span><span style="color:#c0c5ce;">(
+  </span><span style="color:#bf616a;">address indexed identity</span><span style="color:#c0c5ce;">,
+  </span><span style="color:#bf616a;">address owner</span><span style="color:#c0c5ce;">,
+  </span><span style="color:#bf616a;">uint previousChange
+</span><span style="color:#c0c5ce;">);
+</span></code></pre><h4 id="diddelegatechanged">DIDDelegateChanged</h4>
+<p>MUST be triggered when a change to a delegate was successfully made.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event DIDDelegateChanged</span><span style="color:#c0c5ce;">(
+  </span><span style="color:#bf616a;">address indexed identity</span><span style="color:#c0c5ce;">,
+  </span><span style="color:#bf616a;">bytes32 delegateType</span><span style="color:#c0c5ce;">,
+  </span><span style="color:#bf616a;">address delegate</span><span style="color:#c0c5ce;">,
+  </span><span style="color:#bf616a;">uint validTo</span><span style="color:#c0c5ce;">,
+  </span><span style="color:#bf616a;">uint previousChange
+</span><span style="color:#c0c5ce;">);
+</span></code></pre><h4 id="didattrituechanged">DIDAttritueChanged</h4>
+<p>MUST be triggered when a change to an attribute was successfully made.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event DIDAttributeChanged</span><span style="color:#c0c5ce;">(
+  </span><span style="color:#bf616a;">address indexed identity</span><span style="color:#c0c5ce;">,
+  </span><span style="color:#bf616a;">bytes32 name</span><span style="color:#c0c5ce;">,
+  </span><span style="color:#bf616a;">bytes value</span><span style="color:#c0c5ce;">,
+  </span><span style="color:#bf616a;">uint validTo</span><span style="color:#c0c5ce;">,
+  </span><span style="color:#bf616a;">uint previousChange
+</span><span style="color:#c0c5ce;">);
+</span></code></pre><h3 id="efficient-lookup-of-events-through-linked-identity-events">Efficient lookup of events through linked identity events</h3>
+<p>Contract Events are a useful feature for storing data from smart contracts exclusively for off-chain use.  Unfortunately current ethereum implementations provide a very inefficient lookup mechanism. By using linked events that always link to the previous block with a change for the identity, we can solve this problem with much improved performance. Each identity has its previously changed block stored in the <code>changed</code> mapping.</p>
+<ol>
+<li>
+<p>Lookup <code>previousChange</code> block for identity</p>
+</li>
+<li>
+<p>Lookup all events for given identity address using web3, but only for the <code>previousChange</code> block</p>
+</li>
+<li>
+<p>Do something with event</p>
+</li>
+<li>
+<p>Find <code>previousChange</code> from the event  and repeat</p>
+</li>
+</ol>
+<p>Example code:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">const </span><span style="color:#bf616a;">history </span><span style="color:#c0c5ce;">= []
+</span><span style="color:#bf616a;">previousChange </span><span style="color:#c0c5ce;">= </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">didReg</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">changed</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">identity</span><span style="color:#c0c5ce;">)
+</span><span style="color:#b48ead;">while </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">previousChange</span><span style="color:#c0c5ce;">) {
+  </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">filter </span><span style="color:#c0c5ce;">= </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">didReg</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">allEvents</span><span style="color:#c0c5ce;">({topics: [</span><span style="color:#bf616a;">identity</span><span style="color:#c0c5ce;">], fromBlock: </span><span style="color:#bf616a;">previousChange</span><span style="color:#c0c5ce;">, toBlock: </span><span style="color:#bf616a;">previousChange</span><span style="color:#c0c5ce;">})
+  </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">events </span><span style="color:#c0c5ce;">= </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">getLogs</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">filter</span><span style="color:#c0c5ce;">)
+  </span><span style="color:#bf616a;">previousChange </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">undefined
+  </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">event </span><span style="color:#c0c5ce;">of </span><span style="color:#bf616a;">events</span><span style="color:#c0c5ce;">) {
+    </span><span style="color:#bf616a;">history</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">unshift</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">event</span><span style="color:#c0c5ce;">)
+    </span><span style="color:#bf616a;">previousChange </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">event</span><span style="color:#c0c5ce;">.args.previousChange
+  }
+}     
+</span></code></pre><h3 id="building-a-did-document-for-an-identity">Building a DID document for an identity</h3>
+<p>The primary owner key should be looked up using <code>identityOwner(identity)</code>.  This should be the first of the publicKeys listed. Iterate through the <code>DIDDelegateChanged</code> events to build a list of additional keys and authentication sections as needed. The list of delegateTypes to include is still to be determined. Iterate through <code>DIDAttributeChanged</code> events for service entries, encryption public keys and other public names. The attribute names are still to be determined.</p>
+<h2 id="rationale">Rationale</h2>
+<p>For on-chain interactions Ethereum has a built in account abstraction that can be used regardless of whether the account is a smart contract or a key pair. Any transaction has a <code>msg.sender</code> as the verified send of the transaction.</p>
+<p>Since each Ethereum transaction has to be funded, there is a growing trend of on-chain transactions that are authenticated via an externally created signature and not by the actual transaction originator. This allows 3rd party funding services or receiver pays without any fundamental changes to the underlying Ethereum architecture. These kinds of transactions have to be signed by an actual key pair and thus can not be used to represent smart contract based Ethereum accounts.</p>
+<p>We propose a way of a Smart Contract or regular key pair delegating signing for various purposes to externally managed key pairs. This allows a smart contract to be represented both on-chain as well as off-chain or in payment channels through temporary or permanent delegates.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>All ethereum accounts are valid identities (and DID compatible) using this standard. This means that any wallet provider that uses key pair accounts already supports the bare minimum of this standard, and can implement <code>delegate</code> and <code>attribute</code> functionality by simply using the <code>ethr-did</code> referenced below. As the <strong>DID Auth</strong> standard solidifies it also means that all of these wallets will be compatible with the <a href="https://github.com/decentralized-identity">DID decentralized login system</a>.</p>
+<h2 id="implementation">Implementation</h2>
+<p><a href="https://github.com/uport-project/ethr-did-registry/blob/develop/contracts/EthereumDIDRegistry.sol">ethr-did-registry</a> (<code>EthereumDIDRegistry</code> contract implementation)</p>
+<p><a href="https://github.com/uport-project/ethr-did-resolver">ethr-did-resolver</a> (DID compatible resolver)</p>
+<p><a href="https://github.com/uport-project/ethr-did">ethr-did</a> (javascript library for using the identity)</p>
+<h3 id="deployment">Deployment</h3>
+<p>The address for the <code>EthereumDIDRegistry</code> is <code>0xdca7ef03e98e0dc2b855be647c39abe984fcf21b</code> on Mainnet, Ropsten, Rinkeby and Kovan.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

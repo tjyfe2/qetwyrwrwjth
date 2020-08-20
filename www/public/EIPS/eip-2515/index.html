@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2515: Implement Difficulty Freeze</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2515.md" />
+<meta property="og:title" content="EIP-2515: Implement Difficulty Freeze" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2515 (EIP-2515): Implement Difficulty Freeze"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2515 (EIP-2515): Implement Difficulty Freeze"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2515.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2515 (EIP 2515): Implement Difficulty Freeze" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2515: Implement Difficulty Freeze
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/madeoftin">James Hancock</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2515-replace-the-difficulty-bomb-with-a-difficulty-freeze&#x2F;3995">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2515-replace-the-difficulty-bomb-with-a-difficulty-freeze&#x2F;3995</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-02-10</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>The difficulty Freeze is an alternative to the Difficulty Bomb that is implemented within the protocols difficulty adjustment algorithm. The Difficulty Freeze begins at a certain block height, determined in advance, freezes the difficulty and increases by 1% after that block forever. This does not stop the chain, but it incentivizes devs to upgrade at a regular cadence and requires any chain split to address the difficulty freeze.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The difficulty Freeze is a mechanism that is easy to predict and model, and the pressures of missing it are more readily felt by the core developers and client maintainers. The client maintainers are also positioned as the group that is most able to respond to an incoming Difficulty Freeze. This combined with the predictability is more likely to lead to the timely diffusual of the bomb. </p>
+<h2 id="motivation">Motivation</h2>
+<p>The current difficulty bombs' effect on the Block Time Targeting mechanism is rather complex to model, and it has both appeared when it was not expected (Muir Glacier) and negatively affected miners when they are not the target (in the case of delaying forks due to technical difficulties). Miners are affected by a reduction in block rewards due to the increase in block time. Users are affected as a function of the usability of the chain is affected by increased block times. Both of these groups are unable on their own to address the difficulty bomb. In the case of the Difficulty Freeze, the consequences of missing it are more directly felt by the client maintainers and it is more predictiable and so knowing when to make the change is readily apparent.</p>
+<h2 id="specification">Specification</h2>
+<p>Add variable <code>DIFFICULTY_FREEZE_HEIGHT</code></p>
+<p>The logic of the Difficulty Freeze is defined as follows:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">if (BLOCK_HEIGHT &lt;= DIFFICULTY_FREEZE_HEIGHT):
+   block_diff = parent_diff + parent_diff // 2048 * max(
+                1 - (block_timestamp - parent_timestamp) // 10, -99)
+
+else:
+ block_diff = parent_diff + parent_diff * 0.01
+</span></code></pre>
+<p><strong>Optional Implementation</strong></p>
+<p>Add the variable <code>DIFFICULTY_FREEZE_DIFFERENCE</code> and use the <code>LAST_FORK_HEIGHT</code> to calculate when the Difficulty Freeze would occur.</p>
+<p>For example we can set the <code>DFD = 1,800,000 blocks</code> or approximately 9 months. The Difficulty Calculation would then be.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">if (BLOCK_HEIGHT  &lt;= LAST_FORK_HEIGHT + DIFFICUTLY_FREEZE_DIFFERENCE) :
+   block_diff = parent_diff + parent_diff // 2048 * max(
+                1 - (block_timestamp - parent_timestamp) // 10, -99)
+
+else:
+ block_diff = parent_diff + parent_diff * 0.01
+</span></code></pre>
+<p>This approach would have the added benefit that updating the Difficulty Freeze is easier as it happens automatically at the time of every upgrade. The trade-off is that the logic for checking is more complex and would require further analysis and test cases to ensure no consensus bugs arise. </p>
+<h2 id="rationale">Rationale</h2>
+<p>Block height is very easy to predict and evaluate within the system. This removes the effect of the Difficulty Bomb on block time, simplifying the block time targeting mechanism. The addition of an increase in the difficulty was added after feedback that the game theory of the mechanism did not reliably result in .</p>
+<p>https://twitter.com/quentinc137/status/1227110578235330562</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>No backward incompatibilities</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>TBD </p>
+<h2 id="implementation">Implementation</h2>
+<p>TBD</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<p>The effect of missing the Difficulty Freeze has a different impact than missing the Difficulty Bomb. At the point of a Difficulty freeze, the protocol is no longer able to adapt to changes in hash power on the network. This can lead to one of three scenarios.</p>
+<ul>
+<li>The Hash rate Increases:
+Block Times would increase on the network for short time until the increase in difficulty is too high for the network to add any more miners.</li>
+<li>The Hash rate decreases:
+Block times would increase. </li>
+<li>The Hash rate stays the same:
+A consistent increase in blocktimes.</li>
+</ul>
+<p>Clients are motivated to have their client sync fully to the network and so are very motivated to keep this situation from occurring. Simultaneously delaying the Difficulty Freeze is most easily implemented by client teams. Therefore the group that is most negatively affected is also the group that can most efficiently address it.</p>
+<h2 id="economic-considerations">Economic Considerations</h2>
+<p>Under the current Difficult, Bomb issuance of ETH is reduced as the Ice Age takes affect. Under the Difficulty Freeze, it is more likely that issuance would increase for a short time; however, clients are motivated to prevent this and keep clients syncing effectively. This means it is much less likely to occur. The increase to the difficulty over time will eventually reduce blocktimes and also issuance.</p>
+<p>It is also easy to predict when this change would happen, and stakeholders who are affected (Eth Holders) can keep client developers accountable by observing when the Difficulty Freeze is approaching and yell at them on twitter.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

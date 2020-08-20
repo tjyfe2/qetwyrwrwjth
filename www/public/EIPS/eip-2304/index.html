@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2304: Multichain address resolution for ENS</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2304.md" />
+<meta property="og:title" content="EIP-2304: Multichain address resolution for ENS" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2304 (EIP-2304): Multichain address resolution for ENS"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2304 (EIP-2304): Multichain address resolution for ENS"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2304.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2304 (EIP 2304): Multichain address resolution for ENS" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2304: Multichain address resolution for ENS
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:nick@ens.domains">Nick Johnson</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;discuss.ens.domains&#x2F;t&#x2F;new-standard-proposal-ens-multicoin-support&#x2F;1148">https:&#x2F;&#x2F;discuss.ens.domains&#x2F;t&#x2F;new-standard-proposal-ens-multicoin-support&#x2F;1148</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-09-09</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>137</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This EIP introduces new overloads for the the <code>addr</code> field for ENS resolvers, which permit resolution of addresses for other blockchains via ENS.</p>
+<h2 id="motivation">Motivation</h2>
+<p>With the increasing uptake of ENS by multi-coin wallets, wallet authors have requested the ability to resolve addresses for non-Ethereum chains inside ENS. This specification standardises a way to enter and retrieve these addresses in a cross-client fashion.</p>
+<h2 id="specification">Specification</h2>
+<p>A new accessor function for resolvers is specified:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function addr(bytes32 node, uint coinType) external view returns(bytes memory);
+</span></code></pre>
+<p>The EIP165 interface ID for this function is 0xf1cb7e06.</p>
+<p>When called on a resolver, this function must return the cryptocurrency address for the specified namehash and coin type. A zero-length string must be returned if the specified coin ID does not exist on the specified node.</p>
+<p><code>coinType</code> is the cryptocurrency coin type index from <a href="https://github.com/satoshilabs/slips/blob/master/slip-0044.md">SLIP44</a>.</p>
+<p>The return value is the cryptocurency address in its native binary format. Detailed descriptions of the binary encodings for several popular chains are provided in the Address Encoding section below.</p>
+<p>A new event for resolvers is defined:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event AddressChanged(bytes32 indexed node, uint coinType, bytes newAddress);
+</span></code></pre>
+<p>Resolvers MUST emit this event on each change to the address for a name and coin type.</p>
+<h3 id="recommended-accessor-functions">Recommended accessor functions</h3>
+<p>The following function provides the recommended interface for changing the addresses stored for a node. Resolvers SHOULD implement this interface for setting addresses unless their needs dictate a different interface.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function setAddr(bytes32 node, uint coinType, bytes calldata addr);
+</span></code></pre>
+<p><code>setAddr</code> adds or replaces the address for the given node and coin type.  The parameters for this function are as per those described in <code>addr()</code> above.</p>
+<p>This function emits an <code>AddressChanged</code> event with the new address; see also the backwards compatibility section below for resolvers that also support <code>addr(bytes32)</code>.</p>
+<h3 id="address-encoding">Address Encoding</h3>
+<p>In general, the native binary representation of the address should be used, without any checksum commonly used in the text representation.</p>
+<p>A table of encodings for common blockchains is provided, followed by a more detailed description of each format. In the table, 'encodings' lists the address encodings supported by that chain, along with any relevant parameters. Details of those address encodings are described in the following sections.</p>
+<table><thead><tr><th>Cryptocurrency</th><th>Coin Type</th><th>Encoding</th></tr></thead><tbody>
+<tr><td>Bitcoin</td><td>0</td><td>P2PKH(0x00), P2SH(0x05), SegWit('bc')</td></tr>
+<tr><td>Litecoin</td><td>2</td><td>P2PKH(0x30), P2SH(0x32), P2SH(0x05), SegWit('ltc')</td></tr>
+<tr><td>Dogecoin</td><td>3</td><td>P2PKH(0x1e), P2SH(0x16)</td></tr>
+<tr><td>Monacoin</td><td>22</td><td>P2PKH(0x32), P2SH(0x05)</td></tr>
+<tr><td>Ethereum</td><td>60</td><td>ChecksummedHex</td></tr>
+<tr><td>Ethereum Classic</td><td>61</td><td>ChecksummedHex</td></tr>
+<tr><td>Rootstock</td><td>137</td><td>ChecksummedHex(30)</td></tr>
+<tr><td>Ripple</td><td>144</td><td>Ripple</td></tr>
+<tr><td>Bitcoin Cash</td><td>145</td><td>P2PKH(0x00), P2SH(0x05), CashAddr</td></tr>
+<tr><td>Binance</td><td>714</td><td>Bech32('bnb')</td></tr>
+</tbody></table>
+<h4 id="p2pkh-version">P2PKH(version)</h4>
+<p>Pay to Public Key Hash addresses are <a href="https://en.bitcoin.it/wiki/Base58Check_encoding">base58check</a> encoded. After decoding, the first byte is a version byte. For example, the Bitcoin address <code>1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</code> base58check decodes to the 21 bytes <code>0062e907b15cbf27d5425399ebf6f0fb50ebb88f18</code>.</p>
+<p>P2PKH addresses have a version byte, followed by a 20 byte pubkey hash. Their canonical encoding is their scriptPubkey encoding (specified <a href="https://en.bitcoin.it/wiki/Transaction#Types_of_Transaction">here</a>) is <code>OP_DUP OP_HASH160 &lt;pubKeyHash&gt; OP_EQUALVERIFY OP_CHECKSIG</code>.</p>
+<p>The above example address is thus encoded as the 25 bytes <code>76a91462e907b15cbf27d5425399ebf6f0fb50ebb88f1888ac</code>.</p>
+<h5 id="p2sh-version">P2SH(version)</h5>
+<p>P2SH addresses are base58check encoded in the same manner as P2PKH addresses.
+P2SH addresses have a version, followed by a 20 byte script hash. Their scriptPubkey encoding (specified <a href="https://en.bitcoin.it/wiki/Transaction#Pay-to-Script-Hash">here</a>) is <code>OP_HASH160 &lt;scriptHash&gt; OP_EQUAL</code>. A Bitcoin address of <code>3Ai1JZ8pdJb2ksieUV8FsxSNVJCpoPi8W6</code> decodes to the 21 bytes <code>0562e907b15cbf27d5425399ebf6f0fb50ebb88f18</code> and is encoded as the 23 bytes <code>a91462e907b15cbf27d5425399ebf6f0fb50ebb88f1887</code>.</p>
+<h5 id="segwit-hrp">SegWit(hrp)</h5>
+<p>SegWit addresses are encoded with <a href="https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki">bech32</a>. Bech32 addresses consist of a human-readable part - 'bc' for Bitcoin mainnet - and a machine readable part. For SegWit addresses, this decodes to a 'witness version', between 0 and 15, and a 'witness program', as defined in <a href="https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki">BIP141</a>.</p>
+<p>The scriptPubkey encoding for a bech32 address, as defined in BIP141, is <code>OP_n</code>, where <code>n</code> is the witness version, followed by a push of the witness program. Note this warning from BIP173:</p>
+<blockquote>
+<p>Implementations should take special care when converting the address to a scriptPubkey, where witness version n is stored as OP_n. OP_0 is encoded as 0x00, but OP_1 through OP_16 are encoded as 0x51 though 0x60 (81 to 96 in decimal). If a bech32 address is converted to an incorrect scriptPubKey the result will likely be either unspendable or insecure.</p>
+</blockquote>
+<p>For example, the Bitcoin SegWit address <code>BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4</code> decodes to a version of <code>0</code> and a witness script of <code>751e76e8199196d454941c45d1b3a323f1433bd6</code>, and then encodes to a scriptPubkey of <code>0014751e76e8199196d454941c45d1b3a323f1433bd6</code>.</p>
+<h4 id="checksummedhex-chainid">ChecksummedHex(chainId?)</h4>
+<p>To translate a text format checksummed hex address into binary format, simply remove the '0x' prefix and hex decode it. <code>0x314159265dD8dbb310642f98f50C066173C1259b</code> is hex-decoded and stored as the 20 bytes <code>314159265dd8dbb310642f98f50c066173c1259b</code>.</p>
+<p>A checksum format is specified by <a href="https://eips.ethereum.org/EIPS/eip-55">EIP 55</a>, and extended by <a href="https://github.com/rsksmart/RSKIPs/blob/master/IPs/RSKIP60.md">RSKIP60</a>, which specifies a means of including the chain ID in the checksum. The checksum on a text format address must be checked. Addresses with invalid checksums that are not all uppercase or all lowercase MUST be rejected with an error. Implementations may choose whether to accept non-checksummed addresses, but the authors recommend at least providing a warning to users in this situation.</p>
+<p>When encoding an address from binary to text, an EIP55/RSKIP60 checksum MUST be used - so the correct encoding of the above address for Ethereum is <code>0x314159265dD8dbb310642f98f50C066173C1259b</code>.</p>
+<h4 id="ripple">Ripple</h4>
+<p>Ripple addresses are encoded using a version of base58check with an alternative alphabet, described <a href="https://xrpl.org/base58-encodings.html">here</a>. Two types of ripple addresses are supported, 'r-addresses', and 'X-addresss'. r-addresses consist of a version byte followed by a 20 byte hash, while X-addresses consist of a version byte, a 20 byte hash, and a tag, specified <a href="https://github.com/xrp-community/standards-drafts/issues/6">here</a>.</p>
+<p>Both address types should be stored in ENS by performing ripple's version of base58check decoding and storing them directly (including version byte). For example, the ripple address <code>rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn</code> decodes to and is stored as <code>004b4e9c06f24296074f7bc48f92a97916c6dc5ea9</code>, while the address <code>X7qvLs7gSnNoKvZzNWUT2e8st17QPY64PPe7zriLNuJszeg</code> decodes to and is stored as <code>05444b4e9c06f24296074f7bc48f92a97916c6dc5ea9000000000000000000</code>.</p>
+<h4 id="cashaddr">CashAddr</h4>
+<p>Bitcoin Cash defines a new address format called 'CashAddr', specified <a href="https://github.com/bitcoincashorg/bitcoincash.org/blob/master/spec/cashaddr.md">here</a>. This uses a variant of bech32 encoding to encode and decode (non-segwit) Bitcoin Cash addresses, using a prefix of 'bitcoincash:'. A CashAddr should be decoded using this bech32 variant, then converted and stored based on its type (P2PKH or P2SH) as described in the relevant sections above.</p>
+<h4 id="bech32">Bech32</h4>
+<p><a href="https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki">Bech32</a> addresses consist of a human-readable part - for example, 'bnb' for Binance - and a machine readable part. The encoded data is simply the address, which can be converted to binary and stored directly.</p>
+<p>For example, the BNB address <code>bnb1grpf0955h0ykzq3ar5nmum7y6gdfl6lxfn46h2</code> decodes to the binary representation <code>40c2979694bbc961023d1d27be6fc4d21a9febe6</code>, which is stored directly in ENS.</p>
+<h3 id="example">Example</h3>
+<p>An example implementation of a resolver that supports this EIP is provided here:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">pragma solidity ^0.5.8;
+
+contract AddrResolver is ResolverBase {
+    bytes4 constant private ADDR_INTERFACE_ID = 0x3b3b57de;
+    bytes4 constant private ADDRESS_INTERFACE_ID = 0xf1cb7e06;
+    uint constant private COIN_TYPE_ETH = 60;
+
+    event AddrChanged(bytes32 indexed node, address a);
+    event AddressChanged(bytes32 indexed node, uint coinType, bytes newAddress);
+
+    mapping(bytes32=&gt;mapping(uint=&gt;bytes)) _addresses;
+
+    /**
+     * Sets the address associated with an ENS node.
+     * May only be called by the owner of that node in the ENS registry.
+     * @param node The node to update.
+     * @param a The address to set.
+     */
+    function setAddr(bytes32 node, address a) external authorised(node) {
+        setAddr(node, COIN_TYPE_ETH, addressToBytes(a));
+    }
+
+    /**
+     * Returns the address associated with an ENS node.
+     * @param node The ENS node to query.
+     * @return The associated address.
+     */
+    function addr(bytes32 node) public view returns (address) {
+        bytes memory a = addr(node, COIN_TYPE_ETH);
+        if(a.length == 0) {
+            return address(0);
+        }
+        return bytesToAddress(a);
+    }
+
+    function setAddr(bytes32 node, uint coinType, bytes memory a) public authorised(node) {
+        emit AddressChanged(node, coinType, a);
+        if(coinType == COIN_TYPE_ETH) {
+            emit AddrChanged(node, bytesToAddress(a));
+        }
+        _addresses[node][coinType] = a;
+    }
+
+    function addr(bytes32 node, uint coinType) public view returns(bytes memory) {
+        return _addresses[node][coinType];
+    }
+
+    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {
+        return interfaceID == ADDR_INTERFACE_ID || interfaceID == ADDRESS_INTERFACE_ID || super.supportsInterface(interfaceID);
+    }
+}
+</span></code></pre><h3 id="implementation">Implementation</h3>
+<p>An implementation of this interface is provided in the <a href="https://github.com/ensdomains/resolvers/">ensdomains/resolvers</a> repository.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>If the resolver supports the <code>addr(bytes32)</code> interface defined in EIP137, the resolver MUST treat this as a special case of this new specification in the following ways:</p>
+<ol>
+<li>The value returned by <code>addr(node)</code> from EIP137 should always match the value returned by <code>addr(node, 60)</code> (60 is the coin type ID for Ethereum).</li>
+<li>Anything that causes the <code>AddrChanged</code> event from EIP137 to be emitted must also emit an <code>AddressChanged</code> event from this EIP, with the <code>coinType</code> specified as 60, and vice-versa.</li>
+</ol>
+<h2 id="tests">Tests</h2>
+<p>The table below specifies test vectors for valid address encodings for each cryptocurrency described above.</p>
+<table><thead><tr><th>Cryptocurrency</th><th>Coin Type</th><th>Text</th><th>Onchain (hex)</th></tr></thead><tbody>
+<tr><td>Bitcoin</td><td>0</td><td><code>1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</code></td><td><code>76a91462e907b15cbf27d5425399ebf6f0fb50ebb88f1888ac</code></td></tr>
+<tr><td></td><td></td><td><code>3Ai1JZ8pdJb2ksieUV8FsxSNVJCpoPi8W6</code></td><td><code>a91462e907b15cbf27d5425399ebf6f0fb50ebb88f1887</code></td></tr>
+<tr><td></td><td></td><td><code>BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4</code></td><td><code>0014751e76e8199196d454941c45d1b3a323f1433bd6</code></td></tr>
+<tr><td>Litecoin</td><td>2</td><td><code>LaMT348PWRnrqeeWArpwQPbuanpXDZGEUz</code></td><td><code>76a914a5f4d12ce3685781b227c1f39548ddef429e978388ac</code></td></tr>
+<tr><td></td><td></td><td><code>MQMcJhpWHYVeQArcZR3sBgyPZxxRtnH441</code></td><td><code>a914b48297bff5dadecc5f36145cec6a5f20d57c8f9b87</code></td></tr>
+<tr><td></td><td></td><td><code>ltc1qdp7p2rpx4a2f80h7a4crvppczgg4egmv5c78w8</code></td><td><code>0014687c150c26af5493befeed7036043812115ca36c</code></td></tr>
+<tr><td>Dogecoin</td><td>3</td><td><code>DBXu2kgc3xtvCUWFcxFE3r9hEYgmuaaCyD</code></td><td><code>76a9144620b70031f0e9437e374a2100934fba4911046088ac</code></td></tr>
+<tr><td></td><td></td><td><code>AF8ekvSf6eiSBRspJjnfzK6d1EM6pnPq3G</code></td><td><code>a914f8f5d99a9fc21aa676e74d15e7b8134557615bda87</code></td></tr>
+<tr><td>Monacoin</td><td>22</td><td><code>MHxgS2XMXjeJ4if2PRRbWYcdwZPWfdwaDT</code></td><td><code>76a9146e5bb7226a337fe8307b4192ae5c3fab9fa9edf588ac</code></td></tr>
+<tr><td>Ethereum</td><td>60</td><td><code>0x314159265dD8dbb310642f98f50C066173C1259b</code></td><td><code>314159265dd8dbb310642f98f50c066173c1259b</code></td></tr>
+<tr><td>Ethereum Classic</td><td>61</td><td><code>0x314159265dD8dbb310642f98f50C066173C1259b</code></td><td><code>314159265dd8dbb310642f98f50c066173c1259b</code></td></tr>
+<tr><td>Rootstock</td><td>137</td><td><code>0x5aaEB6053f3e94c9b9a09f33669435E7ef1bEAeD</code></td><td><code>5aaeb6053f3e94c9b9a09f33669435e7ef1beaed</code></td></tr>
+<tr><td>Ripple</td><td>144</td><td><code>rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn</code></td><td><code>004b4e9c06f24296074f7bc48f92a97916c6dc5ea9</code></td></tr>
+<tr><td></td><td></td><td><code>X7qvLs7gSnNoKvZzNWUT2e8st17QPY64PPe7zriLNuJszeg</code></td><td><code>05444b4e9c06f24296074f7bc48f92a97916c6dc5ea9000000000000000000</code></td></tr>
+<tr><td>Bitcoin Cash</td><td>145</td><td><code>1BpEi6DfDAUFd7GtittLSdBeYJvcoaVggu</code></td><td><code>76a91476a04053bda0a88bda5177b86a15c3b29f55987388ac</code></td></tr>
+<tr><td></td><td></td><td><code>bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a</code></td><td><code>76a91476a04053bda0a88bda5177b86a15c3b29f55987388ac</code></td></tr>
+<tr><td></td><td></td><td><code>3CWFddi6m4ndiGyKqzYvsFYagqDLPVMTzC</code></td><td><code>a91476a04053bda0a88bda5177b86a15c3b29f55987387</code></td></tr>
+<tr><td></td><td></td><td><code>bitcoincash:ppm2qsznhks23z7629mms6s4cwef74vcwvn0h829pq</code></td><td><code>a91476a04053bda0a88bda5177b86a15c3b29f55987387</code></td></tr>
+<tr><td>Binance</td><td>714</td><td><code>bnb1grpf0955h0ykzq3ar5nmum7y6gdfl6lxfn46h2</code></td><td><code>40c2979694bbc961023d1d27be6fc4d21a9febe6</code></td></tr>
+</tbody></table>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

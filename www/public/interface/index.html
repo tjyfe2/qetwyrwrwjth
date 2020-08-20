@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+<title>Interface | Ethereum Improvement Proposals</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;interface&#x2F;" />
+<meta property="og:title" content="Interface" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal Interface"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal Interface"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;interface&#x2F;" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal Interface" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<style type="text/css">
+  .eiptable .title {
+    width: 67%;
+  }
+
+  .eiptable .author {
+    width: 33%;
+  }
+</style>
+<h1>Interface</h1>
+
+
+
+
+    
+
+    
+        
+    
+
+
+
+    
+    
+    
+        <h2 id="last-call">Last Call</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1193&#x2F;">1193</a></td>
+                    <td class="title">Ethereum Provider JavaScript API</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/frozeman">Fabian Vogelsteller</a>,
+        
+    
+        
+        
+            <a href="https://github.com/ryanio"> Ryan Ghods</a>,
+        
+    
+        
+        
+            <a href="https://github.com/MaiaVictor"> Victor Maia</a>,
+        
+    
+        
+        
+            <a href="https://github.com/marcgarreau"> Marc Garreau</a>,
+        
+    
+        
+        
+            <a href="https://github.com/rekmarks"> Erik Marks</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-234&#x2F;">234</a></td>
+                    <td class="title">Add `blockHash` to JSON-RPC filter options.</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2786&#x2F;">2786</a></td>
+                    <td class="title">Ethereum Provider Connect&#x2F;Disconnect Events</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>,
+        
+    
+        
+        
+            <a href="https://github.com/rekmarks"> Erik Marks</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+        <h2 id="final">Final</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2159&#x2F;">2159</a></td>
+                    <td class="title">Common Prometheus Metrics Names for Clients</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/ajsutton">Adrian Sutton</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2696&#x2F;">2696</a></td>
+                    <td class="title">JavaScript `request` method RPC transport</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>,
+        
+    
+        
+        
+            <a href="https://github.com/rekmarks"> Erik Marks</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2700&#x2F;">2700</a></td>
+                    <td class="title">JavaScript Provider Event Emitter</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/MicahZoltu">Micah Zoltu</a>,
+        
+    
+        
+        
+            <a href="https://github.com/rekmarks"> Erik Marks</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-6&#x2F;">6</a></td>
+                    <td class="title">Renaming SUICIDE opcode</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:hudson@hudsonjameson.com">Hudson Jameson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-695&#x2F;">695</a></td>
+                    <td class="title">Create `eth_chainId` method for JSON-RPC</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:isaac.ardis@gmail.com">Isaac Ardis</a>,
+        
+    
+        
+        
+            <a href="https://github.com/sorpaas"> Wei Tang</a>,
+        
+    
+        
+        
+            <a href="https://github.com/tcz001"> Fan Torchz</a>,
+        
+    
+        
+        
+            <a href="https://github.com/rekmarks"> Erik Marks</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+        <h2 id="draft">Draft</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-107&#x2F;">107</a></td>
+                    <td class="title">safe &quot;eth_sendTransaction&quot; authorization via html popup</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/wighawag">Ronan Sandford</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1102&#x2F;">1102</a></td>
+                    <td class="title">Opt-in account exposure</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:mail@bitpshr.net">Paul Bouchon</a>,
+        
+    
+        
+        
+            <a href="mailto:rekmarks@protonmail.com">Erik Marks</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1186&#x2F;">1186</a></td>
+                    <td class="title">RPC-Method to get Merkle Proofs - eth_getProof</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:simon.jentzsch@slock.it">Simon Jentzsch</a>,
+        
+    
+        
+        
+            <a href="mailto:christoph.jentzsch@slock.it">Christoph Jentzsch</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1474&#x2F;">1474</a></td>
+                    <td class="title">Remote procedure call specification</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:mail@bitpshr.net">Paul Bouchon</a>,
+        
+    
+        
+        
+            <a href="mailto:rekmarks@protonmail.com">Erik Marks</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1571&#x2F;">1571</a></td>
+                    <td class="title">EthereumStratum&#x2F;2.0.0</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/AndreaLanfranchi">Andrea Lanfranchi</a>,
+        
+    
+        
+        
+            <a href="https://github.com/chfast"> Pawel Bylica</a>,
+        
+    
+        
+        
+            <a href="https://github.com/MariusVanDerWijden"> Marius Van Der Wijden</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1767&#x2F;">1767</a></td>
+                    <td class="title">GraphQL interface to Ethereum node data</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/arachnid">Nick Johnson</a>,
+        
+    
+        
+        
+            <a href="https://github.com/raulk"> Raúl Kripalani</a>,
+        
+    
+        
+        
+            <a href="https://github.com/kshinn"> Kris Shinn</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1803&#x2F;">1803</a></td>
+                    <td class="title">Rename opcodes for clarity</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1898&#x2F;">1898</a></td>
+                    <td class="title">Add `blockHash` to JSON-RPC methods which accept a default block parameter.</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/charles-cooper">Charles Cooper</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1901&#x2F;">1901</a></td>
+                    <td class="title">Add OpenRPC Service Discovery To JSON-RPC Services</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/shanejonas">Shane Jonas</a>,
+        
+    
+        
+        
+            <a href="https://github.com/belfordz"> Zachary Belford</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2003&#x2F;">2003</a></td>
+                    <td class="title">EVMC modules for implementations of precompiled contracts</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/chfast">Paweł Bylica</a>,
+        
+    
+        
+        
+            <a href="https://github.com/axic"> Alex Beregszaszi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2015&#x2F;">2015</a></td>
+                    <td class="title">Wallet Update Chain JSON-RPC Method (`wallet_updateChain`)</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/pedrouid">Pedro Gomes</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2255&#x2F;">2255</a></td>
+                    <td class="title">Wallet Permissions System</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/danfinlay">Dan Finlay</a>,
+        
+    
+        
+        
+            <a href="https://github.com/rekmarks"> Erik Marks</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2256&#x2F;">2256</a></td>
+                    <td class="title">wallet_getOwnedAssets JSON-RPC Method</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/loredanacirstea">Loredana Cirstea</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2831&#x2F;">2831</a></td>
+                    <td class="title">Transaction Replacement Message Type</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/GregTheGreek">Gregory Markou</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2844&#x2F;">2844</a></td>
+                    <td class="title">Add DID related methods to the JSON-RPC</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/oed">Joel Thorstensson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-712&#x2F;">712</a></td>
+                    <td class="title">Ethereum typed structured data hashing and signing</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:remco@wicked.ventures">Remco Bloemen</a>,
+        
+    
+        
+        
+            <a href="mailto:logvinov.leon@gmail.com">Leonid Logvinov</a>,
+        
+    
+        
+        
+            <a href="mailto:jacob@dekz.net">Jacob Evans</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-747&#x2F;">747</a></td>
+                    <td class="title">Add wallet_watchAsset to Provider</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/danfinlay">Dan Finlay</a>,
+        
+    
+        
+        
+            <a href="https://github.com/estebanmino"> Esteban Mino</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-758&#x2F;">758</a></td>
+                    <td class="title">Subscriptions and filters for completed transactions</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:jack@tinybike.net">Jack Peterson</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

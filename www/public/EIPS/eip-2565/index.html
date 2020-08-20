@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2565: Repricing of the EIP-198 ModExp precompile</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2565.md" />
+<meta property="og:title" content="EIP-2565: Repricing of the EIP-198 ModExp precompile" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2565 (EIP-2565): Repricing of the EIP-198 ModExp precompile"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2565 (EIP-2565): Repricing of the EIP-198 ModExp precompile"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2565.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2565 (EIP 2565): Repricing of the EIP-198 ModExp precompile" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2565: Repricing of the EIP-198 ModExp precompile
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/ineffectualproperty">Kelly Olson</a>,
+        
+    
+        
+        
+            <a href="https://github.com/sean-sn"> Sean Gulley</a>,
+        
+    
+        
+        
+            <a href="https://github.com/simonatsn"> Simon Peffers</a>,
+        
+    
+        
+        
+            <a href="https://github.com/justindrake"> Justin Drake</a>,
+        
+    
+        
+        
+            <a href="https://github.com/dankrad"> Dankrad Feist</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;big-integer-modular-exponentiation-eip-198-gas-cost&#x2F;4150">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;big-integer-modular-exponentiation-eip-198-gas-cost&#x2F;4150</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Last Call
+                
+                  <strong>(review ends 2020-07-31)</strong>
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-03-20</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>198</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>The <a href="https://eips.ethereum.org/EIPS/eip-198">EIP-198</a> ‘big integer modular exponentiation’, or <code>ModExp</code>, precompile is currently overpriced. Re-pricing this precompile will enable more cost efficient verification of RSA signatures, verifiable delay functions (VDFs), primality checks, and more.</p>
+<h2 id="abstract">Abstract</h2>
+<p>After benchmarking the ModExp precompile, we discovered that it is ‘overpriced’ relative to other precompiles. We also discovered that the current gas pricing formula could be improved to better estimate the computational complexity of various ModExp input variables. To improve the gas cost pricing for this precompile the following options are available:</p>
+<ol>
+<li>Modifying the gas pricing formula to better reflect the computational complexity of ModExp operations</li>
+<li>Changing the value of the <code>GQUADDIVISOR</code> parameter in the ModExp pricing formula to bring its costs more in-line with other precompiles</li>
+<li>Improving the underlying libraries beneath the ModExp Precompile</li>
+<li>Any combination of (1), (2), and (3)</li>
+</ol>
+<p>We recommend <strong>Option (1) and (2)</strong> which provides a large practical improvement to gas estimation while keeping implementation complexity low. Option (3) can be implemented at a later point to improve the gas pricing even further.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Modular exponentiation is a foundational arithmetic operation for many cryptographic functions including signatures, VDFs, SNARKs, accumulators, and more. Unfortunately, the ModExp precompile is currently over-priced, making these operations inefficient and expensive. By reducing the cost of this precompile, these cryptographic functions become more practical, enabling improved security, stronger randomness (VDFs), and more.</p>
+<h2 id="specification">Specification</h2>
+<p>The current gas pricing formula is defined in EIP-198. This formula divides a ‘computational complexity’ function by a ‘gas conversion’ parameter called <code>GQUADDIVISOR</code> to arrive at a gas cost: <code>floor(mult_complexity(x)/GQUADDIVISOR)</code></p>
+<h3 id="recommended-option-1-modify-computational-complexity-function-and-add-minimum-gas-cost"><strong>Recommended</strong> Option (1): Modify ‘computational complexity’ function and add minimum gas cost</h3>
+<p>The current complexity function, as defined in EIP-198 is as follow:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">def mult_complexity(x):
+    if x &lt;= 64: return x ** 2
+    elif x &lt;= 1024: return x ** 2 // 4 + 96 * x - 3072
+    else: return x ** 2 // 16 + 480 * x - 199680
+</span></code></pre>
+<p>where is <code>x</code> is <code>max(length_of_MODULUS, length_of_BASE)</code></p>
+<p>This complexity formula was meant to approximate the difficulty of Karatsuba multiplication. However, we found a better approximation for modelling modular exponentiation. We recommend the following formula to better estimate the computational complexity for varying input values:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">def mult_complexity(x):
+    ceiling(x/64)^2
+</span></code></pre>
+<p>where is <code>x</code> is <code>max(length_of_MODULUS, length_of_BASE)</code>. <code>x</code> is divided by 64 to account for the number of limbs in multiprecision arithmetic.</p>
+<p>You can find comparison of these two complexity fomulas for the current test vectors as the following <a href="https://docs.google.com/spreadsheets/d/1-xBzA-2-l2ZQDQ1eh3XXGZjcRSBQ_Hnp7NubXpbiSUY/edit?usp=sharing">spreadsheet</a>.</p>
+<p>In addition to modifying the <code>mult_complexity</code> formula as above, we also recommend wrapping the entire function with a minimum gas price of 100 to ensure that a minimum amount of gas is used when the precompile is called e.g. <code>max(100,floor(mult_complexity(x)/GQUADDIVISOR))</code></p>
+<h3 id="recommended-option-2-change-value-of-gquaddivisor"><strong>Recommended</strong> Option (2): Change value of GQUADDIVISOR</h3>
+<p><code>GQUADDIVISOR</code> is set to <code>20</code> per EIP-198. We recommend changing the value of this parameter to <code>3</code> to account for the changes in the recommended 'computational complexity' formula above.</p>
+<h3 id="option-3-replace-libraries-used-by-modexp-precompiles">Option (3): Replace libraries used by ModExp precompiles</h3>
+<p>ModExp benchmarks for different libraries can be found at the following <a href="https://docs.google.com/spreadsheets/d/1Fq3d3wUjGN0R_FX-VPj7TKhCK33ac--P4QXB9MPQ8iw/edit?usp=sharing">spreadsheet</a>.</p>
+<p>While alternative libraries can provide improved a further 2-5x improvement in performance, this option is not recommended at this time.</p>
+<h2 id="rationale">Rationale</h2>
+<h3 id="recommended-option-1-modify-computational-complexity-formula"><strong>Recommended</strong> Option (1): Modify ‘computational complexity’ formula</h3>
+<p>A comparison of the current ‘complexity’ function and the proposed function described above can be found at the following <a href="https://docs.google.com/spreadsheets/d/1-xBzA-2-l2ZQDQ1eh3XXGZjcRSBQ_Hnp7NubXpbiSUY/edit?usp=sharing">spreadsheet</a>.</p>
+<p><img src="../assets/eip-2565/Complexity_Regression.png" alt="Option 1 Graph" /></p>
+<p>The new complexity function has a better fit vs. the execution time when compared to the current complexity function. This better fit is because the new complexity formula accounts for the use of binary exponentiation algorithms that are used by ‘bigint’ libraries for large exponents. You may also notice the regression line of the proposed complexity function bisects the test vector data points. This is because the run time varies depending on if the modulus is even or odd.</p>
+<h3 id="recommended-option-2-change-value-of-gquaddivisor-1"><strong>Recommended</strong> Option (2): Change value of GQUADDIVISOR:</h3>
+<p>After changing the 'computational complexity' formula it is necessary to change <code>QGUADDIVSOR</code> to bring the gas costs inline with their runtime. We recommend changing the value from '20' to '3'. With this change, the cost of the ModExp precompile will have a higher cost (gas/second) than other precompiles such as ECRecover.</p>
+<p><img src="../assets/eip-2565/GQuad_Change.png" alt="Option 2 Graph" /></p>
+<h3 id="option-3-improving-the-modexp-precompile-implementations">Option (3): Improving the ModExp precompile implementations</h3>
+<p><img src="../assets/eip-2565/Library_Benchmarks.png" alt="Option 3 Graph" /></p>
+<p>Replacing the underlying library can improve the performance of the ModExp precompile by 2x-4x for large exponents, but comes at a high implementation cost. We do not recommend this option at this time.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>There are no changes to the underlying interface or arithmetic algorithms, so the existing test vectors can be reused. Gas values will need to be updated in the existing unit tests based on the final pricing decided in this EIP. This will ensure that the updated gas calculations are done correctly.</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<p>The biggest security consideration for this EIP is creating a potential DoS vector by making ModExp operations too inexpensive relative to their computation time.</p>
+<h2 id="references">References</h2>
+<p><a href="https://eips.ethereum.org/EIPS/eip-198">EIP-198</a> </p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

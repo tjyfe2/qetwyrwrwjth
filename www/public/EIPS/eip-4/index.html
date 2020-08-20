@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-4: EIP Classification</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-4.md" />
+<meta property="og:title" content="EIP-4: EIP Classification" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 4 (EIP-4): EIP Classification"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 4 (EIP-4): EIP Classification"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-4.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 4 (EIP 4): EIP Classification" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-4: EIP Classification
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/ethers">Joseph Chow</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Superseded
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Meta</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2015-11-17</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+          <tr>
+              <th>Superseded by</th>
+              <td>1</td>
+          </tr>
+        
+
+        
+  </table>
+
+  
+    <h1 id="abstract">Abstract</h1>
+<p>This document describes a classification scheme for EIPs, adapted from <a href="https://github.com/bitcoin/bips/blob/master/bip-0123.mediawiki">BIP 123</a>.</p>
+<p>EIPs are classified by system layers with lower numbered layers involving more intricate interoperability requirements.</p>
+<p>The specification defines the layers and sets forth specific criteria for deciding to which layer a particular standards EIP belongs.</p>
+<h1 id="motivation">Motivation</h1>
+<p>Ethereum is a system involving a number of different standards. Some standards are absolute requirements for interoperability while others can be considered optional, giving implementors a choice of whether to support them.</p>
+<p>In order to have a EIP process which more closely reflects the interoperability requirements, it is necessary to categorize EIPs accordingly. Lower layers present considerably greater challenges in getting standards accepted and deployed.</p>
+<h1 id="specification">Specification</h1>
+<p>Standards EIPs are placed in one of four layers:</p>
+<ol>
+<li>Consensus</li>
+<li>Networking</li>
+<li>API/RPC</li>
+<li>Applications</li>
+</ol>
+<h1 id="1-consensus-layer">1. Consensus Layer</h1>
+<p>The consensus layer defines cryptographic commitment structures. Its purpose is ensuring that anyone can locally evaluate whether a particular state and history is valid, providing settlement guarantees, and assuring eventual convergence.</p>
+<p>The consensus layer is not concerned with how messages are propagated on a network.</p>
+<p>Disagreements over the consensus layer can result in network partitioning, or forks, where different nodes might end up accepting different incompatible histories. We further subdivide consensus layer changes into soft forks and hard forks.</p>
+<h2 id="soft-forks">Soft Forks</h2>
+<p>In a soft fork, some structures that were valid under the old rules are no longer valid under the new rules. Structures that were invalid under the old rules continue to be invalid under the new rules.</p>
+<h2 id="hard-forks">Hard Forks</h2>
+<p>In a hard fork, structures that were invalid under the old rules become valid under the new rules.</p>
+<h1 id="2-networking-layer">2. Networking Layer</h1>
+<p>The networking layer specifies the Ethereum wire protocol (eth) and the Light Ethereum Subprotocol (les).  RLPx is excluded and tracked in the [https://github.com/ethereum/devp2p devp2p repository].</p>
+<p>Only a subset of subprotocols are required for basic node interoperability. Nodes can support further optional extensions.</p>
+<p>It is always possible to add new subprotocols without breaking compatibility with existing protocols, then gradually deprecate older protocols. In this manner, the entire network can be upgraded without serious risks of service disruption.</p>
+<h1 id="3-api-rpc-layer">3. API/RPC Layer</h1>
+<p>The API/RPC layer specifies higher level calls accessible to applications. Support for these EIPs is not required for basic network interoperability but might be expected by some client applications.</p>
+<p>There's room at this layer to allow for competing standards without breaking basic network interoperability.</p>
+<h1 id="4-applications-layer">4. Applications Layer</h1>
+<p>The applications layer specifies high level structures, abstractions, and conventions that allow different applications to support similar features and share data.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

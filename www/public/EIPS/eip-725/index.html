@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-725: Proxy Account</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-725.md" />
+<meta property="og:title" content="EIP-725: Proxy Account" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 725 (EIP-725): Proxy Account"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 725 (EIP-725): Proxy Account"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-725.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 725 (EIP 725): Proxy Account" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-725: Proxy Account
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/frozeman">Fabian Vogelsteller</a>,
+        
+    
+        
+        
+            <a href="https://github.com/tyleryasaka"> Tyler Yasaka</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;725">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;725</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-10-02</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard interface for a simple proxy account.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The following describes standard functions for a unique identifiable proxy account to be used by humans, groups, organisations, objects and machines. The proxy has 2 abilities: (1) it can execute arbitrary contract calls, and (2) it can hold arbitrary data through a generic key/value store. One of these keys should hold the owner of the contract. The owner may be an address or a key manager contract for more complex management logic. Most importantly, this contract should be the reference point for a long-lasting identifiable profiles.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Standardizing a minimal interface for an proxy account allows third parties to interact with various proxy accounts contracts in a consistent manner. 
+the benefit is a persistent account that is independent from single keys and can attach an arbitrary amount of information to verifiy, or enhance the accounts purpose.</p>
+<h2 id="specification">Specification</h2>
+<h3 id="methods">Methods</h3>
+<h4 id="owner">owner</h4>
+<p>Returns the current owner</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">address public owner</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="changeowner">changeOwner</h4>
+<p>Changes the current owner. MUST only be called by the current owner of the contract.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">changeOwner</span><span style="color:#c0c5ce;">(address _owner);
+</span></code></pre>
+<p><strong>Triggers Event:</strong> <a href="https://eips.ethereum.com/EIPS/eip-725/#ownerchanged">OwnerChanged</a></p>
+<h4 id="getdata">getData</h4>
+<p>Returns the data at the specified key.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">getData</span><span style="color:#c0c5ce;">(bytes32 _key) </span><span style="color:#bf616a;">external view returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bytes _value</span><span style="color:#c0c5ce;">);
+</span></code></pre><h4 id="setdata">setData</h4>
+<p>Sets the data at a specific key. MUST only be called by the current owner of the contract.</p>
+<p><strong>Triggers Event:</strong> <a href="https://eips.ethereum.com/EIPS/eip-725/#datachanged">DataChanged</a></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">setData</span><span style="color:#c0c5ce;">(bytes32 _key, bytes _value) </span><span style="color:#bf616a;">external</span><span style="color:#c0c5ce;">;
+</span></code></pre><h4 id="execute">execute</h4>
+<p>Executes an action on other contracts or a transfer of the blockchains native cryptocurrency. MUST only be called by the current owner of the contract.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">execute</span><span style="color:#c0c5ce;">(uint256 _operationType, address _to, uint256 _value, bytes _data) </span><span style="color:#bf616a;">external</span><span style="color:#c0c5ce;">;
+</span></code></pre>
+<p>The <code>operationType</code> should represent the assembly operation as follows:</p>
+<ul>
+<li><code>0</code> for <code>call</code></li>
+<li><code>1</code> for <code>create</code></li>
+</ul>
+<p>Others may be added in the future. Inspired by <a href="https://eips.ethereum.org/EIPS/eip-1077">ERC1077</a> and <a href="https://github.com/gnosis/safe-contracts/blob/master/contracts/Enum.sol#L7">Gnosis</a></p>
+<h3 id="events">Events</h3>
+<h4 id="datachanged">DataChanged</h4>
+<p>MUST be triggered when <code>setData</code> was successfully called.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event DataChanged</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bytes32 indexed key</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">bytes value</span><span style="color:#c0c5ce;">);
+</span></code></pre><h4 id="contractcreated">ContractCreated</h4>
+<p>MUST be triggered when <code>execute</code> creates a new contract using the <code>_operationType</code> <code>1</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event ContractCreated</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed contractAddress</span><span style="color:#c0c5ce;">);
+</span></code></pre><h4 id="ownerchanged">OwnerChanged</h4>
+<p>MUST be triggered when <code>changeOwner</code> was successfully called.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">event OwnerChanged</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed ownerAddress</span><span style="color:#c0c5ce;">);
+</span></code></pre><h3 id="ownership">Ownership</h3>
+<p>This contract is controlled by the owner. The owner can be a smart contract or an address, or itself.</p>
+<h3 id="data-keys">Data keys</h3>
+<p>Data keys, should be the keccak256 hash of a type name.
+e.g. <code>myNewKeyType</code> is <code>0xa94996022594f93c34a730df0ae89d1ecd69dff98c17d0387e69ce58346323a4</code></p>
+<h4 id="multiple-keys-of-the-same-type">Multiple keys of the same type</h4>
+<p>Multiple keys for the same key type must add a <code>keyTypeName-1</code> at the end of the key type.</p>
+<p>This would looks as follows for <code>myNewKeyType</code>:<br />
+version 0 <code>myNewKeyType</code>: <code>0xa94996022594f93c34a730df0ae89d1ecd69dff98c17d0387e69ce58346323a4</code><br />
+version 1 <code>myNewKeyType-1</code>: <code>0xb6dace1ed14874742c4d1b8cd9b270305176f769e0ae22118a02c2db4e620f29</code><br />
+version 2 <code>myNewKeyType-2</code>: <code>0x6cc96a01de588f4550e8c3a821aed065ae7897f8dfb61836c78c0389e499d9ed</code><br />
+...</p>
+<p>Anyone that would like to standardize a new data key should make a pull request to update the table below.</p>
+<table><thead><tr><th>Name</th><th>Description</th><th>Key</th><th>value</th></tr></thead><tbody>
+<tr><td>owner</td><td>The owner of the proxy account</td><td>0x0000000000000000000000000000000000000000000000000000000000000000</td><td>left padded owner address, e.g. <code>0x000000000000000000000000de0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</code></td></tr>
+<tr><td>735</td><td>The proxy accounts claim holder contract (per <a href="https://github.com/ethereum/EIPs/issues/735">ERC735</a>)</td><td>0xb0f23aea7d77ce19f9393243a7b50a3bcaac893c7d68a5a309dea7cacf035fd0</td><td>left padded address of the claim holder contract,  e.g. <code>0x000000000000000000000000de0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</code></td></tr>
+<tr><td>780</td><td>The proxy accounts claim holder contract (per <a href="https://github.com/ethereum/EIPs/issues/735">ERC735</a>)</td><td>0xdaf52dba5981246bcf8fd7c6b00dce587fdcf5e2a95b281eea95dcd1376afdcd</td><td>left padded address of the claim registry contract,  e.g. <code>0x000000000000000000000000de0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</code></td></tr>
+</tbody></table>
+<h2 id="rationale">Rationale</h2>
+<p>The purpose of an identity proxy is to allow an entity to exist as a first-class citizen in Ethereum, with the ability to execute arbitrary contract calls. At that same time the proxy account should be managed by an arbitrary simple or complex logic.</p>
+<p>It also opens up the possibility of <a href="https://medium.com/@austin_48503/ethereum-meta-transactions-90ccf0859e84">meta transactions</a>, where a third party can send a transaction to the owner contract, that then verifies the execution permission based on a signed message.</p>
+<p>It further allows any information to be attached to that proxy accounts which can be in the forms of claims via <a href="https://github.com/ethereum/EIPs/issues/735">ERC735</a> or <a href="https://github.com/ethereum/EIPs/issues/780">ERC780</a>, or any arbitrary new systems and protocols.</p>
+<p>This specification was chosen to allow the most flexibility and experimentation around verifiable manageable accounts.</p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li><a href="https://github.com/ERC725Alliance/erc725/tree/master/contracts/contracts">Implementation by ERC725Alliance</a></li>
+</ul>
+<h3 id="solidity-interface">Solidity Interface</h3>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">pragma solidity </span><span style="color:#c0c5ce;">^</span><span style="color:#d08770;">0.5</span><span style="color:#c0c5ce;">.</span><span style="background-color:#bf616a;color:#2b303b;">4</span><span style="color:#c0c5ce;">;
+
+</span><span style="color:#bf616a;">interface ERC725 </span><span style="color:#c0c5ce;">{
+    </span><span style="color:#bf616a;">event DataChanged</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bytes32 indexed key</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">bytes32 indexed value</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#bf616a;">event OwnerChanged</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed ownerAddress</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#bf616a;">event ContractCreated</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">address indexed contractAddress</span><span style="color:#c0c5ce;">);
+
+    </span><span style="color:#65737e;">// address public owner;
+
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">changeOwner</span><span style="color:#c0c5ce;">(address _owner) </span><span style="color:#bf616a;">external</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">getData</span><span style="color:#c0c5ce;">(bytes32 _key) </span><span style="color:#bf616a;">external view returns </span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">bytes32 _value</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">setData</span><span style="color:#c0c5ce;">(bytes32 _key, bytes32 _value) </span><span style="color:#bf616a;">external</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">execute</span><span style="color:#c0c5ce;">(uint256 _operationType, address _to, uint256 _value, bytes calldata _data) </span><span style="color:#bf616a;">external</span><span style="color:#c0c5ce;">;
+}
+</span></code></pre><h2 id="additional-references">Additional References</h2>
+<ul>
+<li><a href="https://www.slideshare.net/FabianVogelsteller/erc-725-identity">Slides of the ERC Identity presentation</a></li>
+<li><a href="https://github.com/ethereum/wiki/wiki/ERC-735:-Claim-Holder-Registry-vs.-in-contract">In-contract claim VS claim registry</a></li>
+<li><a href="https://www.weboftrust.info/specs.html">Identity related reports</a></li>
+<li><a href="https://w3c.github.io/vc-use-cases/">W3C Verifiable Claims Use Cases</a></li>
+<li><a href="https://identity.foundation">Decentralised Identity Foundation</a></li>
+<li><a href="https://sovrin.org/wp-content/uploads/2017/06/The-Inevitable-Rise-of-Self-Sovereign-Identity.pdf">Sovrin Foundation Self Sovereign Identity</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

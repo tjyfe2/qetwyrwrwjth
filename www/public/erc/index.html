@@ -1,0 +1,2566 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+<title>ERC | Ethereum Improvement Proposals</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;erc&#x2F;" />
+<meta property="og:title" content="ERC" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal ERC"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal ERC"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;erc&#x2F;" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal ERC" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<style type="text/css">
+  .eiptable .title {
+    width: 67%;
+  }
+
+  .eiptable .author {
+    width: 33%;
+  }
+</style>
+<h1>ERC</h1>
+
+
+
+
+    
+
+    
+        
+    
+
+
+
+    
+    
+    
+        <h2 id="last-call">Last Call</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1191&#x2F;">1191</a></td>
+                    <td class="title">Add chain id to mixed-case checksum address encoding</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/juli">Juliano Rizzo</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2309&#x2F;">2309</a></td>
+                    <td class="title">ERC-721 Consecutive Transfer Extension</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/pizzarob">Sean Papanikolas</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-875&#x2F;">875</a></td>
+                    <td class="title">Simpler NFT standard with batching and native atomic swaps</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:a@colourful.land">Weiwu Zhang</a>,
+        
+    
+        
+        
+            <a href="mailto:j.l.sangalli@gmail.com">James Sangalli</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+        <h2 id="final">Final</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1155&#x2F;">1155</a></td>
+                    <td class="title">ERC-1155 Multi Token Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:witek@enjin.io">Witek Radomski</a>,
+        
+    
+        
+        
+            <a href="mailto:ac0dem0nk3y@gmail.com">Andrew Cooke</a>,
+        
+    
+        
+        
+            <a href="mailto:pc@horizongames.net">Philippe Castonguay</a>,
+        
+    
+        
+        
+            <a href="mailto:james@turing-complete.com">James Therien</a>,
+        
+    
+        
+        
+            <a href="mailto:eric@enjin.io">Eric Binet</a>,
+        
+    
+        
+        
+            <a href="mailto:wighawag@gmail.com">Ronan Sandford</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1167&#x2F;">1167</a></td>
+                    <td class="title">Minimal Proxy Contract</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/yarrumretep">Peter Murray</a>,
+        
+    
+        
+        
+            <a href="https://github.com/flygoing"> Nate Welch</a>,
+        
+    
+        
+        
+            <a href="https://github.com/JAMesserman"> Joe Messerman</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-137&#x2F;">137</a></td>
+                    <td class="title">Ethereum Domain Name Service - Specification</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:arachnid@notdot.net">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-162&#x2F;">162</a></td>
+                    <td class="title">Initial ENS Hash Registrar</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/aurelia">Maureli</a>,
+        
+    
+        
+        
+            <a href="mailto:nick@ethereum.org">Nick Johnson</a>,
+        
+    
+        
+        
+            <a href="mailto:avsa@ethereum.org">Alex Van de Sande</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-165&#x2F;">165</a></td>
+                    <td class="title">ERC-165 Standard Interface Detection</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:chris@ethereum.org">Christian Reitwießner</a>,
+        
+    
+        
+        
+            <a href="mailto:nick@ethereum.org">Nick Johnson</a>,
+        
+    
+        
+        
+            <a href="mailto:fabian@lukso.network">Fabian Vogelsteller</a>,
+        
+    
+        
+        
+            <a href="mailto:jordi@baylina.cat">Jordi Baylina</a>,
+        
+    
+        
+        
+            <a href="mailto:konrad.feldmeier@brainbot.com">Konrad Feldmeier</a>,
+        
+    
+        
+        
+            <a href="mailto:github.com@phor.net">William Entriken</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-181&#x2F;">181</a></td>
+                    <td class="title">ENS support for reverse resolution of Ethereum addresses</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:arachnid@notdot.net">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1820&#x2F;">1820</a></td>
+                    <td class="title">Pseudo-introspection Registry Contract</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:jordi@baylina.cat">Jordi Baylina</a>,
+        
+    
+        
+        
+            <a href="mailto:mail@0xjac.com">Jacques Dafflon</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-190&#x2F;">190</a></td>
+                    <td class="title">Ethereum Smart Contract Packaging Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/pipermerriam">Piper Merriam</a>,
+        
+    
+        
+        
+            <a href="https://github.com/tcoulter"> Tim Coulter</a>,
+        
+    
+        
+        
+            <a href="https://github.com/mhhf"> Denis Erfurt</a>,
+        
+    
+        
+        
+            <a href="https://github.com/VoR0220"> RJ Catalano</a>,
+        
+    
+        
+        
+            <a href="https://github.com/iurimatias"> Iuri Matias</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-20&#x2F;">20</a></td>
+                    <td class="title">ERC-20 Token Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:fabian@ethereum.org">Fabian Vogelsteller</a>,
+        
+    
+        
+        
+            <a href="mailto:vitalik.buterin@ethereum.org">Vitalik Buterin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-55&#x2F;">55</a></td>
+                    <td class="title">Mixed-case checksum address encoding</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:vitalik.buterin@ethereum.org">Vitalik Buterin</a>,
+        
+    
+        
+        
+            <a href="mailto:avsa@ethereum.org">Alex Van de Sande</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-600&#x2F;">600</a></td>
+                    <td class="title">Ethereum purpose allocation for Deterministic Wallets</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/arachnid">Nick Johnson</a>,
+        
+    
+        
+        
+            <a href="https://github.com/micahzoltu"> Micah Zoltu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-601&#x2F;">601</a></td>
+                    <td class="title">Ethereum hierarchy for deterministic wallets</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/arachnid">Nick Johnson</a>,
+        
+    
+        
+        
+            <a href="https://github.com/micahzoltu"> Micah Zoltu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-721&#x2F;">721</a></td>
+                    <td class="title">ERC-721 Non-Fungible Token Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:github.com@phor.net">William Entriken</a>,
+        
+    
+        
+        
+            <a href="mailto:dete@axiomzen.co">Dieter Shirley</a>,
+        
+    
+        
+        
+            <a href="mailto:jacob@dekz.net">Jacob Evans</a>,
+        
+    
+        
+        
+            <a href="mailto:nastassia.sachs@protonmail.com">Nastassia Sachs</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-777&#x2F;">777</a></td>
+                    <td class="title">ERC777 Token Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:mail@0xjac.com">Jacques Dafflon</a>,
+        
+    
+        
+        
+            <a href="mailto:jordi@baylina.cat">Jordi Baylina</a>,
+        
+    
+        
+        
+            <a href="mailto:tom@truelevel.io">Thomas Shababi</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+        <h2 id="draft">Draft</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1046&#x2F;">1046</a></td>
+                    <td class="title">ERC20 Metadata Extension</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/tomasienrbc">Tommy Nicholas</a>,
+        
+    
+        
+        
+            <a href="https://github.com/mateosu"> Matt Russo</a>,
+        
+    
+        
+        
+            <a href="https://github.com/JohnZettler"> John Zettler</a>,
+        
+    
+        
+        
+            <a href="https://github.com/shrugs"> Matt Condon</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1047&#x2F;">1047</a></td>
+                    <td class="title">Token Metadata JSON Schema</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/tomasienrbc">Tommy Nicholas</a>,
+        
+    
+        
+        
+            <a href="https://github.com/mateosu"> Matt Russo</a>,
+        
+    
+        
+        
+            <a href="https://github.com/JohnZettler"> John Zettler</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1056&#x2F;">1056</a></td>
+                    <td class="title">Ethereum Lightweight Identity</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:pelle.braendgaard@consensys.net">Pelle Braendgaard</a>,
+        
+    
+        
+        
+            <a href="mailto:oed@consensys.net">Joel Torstensson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1062&#x2F;">1062</a></td>
+                    <td class="title">Formalize IPFS hash into ENS(Ethereum Name Service) resolver</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:phyrex@portal.network">Phyrex Tsai</a>,
+        
+    
+        
+        
+            <a href="https://github.com/Portal Network Tea"> Portal Network Te</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1066&#x2F;">1066</a></td>
+                    <td class="title">Status Codes</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/expede">Brooklyn Zelenka</a>,
+        
+    
+        
+        
+            <a href="https://github.com/carchrae"> Tom Carchrae</a>,
+        
+    
+        
+        
+            <a href="https://github.com/naumenkogs"> Gleb Naumenko</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1077&#x2F;">1077</a></td>
+                    <td class="title">Gas relay for contract calls</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:avsa@ethereum.org">Alex Van de Sande</a>,
+        
+    
+        
+        
+            <a href="https://github.com/3esmit"> Ricardo Guilherme Schmidt</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1078&#x2F;">1078</a></td>
+                    <td class="title">Universal login &#x2F; signup using ENS subdomains</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:avsa@ethereum.org">Alex Van de Sande</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1080&#x2F;">1080</a></td>
+                    <td class="title">Recoverable Token</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:bradleat@inkibra.com">Bradley Leatherwood</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1081&#x2F;">1081</a></td>
+                    <td class="title">Standard Bounties</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:mark.beylin@consensys.net">Mark Beylin</a>,
+        
+    
+        
+        
+            <a href="mailto:kevin.owocki@consensys.net">Kevin Owocki</a>,
+        
+    
+        
+        
+            <a href="https://github.com/3esmit"> Ricardo Guilherme Schmidt</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1123&#x2F;">1123</a></td>
+                    <td class="title">Revised Ethereum Smart Contract Packaging Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/gnidan">g. nicholas d’andrea</a>,
+        
+    
+        
+        
+            <a href="https://github.com/pipermerriam"> Piper Merriam</a>,
+        
+    
+        
+        
+            <a href="https://github.com/njgheorghita"> Nick Gheorghita</a>,
+        
+    
+        
+        
+            <a href="https://github.com/djrtwo"> Danny Ryan</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1129&#x2F;">1129</a></td>
+                    <td class="title">Standardised DAPP announcements</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/ThunderDeliverer">Jan Turk</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1132&#x2F;">1132</a></td>
+                    <td class="title">Extending ERC20 with token locking capability</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:nitika@govblocks.io">nitika-goel</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1175&#x2F;">1175</a></td>
+                    <td class="title">Wallet &amp; shop standard for all tokens (erc20)</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/Nitro888">Jet Lim</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1178&#x2F;">1178</a></td>
+                    <td class="title">Multi-class Token Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:achon@stanford.edu">Albert Chon</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1185&#x2F;">1185</a></td>
+                    <td class="title">Storage of DNS Records in ENS</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:Jim@mcdee.net">Jim McDonald</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1202&#x2F;">1202</a></td>
+                    <td class="title">Voting Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/xinbenlv">Zainan Victor Zhou</a>,
+        
+    
+        
+        
+            <a href="https://github.com/evbots"> Evan</a>,
+        
+    
+        
+        
+            <a href="https://github.com/yingogobot"> Yin Xu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1203&#x2F;">1203</a></td>
+                    <td class="title">ERC-1203 Multi-Class Token Standard (ERC-20 Extension)</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:jeffishjeff@gmail.com">Jeff Huang</a>,
+        
+    
+        
+        
+            <a href="mailto:crawlregister@gmail.com">Min Zu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1207&#x2F;">1207</a></td>
+                    <td class="title">DAuth Access Delegation Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/wxygeek">Xiaoyu Wang</a>,
+        
+    
+        
+        
+            <a href="https://github.com/Wangbicong"> Bicong Wang</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1261&#x2F;">1261</a></td>
+                    <td class="title">Membership Verification Token (MVT)</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/chaitanyapotti">Chaitanya Potti</a>,
+        
+    
+        
+        
+            <a href="https://github.com/pb25193"> Partha Bhattacharya</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1271&#x2F;">1271</a></td>
+                    <td class="title">Standard Signature Validation Method for Contracts</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/frangio">Francisco Giordano</a>,
+        
+    
+        
+        
+            <a href="https://github.com/shrugs"> Matt Condon</a>,
+        
+    
+        
+        
+            <a href="https://github.com/PhABC"> Philippe Castonguay</a>,
+        
+    
+        
+        
+            <a href="https://github.com/abandeali1"> Amir Bandeali</a>,
+        
+    
+        
+        
+            <a href="https://github.com/izqui"> Jorge Izquierdo</a>,
+        
+    
+        
+        
+            <a href="https://github.com/catageek"> Bertrand Masius</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1319&#x2F;">1319</a></td>
+                    <td class="title">Smart Contract Package Registry Interface</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:piper@ethereum.org">Piper Merriam</a>,
+        
+    
+        
+        
+            <a href="mailto:christophergewecke@gmail.com">Christopher Gewecke</a>,
+        
+    
+        
+        
+            <a href="mailto:nick.dandrea@consensys.net">g. nicholas d&#x27;andrea</a>,
+        
+    
+        
+        
+            <a href="mailto:nickg@ethereum.org">Nick Gheorghita</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1328&#x2F;">1328</a></td>
+                    <td class="title">WalletConnect Standard URI Format</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:ligi@ligi.de">ligi</a>,
+        
+    
+        
+        
+            <a href="mailto:pedrouid@protonmail.com">Pedro Gomes</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1337&#x2F;">1337</a></td>
+                    <td class="title">Subscriptions on the blockchain</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:kevin@gitcoin.co">Kevin Owocki</a>,
+        
+    
+        
+        
+            <a href="mailto:andrew@blockcrushr.com">Andrew Redden</a>,
+        
+    
+        
+        
+            <a href="mailto:scott@blockcrushr.com">Scott Burke</a>,
+        
+    
+        
+        
+            <a href="mailto:k.s.seagraves@gmail.com">Kevin Seagraves</a>,
+        
+    
+        
+        
+            <a href="mailto:luka.kacil@gmail.com">Luka Kacil</a>,
+        
+    
+        
+        
+            <a href="mailto:stefan.simec@gmail.com">Štefan Šimec</a>,
+        
+    
+        
+        
+            <a href="https://github.com/kosecki123"> Piotr Kosiński</a>,
+        
+    
+        
+        
+            <a href="mailto:tradeninja7@gmail.com">ankit raj</a>,
+        
+    
+        
+        
+            <a href="mailto:john@atchai.com">John Griffin</a>,
+        
+    
+        
+        
+            <a href="mailto:nathantr@gmail.com">Nathan Creswell</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1363&#x2F;">1363</a></td>
+                    <td class="title">ERC-1363 Payable Token</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/vittominacori">Vittorio Minacori</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1386&#x2F;">1386</a></td>
+                    <td class="title">Attestation management contract</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:a@colourful.land">Weiwu Zhang</a>,
+        
+    
+        
+        
+            <a href="mailto:j.l.sangalli@gmail.com">James Sangalli</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1387&#x2F;">1387</a></td>
+                    <td class="title">Merkle Tree Attestations with Privacy enabled</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:a@colourful.land">Weiwu Zhang</a>,
+        
+    
+        
+        
+            <a href="mailto:j.l.sangalli@gmail.com">James Sangalli</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1388&#x2F;">1388</a></td>
+                    <td class="title">Attestation Issuers Management List</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:a@colourful.land">Weiwu Zhang</a>,
+        
+    
+        
+        
+            <a href="mailto:j.l.sangalli@gmail.com">James Sangalli</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1417&#x2F;">1417</a></td>
+                    <td class="title">Poll Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/chaitanyapotti">Chaitanya Potti</a>,
+        
+    
+        
+        
+            <a href="https://github.com/pb25193"> Partha Bhattacharya</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1438&#x2F;">1438</a></td>
+                    <td class="title">dApp Components (avatar) &amp; Universal Wallet</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/Nitro888">Jet Lim</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1444&#x2F;">1444</a></td>
+                    <td class="title">Localized Messaging with Signal-to-Text</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/expede">Brooklyn Zelenka</a>,
+        
+    
+        
+        
+            <a href="https://github.com/jenncoop"> Jennifer Cooper</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1450&#x2F;">1450</a></td>
+                    <td class="title">ERC-1450 A compatible security token for issuing and trading SEC-compliant securities</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/johnshiple">John Shiple</a>,
+        
+    
+        
+        
+            <a href="mailto:howard@startengine.com">Howard Marks</a>,
+        
+    
+        
+        
+            <a href="mailto:david@startengine.com">David Zhang</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1462&#x2F;">1462</a></td>
+                    <td class="title">Base Security Token</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:mk@atlant.io">Maxim Kupriianov</a>,
+        
+    
+        
+        
+            <a href="mailto:js@atlant.io">Julian Svirsky</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1484&#x2F;">1484</a></td>
+                    <td class="title">Digital Identity Aggregator</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:anurag.angara@gmail.com">Anurag Angara</a>,
+        
+    
+        
+        
+            <a href="mailto:andychorlian@gmail.com">Andy Chorlian</a>,
+        
+    
+        
+        
+            <a href="mailto:shanehampton1@gmail.com">Shane Hampton</a>,
+        
+    
+        
+        
+            <a href="mailto:noahwz@gmail.com">Noah Zinsmeister</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1491&#x2F;">1491</a></td>
+                    <td class="title">Human Cost Accounting Standard (Like Gas but for humans)</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/cohabo">Iamnot Chris</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1504&#x2F;">1504</a></td>
+                    <td class="title">ERC-1504 Upgradable Smart Contract</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:wukd94@pku.edu.cn">Kaidong Wu</a>,
+        
+    
+        
+        
+            <a href="mailto:cr025@bucknell.edu">Chuqiao Ren</a>,
+        
+    
+        
+        
+            <a href="mailto:rujiahe@gmail.com">Ruthia He</a>,
+        
+    
+        
+        
+            <a href="mailto:mayun@pku.edu.cn">Yun Ma</a>,
+        
+    
+        
+        
+            <a href="mailto:liuxuanzhe@pku.edu.cn">Xuanzhe Liu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1523&#x2F;">1523</a></td>
+                    <td class="title">Standard for Insurance Policies as ERC-721 Non Fungible Tokens</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/christoph2806">Christoph Mussenbrock</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1577&#x2F;">1577</a></td>
+                    <td class="title">contenthash field for ENS</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:dean@ens.domains">Dean Eigenmann</a>,
+        
+    
+        
+        
+            <a href="mailto:nick@ens.domains">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1581&#x2F;">1581</a></td>
+                    <td class="title">Non-wallet usage of keys derived from BIP-32 trees</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/bitgamma">Michele Balistreri</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1592&#x2F;">1592</a></td>
+                    <td class="title">Address and ERC20-compliant transfer rules</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:cyril.lapinte@mtpelerin.com">Cyril Lapinte</a>,
+        
+    
+        
+        
+            <a href="mailto:laurent.aapro@mtpelerin.com">Laurent Aapro</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1613&#x2F;">1613</a></td>
+                    <td class="title">Gas stations network</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:yoav@tabookey.com">Yoav Weiss</a>,
+        
+    
+        
+        
+            <a href="mailto:dror@tabookey.com">Dror Tirosh</a>,
+        
+    
+        
+        
+            <a href="mailto:alex@tabookey.com">Alex Forshtat</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1616&#x2F;">1616</a></td>
+                    <td class="title">ERC-1616 Attribute Registry Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/0age">0age</a>,
+        
+    
+        
+        
+            <a href="https://github.com/spalladino"> Santiago Palladino</a>,
+        
+    
+        
+        
+            <a href="https://github.com/elopio"> Leo Arias</a>,
+        
+    
+        
+        
+            <a href="https://github.com/fiiiu"> Alejo Salles</a>,
+        
+    
+        
+        
+            <a href="https://github.com/thegostep"> Stephane Gosselin</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1620&#x2F;">1620</a></td>
+                    <td class="title">ERC-1620 Money Streaming</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/PaulRBerg">Paul Berg</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1710&#x2F;">1710</a></td>
+                    <td class="title">URL Format for Web3 Browsers</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/brunobar79">Bruno Barbieri</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-173&#x2F;">173</a></td>
+                    <td class="title">Contract Ownership Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:nick@perfectabstractions.com">Nick Mudge</a>,
+        
+    
+        
+        
+            <a href="mailto:dan@danfinlay.com">Dan Finlay</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1753&#x2F;">1753</a></td>
+                    <td class="title">Smart Contract Interface for Licences</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/BitcoinBrisbane">Lucas Cullen</a>,
+        
+    
+        
+        
+            <a href="https://github.com/CivicKai"> Kai Yeung</a>,
+        
+    
+        
+        
+            <a href="mailto:annaelizabethcrowley@gmail.com">Anna Crowley</a>,
+        
+    
+        
+        
+            <a href="mailto:caroline.marshall888@gmail.com">Caroline Marshall</a>,
+        
+    
+        
+        
+            <a href="mailto:katrina@civicledger.com">Katrina Donaghy</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1761&#x2F;">1761</a></td>
+                    <td class="title">ERC-1761 Scoped Approval Interface</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:witek@enjin.io">Witek Radomski</a>,
+        
+    
+        
+        
+            <a href="mailto:ac0dem0nk3y@gmail.com">Andrew Cooke</a>,
+        
+    
+        
+        
+            <a href="mailto:james@enjin.io">James Therien</a>,
+        
+    
+        
+        
+            <a href="mailto:eric@enjin.io">Eric Binet</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1775&#x2F;">1775</a></td>
+                    <td class="title">App Keys, application specific wallet accounts</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/Bunjin">Vincent Eli</a>,
+        
+    
+        
+        
+            <a href="https://github.com/DanFinlay"> Dan Finlay</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1812&#x2F;">1812</a></td>
+                    <td class="title">Ethereum Verifiable Claims</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/pelle">Pelle Braendgaard</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1822&#x2F;">1822</a></td>
+                    <td class="title">Universal Upgradeable Proxy Standard (UUPS)</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:gabriel@terminal.co">Gabriel Barros</a>,
+        
+    
+        
+        
+            <a href="mailto:blockchainbuddha@gmail.com">Patrick Gallagher</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1844&#x2F;">1844</a></td>
+                    <td class="title">ENS Interface Discovery</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/arachnid">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1900&#x2F;">1900</a></td>
+                    <td class="title">dType - Decentralized Type System for EVM</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/loredanacirstea">Loredana Cirstea</a>,
+        
+    
+        
+        
+            <a href="https://github.com/ctzurcanu"> Christian Tzurcanu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-191&#x2F;">191</a></td>
+                    <td class="title">Signed Data Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/holiman">Martin Holst Swende</a>,
+        
+    
+        
+        
+            <a href="mailto:arachnid@notdot.net">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1921&#x2F;">1921</a></td>
+                    <td class="title">dType Functions Extension</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/loredanacirstea">Loredana Cirstea</a>,
+        
+    
+        
+        
+            <a href="https://github.com/ctzurcanu"> Christian Tzurcanu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1922&#x2F;">1922</a></td>
+                    <td class="title">zk-SNARK Verifier Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:michael.connor@uk.ey.com">Michael Connor</a>,
+        
+    
+        
+        
+            <a href="mailto:chaitanya.konda@uk.ey.com">Chaitanya Konda</a>,
+        
+    
+        
+        
+            <a href="mailto:duncan.westland@uk.ey.com">Duncan Westland</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1923&#x2F;">1923</a></td>
+                    <td class="title">zk-SNARK Verifier Registry Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:michael.connor@uk.ey.com">Michael Connor</a>,
+        
+    
+        
+        
+            <a href="mailto:chaitanya.konda@uk.ey.com">Chaitanya Konda</a>,
+        
+    
+        
+        
+            <a href="mailto:duncan.westland@uk.ey.com">Duncan Westland</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1948&#x2F;">1948</a></td>
+                    <td class="title">Non-fungible Data Token</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/johannbarbie">Johann Barbie</a>,
+        
+    
+        
+        
+            <a href="mailto:ben@ost.com">Ben Bollen</a>,
+        
+    
+        
+        
+            <a href="https://github.com/pinkiebell"> pinkiebell</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1967&#x2F;">1967</a></td>
+                    <td class="title">Standard Proxy Storage Slots</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/spalladino">Santiago Palladino</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1973&#x2F;">1973</a></td>
+                    <td class="title">Scalable Rewards</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/lerajk">Lee Raj</a>,
+        
+    
+        
+        
+            <a href="https://github.com/qinjian"> Qin Jian</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1996&#x2F;">1996</a></td>
+                    <td class="title">Holdable Token</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:julio@adhara.io">Julio Faura</a>,
+        
+    
+        
+        
+            <a href="mailto:fer@io.builders">Fernando Paris</a>,
+        
+    
+        
+        
+            <a href="mailto:daniel@io.builders">Daniel Lehrner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2009&#x2F;">2009</a></td>
+                    <td class="title">Compliance Service</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:daniel@io.builders">Daniel Lehrner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2018&#x2F;">2018</a></td>
+                    <td class="title">Clearable Token</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:julio@adhara.io">Julio Faura</a>,
+        
+    
+        
+        
+            <a href="mailto:fer@io.builders">Fernando Paris</a>,
+        
+    
+        
+        
+            <a href="mailto:daniel@io.builders">Daniel Lehrner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2019&#x2F;">2019</a></td>
+                    <td class="title">Fundable Token</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:fer@io.builders">Fernando Paris</a>,
+        
+    
+        
+        
+            <a href="mailto:julio@adhara.io">Julio Faura</a>,
+        
+    
+        
+        
+            <a href="mailto:daniel@io.builders">Daniel Lehrner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2020&#x2F;">2020</a></td>
+                    <td class="title">E-Money Standard Token</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:julio@adhara.io">Julio Faura</a>,
+        
+    
+        
+        
+            <a href="mailto:fer@io.builders">Fernando Paris</a>,
+        
+    
+        
+        
+            <a href="mailto:daniel@io.builders">Daniel Lehrner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2021&#x2F;">2021</a></td>
+                    <td class="title">Payoutable Token</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:fer@io.builders">Fernando Paris</a>,
+        
+    
+        
+        
+            <a href="mailto:julio@adhara.io">Julio Faura</a>,
+        
+    
+        
+        
+            <a href="mailto:daniel@io.builders">Daniel Lehrner</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-205&#x2F;">205</a></td>
+                    <td class="title">ENS support for contract ABIs</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:nick@ethereum.org">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2135&#x2F;">2135</a></td>
+                    <td class="title">Consumable Interface</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/xinbenlv">Zainan Victor Zhou</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2157&#x2F;">2157</a></td>
+                    <td class="title">dType Storage Extension - Decentralized Type System for EVM</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/loredanacirstea">Loredana Cirstea</a>,
+        
+    
+        
+        
+            <a href="https://github.com/ctzurcanu"> Christian Tzurcanu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2193&#x2F;">2193</a></td>
+                    <td class="title">dType Alias Extension - Decentralized Type System</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/loredanacirstea">Loredana Cirstea</a>,
+        
+    
+        
+        
+            <a href="https://github.com/ctzurcanu"> Christian Tzurcanu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2266&#x2F;">2266</a></td>
+                    <td class="title">Atomic Swap-based American Call Option Contract Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:runchao.han@monash.edu">Runchao Han</a>,
+        
+    
+        
+        
+            <a href="mailto:chris.haoyul@gmail.com">Haoyu Lin</a>,
+        
+    
+        
+        
+            <a href="mailto:jiangshan.yu@monash.edu">Jiangshan Yu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2304&#x2F;">2304</a></td>
+                    <td class="title">Multichain address resolution for ENS</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:nick@ens.domains">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2333&#x2F;">2333</a></td>
+                    <td class="title">BLS12-381 Key Generation</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:carl@ethereum.org">Carl Beekhuizen</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2334&#x2F;">2334</a></td>
+                    <td class="title">BLS12-381 Deterministic Account Hierarchy</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:carl@ethereum.org">Carl Beekhuizen</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2335&#x2F;">2335</a></td>
+                    <td class="title">BLS12-381 Keystore</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:carl@ethereum.org">Carl Beekhuizen</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2400&#x2F;">2400</a></td>
+                    <td class="title">URL Format for Transaction Receipts</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/3esmit">Ricardo Guilherme Schmidt</a>,
+        
+    
+        
+        
+            <a href="https://github.com/yenda"> Eric Dvorsak</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2470&#x2F;">2470</a></td>
+                    <td class="title">Singleton Factory</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/3esmit">Ricardo Guilherme Schmidt</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2477&#x2F;">2477</a></td>
+                    <td class="title">Token Metadata Integrity</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/xpepermint">Kristijan Sedlak</a>,
+        
+    
+        
+        
+            <a href="mailto:github.com@phor.net">William Entriken</a>,
+        
+    
+        
+        
+            <a href="mailto:witek@enjin.io">Witek Radomski</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2525&#x2F;">2525</a></td>
+                    <td class="title">ENSLogin</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/amxx">Hadrien Croubois</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2535&#x2F;">2535</a></td>
+                    <td class="title">Diamond Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:nick@perfectabstractions.com">Nick Mudge</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2544&#x2F;">2544</a></td>
+                    <td class="title">ENS Wildcard Resolution</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/arachnid">Nick Johnson</a>,
+        
+    
+        
+        
+            <a href="https://github.com/0age"> 0age</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2569&#x2F;">2569</a></td>
+                    <td class="title">Saving and Displaying Image Onchain for Universal Tokens</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/dgczhh">Hua Zhang</a>,
+        
+    
+        
+        
+            <a href="https://github.com/whtyfhas"> Yuefei Tan</a>,
+        
+    
+        
+        
+            <a href="https://github.com/zhous"> Derek Zhou</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2615&#x2F;">2615</a></td>
+                    <td class="title">Non-Fungible Token with mortgage and rental functions</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:kohshi.shiba@gmail.com">Kohshi Shiba</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2678&#x2F;">2678</a></td>
+                    <td class="title">Revised Ethereum Smart Contract Packaging Standard (EthPM v3)</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/gnidan">g. nicholas d’andrea</a>,
+        
+    
+        
+        
+            <a href="https://github.com/pipermerriam"> Piper Merriam</a>,
+        
+    
+        
+        
+            <a href="https://github.com/njgheorghita"> Nick Gheorghita</a>,
+        
+    
+        
+        
+            <a href="https://github.com/chriseth"> Christian Reitwiessne</a>,
+        
+    
+        
+        
+            <a href="https://github.com/iamdefinitelyahuman"> Ben Hauser</a>,
+        
+    
+        
+        
+            <a href="https://github.com/fubuloubu"> Bryant Eisenbach</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2746&#x2F;">2746</a></td>
+                    <td class="title">Rules Engine Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/jaerith">Aaron Kendall</a>,
+        
+    
+        
+        
+            <a href="mailto:@juanfranblanco">Juan Blanco</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2767&#x2F;">2767</a></td>
+                    <td class="title">Contract Ownership Governance</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/zemse">Soham Zemse</a>,
+        
+    
+        
+        
+            <a href="https://github.com/mudgen"> Nick Mudge</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2771&#x2F;">2771</a></td>
+                    <td class="title">Secure Protocol for Native Meta Transactions</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/wighawag">Ronan Sandford</a>,
+        
+    
+        
+        
+            <a href="https://github.com/lirazsiri"> Liraz Siri</a>,
+        
+    
+        
+        
+            <a href="https://github.com/drortirosh"> Dror Tirosh</a>,
+        
+    
+        
+        
+            <a href="https://github.com/yoavw"> Yoav Weiss</a>,
+        
+    
+        
+        
+            <a href="https://github.com/forshtat"> Alex Forshtat</a>,
+        
+    
+        
+        
+            <a href="https://github.com/Amxx"> Hadrien Croubois</a>,
+        
+    
+        
+        
+            <a href="https://github.com/tomarsachin2271"> Tomar Sachin</a>,
+        
+    
+        
+        
+            <a href="https://github.com/stonecoldpat"> Patrick McCorry</a>,
+        
+    
+        
+        
+            <a href="https://github.com/nventuro"> Nicolas Venturo</a>,
+        
+    
+        
+        
+            <a href="https://github.com/frozeman"> Fabian Vogelsteller</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2848&#x2F;">2848</a></td>
+                    <td class="title">My Own Messages (MOM)</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/Neurone">Giuseppe Bertone</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-2876&#x2F;">2876</a></td>
+                    <td class="title">Deposit contract and address standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/junderw">Jonathan Underwood</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-634&#x2F;">634</a></td>
+                    <td class="title">Storage of text records in ENS</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/ricmoo">Richard Moore</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-681&#x2F;">681</a></td>
+                    <td class="title">URL Format for Transaction Requests</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:daniel@ethereum.org">Daniel A. Nagy</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-725&#x2F;">725</a></td>
+                    <td class="title">Proxy Account</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/frozeman">Fabian Vogelsteller</a>,
+        
+    
+        
+        
+            <a href="https://github.com/tyleryasaka"> Tyler Yasaka</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-801&#x2F;">801</a></td>
+                    <td class="title">ERC-801 Canary Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:ligi@ligi.de">ligi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-823&#x2F;">823</a></td>
+                    <td class="title">Token Exchange Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:kkhullar7@gmail.com">Kashish Khullar</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-831&#x2F;">831</a></td>
+                    <td class="title">URI Format for Ethereum</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:ligi@ligi.de">ligi</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-884&#x2F;">884</a></td>
+                    <td class="title">DGCL Token</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:davesag@gmail.com">Dave Sag</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-897&#x2F;">897</a></td>
+                    <td class="title">ERC DelegateProxy</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:jorge@aragon.one">Jorge Izquierdo</a>,
+        
+    
+        
+        
+            <a href="mailto:manuel@zeppelin.solutions">Manuel Araoz</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-900&#x2F;">900</a></td>
+                    <td class="title">Simple Staking Interface</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:dean@tokenate.io">Dean Eigenmann</a>,
+        
+    
+        
+        
+            <a href="mailto:jorge@aragon.one">Jorge Izquierdo</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-902&#x2F;">902</a></td>
+                    <td class="title">Token Validation</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/expede">Brooklyn Zelenka</a>,
+        
+    
+        
+        
+            <a href="https://github.com/carchrae"> Tom Carchrae</a>,
+        
+    
+        
+        
+            <a href="https://github.com/naumenkogs"> Gleb Naumenko</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-918&#x2F;">918</a></td>
+                    <td class="title">Mineable Token Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:jlogelin@alumni.harvard.edu">Jay Logelin</a>,
+        
+    
+        
+        
+            <a href="mailto:admin@0xbitcoin.org">Infernal_toast</a>,
+        
+    
+        
+        
+            <a href="mailto:mgs33@cornell.edu">Michael Seiler</a>,
+        
+    
+        
+        
+            <a href="mailto:bg2655@columbia.edu">Brandon Grill</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-926&#x2F;">926</a></td>
+                    <td class="title">Address metadata registry</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:nick@ethereum.org">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-927&#x2F;">927</a></td>
+                    <td class="title">Generalised authorisations</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:nick@ethereum.org">Nick Johnson</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-998&#x2F;">998</a></td>
+                    <td class="title">ERC-998 Composable Non-Fungible Token Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:mattdlockyer@gmail.com">Matt Lockyer</a>,
+        
+    
+        
+        
+            <a href="mailto:nick@perfectabstractions.com">Nick Mudge</a>,
+        
+    
+        
+        
+            <a href="mailto:jordan.schalm@gmail.com">Jordan Schalm</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+        <h2 id="superseded">Superseded</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-820&#x2F;">820</a></td>
+                    <td class="title">Pseudo-introspection Registry Contract</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:jordi@baylina.cat">Jordi Baylina</a>,
+        
+    
+        
+        
+            <a href="mailto:jacques@dafflon.tech">Jacques Dafflon</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+    
+    
+    
+
+    
+    
+    
+        <h2 id="abandoned">Abandoned</h2>
+        <table class="eiptable">
+            <thead>
+                <tr><th class="eipnum">Number</th><th class="title">Title</th><th class="author">Author</th></tr>
+            </thead>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1154&#x2F;">1154</a></td>
+                    <td class="title">Oracle Interface</td>
+                    <td class="author">
+    
+        
+        
+            <a href="https://github.com/cag">Alan Lu</a>
+        
+    
+</td>
+                </tr>
+            
+                <tr>
+                    <td class="eipnum"><a href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;EIPS&#x2F;eip-1538&#x2F;">1538</a></td>
+                    <td class="title">Transparent Contract Standard</td>
+                    <td class="author">
+    
+        
+        
+            <a href="mailto:nick@perfectabstractions.com">Nick Mudge</a>
+        
+    
+</td>
+                </tr>
+            
+        </table>
+    
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

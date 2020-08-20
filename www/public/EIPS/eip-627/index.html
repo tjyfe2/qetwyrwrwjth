@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-627: Whisper Specification</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-627.md" />
+<meta property="og:title" content="EIP-627: Whisper Specification" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 627 (EIP-627): Whisper Specification"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 627 (EIP-627): Whisper Specification"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-627.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 627 (EIP 627): Whisper Specification" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-627: Whisper Specification
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:gluk256@gmail.com">Vlad Gluhovsky</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Networking</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-05-05</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This EIP describes the format of Whisper messages within the ÐΞVp2p Wire Protocol.
+This EIP should substitute the <a href="https://github.com/ethereum/wiki/wiki/Whisper-Wire-Protocol">existing specification</a>.
+More detailed documentation on Whisper could be found <a href="https://github.com/ethereum/go-ethereum/wiki/Whisper">here</a>.</p>
+<h2 id="motivation">Motivation</h2>
+<p>It is necessary to specify the standard for Whisper messages in order to ensure forward compatibility of different Whisper clients.</p>
+<h2 id="specification">Specification</h2>
+<p>All Whisper messages sent as ÐΞVp2p Wire Protocol packets should be RLP-encoded arrays of data containing two objects: integer packet code followed by another object (whose type depends on the packet code). </p>
+<p>If Whisper node does not support a particular packet code, it should just ignore the packet without generating any error.</p>
+<h3 id="packet-codes">Packet Codes</h3>
+<p>The message codes reserved for Whisper protocol: 0 - 127.
+Messages with unknown codes must be ignored, for forward compatibility of future versions.</p>
+<p>The Whisper sub-protocol should support the following packet codes:</p>
+<table><thead><tr><th>EIP</th><th>Name</th><th>Int Value</th></tr></thead><tbody>
+<tr><td></td><td>Status</td><td>0</td></tr>
+<tr><td></td><td>Messages</td><td>1</td></tr>
+<tr><td></td><td>PoW Requirement</td><td>2</td></tr>
+<tr><td></td><td>Bloom Filter</td><td>3</td></tr>
+<tr><td>-------</td><td>----------------------------</td><td>-----------</td></tr>
+</tbody></table>
+<p>The following message codes are optional, but they are reserved for specific purpose.</p>
+<table><thead><tr><th>EIP</th><th>Name</th><th>Int Value</th></tr></thead><tbody>
+<tr><td></td><td>P2P Request</td><td>126</td></tr>
+<tr><td></td><td>P2P Message</td><td>127</td></tr>
+<tr><td>-------</td><td>----------------------------</td><td>-----------</td></tr>
+</tbody></table>
+<h3 id="packet-format-and-usage">Packet Format and Usage</h3>
+<p><strong>Status</strong> [<code>0</code>]</p>
+<p>This packet contains two objects: integer message code (0x00) followed by a list of values: integer version, float PoW requirement, and bloom filter, in this order. The bloom filter paramenter is optional; if it is missing or nil, the node is considered to be full node (i.e. accepts all messages). The format of PoW and bloom filter please see below (message codes 2 and 3).</p>
+<p>Status message should be sent after the initial handshake and prior to any other messages.</p>
+<p><strong>Messages</strong> [<code>1</code>, <code>whisper_envelopes</code>]</p>
+<p>This packet contains two objects: integer message code (0x01) followed by a list (possibly empty) of Whisper Envelopes.</p>
+<p>This packet is used for sending the standard Whisper envelopes.</p>
+<p><strong>PoW Requirement</strong> [<code>2</code>, <code>PoW</code>]</p>
+<p>This packet contains two objects: integer message code (0x02) followed by a single floating point value of PoW. This value is the IEEE 754 binary representation of 64-bit floating point number. Values of qNAN, sNAN, INF and -INF are not allowed. Negative values are also not allowed.</p>
+<p>This packet is used by Whisper nodes for dynamic adjustment of their individual PoW requirements. Recipient of this message should no longer deliver the sender messages with PoW lower than specified in this message.</p>
+<p>PoW is defined as average number of iterations, required to find the current BestBit (the number of leading zero bits in the hash), divided by message size and TTL:</p>
+<pre style="background-color:#2b303b;">
+<code>PoW = (2**BestBit) / (size * TTL)
+</code></pre>
+<p>PoW calculation:</p>
+<pre style="background-color:#2b303b;">
+<code>fn short_rlp(envelope) = rlp of envelope, excluding env_nonce field.
+fn pow_hash(envelope, env_nonce) = sha3(short_rlp(envelope) ++ env_nonce)
+fn pow(pow_hash, size, ttl) = 2**leading_zeros(pow_hash) / (size * ttl)
+</code></pre>
+<p>where size is the size of the full RLP-encoded envelope.</p>
+<p><strong>Bloom Filter</strong> [<code>3</code>, <code>bytes</code>]</p>
+<p>This packet contains two objects: integer message code (0x03) followed by a byte array of arbitrary size.</p>
+<p>This packet is used by Whisper nodes for sharing their interest in messages with specific topics.</p>
+<p>The Bloom filter is used to identify a number of topics to a peer without compromising (too much) privacy over precisely what topics are of interest. Precise control over the information content (and thus efficiency of the filter) may be maintained through the addition of bits.</p>
+<p>Blooms are formed by the bitwise OR operation on a number of bloomed topics. The bloom function takes the topic and projects them onto a 512-bit slice. At most, three bits are marked for each bloomed topic.</p>
+<p>The projection function is defined as a mapping from a 4-byte slice S to a 512-bit slice D; for ease of explanation, S will dereference to bytes, whereas D will dereference to bits.</p>
+<pre style="background-color:#2b303b;">
+<code>LET D[*] = 0
+FOREACH i IN { 0, 1, 2 } DO
+LET n = S[i]
+IF S[3] &amp; (2 ** i) THEN n += 256
+D[n] = 1
+END FOR
+</code></pre>
+<p>OPTIONAL</p>
+<p><strong>P2P Request</strong> [<code>126</code>, <code>whisper_envelope</code>]</p>
+<p>This packet contains two objects: integer message code (0x7E) followed by a single Whisper Envelope.</p>
+<p>This packet is used for sending Dapp-level peer-to-peer requests, e.g. Whisper Mail Client requesting old messages from the Whisper Mail Server.</p>
+<p><strong>P2P Message</strong> [<code>127</code>, <code>whisper_envelope</code>]</p>
+<p>This packet contains two objects: integer message code (0x7F) followed by a single Whisper Envelope.</p>
+<p>This packet is used for sending the peer-to-peer messages, which are not supposed to be forwarded any further. E.g. it might be used by the Whisper Mail Server for delivery of old (expired) messages, which is otherwise not allowed.</p>
+<h3 id="whisper-envelope">Whisper Envelope</h3>
+<p>Envelopes are RLP-encoded structures of the following format:</p>
+<pre style="background-color:#2b303b;">
+<code>[ Expiry, TTL, Topic, Data, Nonce ]
+</code></pre>
+<p><code>Expiry</code>: 4 bytes (UNIX time in seconds).</p>
+<p><code>TTL</code>: 4 bytes (time-to-live in seconds).</p>
+<p><code>Topic</code>: 4 bytes of arbitrary data.</p>
+<p><code>Data</code>: byte array of arbitrary size (contains encrypted message).</p>
+<p><code>Nonce</code>: 8 bytes of arbitrary data (used for PoW calculation).</p>
+<h3 id="contents-of-data-field-of-the-message-optional">Contents of Data Field of the Message (Optional)</h3>
+<p>This section outlines the optional description of Data Field to set up an example. Later it may be moved to a separate EIP.</p>
+<p>It is only relevant if you want to decrypt the incoming message, but if you only want to send a message, any other format would be perfectly valid and must be forwarded to the peers.</p>
+<p>Data field contains encrypted message of the Envelope. In case of symmetric encryption, it also contains appended Salt (a.k.a. AES Nonce, 12 bytes). Plaintext (unencrypted) payload consists of the following concatenated fields: flags, auxiliary field, payload, padding and signature (in this sequence).</p>
+<pre style="background-color:#2b303b;">
+<code>flags: 1 byte; first two bits contain the size of auxiliary field, third bit indicates whether the signature is present.
+
+auxiliary field: up to 4 bytes; contains the size of payload.
+
+payload: byte array of arbitrary size (may be zero).
+
+padding: byte array of arbitrary size (may be zero).
+
+signature: 65 bytes, if present.
+
+salt: 12 bytes, if present (in case of symmetric encryption).
+</code></pre>
+<p>Those unable to decrypt the message data are also unable to access the signature. The signature, if provided, is the ECDSA signature of the Keccak-256 hash of the unencrypted data using the secret key of the originator identity. The signature is serialised as the concatenation of the <code>R</code>, <code>S</code> and <code>V</code> parameters of the SECP-256k1 ECDSA signature, in that order. <code>R</code> and <code>S</code> are both big-endian encoded, fixed-width 256-bit unsigned. <code>V</code> is an 8-bit big-endian encoded, non-normalised and should be either 27 or 28.</p>
+<p>The padding field was introduced in order to align the message size, since message size alone might reveal important metainformation. Padding can be arbitrary size. However, it is recommended that the size of Data Field (excuding the Salt) before encryption (i.e. plain text) should be factor of 256 bytes.</p>
+<h3 id="payload-encryption">Payload Encryption</h3>
+<p>Asymmetric encryption uses the standard Elliptic Curve Integrated Encryption Scheme with SECP-256k1 public key.</p>
+<p>Symmetric encryption uses AES GCM algorithm with random 96-bit nonce.</p>
+<h2 id="rationale">Rationale</h2>
+<p>Packet codes 0x00 and 0x01 are already used in all Whisper versions.</p>
+<p>Packet code 0x02 will be necessary for the future development of Whisper. It will provide possiblitity to adjust the PoW requirement in real time. It is better to allow the network to govern itself, rather than hardcode any specific value for minimal PoW requirement.</p>
+<p>Packet code 0x03 will be necessary for scalability of the network. In case of too much traffic, the nodes will be able to request and receive only the messages they are interested in.</p>
+<p>Packet codes 0x7E and 0x7F may be used to implement Whisper Mail Server and Client. Without P2P messages it would be impossible to deliver the old messages, since they will be recognized as expired, and the peer will be disconnected for violating the Whisper protocol. They might be useful for other purposes when it is not possible to spend time on PoW, e.g. if a stock exchange will want to provide live feed about the latest trades.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is compatible with Whisper version 6. Any client which does not implement certain packet codes should gracefully ignore the packets with those codes. This will ensure the forward compatibility. </p>
+<h2 id="implementation">Implementation</h2>
+<p>The golang implementation of Whisper (v.6) already uses packet codes 0x00 - 0x03. Parity's implementation of v.6 will also use codes 0x00 - 0x03. Codes 0x7E and 0x7F are reserved, but still unused and left for custom implementation of Whisper Mail Server.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

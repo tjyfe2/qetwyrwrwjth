@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2315: Simple Subroutines for the EVM</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2315.md" />
+<meta property="og:title" content="EIP-2315: Simple Subroutines for the EVM" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2315 (EIP-2315): Simple Subroutines for the EVM"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2315 (EIP-2315): Simple Subroutines for the EVM"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2315.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2315 (EIP 2315): Simple Subroutines for the EVM" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2315: Simple Subroutines for the EVM
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/reg@colvin.org">Greg Colvin</a>,
+        
+    
+        
+        
+            <a href="https://github.com/holiman"> Martin Holst Swende</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2315-simple-subroutines-for-the-evm&#x2F;3941">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2315-simple-subroutines-for-the-evm&#x2F;3941</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-10-17</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This proposal introduces three opcodes to support subroutines: <code>BEGINSUB</code>, <code>JUMPSUB</code> and <code>RETURNSUB</code>.</p>
+<h2 id="motivation">Motivation</h2>
+<p>The EVM does not provide subroutines as a primitive.  Instead, calls can be synthesized by fetching and pushing the current program counter on the data stack and jumping to the subroutine address; returns can be synthesized by contriving to get the return address back to the top of stack and jumping back to it.  Complex calling conventions are then needed to use the same stack for computation and control flow.  Memory allows for simpler conventions but still costs gas.  Eschewing subroutines in user code is the least costly -- but also the most failure-prone.</p>
+<p>Over the course of 30 years the computer industry struggled with this complexity and cost
+and settled in on opcodes to directly support subroutines.  These are provided in some form by most all physical and virtual machines going back at least 50 years.</p>
+<p>Our design is modeled on the original Forth two-stack machine of 1970.  The data stack is supplemented with a return stack to provide simple support for subroutines, as specified below.</p>
+<p>In the Appendix we show example solc output for a simple program that uses over three times as much gas just calling and returning from subroutines as comparable code using these opcodes.  Actual differences in run-time efficiency will of course vary widely.</p>
+<h2 id="specification">Specification</h2>
+<p>We introduce one more stack into the EVM in addition to the existing <code>data stack</code> which we call the <code>return stack</code>. The <code>return stack</code> is limited to <code>1023</code> items.</p>
+<h4 id="beginsub"><code>BEGINSUB</code></h4>
+<p>Marks the entry point to a subroutine.  Attempted execution of a <code>BEGINSUB</code> causes an <em><code>abort</code></em>:  terminate execution with an <code>OOG</code> (Out Of Gas) exception.</p>
+<h4 id="jumpsub"><code>JUMPSUB</code></h4>
+<p>Transfers control to a subroutine.</p>
+<ol>
+<li>Pop the <code>location</code> off the <code>data stack</code>.</li>
+<li>If the opcode at <code>location</code> is not a <code>BEGINSUB</code> <em><code>abort</code></em>.</li>
+<li>If the <code>return stack</code> already has <code>1023</code> items <em><code>abort</code></em>.</li>
+<li>Push the current <code>pc + 1</code> to the <code>return stack</code>.</li>
+<li>Set <code>pc</code> to <code>location + 1</code>.</li>
+</ol>
+<ul>
+<li><em>pops one item off the <code>data stack</code></em></li>
+<li><em>pushes one item on the <code>return stack</code></em></li>
+</ul>
+<h4 id="returnsub"><code>RETURNSUB</code></h4>
+<p>Returns control to the caller of a subroutine.</p>
+<ol>
+<li>If the <code>return stack</code> is empty <em><code>abort</code></em>.</li>
+<li>Pop <code>pc</code> off the <code>return stack</code>.</li>
+</ol>
+<ul>
+<li><em>pops one item off the <code>return stack</code></em></li>
+</ul>
+<p><em>Note 1: If a resulting <code>pc</code> to be executed is beyond the last instruction then the opcode is implicitly a <code>STOP</code>, which is not an error.</em></p>
+<p><em>Note 2: Values popped off the <code>return stack</code> do not need to be validated, since they are alterable only by <code>JUMPSUB</code> and <code>RETURNSUB</code>.</em></p>
+<p><em>Note 3: The description above lays out the semantics of this feature in terms of a <code>return stack</code>.  But the actual state of the <code>return stack</code> is not observable by EVM code or consensus-critical to the protocol.  (For example, a node implementor may code <code>JUMPSUB</code> to unobservably push <code>pc</code> on the <code>return stack</code> rather than <code>pc + 1</code>, which is allowed so long as <code>RETURNSUB</code> observably returns control to the <code>pc + 1</code> location.)</em></p>
+<h2 id="rationale">Rationale</h2>
+<p>This is the is a small change that provides native subroutines without breaking backwards compatibility.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>These changes do not affect the semantics of existing EVM code.</p>
+<h1 id="test-cases">Test Cases</h1>
+<h3 id="simple-routine">Simple routine</h3>
+<p>This should jump into a subroutine, back out and stop.</p>
+<p>Bytecode: <code>0x60045e005c5d</code> (<code>PUSH1 0x04, JUMPSUB, STOP, BEGINSUB, RETURNSUB</code>)</p>
+<table><thead><tr><th>Pc</th><th>Op</th><th>Cost</th><th>Stack</th><th>RStack</th></tr></thead><tbody>
+<tr><td>0</td><td>PUSH1</td><td>3</td><td>[]</td><td>[]</td></tr>
+<tr><td>2</td><td>JUMPSUB</td><td>10</td><td>[4]</td><td>[]</td></tr>
+<tr><td>5</td><td>RETURNSUB</td><td>5</td><td>[]</td><td>[ 2]</td></tr>
+<tr><td>3</td><td>STOP</td><td>0</td><td>[]</td><td>[]</td></tr>
+</tbody></table>
+<p>Output: 0x
+Consumed gas: <code>18</code></p>
+<h3 id="two-levels-of-subroutines">Two levels of subroutines</h3>
+<p>This should execute fine, going into one two depths of subroutines</p>
+<p>Bytecode: <code>0x6800000000000000000c5e005c60115e5d5c5d</code> (<code>PUSH9 0x00000000000000000c, JUMPSUB, STOP, BEGINSUB, PUSH1 0x11, JUMPSUB, RETURNSUB, BEGINSUB, RETURNSUB</code>)</p>
+<table><thead><tr><th>Pc</th><th>Op</th><th>Cost</th><th>Stack</th><th>RStack</th></tr></thead><tbody>
+<tr><td>0</td><td>PUSH9</td><td>3</td><td>[]</td><td>[]</td></tr>
+<tr><td>10</td><td>JUMPSUB</td><td>10</td><td>[12]</td><td>[]</td></tr>
+<tr><td>13</td><td>PUSH1</td><td>3</td><td>[]</td><td>[10]</td></tr>
+<tr><td>15</td><td>JUMPSUB</td><td>10</td><td>[17]</td><td>[10]</td></tr>
+<tr><td>18</td><td>RETURNSUB</td><td>5</td><td>[]</td><td>[10,15]</td></tr>
+<tr><td>16</td><td>RETURNSUB</td><td>5</td><td>[]</td><td>[10]</td></tr>
+<tr><td>11</td><td>STOP</td><td>0</td><td>[]</td><td>[]</td></tr>
+</tbody></table>
+<p>Consumed gas: <code>36</code></p>
+<h3 id="failure-1-invalid-jump">Failure 1: invalid jump</h3>
+<p>This should fail, since the given location is outside of the code-range. The code is the same as previous example, 
+except that the pushed location is <code>0x01000000000000000c</code> instead of <code>0x0c</code>.</p>
+<p>Bytecode: <code>0x6801000000000000000c5e005c60115e5d5c5d</code> (<code>PUSH9 0x01000000000000000c, JUMPSUB, STOP, BEGINSUB, PUSH1 0x11, JUMPSUB, RETURNSUB, BEGINSUB, RETURNSUB</code>)</p>
+<table><thead><tr><th>Pc</th><th>Op</th><th>Cost</th><th>Stack</th><th>RStack</th></tr></thead><tbody>
+<tr><td>0</td><td>PUSH9</td><td>3</td><td>[]</td><td>[]</td></tr>
+<tr><td>10</td><td>JUMPSUB</td><td>10</td><td>[18446744073709551628]</td><td>[]</td></tr>
+</tbody></table>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">Error: at pc=10, op=JUMPSUB: invalid jump destination
+</span></code></pre><h3 id="failure-2-shallow-return-stack">Failure 2: shallow <code>return stack</code></h3>
+<p>This should fail at first opcode, due to shallow <code>return_stack</code></p>
+<p>Bytecode: <code>0x5d5858</code> (<code>RETURNSUB, PC, PC</code>)</p>
+<table><thead><tr><th>Pc</th><th>Op</th><th>Cost</th><th>Stack</th><th>RStack</th></tr></thead><tbody>
+<tr><td>0</td><td>RETURNSUB</td><td>5</td><td>[]</td><td>[]</td></tr>
+</tbody></table>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">Error: at pc=0, op=RETURNSUB: invalid retsub
+</span></code></pre><h3 id="subroutine-at-end-of-code">Subroutine at end of code</h3>
+<p>In this example. the JUMPSUB is on the last byte of code. When the subroutine returns, it should hit the 'virtual stop' <em>after</em> the bytecode, and not exit with error</p>
+<p>Bytecode: <code>0x6005565c5d5b60035e</code> (<code>PUSH1 0x05, JUMP, BEGINSUB, RETURNSUB, JUMPDEST, PUSH1 0x03, JUMPSUB</code>)</p>
+<table><thead><tr><th>Pc</th><th>Op</th><th>Cost</th><th>Stack</th><th>RStack</th></tr></thead><tbody>
+<tr><td>0</td><td>PUSH1</td><td>3</td><td>[]</td><td>[]</td></tr>
+<tr><td>2</td><td>JUMP</td><td>8</td><td>[5]</td><td>[]</td></tr>
+<tr><td>5</td><td>JUMPDEST</td><td>1</td><td>[]</td><td>[]</td></tr>
+<tr><td>6</td><td>PUSH1</td><td>3</td><td>[]</td><td>[]</td></tr>
+<tr><td>8</td><td>JUMPSUB</td><td>10</td><td>[3]</td><td>[]</td></tr>
+<tr><td>4</td><td>RETURNSUB</td><td>5</td><td>[]</td><td>[ 8]</td></tr>
+<tr><td>9</td><td>STOP</td><td>0</td><td>[]</td><td>[]</td></tr>
+</tbody></table>
+<p>Consumed gas: <code>30</code></p>
+<h3 id="error-on-walk-into-subroutine">Error on &quot;walk-into-subroutine&quot;</h3>
+<p>In this example, the code 'walks' into a subroutine, which is not allowed, and causes an error</p>
+<p>Bytecode: <code>0x5c5d00</code> (<code>BEGINSUB, RETURNSUB, STOP</code>)</p>
+<table><thead><tr><th>Pc</th><th>Op</th><th>Cost</th><th>Stack</th><th>RStack</th></tr></thead><tbody>
+<tr><td>0</td><td>BEGINSUB</td><td>2</td><td>[]</td><td>[]</td></tr>
+</tbody></table>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">Error: at pc=0, op=BEGINSUB: invalid subroutine entry
+</span></code></pre>
+<p><strong>Note 5</strong>: The content of the error message, (<code>invalid subroutine entry</code>) is implementation-specific.</p>
+<h2 id="implementations">Implementations</h2>
+<p>Three clients have implemented this (or an earlier version of) this proposal:</p>
+<ul>
+<li><a href="https://github.com/ethereum/go-ethereum/pull/20619">geth</a> .</li>
+<li><a href="https://github.com/hyperledger/besu/pull/717">besu</a>, and</li>
+<li><a href="https://github.com/openethereum/openethereum/pull/11629">openethereum</a>.</li>
+</ul>
+<h3 id="costs-and-codes">Costs and Codes</h3>
+<p>We suggest that the cost of </p>
+<ul>
+<li><code>BEGINSUB</code> be <em>base</em> (<code>2</code>)
+<ul>
+<li>Although formally specified, the cost of <code>BEGINSUB</code> does not matter in practice, since <code>BEGINSUB</code> never executes without error. </li>
+</ul>
+</li>
+<li><code>JUMPSUB</code> be <em>high</em> (<code>10</code>)
+<ul>
+<li>This is the same as <code>JUMPI</code>, and <code>2</code> more than <code>JUMP</code>.</li>
+</ul>
+</li>
+<li><code>RETURNSUB</code> be <em>low</em> (<code>5</code>).</li>
+</ul>
+<p>Benchmarking might be needed to tell if the costs are well-balanced. </p>
+<p>We suggest the following opcodes:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">0x5c BEGINSUB
+0x5d RETURNSUB
+0x5e JUMPSUB
+</span></code></pre><h2 id="security-considerations">Security Considerations</h2>
+<p>These changes do introduce new flow control instructions, so any software which does static/dynamic analysis of evm-code
+needs to be modified accordingly. The <code>JUMPSUB</code> semantics are similar to <code>JUMP</code> (but jumping to a <code>BEGINSUB</code>), whereas the <code>RETURNSUB</code> instruction is different, since it can 'land' on any opcode (but the possible destinations can be statically inferred).</p>
+<h2 id="appendix-comparative-costs">Appendix: Comparative costs.</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract fun {
+    function test(uint x, uint y) public returns (uint) {
+        return test_mul(2,3);
+    }
+    function test_mul(uint x, uint y) public returns (uint) {
+        return multiply(x,y);
+    }
+    function multiply(uint x, uint y) public returns (uint) {
+        return x * y;
+    }
+}
+
+</span></code></pre>
+<p>Here is solc 0.6.3 assembly code with labeled destinations.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">TEST:
+     jumpdest
+     0x00
+     RTN
+     0x02
+     0x03
+     TEST_MUL
+     jump
+TEST_MUL:
+     jumpdest
+     0x00
+     RTN
+     dup4
+     dup4
+     MULTIPLY
+     jump
+RTN:
+     jumpdest
+     swap4
+     swap3
+     pop
+     pop
+     pop
+     jump
+MULTIPLY:   
+     jumpdest
+     mul
+     swap1
+     jump
+</span></code></pre>
+<p>solc does a good job with the multiply() function, which is a leaf.  Non-leaf functions are more awkward to get out of.  Calling <code>fun.test()</code> will cost <em>118 gas</em>, plus 5 for the <code>mul</code>.</p>
+<p>This is the same code written using <code>jumpsub</code> and <code>returnsub</code>.  Calling <code>fun.test()</code> will cost <em>32 gas</em>  plus 5 for the <code>mul</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">TEST:
+     beginsub
+     0x02
+     0x03
+     TEST_MUL
+     jumpsub
+     returnsub
+TEST_MUL:
+     beginsub
+     MULTIPLY
+     jumpsub
+     returnsub
+MULTIPLY:
+     beginsub
+     mul
+     returnsub
+</span></code></pre>
+<p><strong>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</strong></p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

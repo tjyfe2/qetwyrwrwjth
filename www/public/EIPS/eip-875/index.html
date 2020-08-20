@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-875: Simpler NFT standard with batching and native atomic swaps</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-875.md" />
+<meta property="og:title" content="EIP-875: Simpler NFT standard with batching and native atomic swaps" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 875 (EIP-875): Simpler NFT standard with batching and native atomic swaps"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 875 (EIP-875): Simpler NFT standard with batching and native atomic swaps"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-875.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 875 (EIP 875): Simpler NFT standard with batching and native atomic swaps" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-875: Simpler NFT standard with batching and native atomic swaps
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:a@colourful.land">Weiwu Zhang</a>,
+        
+    
+        
+        
+            <a href="mailto:j.l.sangalli@gmail.com">James Sangalli</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;875">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;875</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Last Call
+                
+                  <strong>(review ends 2019-07-29)</strong>
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-02-08</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="summary">Summary</h2>
+<p>A simple non fungible token standard that allows batching tokens into lots and settling p2p atomic transfers in one transaction. You can test out an example implementation on rinkeby here: https://rinkeby.etherscan.io/address/0xffab5ce7c012bc942f5ca0cd42c3c2e1ae5f0005 and view the repo here: https://github.com/alpha-wallet/ERC-Example</p>
+<h2 id="purpose">Purpose</h2>
+<p>While other standards allow the user to transfer a non-fungible token, they require one transaction per token, this is heavy on gas and partially responsible for clogging the ethereum network. There are also few definitions for how to do a simple atomic swap.</p>
+<h2 id="rinkeby-example">Rinkeby example</h2>
+<p>This standard has been implemented in an example contract on rinkeby: https://rinkeby.etherscan.io/address/0xffab5ce7c012bc942f5ca0cd42c3c2e1ae5f0005</p>
+<h2 id="specification">Specification</h2>
+<h3 id="function-name-constant-returns-string-name">function name() constant returns (string name)</h3>
+<p>returns the name of the contract e.g. CarLotContract</p>
+<h3 id="function-symbol-constant-returns-string-symbol">function symbol() constant returns (string symbol)</h3>
+<p>Returns a short string of the symbol of the in-fungible token, this should be short and generic as each token is non-fungible.</p>
+<h3 id="function-balanceof-address-owner-public-view-returns-uint256-balance">function balanceOf(address _owner) public view returns (uint256[] balance)</h3>
+<p>Returns an array of the users balance.</p>
+<h3 id="function-transfer-address-to-uint256-tokens-public">function transfer(address _to, uint256[] _tokens) public;</h3>
+<p>Transfer your unique tokens to an address by adding an array of the token indices. This compares favourable to ERC721 as you can transfer a bulk of tokens in one go rather than one at a time. This has a big gas saving as well as being more convenient.</p>
+<h3 id="function-transferfrom-address-from-address-to-uint256-tokens-public">function transferFrom(address _from, address _to, uint256[] _tokens) public;</h3>
+<p>Transfer a variable amount of tokens from one user to another. This can be done from an authorised party with a specified key e.g. contract owner.</p>
+<h2 id="optional-functions">Optional functions</h2>
+<h3 id="function-totalsupply-constant-returns-uint256-totalsupply">function totalSupply() constant returns (uint256 totalSupply);</h3>
+<p>Returns the total amount of tokens in the given contract, this should be optional as assets might be allocated and issued on the fly. This means that supply is not always fixed.</p>
+<h3 id="function-ownerof-uint256-tokenid-public-view-returns-address-owner">function ownerOf(uint256 _tokenId) public view returns (address _owner);</h3>
+<p>Returns the owner of a particular token, I think this should be optional as not every token contract will need to track the owner of a unique token and it costs gas to loop and map the token id owners each time the balances change.</p>
+<h3 id="function-trade-uint256-expirytimestamp-uint256-tokenindices-uint8-v-bytes32-r-bytes32-s-public-payable">function trade(uint256 expiryTimeStamp, uint256[] tokenIndices, uint8 v, bytes32 r, bytes32 s) public payable</h3>
+<p>A function which allows a user to sell a batch of non-fungible tokens without paying for the gas fee (only the buyer has to) in a p2p atomic swap. This is achieved by signing an attestation containing the amount of tokens to sell, the contract address, an expiry timestamp, the price and a prefix containing the ERC spec name and chain id. A buyer can then pay for the deal in one transaction by attaching the appropriate ether to satisfy the deal.</p>
+<p>This design is also more efficient as it allows orders to be done offline until settlement as opposed to creating orders in a smart contract and updating them. The expiry timestamp protects the seller against people using old orders.</p>
+<p>This opens up the gates for a p2p atomic swap but should be optional to this standard as some may not have use for it.</p>
+<p>Some protections need to be added to the message such as encoding the chain id, contract address and the ERC spec name to prevent replays and spoofing people into signing message that allow a trade.</p>
+<h2 id="interface">Interface</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">contract ERC165 
+{
+            /// @notice Query if a contract implements an interface
+            /// @param interfaceID The interface identifier, as specified in ERC-165
+            /// @dev Interface identification is specified in ERC-165. This function
+            ///  uses less than 30,000 gas.
+            /// @return `true` if the contract implements `interfaceID` and
+            ///  `interfaceID` is not 0xffffffff, `false` otherwise
+            function supportsInterface(bytes4 interfaceID) external view returns (bool);
+}
+
+interface ERC875 /* is ERC165 */
+{
+  event Transfer(address indexed _from, address indexed _to, uint256[] tokenIndices);
+
+  function name() constant public returns (string name);
+  function symbol() constant public returns (string symbol);
+  function balanceOf(address _owner) public view returns (uint256[] _balances);
+  function transfer(address _to, uint256[] _tokens) public;
+  function transferFrom(address _from, address _to, uint256[] _tokens) public;
+}
+
+//If you want the standard functions with atomic swap trading added
+interface ERC875WithAtomicSwapTrading is ERC875 {
+    function trade(
+        uint256 expiryTimeStamp, 
+        uint256[] tokenIndices,
+        uint8 v, 
+        bytes32 r, 
+        bytes32 s
+    ) public payable;
+}
+</span></code></pre><h2 id="example-implementation">Example implementation</h2>
+<p>Please visit this <a href="https://github.com/alpha-wallet/ERC875">repo</a> to see an example implementation</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

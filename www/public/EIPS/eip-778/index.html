@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-778: Ethereum Node Records (ENR)</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-778.md" />
+<meta property="og:title" content="EIP-778: Ethereum Node Records (ENR)" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 778 (EIP-778): Ethereum Node Records (ENR)"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 778 (EIP-778): Ethereum Node Records (ENR)"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-778.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 778 (EIP 778): Ethereum Node Records (ENR)" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-778: Ethereum Node Records (ENR)
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:fjl@ethereum.org">Felix Lange</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;devp2p&#x2F;issues&#x2F;43">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;devp2p&#x2F;issues&#x2F;43</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Networking</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-11-23</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h1 id="abstract">Abstract</h1>
+<p>This EIP defines Ethereum Node Records, an open format for p2p connectivity information.</p>
+<h1 id="motivation">Motivation</h1>
+<p>Ethereum nodes discover each other through the node discovery protocol. The purpose of
+that protocol is relaying node identity public keys (on the secp256k1 curve), their IP
+address and two port numbers. No other information can be relayed.</p>
+<p>This specification seeks to lift the restrictions of the discovery v4 protocol by defining
+a flexible format, the <em>node record</em>, for connectivity-related information. Node records
+can be relayed through a future version of the node discovery protocol. They can also be
+relayed through arbitrary other mechanisms such as DNS, ENS, a devp2p subprotocol, etc.</p>
+<p>Node records improve cryptographic agility and handling of protocol upgrades. A record can
+contain information about arbitrary transport protocols and public key material associated
+with them.</p>
+<p>Another goal of the new format is to provide authoritative updates of connectivity
+information. If a node changes its endpoint and publishes a new record, other nodes should
+be able to determine which record is newer.</p>
+<h1 id="specification">Specification</h1>
+<p>The components of a node record are:</p>
+<ul>
+<li><code>signature</code>: cryptographic signature of record contents</li>
+<li><code>seq</code>: The sequence number, a 64-bit unsigned integer. Nodes should increase the number
+whenever the record changes and republish the record.</li>
+<li>The remainder of the record consists of arbitrary key/value pairs</li>
+</ul>
+<p>A record's signature is made and validated according to an <em>identity scheme</em>. The identity
+scheme is also responsible for deriving a node's address in the DHT.</p>
+<p>The key/value pairs must be sorted by key and must be unique, i.e. any key may be present
+only once. The keys can technically be any byte sequence, but ASCII text is preferred. Key
+names in the table below have pre-defined meaning.</p>
+<table><thead><tr><th align="left">Key</th><th align="left">Value</th></tr></thead><tbody>
+<tr><td align="left"><code>id</code></td><td align="left">name of identity scheme, e.g. &quot;v4&quot;</td></tr>
+<tr><td align="left"><code>secp256k1</code></td><td align="left">compressed secp256k1 public key, 33 bytes</td></tr>
+<tr><td align="left"><code>ip</code></td><td align="left">IPv4 address, 4 bytes</td></tr>
+<tr><td align="left"><code>tcp</code></td><td align="left">TCP port, big endian integer</td></tr>
+<tr><td align="left"><code>udp</code></td><td align="left">UDP port, big endian integer</td></tr>
+<tr><td align="left"><code>ip6</code></td><td align="left">IPv6 address, 16 bytes</td></tr>
+<tr><td align="left"><code>tcp6</code></td><td align="left">IPv6-specific TCP port, big endian integer</td></tr>
+<tr><td align="left"><code>udp6</code></td><td align="left">IPv6-specific UDP port, big endian integer</td></tr>
+</tbody></table>
+<p>All keys except <code>id</code> are optional, including IP addresses and ports. A record without
+endpoint information is still valid as long as its signature is valid. If no <code>tcp6</code> /
+<code>udp6</code> port is provided, the <code>tcp</code> / <code>udp</code> port applies to both IP addresses. Declaring
+the same port number in both <code>tcp</code>, <code>tcp6</code> or <code>udp</code>, <code>udp6</code> should be avoided but doesn't
+render the record invalid.</p>
+<h3 id="rlp-encoding">RLP Encoding</h3>
+<p>The canonical encoding of a node record is an RLP list of <code>[signature, seq, k, v, ...]</code>.
+The maximum encoded size of a node record is 300 bytes. Implementations should reject
+records larger than this size.</p>
+<p>Records are signed and encoded as follows:</p>
+<pre style="background-color:#2b303b;">
+<code>content   = [seq, k, v, ...]
+signature = sign(content)
+record    = [signature, seq, k, v, ...]
+</code></pre><h3 id="text-encoding">Text Encoding</h3>
+<p>The textual form of a node record is the base64 encoding of its RLP representation,
+prefixed by <code>enr:</code>. Implementations should use the <a href="https://tools.ietf.org/html/rfc4648#section-5">URL-safe base64 alphabet</a>
+and omit padding characters.</p>
+<h3 id="v4-identity-scheme">&quot;v4&quot; Identity Scheme</h3>
+<p>This specification defines a single identity scheme to be used as the default until other
+schemes are defined by further EIPs. The &quot;v4&quot; scheme is backwards-compatible with the
+cryptosystem used by Node Discovery v4.</p>
+<ul>
+<li>To sign record <code>content</code> with this scheme, apply the keccak256 hash function (as used by
+the EVM) to <code>content</code>, then create a signature of the hash. The resulting 64-byte
+signature is encoded as the concatenation of the <code>r</code> and <code>s</code> signature values (the
+recovery ID <code>v</code> is omitted).</li>
+<li>To verify a record, check that the signature was made by the public key in the
+&quot;secp256k1&quot; key/value pair of the record.</li>
+<li>To derive a node address, take the keccak256 hash of the uncompressed public key.</li>
+</ul>
+<h1 id="rationale">Rationale</h1>
+<p>The format is meant to suit future needs in two ways:</p>
+<ul>
+<li>Adding new key/value pairs: This is always possible and doesn't require implementation
+consensus. Existing clients will accept any key/value pairs regardless of whether they
+can interpret their content.</li>
+<li>Adding identity schemes: these need implementation consensus because the network won't
+accept the signature otherwise. To introduce a new identity scheme, propose an EIP and
+get it implemented. The scheme can be used as soon as most clients accept it.</li>
+</ul>
+<p>The size of a record is limited because records are relayed frequently and may be included
+in size-constrained protocols such as DNS. A record containing a IPv4 address, when signed
+using the &quot;v4&quot; scheme occupies roughly 120 bytes, leaving plenty of room for additional
+metadata.</p>
+<p>You might wonder about the need for so many pre-defined keys related to IP addresses and
+ports. This need arises because residential and mobile network setups often put IPv4
+behind NAT while IPv6 traffic—if supported—is directly routed to the same host. Declaring
+both address types ensures a node is reachable from IPv4-only locations and those
+supporting both protocols.</p>
+<h1 id="test-vectors">Test Vectors</h1>
+<p>This is an example record containing the IPv4 address <code>127.0.0.1</code> and UDP port <code>30303</code>.
+The node ID is <code>a448f24c6d18e575453db13171562b71999873db5b286df957af199ec94617f7</code>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8
+</span></code></pre>
+<p>The record is signed using the &quot;v4&quot; identity scheme using sequence number <code>1</code> and this
+private key:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">b71c71a67e1177ad4e901695e1b4b9ee17ae16c6668d313eac2f96dbcda3f291
+</span></code></pre>
+<p>The RLP structure of the record is:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">[
+  7098ad865b00a582051940cb9cf36836572411a47278783077011599ed5cd16b76f2635f4e234738f30813a89eb9137e3e3df5266e3a1f11df72ecf1145ccb9c,
+  01,
+  &quot;id&quot;,
+  &quot;v4&quot;,
+  &quot;ip&quot;,
+  7f000001,
+  &quot;secp256k1&quot;,
+  03ca634cae0d49acb401d8a4c6b6fe8c55b70d115bf400769cc1400f3258cd3138,
+  &quot;udp&quot;,
+  765f,
+]
+</span></code></pre><h1 id="copyright">Copyright</h1>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

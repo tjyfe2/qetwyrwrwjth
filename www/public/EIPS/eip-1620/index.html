@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1620: ERC-1620 Money Streaming</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1620.md" />
+<meta property="og:title" content="EIP-1620: ERC-1620 Money Streaming" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1620 (EIP-1620): ERC-1620 Money Streaming"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1620 (EIP-1620): ERC-1620 Money Streaming"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1620.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1620 (EIP 1620): ERC-1620 Money Streaming" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1620: ERC-1620 Money Streaming
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/PaulRBerg">Paul Berg</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1620">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1620</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-11-24</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>Money streaming represents the idea of continuous payments over a finite period of time. Block numbers are used as a proxy of time to continuously update balances.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>The following describes a standard whereby time is measured using block numbers and streams are mappings in a master contract.</p>
+<ol>
+<li>A provider sets up a money streaming contract.</li>
+<li>A prospective payer can interact with the contract and start the stream right away by depositing the funds required for the chosen period.</li>
+<li>The payee is able to withdraw money from the contract based on its ongoing solvency. That is: <code>payment rate * (current block height - starting block height)</code></li>
+<li>The stream terms (payment rate, length, metadata) can be updated at any time if both parties pledge their signatures.</li>
+<li>The stream can be stopped at any point in time by any party without on-chain consensus.</li>
+<li>If the stream period ended and it was not previously stopped by any party, the payee is entitled to withdraw all the deposited funds.</li>
+</ol>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>This standardised interface aims to change the way we think about long-term financial commitments. Thanks to blockchains, payments need not be sent in chunks (e.g. monthly salaries), as there is much less overhead in paying-as-you-go. Money as a function of time would better align incentives in a host of scenarios.</p>
+<h3 id="use-cases">Use Cases</h3>
+<p>This is just a preliminary list of use cases. There are other spooky ideas interesting to explore, such as time-dependent disincetivisation, but, for brevity, we have not included them here.</p>
+<ul>
+<li>Salaries</li>
+<li>Subscriptions</li>
+<li>Consultancies</li>
+<li>CDPs</li>
+<li>Rent</li>
+<li>Parking</li>
+</ul>
+<h3 id="crowdsales">Crowdsales</h3>
+<p><a href="https://github.com/lukso-network/rico">RICOs</a>, or Reversible ICOs, were introduced at Devcon4 by @frozeman. The idea is to endow investors with more power and safety guarantees by allowing them to &quot;reverse&quot; the investment based on the evolution of the project. We previously discussed a similar concept called SICOs, or Streamable ICOs, in this research <a href="https://ethresear.ch/t/chronos-a-quirky-application-proposal-for-plasma/2928/14?u=paulrberg">thread</a>.</p>
+<p>Instead of investing a lump sum and giving the money away to the project developers, funds are held in a smart contract which allocates money based on the passage of time. Project developers can withdraw funds as the stream stays active, while investors have the power to get back a significant percentage of their initial commitment if the project halts.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<h3 id="structs">Structs</h3>
+<p>The structure of a <code>stream</code> should be as follows:</p>
+<ul>
+<li><code>stream</code>
+<ul>
+<li><code>sender</code>: the <code>address</code> of the entity funding the stream</li>
+<li><code>recipient</code>: the <code>address</code> where the money is being delivered to</li>
+<li><code>tokenAddress</code>: the <code>address</code> of the ERC20 token used as payment asset</li>
+<li><code>balance</code>: the total funds left in the stream</li>
+<li><code>timeframe</code>: as defined below</li>
+<li><code>rate</code>: as defined below</li>
+</ul>
+</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">  struct Stream {
+    address sender;
+    address recipient;
+    address tokenAddress;
+    uint256 balance;
+    Timeframe timeframe;
+    Rate rate;
+  }
+</span></code></pre>
+<ul>
+<li><code>timeframe</code>
+<ul>
+<li><code>start</code>: the starting block number of the stream</li>
+<li><code>stop</code>: the stopping block number of the stream</li>
+</ul>
+</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct Timeframe {
+    uint256 start;
+    uint256 stop;
+}
+</span></code></pre>
+<ul>
+<li><code>rate</code>
+<ul>
+<li><code>payment</code>: how much money moves from <code>sender</code> to <code>recipient</code></li>
+<li><code>interval</code>: how often <code>payment</code> moves from <code>sender</code> to <code>recipient</code></li>
+</ul>
+</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">struct Rate {
+  uint256 payment;
+  uint256 interval;
+}
+</span></code></pre>
+<hr />
+<h3 id="methods">Methods</h3>
+<h4 id="balanceof">balanceOf</h4>
+<p>Returns available funds for the given stream id and address.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function balanceOf(uint256 _streamId, address _addr)
+</span></code></pre><h4 id="getstream">getStream</h4>
+<p>Returns the full stream data, if the id points to a valid stream.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function getStream(uint256 _streamId) returns (address sender, address recipient, address tokenAddress, uint256 balance, uint256 startBlock, uint256 stopBlock, uint256 payment, uint256 interval)
+</span></code></pre><h4 id="create">create</h4>
+<p>Creates a new stream between <code>msg.sender</code> and <code>_recipient</code>.</p>
+<p>MUST allow senders to create multiple streams in parallel. SHOULD not accept Ether and only use ERC20-compatible tokens.</p>
+<p><strong>Triggers Event</strong>: <a href="https://eips.ethereum.com/EIPS/eip-1620/#logcreate">LogCreate</a></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function create(address _recipient, address _tokenAddress, uint256 _startBlock, uint256 _stopBlock, uint256 _payment, uint256 _interval)
+</span></code></pre><h4 id="withdraw">withdraw</h4>
+<p>Withdraws all or a fraction of the available funds.</p>
+<p>MUST allow only the recipient to perform this action.</p>
+<p><strong>Triggers Event</strong>: <a href="https://eips.ethereum.com/EIPS/eip-1620/#logwithdraw">LogWithdraw</a></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function withdraw(uint256 _streamId, uint256 _funds)
+</span></code></pre><h4 id="redeem">redeem</h4>
+<p>Redeems the stream by distributing the funds to the sender and the recipient.</p>
+<p>SHOULD allow any party to redeem the stream.</p>
+<p><strong>Triggers Event</strong>: <a href="https://eips.ethereum.com/EIPS/eip-1620/#logredeem">LogRedeem</a></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function redeem(uint256 _streamId)
+</span></code></pre><h4 id="confirmupdate">confirmUpdate</h4>
+<p>Signals one party's willingness to update the stream</p>
+<p>SHOULD allow any party to do this but MUST NOT be executed without consent from all involved parties.</p>
+<p><strong>Triggers Event</strong>: <a href="https://eips.ethereum.com/EIPS/eip-1620/#logconfirmupdate">LogConfirmUpdate</a></p>
+<p><strong>Triggers Event</strong>: <a href="https://eips.ethereum.com/EIPS/eip-1620/#logexecuteupdate">LogExecuteUpdate</a> when the last involved party calls this function</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function update(uint256 _streamId, address _tokenAddress, uint256 _stopBlock, uint256 _payment, uint256 _interval)
+</span></code></pre><h4 id="revokeupdate">revokeUpdate</h4>
+<p>Revokes an update proposed by one of the involved parties. </p>
+<p>MUST allow any party to do this.</p>
+<p><strong>Triggers Event</strong>: <a href="https://eips.ethereum.com/EIPS/eip-1620/#logrevokeupdate">LogRevokeUpdate</a></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function confirmUpdate(uint256 _streamId, address _tokenAddress, uint256 _stopBlock, uint256 _payment, uint256 _interval)
+</span></code></pre>
+<hr />
+<h3 id="events">Events</h3>
+<h4 id="logcreate">LogCreate</h4>
+<p>MUST be triggered when <code>create</code> is successfully called.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event LogCreate(uint256 indexed _streamId, address indexed _sender, address indexed _recipient, address _tokenAddress, uint256 _startBlock, uint256 _stopBlock, uint256 _payment, uint256 _interval)
+</span></code></pre><h4 id="logwithdraw">LogWithdraw</h4>
+<p>MUST be triggered when <code>withdraw</code> is successfully called.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event LogWithdraw(uint256 indexed _streamId, address indexed _recipient, uint256 _funds)
+</span></code></pre><h4 id="logredeem">LogRedeem</h4>
+<p>MUST be triggered when <code>redeem</code> is successfully called.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event LogRedeem(uint256 indexed _streamId, address indexed _sender, address indexed _recipient, uint256 _senderBalance, uint256 _recipientBalance)
+</span></code></pre><h4 id="logconfirmupdate">LogConfirmUpdate</h4>
+<p>MUST be triggered when <code>confirmUpdate</code> is successfully called.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event LogConfirmUpdate(uint256 indexed _streamId, address indexed _confirmer, address _newTokenAddress, uint256 _newStopBlock, uint256 _newPayment, uint256 _newInterval);
+</span></code></pre><h4 id="logrevokeupdate">LogRevokeUpdate</h4>
+<p>MUST be triggered when <code>revokeUpdate</code> is successfully called.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event LogRevokeUpdate(uint256 indexed _streamId, address indexed revoker, address _newTokenAddress, uint256 _newStopBlock, uint256 _newPayment, uint256 _newInterval)
+</span></code></pre><h4 id="logexecuteupdate">LogExecuteUpdate</h4>
+<p>MUST be triggered when an update is approved by all involved parties.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event LogExecuteUpdate(uint256 indexed _newStreamId, address indexed _sender, address indexed _recipient, address _newTokenAddress, uint256 _newStopBlock, uint256 _newPayment, uint256 _newInterval)
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<p>This specification was designed to serve as an entry point to the quirky concept of money as a function of time and it is definitely not set in stone. Several other designs, including payment channels and Plasma chains were also considered, but they were eventually deemed dense in assumptions unnecessary for an initial version.</p>
+<!--
+- Block times and oracles for time calculation
+    - GCD
+    - Miners
+- Sidechain-compatible (and preferable)
+- The `update` function
+- Multi-hop streams
+-->
+<p>Block times are a reasonable, trustless proxy for time on the blockchain. Between 2016 and 2018, the Ethereum block time average value <a href="https://etherscan.io/chart/blocktime">hovered</a> around 14 seconds, excluding the last two quarters of 2017. Mathematically speaking, it would be ideal to have a standard deviation as close to 0 as possible, but that is not how things work in the real world. This has huge implications on the feasibility of this ERC which we shall investigate below.</p>
+<h3 id="gcd">GCD</h3>
+<p>When setting up a stream, a payer and a payee may want to make the total streaming duration a multiple of the &quot;greatest common denominator&quot; (GCD) of the chain they operate on; that is, the average block time. This is not imperative in the smart contracts per se, but there needs to be an off-chain process to map streams to real world time units in order to create a sound and fair payment mechanism.</p>
+<h3 id="block-times">Block Times</h3>
+<p>Because there is uncertainty regarding block times, streams may not be settled on the blockchain as initially planned. Let <code>$d</code> be the total streaming duration measured in seconds, <code>$t</code> the average block time before the stream started and <code>$t'</code> the actual average block time over <code>$d</code> after the stream started. We distinguish two undesirable scenarios:</p>
+<ol>
+<li>
+<p><code>$t</code> &lt; <code>$t'</code>: the payee will get their funds <em>later</em> than expected</p>
+</li>
+<li>
+<p><code>$t</code> &gt; <code>$t'</code>: the payee will get their funds <em>sooner</em> than expected</p>
+</li>
+</ol>
+<p>If the combined error delta is smaller than the payment rate (fifth parameter of the <code>create</code> method, measured in wei), there is no problem at all. Conversely, we stumble upon trust issues because real-world time frames do not correspond to the stream terms. For instance, if an employee is normally entitled to withdraw all the funds from the stream at the end of the month, but block times cause case 1 from above to occur, the employee is in a financial disadvantage because their continuous effort is not compensated as promised.</p>
+<p>Limiting the problem scope only to Ethereum, we propose two remedies:</p>
+<ol>
+<li>
+<p>Consensus on calling the <code>update</code> function to correct the stream terms. This might sound preposterous, but in most cases the stakes are low and stream participants are involved in long-term financial commitments. There is a high disincentive to refuse to cooperate.</p>
+</li>
+<li>
+<p>Autonomously fix significant error deltas. In theory, we could achieve this using previous blocks' timestamps, &quot;checkpointing&quot; the stream once in a predefined number of blocks. This is still an area of active research because of potentially high overheads in gas costs.</p>
+</li>
+</ol>
+<p>Nonetheless, it is important to note that this is still a major improvement on the traditional model where absolute trust is required.</p>
+<h3 id="sidechains">Sidechains</h3>
+<p>It could be more efficient to implement this standard on independent sidechains like <a href="https://poa.network">POA Network</a> or <a href="https://medium.com/poa-network/poa-network-partners-with-makerdao-on-xdai-chain-the-first-ever-usd-stable-blockchain-65a078c41e6a">xDai</a> - thanks to their rather predictable nature. Admittedly, security is traded for scalability, but proper cryptoeconomic stakes could alleviate potential problems.</p>
+<p>Furthermore, it is intriguing to explore the prospect of stream-specific sidechains.</p>
+<h3 id="oracles">Oracles</h3>
+<p>The proposed specification uses block numbers to proxy time, but this need not be the only method. Albeit it would imply different trust assumptions, oracles could be used to provide a feed of timestamps. Coupled with the aforementioned idea of stream-specific sidechains, oracles could efficiently solve the problems outlined in <a href="https://eips.ethereum.com/EIPS/eip-1620/#block-times">Block Times</a>.</p>
+<h3 id="multi-hop-streams">Multi-Hop Streams</h3>
+<p>Future or upgraded versions of this standard may describe &quot;multi-hop&quot; streams. If:</p>
+<ol>
+<li>There is a stream between A and B</li>
+<li>There is another stream between B and C</li>
+</ol>
+<p>There could be a way to avoid running two different streams in parallel. That is, a fraction or all of the funds being streamed from A to B could be automatically wired to C. An interesting use case for this is taxes. Instead of manually moving money around, proactively calculating how much you owe and then transfer it, a stream could atomically perform those operations for you.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<ul>
+<li><a href="https://github.com/ChronosProtocol/monorepo">ChronosProtocol WIP implementation</a></li>
+</ul>
+<h2 id="additional-references">Additional References</h2>
+<ul>
+<li><a href="https://ethresear.ch/t/chronos-a-quirky-application-proposal-for-plasma/2928?u=paulrberg">Chronos Protocol Ethresear.ch Plasma Proposal</a></li>
+<li><a href="http://chronosprotocol.org/chronos-white-paper.pdf">Chronos Protocol White Paper</a></li>
+<li><a href="https://devpost.com/software/flipper-3gvl4b">Flipper: Streaming Salaries @ CryptoLife Hackathon</a></li>
+<li><a href="https://ethresear.ch/t/chronos-a-quirky-application-proposal-for-plasma/2928/14?u=paulrberg">SICOs or Streamed ICOs</a></li>
+<li><a href="https://twitter.com/feindura/status/1058057076306518017">RICOs or Reversible ICOs</a></li>
+<li><a href="https://www.youtube.com/watch?v=gF_ZQ_eijPs">Andreas Antonopoulos' Keynote on Bitcoin, Lightning and Money Streaming</a></li>
+</ul>
+<h2 id="final-notes">Final Notes</h2>
+<p>Many thanks to @mmilton41 for countless brainstorming sessions. We have been doing research on the topic of money streaming for quite a while within the context of @ChronosProtocol. In August this year, we published the first version of our white paper describing a Plasma approach. However, in the meantime, we realised that it would be much more <a href="https://twitter.com/PaulRBerg/status/1056595919116910592">fun</a> and easier to start small on Ethereum itself and sidechains like <a href="https://blockscout.com/poa/dai">xDai</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

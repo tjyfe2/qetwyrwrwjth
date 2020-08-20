@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1015: Configurable On Chain Issuance</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1015.md" />
+<meta property="og:title" content="EIP-1015: Configurable On Chain Issuance" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1015 (EIP-1015): Configurable On Chain Issuance"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1015 (EIP-1015): Configurable On Chain Issuance"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1015.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1015 (EIP 1015): Configurable On Chain Issuance" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1015: Configurable On Chain Issuance
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:avsa@ethereum.org">Alex Van de Sande</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-dynamic-block-rewards-with-governance-contract&#x2F;204">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-dynamic-block-rewards-with-governance-contract&#x2F;204</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-04-20</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>This EIP changes the block reward step by instead of setting it to be hard coded on the clients and to be given to the miner/validator etherbase, it should instead go to an address decided by an on-chain contract, with hard limits on how it would be issued (six month lock-in; issuance can only decrease or be maintained, but not increase;). A decision method is suggested but not essential to the notion of this EIP. This would <strong>not be a generic governance solution</strong>, which is a much broader and harder topic, would <strong>not</strong> affect technical upgrade decisions or other hard forks, but seen as <em>a forum to attempt to prevent contentious hard forks</em> that can be solved with the issuance.</p>
+<h2 id="summary">Summary</h2>
+<h3 id="thesis-many-controversial-issues-boil-down-to-resources">Thesis: many controversial issues boil down to resources</h3>
+<p>These are current EIPs that are being developed or debated. They might seem unrelated but they have something in common, that they can be resolved by proper channel of funds.</p>
+<h4 id="casper-and-pos">Casper and PoS</h4>
+<p>Moving to PoS has been on the roadmap since day 0 for ethereum, along with a reduction in issuance to a cost equivalent to the Validator's cost of security (considered to be more eficient than PoW). But the exact issuance necessary for PoS has yet to be determined and is currently being researched. Casper validation will be an on chain contract and therefore it will need to be funded. It's unlikely that a definitive final answer on how much issuance is needed for validation will be reached in the next years as new research will uncover new arguments, so it would make sense to allow some flexibility on this matter</p>
+<h4 id="issuance-cap-at-120-million">Issuance Cap at 120 Million</h4>
+<p><a href="https://github.com/ethereum/EIPs/issues/960">EIP 960</a>, Vitalik's not so jokey april's fool has been taken seriously. It proposes the issuance to be slowly reduced until it reaches 120 million ether. One of the main counterpoints by Vlad can be simplified by <a href="https://medium.com/@Vlad_Zamfir/against-vitaliks-fixed-supply-eip-eip-960-18e182a7e5bd">we don't know enough to know what that ether can be used for</a> and Vitalik's counterpoint is that <a href="https://medium.com/@VitalikButerin/to-be-clear-im-not-necessarily-wedded-to-a-finite-supply-cap-a7aa48ab880c">reducing emissions can be a way to reduce future abuse of these funds by finding a schelling point at 0</a>. Issuance has already been reduced once, from 5 ether to the current 3 ether per block. The main point of a hard cap is that a lot of people consider <em>not issuing</em> as having a positive contribution, that can outweigh other actions. Burning ether is also a valid issuance decision.</p>
+<h4 id="asics-and-advantadges-of-pow">Asics and advantadges of PoW</h4>
+<p><a href="https://eips.ethereum.org/EIPS/eip-969">EIP 960</a> proposes a change in algorithm to avoid mining being dominated by ASICS. Counter arguments by Phil Daian argue among others than <a href="https://pdaian.com/blog/anti-asic-forks-considered-harmful/">resisting economies of scale is futile and there might be specific security advantadges to specialized hardware</a>. One of the main arguments for PoW mining, even when it doesn't provide security, it is useful as a fair distribution mechanism, that <strong>PoW allows any person with a computer, internet access and electricity to obtain currency without having to deal with government imposed currency controls</strong>.</p>
+<h4 id="recovery-forks">Recovery Forks</h4>
+<p>After the Parity Multisig library self destruction, three different strategies have been attempted to recover the funds: <a href="https://gist.github.com/5chdn/a9bb8617cc8523a030126a3d1c60baf3">a general protocol improvement to allow reviving self destructed contracts</a> (which was considered dangerous), a <a href="https://github.com/ethereum/EIPs/pull/867">general process to recover funds</a> and a <a href="https://eips.ethereum.org/EIPS/eip-999">specific recovery of the multisig library</a>. The latter two are finding a lot of resistance from the community, but it's unlikely that these issues are going away soon. The affected parties have a large incentive (fluctuating at almost half a billion dollars) to keep trying, and it's an issue that is likely to occur again in the future. If they get reimbursed, <a href="https://github.com/ethereum/EIPs/issues/156">there are many other special cases of ether provably burnt or stuck</a> that might deserve the same treatment. If they get shut down, they have an incentive to move forward a fork implementation: even if they are a minority chain, it's likely they'll recover an amount larger than 0, which is what they would otherwise, and it means the main ethereum community might lose a valuable team of developers. </p>
+<h4 id="other-public-goods">Other Public Goods</h4>
+<p>There are many other types of public goods that could be funded by issuance. By <em>Public Good</em>, I'm using a strict definition of something that brings value to everyone, both those who funded it and free-loaders, making it hard to fund it exclusively by traditional private incentives. They can be research, whole network security, <a href="https://eips.ethereum.org/EIPS/eip-908">incentivize full clients and networking</a>, fair distribution of tokens etc.</p>
+<h2 id="proposed-solution">Proposed Solution</h2>
+<h3 id="issuance-contract">Issuance Contract</h3>
+<p>This EIP proposes a future hard fork where block reward is not issued to miners/validators etherbase, but instead to a single contract, that then will activate the default function (with a fixed amount of gas) and then it will forward the ether to other contracts which will finally distribute to their final destinations. </p>
+<h4 id="limits-on-the-contract">Limits on the contract</h4>
+<h5 id="it-can-only-deal-with-issuance">It can only deal with issuance</h5>
+<p>It's not meant to be a general governance contract. The contract <strong>should NOT be used to</strong> to decide software updates, to freeze funds, change contracts balances or anything on the consensus layer other than the strict definition of <em>where block rewards go</em>. It should be seen as a platform to settle disputes to avoid the implementation of contentious hard forks, not as a mean to remove the power of users and developers to execute them.</p>
+<h5 id="it-cannot-only-decrease-issuance-and-once-decreased-it-cannot-be-increased-again">It cannot only decrease issuance, and once decreased it cannot be increased again</h5>
+<p>In order to reduce future abuse and uncertainty, <strong>once issuance is reduced, it cannot be increased</strong>. To prevent a single action reducing it to 0, the reduction is limited up to a percentage per time, so if the <strong>decision assembly</strong> is aggressively to reduce issuance to zero, it would take a known number of years.</p>
+<h5 id="results-are-locked-for-six-months">Results are locked for six months</h5>
+<p>Whenever a new decision on either reducing the issuance or changing the target is made, the effects will have a six month delay to it. Once a decision is made it is final, it will take place six months after that, but if it's shortly reversed, then that change will be short lived. The rationale behind is that it allows time to anyone disagreeing with the decision to:</p>
+<ul>
+<li>Sell their coins so that if a bad actor takes over they will have a reduced reward</li>
+<li>Attempt to revert the decision as soon as possible, to reduce the duration that the change will take place</li>
+<li>Organize to create counter measures against the decision </li>
+<li>Implement a hard fork changing the decision contract or to remove the issuance contract altogether, as a last resort measure </li>
+</ul>
+<h5 id="interface">Interface</h5>
+<p>It would have the following interface:</p>
+<p><code>function targetContract() returns (address)</code></p>
+<p>There's a single target contract that should ether issued to. At each new block, that contract would have the default function called so it would forward to the intended addresses. </p>
+<p><code>function decisionAssembly() returns (address)</code></p>
+<p>A contract that would represent the internal governance of decisions. More on this later.</p>
+<p><code>function reduceIssuance(uint)</code></p>
+<p>Can only be called by <strong>decision assembly</strong>. The contract is allowed to reduce or maintain the issuance per block. <strong>Change is not executed immediately, effects only happen six months later, but once a decision is committed it is irrevocable</strong>.</p>
+<p><code>function changeTargetContract(address)</code></p>
+<p>Can only be called by <strong>decision assembly</strong>. It changes the contract that will receive the funds in the future. Only one contract can be appointed, but if the community desires to split issuance or even burn a part of it (in a non-irrevocable manner) it can be done in that contract. Change is not executed immediately, <strong>effects only happen six months later</strong>, but once a decision is committed it is certain, even if it's later reverted: if a new target contract is changed after a few hours, then it still means that in six month's time, it would issue for that contract for a few hours.</p>
+<p><code>function executeDecision(uint)</code></p>
+<p>Can be called by anyone: it executes a change to issuance amount or target that had been scheduled six months prior.</p>
+<h5 id="decision-assembly">Decision Assembly</h5>
+<p>A contract that has the power to decide the changes to issuance, the core of the governance of these decisions. The exact format of this governance is open to debate, but what follows is a suggestion:</p>
+<p>The decision would be made by multiple signalling contracts, each one implemented by separate groups and representing one aspect of the community or one sort of measurement. Each signaling process would have a <code>int</code> bound in which they could vote and they would have their own internal process to decide that. As new governance methods are tested and debated, new signalling contracts should be added and removed. Suggested signalling contracts:</p>
+<ul>
+<li>Futarchy and prediction markets based on multiple measures</li>
+<li>Votes weighted by ether balance (optionally with multipliers if the voters where committed to locking votes)</li>
+<li>Token votes, weighted by their own relative ether exchange rate</li>
+<li>Votes by individual humans if a good sybil resistance, coercion mechanism is developed </li>
+<li>Block-signalling, as a way to measure validators/miners choices</li>
+<li>Some sort of signalling representing developers, exchanges or other stakeholders</li>
+<li>Any other proposed manner</li>
+</ul>
+<p>Since adding and removing signalling contracts, as well as changing their total weight would be controlled by the contract itself, it would be crucial that the first signalling contracts were a diverse set of interests, and that they were open to adding more signals as new governance is experimented as well as removing signals that stop representing the community.</p>
+<h3 id="questions-to-be-debated">Questions to be debated</h3>
+<p>A lot of things are suggested in this EIP, so I would like to propose these questions to be debated:</p>
+<ol>
+<li>Do we want to have dynamically changing block rewards, instead of having them be hard coded in the protocol?</li>
+<li>If the answer above is yes, then what would be the best governance process to decide it, and what sorts of limits would we want that governance contract to have?</li>
+<li>If the answer is a multi-signalling contract, then what sorts of signals would we want, what sort of relative weight should they have and what would be the process to add and remove them?</li>
+</ol>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2200: Structured Definitions for Net Gas Metering</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2200.md" />
+<meta property="og:title" content="EIP-2200: Structured Definitions for Net Gas Metering" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2200 (EIP-2200): Structured Definitions for Net Gas Metering"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2200 (EIP-2200): Structured Definitions for Net Gas Metering"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2200.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2200 (EIP 2200): Structured Definitions for Net Gas Metering" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2200: Structured Definitions for Net Gas Metering
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/sorpaas">Wei Tang</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;sorpaas&#x2F;EIPs&#x2F;issues&#x2F;1">https:&#x2F;&#x2F;github.com&#x2F;sorpaas&#x2F;EIPs&#x2F;issues&#x2F;1</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-07-18</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>This is an EIP that implements net gas metering. It's a combined
+version of <a href="https://eips.ethereum.org/EIPS/eip-1283">EIP-1283</a> and <a href="https://eips.ethereum.org/EIPS/eip-1706">EIP-1706</a>, with a structured definition so as
+to make it interoperable with other gas changes such as <a href="https://eips.ethereum.org/EIPS/eip-1884">EIP-1884</a>.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This EIP provides a structured definition of net gas metering changes
+for <code>SSTORE</code> opcode, enabling new usages for contract storage, and
+reducing excessive gas costs where it doesn’t match how most
+implementation works.</p>
+<p>This is a combination of <a href="https://eips.ethereum.org/EIPS/eip-1283">EIP-1283</a> and <a href="https://eips.ethereum.org/EIPS/eip-1706">EIP-1706</a>.</p>
+<h2 id="motivation">Motivation</h2>
+<p>This EIP proposes a way for gas metering on <code>SSTORE</code>, using information
+that is more universally available to most implementations, and
+require as little change in implementation structures as possible.</p>
+<ul>
+<li>Storage slot’s original value.</li>
+<li>Storage slot’s current value.</li>
+<li>Refund counter.</li>
+</ul>
+<p>Usages that benefits from this EIP’s gas reduction scheme includes:</p>
+<ul>
+<li>Subsequent storage write operations within the same call frame. This
+includes reentry locks, same-contract multi-send, etc.</li>
+<li>Exchange storage information between sub call frame and parent call
+frame, where this information does not need to be persistent outside
+of a transaction. This includes sub-frame error codes and message
+passing, etc.</li>
+</ul>
+<p>The original definition of EIP-1283 created a danger of a new kind of
+reentrancy attacks on existing contracts as Solidity by default grants
+a &quot;stipend&quot; of 2300 gas to simple transfer calls. This danger is
+easily mitigated if <code>SSTORE</code> is not allowed in low gasleft state,
+without breaking the backward compatibility and the original intention
+of EIP-1283.</p>
+<p>This EIP also replaces the original EIP-1283 value definitions of gas
+by parameters, so that it's more structured, and easier to define
+changes in the future.</p>
+<h2 id="specification">Specification</h2>
+<p>Define variables <code>SLOAD_GAS</code>, <code>SSTORE_SET_GAS</code>, <code>SSTORE_RESET_GAS</code> and
+<code>SSTORE_CLEARS_SCHEDULE</code>. The old and new values for those variables
+are:</p>
+<ul>
+<li><code>SLOAD_GAS</code>: changed from <code>200</code> to <code>800</code>.</li>
+<li><code>SSTORE_SET_GAS</code>: <code>20000</code>, not changed.</li>
+<li><code>SSTORE_RESET_GAS</code>: <code>5000</code>, not changed.</li>
+<li><code>SSTORE_CLEARS_SCHEDULE</code>: <code>15000</code>, not changed.</li>
+</ul>
+<p>Change the definition of EIP-1283 using those variables. The new
+specification, combining EIP-1283 and EIP-1706, will look like
+below. The terms <em>original value</em>, <em>current value</em> and <em>new value</em> are
+defined in EIP-1283.</p>
+<p>Replace <code>SSTORE</code> opcode gas cost calculation (including refunds) with
+the following logic:</p>
+<ul>
+<li>If <em>gasleft</em> is less than or equal to gas stipend, fail the current
+call frame with 'out of gas' exception.</li>
+<li>If <em>current value</em> equals <em>new value</em> (this is a no-op), <code>SLOAD_GAS</code>
+is deducted.</li>
+<li>If <em>current value</em> does not equal <em>new value</em>
+<ul>
+<li>If <em>original value</em> equals <em>current value</em> (this storage slot has
+not been changed by the current execution context)
+<ul>
+<li>If <em>original value</em> is 0, <code>SSTORE_SET_GAS</code> is deducted.</li>
+<li>Otherwise, <code>SSTORE_RESET_GAS</code> gas is deducted. If <em>new value</em> is
+0, add <code>SSTORE_CLEARS_SCHEDULE</code> gas to refund counter.</li>
+</ul>
+</li>
+<li>If <em>original value</em> does not equal <em>current value</em> (this storage
+slot is dirty), <code>SLOAD_GAS</code> gas is deducted. Apply both of the
+following clauses.
+<ul>
+<li>If <em>original value</em> is not 0
+<ul>
+<li>If <em>current value</em> is 0 (also means that <em>new value</em> is not
+0), remove <code>SSTORE_CLEARS_SCHEDULE</code> gas from refund
+counter.</li>
+<li>If <em>new value</em> is 0 (also means that <em>current value</em> is not
+0), add <code>SSTORE_CLEARS_SCHEDULE</code> gas to refund counter.</li>
+</ul>
+</li>
+<li>If <em>original value</em> equals <em>new value</em> (this storage slot is
+reset)
+<ul>
+<li>If <em>original value</em> is 0, add <code>SSTORE_SET_GAS - SLOAD_GAS</code> to
+refund counter.</li>
+<li>Otherwise, add <code>SSTORE_RESET_GAS - SLOAD_GAS</code> gas to refund
+counter.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>An implementation should also note that with the above definition, if
+the implementation uses call-frame refund counter, the counter can go
+negative. If the implementation uses transaction-wise refund counter,
+the counter always stays positive.</p>
+<h2 id="rationale">Rationale</h2>
+<p>This EIP mostly achieves what a transient storage tries to do
+(<a href="https://eips.ethereum.org/EIPS/eip-1087">EIP-1087</a> and <a href="https://eips.ethereum.org/EIPS/eip-1153">EIP-1153</a>), but without the complexity of introducing the
+concept of &quot;dirty maps&quot;, or an extra storage struct.</p>
+<ul>
+<li>We don't suffer from the optimization limitation of
+EIP-1087. EIP-1087 requires keeping a dirty map for storage changes,
+and implicitly makes the assumption that a transaction's storage
+changes are committed to the storage trie at the end of a
+transaction. This works well for some implementations, but not for
+others. After <a href="https://eips.ethereum.org/EIPS/eip-658">EIP-658</a>, an efficient storage cache implementation
+would probably use an in-memory trie (without RLP encoding/decoding)
+or other immutable data structures to keep track of storage changes,
+and only commit changes at the end of a block. For them, it is
+possible to know a storage's original value and current value, but
+it is not possible to iterate over all storage changes without
+incurring additional memory or processing costs.</li>
+<li>It never costs more gas compared with the current scheme.</li>
+<li>It covers all usages for a transient storage. Clients that are easy
+to implement EIP-1087 will also be easy to implement this
+specification. Some other clients might require a little bit extra
+refactoring on this. Nonetheless, no extra memory or processing cost
+is needed on runtime.</li>
+</ul>
+<p>Regarding <code>SSTORE</code> gas cost and refunds, see Appendix for proofs of
+properties that this EIP satisfies.</p>
+<ul>
+<li>For <em>absolute gas used</em> (that is, actual <em>gas used</em> minus <em>refund</em>),
+this EIP is equivalent to EIP-1087 for all cases.</li>
+<li>For one particular case, where a storage slot is changed, reset to
+its original value, and then changed again, EIP-1283 would move more
+gases to refund counter compared with EIP-1087.</li>
+</ul>
+<p>Examine examples provided in EIP-1087's Motivation (with <code>SLOAD_GAS</code> being
+<code>200</code>):</p>
+<ul>
+<li>If a contract with empty storage sets slot 0 to 1, then back to 0,
+it will be charged <code>20000 + 200 - 19800 = 400</code> gas.</li>
+<li>A contract with empty storage that increments slot 0 5 times will be
+charged <code>20000 + 5 * 200 = 21000</code> gas.</li>
+<li>A balance transfer from account A to account B followed by a
+transfer from B to C, with all accounts having nonzero starting and
+ending balances, it will cost <code>5000 * 3 + 200 - 4800 = 10400</code> gas.</li>
+</ul>
+<p>In order to keep in place the implicit reentrancy protection of
+existing contracts, transactions should not be allowed to modify state
+if the remaining gas is lower then the gas stipend given to
+&quot;transfer&quot;/&quot;send&quot; in Solidity. These are other proposed remediations
+and objections to implementing them:</p>
+<ul>
+<li>Drop EIP-1283 and abstain from modifying <code>SSTORE</code> cost
+<ul>
+<li>EIP-1283 is an important update </li>
+<li>It was accepted and implemented on test networks and in clients.</li>
+</ul>
+</li>
+<li>Add a new call context that permits LOG opcodes but not changes to state.
+<ul>
+<li>Adds another call type beyond existing regular/staticcall</li>
+</ul>
+</li>
+<li>Raise the cost of <code>SSTORE</code> to dirty slots to &gt;=2300 gas
+<ul>
+<li>Makes net gas metering much less useful.</li>
+</ul>
+</li>
+<li>Reduce the gas stipend
+<ul>
+<li>Makes the stipend almost useless.</li>
+</ul>
+</li>
+<li>Increase the cost of writes to dirty slots back to 5000 gas, but add
+4800 gas to the refund counter
+<ul>
+<li>Still doesn’t make the invariant explicit.</li>
+<li>Requires callers to supply more gas, just to have it refunded</li>
+</ul>
+</li>
+<li>Add contract metadata specifying per-contract EVM version, and only
+apply <code>SSTORE</code> changes to contracts deployed with the new version.</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP requires a hard fork to implement. No gas cost increase is
+anticipated, and many contracts will see gas reduction.</p>
+<p>Performing <code>SSTORE</code> has never been possible with less than 5000 gas, so
+it does not introduce incompatibility to the Ethereum mainnet. Gas
+estimation should account for this requirement.</p>
+<h2 id="test-cases">Test Cases</h2>
+<table><thead><tr><th>Code</th><th>Used Gas</th><th>Refund</th><th>Original</th><th>1st</th><th>2nd</th><th>3rd</th></tr></thead><tbody>
+<tr><td><code>0x60006000556000600055</code></td><td>1612</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td></tr>
+<tr><td><code>0x60006000556001600055</code></td><td>20812</td><td>0</td><td>0</td><td>0</td><td>1</td><td></td></tr>
+<tr><td><code>0x60016000556000600055</code></td><td>20812</td><td>19200</td><td>0</td><td>1</td><td>0</td><td></td></tr>
+<tr><td><code>0x60016000556002600055</code></td><td>20812</td><td>0</td><td>0</td><td>1</td><td>2</td><td></td></tr>
+<tr><td><code>0x60016000556001600055</code></td><td>20812</td><td>0</td><td>0</td><td>1</td><td>1</td><td></td></tr>
+<tr><td><code>0x60006000556000600055</code></td><td>5812</td><td>15000</td><td>1</td><td>0</td><td>0</td><td></td></tr>
+<tr><td><code>0x60006000556001600055</code></td><td>5812</td><td>4200</td><td>1</td><td>0</td><td>1</td><td></td></tr>
+<tr><td><code>0x60006000556002600055</code></td><td>5812</td><td>0</td><td>1</td><td>0</td><td>2</td><td></td></tr>
+<tr><td><code>0x60026000556000600055</code></td><td>5812</td><td>15000</td><td>1</td><td>2</td><td>0</td><td></td></tr>
+<tr><td><code>0x60026000556003600055</code></td><td>5812</td><td>0</td><td>1</td><td>2</td><td>3</td><td></td></tr>
+<tr><td><code>0x60026000556001600055</code></td><td>5812</td><td>4200</td><td>1</td><td>2</td><td>1</td><td></td></tr>
+<tr><td><code>0x60026000556002600055</code></td><td>5812</td><td>0</td><td>1</td><td>2</td><td>2</td><td></td></tr>
+<tr><td><code>0x60016000556000600055</code></td><td>5812</td><td>15000</td><td>1</td><td>1</td><td>0</td><td></td></tr>
+<tr><td><code>0x60016000556002600055</code></td><td>5812</td><td>0</td><td>1</td><td>1</td><td>2</td><td></td></tr>
+<tr><td><code>0x60016000556001600055</code></td><td>1612</td><td>0</td><td>1</td><td>1</td><td>1</td><td></td></tr>
+<tr><td><code>0x600160005560006000556001600055</code></td><td>40818</td><td>19200</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td><code>0x600060005560016000556000600055</code></td><td>10818</td><td>19200</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+</tbody></table>
+<h2 id="implementation">Implementation</h2>
+<p>To be added.</p>
+<h2 id="appendix-proof">Appendix: Proof</h2>
+<p>Because the <em>storage slot's original value</em> is defined as the value
+when a reversion happens on the <em>current transaction</em>, it's easy to
+see that call frames won't interfere <code>SSTORE</code> gas calculation. So
+although the below proof is discussed without call frames, it applies
+to all situations with call frames. We will discuss the case
+separately for <em>original value</em> being zero and not zero, and use
+<em>induction</em> to prove some properties of <code>SSTORE</code> gas cost.</p>
+<p><em>Final value</em> is the value of a particular storage slot at the end of
+a transaction. <em>Absolute gas used</em> is the absolute value of <em>gas used</em>
+minus <em>refund</em>. We use <code>N</code> to represent the total number of <code>SSTORE</code>
+operations on a storage slot. For states discussed below, refer to
+<em>State Transition</em> in <em>Explanation</em> section.</p>
+<p>Below we do the proof under the assumption that all parameters are
+unchanged, meaning <code>SLOAD_GAS</code> is <code>200</code>. However, note that the proof
+still applies no matter how <code>SLOAD_GAS</code> is changed.</p>
+<h3 id="original-value-being-zero">Original Value Being Zero</h3>
+<p>When <em>original value</em> is 0, we want to prove that:</p>
+<ul>
+<li><strong>Case I</strong>: If the <em>final value</em> ends up still being 0, we want to charge <code>200 * N</code> gases, because no disk write is needed.</li>
+<li><strong>Case II</strong>: If the <em>final value</em> ends up being a non-zero value, we want to
+charge <code>20000 + 200 * (N-1)</code> gas, because it requires writing this
+slot to disk.</li>
+</ul>
+<h4 id="base-case">Base Case</h4>
+<p>We always start at state A. The first <code>SSTORE</code> can:</p>
+<ul>
+<li>Go to state A: 200 gas is deducted. We satisfy <em>Case I</em> because
+<code>200 * N == 200 * 1</code>.</li>
+<li>Go to state B: 20000 gas is deducted. We satisfy <em>Case II</em> because
+<code>20000 + 200 * (N-1) == 20000 + 200 * 0</code>.</li>
+</ul>
+<h4 id="inductive-step">Inductive Step</h4>
+<ul>
+<li>From A to A. The previous gas cost is <code>200 * (N-1)</code>. The current
+gas cost is <code>200 + 200 * (N-1)</code>. It satisfy <em>Case I</em>.</li>
+<li>From A to B. The previous gas cost is <code>200 * (N-1)</code>. The current
+gas cost is <code>20000 + 200 * (N-1)</code>. It satisfy <em>Case II</em>.</li>
+<li>From B to B. The previous gas cost is <code>20000 + 200 * (N-2)</code>. The
+current gas cost is <code>200 + 20000 + 200 * (N-2)</code>. It satisfy
+<em>Case II</em>.</li>
+<li>From B to A. The previous gas cost is <code>20000 + 200 * (N-2)</code>. The
+current gas cost is <code>200 - 19800 + 20000 + 200 * (N-2)</code>. It satisfy
+<em>Case I</em>.</li>
+</ul>
+<h3 id="original-value-not-being-zero">Original Value Not Being Zero</h3>
+<p>When <em>original value</em> is not 0, we want to prove that:</p>
+<ul>
+<li><strong>Case I</strong>: If the <em>final value</em> ends up unchanged, we want to
+charge <code>200 * N</code> gases, because no disk write is needed.</li>
+<li><strong>Case II</strong>: If the <em>final value</em> ends up being zero, we want to
+charge <code>5000 - 15000 + 200 * (N-1)</code> gas. Note that <code>15000</code> is the
+refund in actual definition.</li>
+<li><strong>Case III</strong>: If the <em>final value</em> ends up being a changed non-zero
+value, we want to charge <code>5000 + 200 * (N-1)</code> gas.</li>
+</ul>
+<h4 id="base-case-1">Base Case</h4>
+<p>We always start at state X. The first <code>SSTORE</code> can:</p>
+<ul>
+<li>Go to state X: 200 gas is deducted. We satisfy <em>Case I</em> because
+<code>200 * N == 200 * 1</code>.</li>
+<li>Go to state Y: 5000 gas is deducted. We satisfy <em>Case III</em> because
+<code>5000 + 200 * (N-1) == 5000 + 200 * 0</code>.</li>
+<li>Go to state Z: The absolute gas used is <code>5000 - 15000</code> where 15000
+is the refund. We satisfy <em>Case II</em> because <code>5000 - 15000 + 200 * (N-1) == 5000 - 15000 + 200 * 0</code>.</li>
+</ul>
+<h4 id="inductive-step-1">Inductive Step</h4>
+<ul>
+<li>From X to X. The previous gas cost is <code>200 * (N-1)</code>. The current gas
+cost is <code>200 + 200 * (N-1)</code>. It satisfy <em>Case I</em>.</li>
+<li>From X to Y. The previous gas cost is <code>200 * (N-1)</code>. The current gas
+cost is <code>5000 + 200 * (N-1)</code>. It satisfy <em>Case III</em>.</li>
+<li>From X to Z. The previous gas cost is <code>200 * (N-1)</code>. The current
+absolute gas cost is <code>5000 - 15000 + 200 * (N-1)</code>. It satisfy <em>Case
+II</em>.</li>
+<li>From Y to X. The previous gas cost is <code>5000 + 200 * (N-2)</code>. The
+absolute current gas cost is <code>200 - 4800 + 5000 + 200 * (N-2)</code>. It
+satisfy <em>Case I</em>.</li>
+<li>From Y to Y. The previous gas cost is <code>5000 + 200 * (N-2)</code>. The
+current gas cost is <code>200 + 5000 + 200 * (N-2)</code>. It satisfy <em>Case
+III</em>.</li>
+<li>From Y to Z. The previous gas cost is <code>5000 + 200 * (N-2)</code>. The
+current absolute gas cost is <code>200 - 15000 + 5000 + 200 * (N-2)</code>. It
+satisfy <em>Case II</em>.</li>
+<li>From Z to X. The previous gas cost is <code>5000 - 15000 + 200 * (N-2)</code>. The current absolute gas cost is <code>200 + 10200 + 5000 - 15000 + 200 * (N-2)</code>. It satisfy <em>Case I</em>.</li>
+<li>From Z to Y. The previous gas cost is <code>5000 - 15000 + 200 * (N-2)</code>. The current absolute gas cost is <code>200 + 15000 + 5000 - 15000 + 200 * (N-2)</code>. It satisfy <em>Case III</em>.</li>
+<li>From Z to Z. The previous gas cost is <code>5000 - 15000 + 200 * (N-2)</code>. The current absolute gas cost is <code>200 + 5000 - 15000 + 200 * (N-2)</code>. It satisfy <em>Case II</em>.</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

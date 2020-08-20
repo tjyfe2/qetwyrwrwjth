@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1996: Holdable Token</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1996.md" />
+<meta property="og:title" content="EIP-1996: Holdable Token" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1996 (EIP-1996): Holdable Token"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1996 (EIP-1996): Holdable Token"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1996.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1996 (EIP 1996): Holdable Token" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1996: Holdable Token
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:julio@adhara.io">Julio Faura</a>,
+        
+    
+        
+        
+            <a href="mailto:fer@io.builders">Fernando Paris</a>,
+        
+    
+        
+        
+            <a href="mailto:daniel@io.builders">Daniel Lehrner</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2103">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2103</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-04-10</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>20</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>An extension to the ERC-20 standard token that allows tokens to be put on hold. This guarantees a future transfer and makes the held tokens unavailable for transfer in the mean time. Holds are similar to escrows in that are firm and lead to final settlement.</p>
+<h2 id="actors">Actors</h2>
+<h4 id="operator">Operator</h4>
+<p>An account which has been approved by an account to create holds on its behalf.</p>
+<h4 id="hold-issuer">Hold issuer</h4>
+<p>The account, which creates a hold. This can be the account owner itself, or any account, which has been approved as an operator for the account.</p>
+<h4 id="notary">Notary</h4>
+<p>The account which decides if a hold should be executed. </p>
+<h2 id="abstract">Abstract</h2>
+<p>A hold specifies a payer, a payee, a maximum amount, a notary and an expiration time. When the hold is created, the specified token balance from the payer is put on hold. A held balance cannot be transferred until the hold is either executed or released. The hold can only be executed by the notary, which triggers the transfer of the tokens from the payer to the payee. If a hold is released, either by the notary at any time, or by anyone after the expiration, no transfer is carried out and the amount is available again for the payer.</p>
+<p>A hold can be partially executed, if the execution specifies an amount less than the maximum amount. In this case the specified amount is transferred to the payee and the remaining amount is available again to the payer.</p>
+<p>Holds can be specified to be perpetual. In this case, the hold cannot be released upon expiration, and thus can only be executed by the notary or released by the notary or payee.</p>
+<h2 id="motivation">Motivation</h2>
+<p>A hold has to be used in different scenarios where a immediate transfer between accounts is not possible or has to be guaranteed beforehand:</p>
+<ol>
+<li>
+<p>A regulated token may not allow to do a token transfer between accounts without verifying first, that it follows all the regulations. In this case a clearable transfer has to be used. During the clearing process a hold is created to ensure, that the transfer is successful after all checks have passed. If the transfer violates any of the regulations, it is cleared and not further processed. </p>
+</li>
+<li>
+<p>In certain business situations a payment has to be guaranteed before its services can be used. For example: When checking in a hotel, the hotel will put a hold on the guest's account to ensure that enough balance is available to pay for the room before handing over the keys.</p>
+</li>
+<li>
+<p>In other occasions a payment has to be guaranteed without knowing the exact amount beforehand. To stay with the hotel example: The hotel can put a hold on the guest's account as a guarantee for any possible extras, like room service. When the guest checks out the hold is partially executed and the remaining amount is available again on the guest's account.</p>
+</li>
+</ol>
+<p>The ERC-20 <code>approve</code> function provides some of the necessary functionality for the use cases above. The main difference to holds, is that <code>approve</code> does not ensure a payment, as the approved money is not blocked and can be transferred at any moment.</p>
+<h2 id="specification">Specification</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface IHoldable /* is ERC-20 */ {
+    enum HoldStatusCode {
+        Nonexistent,
+        Ordered,
+        Executed,
+        ReleasedByNotary,
+        ReleasedByPayee,
+        ReleasedOnExpiration
+    }
+
+    function hold(string calldata operationId, address to, address notary, uint256 value, uint256 timeToExpiration) external returns (bool); 
+    function holdFrom(string calldata operationId, address from, address to, address notary, uint256 value, uint256 timeToExpiration) external returns (bool);
+    function releaseHold(string calldata operationId) external returns (bool);
+    function executeHold(string calldata operationId, uint256 value) external returns (bool);
+    function renewHold(string calldata operationId, uint256 timeToExpiration) external returns (bool);
+    function retrieveHoldData(string calldata operationId) external view returns (address from, address to, address notary, uint256 value, uint256 expiration, HoldStatusCode status);
+
+    function balanceOnHold(address account) external view returns (uint256);
+    function netBalanceOf(address account) external view returns (uint256);
+    function totalSupplyOnHold() external view returns (uint256);
+
+    function authorizeHoldOperator(address operator) external returns (bool);
+    function revokeHoldOperator(address operator) external returns (bool);
+    function isHoldOperatorFor(address operator, address from) external view returns (bool);
+
+    event HoldCreated(address indexed holdIssuer, string  operationId, address from, address to, address indexed notary, uint256 value, uint256 expiration);
+    event HoldExecuted(address indexed holdIssuer, string operationId, address indexed notary, uint256 heldValue, uint256 transferredValue);
+    event HoldReleased(address indexed holdIssuer, string operationId, HoldStatusCode status);
+    event HoldRenewed(address indexed holdIssuer, string operationId, uint256 oldExpiration, uint256 newExpiration);
+    event AuthorizedHoldOperator(address indexed operator, address indexed account);
+    event RevokedHoldOperator(address indexed operator, address indexed account);
+}
+</span></code></pre><h3 id="functions">Functions</h3>
+<h4 id="hold">hold</h4>
+<p>Creates a hold on behalf of the msg.sender in favor of the payee. It specifies a notary who is responsible to either execute or release the hold. The function must revert if the operation ID has been used before.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the hold</td></tr>
+<tr><td>to</td><td>The address of the payee, to whom the tokens are to be transferred if executed</td></tr>
+<tr><td>notary</td><td>The address of the notary who is going to determine whether the hold is to be executed or released</td></tr>
+<tr><td>value</td><td>The amount to be transferred. Must be less or equal than the balance of the payer.</td></tr>
+<tr><td>timeToExpiration</td><td>The duration until the hold is expired. If it is '0' the hold must be perpetual.</td></tr>
+</tbody></table>
+<h4 id="holdfrom">holdFrom</h4>
+<p>Creates a hold on behalf of the payer in favor of the payee. The <code>from</code> account has to approve beforehand, that another account can issue holds on its behalf by calling <code>approveToHold</code>. The function must revert if the operation ID has been used before.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the hold</td></tr>
+<tr><td>from</td><td>The address of the payer, from whom the tokens are to be taken if executed</td></tr>
+<tr><td>to</td><td>The address of the payee, to whom the tokens are to be transferred if executed</td></tr>
+<tr><td>notary</td><td>The address of the notary who is going to determine whether the hold is to be executed or released</td></tr>
+<tr><td>value</td><td>The amount to be transferred. Must be less or equal than the balance of the payer.</td></tr>
+<tr><td>timeToExpiration</td><td>The duration until the hold is expired. If it is '0' the hold must be perpetual.</td></tr>
+</tbody></table>
+<h4 id="releasehold">releaseHold</h4>
+<p>Releases a hold. Release means that the transfer is not executed and the held amount is available again for the payer. Until a hold has expired it can only be released by the notary or the payee. After it has expired it can be released by anyone.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the hold</td></tr>
+</tbody></table>
+<h4 id="executehold">executeHold</h4>
+<p>Executes a hold. Execute means that the specified value is transferred from the payer to the payee. If the specified value is less than the hold value the remaining amount is available again to the payer. The implementation must verify that only the notary is able to successfully call the function.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the hold</td></tr>
+<tr><td>value</td><td>The amount to be transferred. This amount has to be less or equal than the hold value</td></tr>
+</tbody></table>
+<h4 id="renewhold">renewHold</h4>
+<p>Renews a hold. The new expiration time must be the block timestamp plus the given <code>timeToExpiration</code>, independently if the hold was perpetual or not before that. Furthermore a hold must be made perpetual if <code>timeToExpiration</code> is '0'. The implementation must verify that only the payer or operator are able to successfully call the function. Furthermore the only a hold, which has not yet expired can be successfully renewed.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the hold</td></tr>
+<tr><td>timeToExpiration</td><td>The new duration until the hold is expired.</td></tr>
+</tbody></table>
+<h4 id="retrieveholddata">retrieveHoldData</h4>
+<p>Retrieves all the information available for a particular hold.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the hold</td></tr>
+</tbody></table>
+<h4 id="balanceonhold">balanceOnHold</h4>
+<p>Retrieves how much of the balance is currently held and therefore not available for transfer.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>account</td><td>The address which held balance should be returned</td></tr>
+</tbody></table>
+<h4 id="netbalanceof">netBalanceOf</h4>
+<p>Retrieves the net balance, which is the sum of <code>balanceOf</code> and <code>balanceOnHold</code>.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>account</td><td>The address which net balance should be returned</td></tr>
+</tbody></table>
+<h4 id="totalsupplyonhold">totalSupplyOnHold</h4>
+<p>Retrieves the total sum of how many tokens are on hold.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>-</td><td>-</td></tr>
+</tbody></table>
+<h4 id="authorizeholdoperator">authorizeHoldOperator</h4>
+<p>Approves an operator to issue holds on behalf of msg.sender.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operator</td><td>The address to be approved as operator of holds</td></tr>
+</tbody></table>
+<h4 id="revokeholdoperator">revokeHoldOperator</h4>
+<p>Revokes the approval to issue holds on behalf of msg.sender.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operator</td><td>The address to be revoked as operator of holds</td></tr>
+</tbody></table>
+<h4 id="isholdoperatorfor">isHoldOperatorFor</h4>
+<p>Retrieves if an operator is approved to create holds on behalf of <code>from</code>.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operator</td><td>The address to be a operator of holds</td></tr>
+<tr><td>from</td><td>The address on which the holds would be created</td></tr>
+</tbody></table>
+<h4 id="balanceof">balanceOf</h4>
+<p>The standard implementation of ERC-20 has to be changed in order to deduct the held balance from the ERC-20 balance.</p>
+<h4 id="transfer">transfer</h4>
+<p>The standard implementation of ERC-20 has to be changed in order to deduct the held balance from the ERC-20 balance. Any amount that is held must not be transferred.</p>
+<h4 id="transferfrom">transferFrom</h4>
+<p>The standard implementation of ERC-20 has to be changed in order to deduct the held balance from the ERC-20 balance. Any amount that is held must not be transferred.</p>
+<h3 id="events">Events</h3>
+<h4 id="holdcreated">HoldCreated</h4>
+<p>Emitted when a hold has been created.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>holdIssuer</td><td>The address of the hold issuer of the hold</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the hold</td></tr>
+<tr><td>from</td><td>The address of the payer, from whom the tokens are to be taken if executed</td></tr>
+<tr><td>to</td><td>The address of the payee, to whom the tokens are to be paid if executed</td></tr>
+<tr><td>notary</td><td>The address of the notary who is going to determine whether the hold is to be executed or released</td></tr>
+<tr><td>value</td><td>The amount to be transferred. Must be less or equal than the balance of the payer.</td></tr>
+<tr><td>expiration</td><td>The unix timestamp when the hold is expired</td></tr>
+</tbody></table>
+<h4 id="holdexecuted">HoldExecuted</h4>
+<p>Emitted when a hold has been executed.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>holdIssuer</td><td>The address of the hold issuer of the hold</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the hold</td></tr>
+<tr><td>notary</td><td>The address of the notary who executed the hold</td></tr>
+<tr><td>heldValue</td><td>The amount which was put on hold during creation</td></tr>
+<tr><td>transferredValue</td><td>The amount which was used for the transfer</td></tr>
+</tbody></table>
+<h4 id="holdreleased">HoldReleased</h4>
+<p>Emitted when a hold has been released.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>holdIssuer</td><td>The address of the hold issuer of the hold</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the hold</td></tr>
+<tr><td>status</td><td>Can be one of the following values: <code>ReleasedByNotary</code>, <code>ReleasedByPayee</code>, <code>ReleasedOnExpiration</code></td></tr>
+</tbody></table>
+<h4 id="holdrenewed">HoldRenewed</h4>
+<p>Emitted when a hold has been renewed.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>holdIssuer</td><td>The address of the hold issuer of the hold</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the hold</td></tr>
+<tr><td>oldExpiration</td><td>The expiration time before the renewal</td></tr>
+<tr><td>newExpiration</td><td>The expiration time after the renewal</td></tr>
+</tbody></table>
+<h4 id="authorizedholdoperator">AuthorizedHoldOperator</h4>
+<p>Emitted when an operator has been approved to create holds on behalf of another account.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operator</td><td>The address to be a operator of holds</td></tr>
+<tr><td>account</td><td>Address on which behalf holds will potentially be created</td></tr>
+</tbody></table>
+<h4 id="revokedholdoperator">RevokedHoldOperator</h4>
+<p>Emitted when an operator has been revoked from creating holds on behalf of another account.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operator</td><td>The address to be a operator of holds</td></tr>
+<tr><td>account</td><td>Address on which behalf holds could potentially be created</td></tr>
+</tbody></table>
+<h2 id="rationale">Rationale</h2>
+<p>This standards provides a functionality, to guarantee future payments, which is needed for many business cases where transfers have to be guaranteed.</p>
+<p>It goes a step further than the ERC-20 <code>approve</code> function by ensuring that the held balance will be available when the transfer is done. Something that can not be done with <code>approve</code>, as the approved amount is only a maximum spending amount, but never guaranteed to be available.</p>
+<p>While not requiring it, the naming of the functions <code>authorizeHoldOperator</code>, <code>revokeHoldOperator</code> and <code>isHoldOperatorFor</code> follows the naming convention of <a href="https://eips.ethereum.org/EIPS/eip-777">ERC-777</a>.</p>
+<p>The <code>operationId</code> is a string and not something more gas efficient to allow easy traceability of the hold and allow human readable ids. It is up to the implementer if the string should be stored on-chain or only its hash, as it is enough to identify a hold.</p>
+<p>The <code>operationId</code> is a competitive resource. It is recommended, but nor required, that the hold issuers used a unique prefix to avoid collisions. </p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is fully backwards compatible as its implementation extends the functionality of ERC-20.</p>
+<h2 id="implementation">Implementation</h2>
+<p>The GitHub repository <a href="https://github.com/IoBuilders/holdable-token">IoBuilders/holdable-token</a> contains the reference implementation.</p>
+<h2 id="contributors">Contributors</h2>
+<p>This proposal has been collaboratively implemented by <a href="https://adhara.io/">adhara.io</a> and <a href="https://io.builders/">io.builders</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

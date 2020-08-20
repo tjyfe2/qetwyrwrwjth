@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1295: Modify Ethereum PoW Incentive Structure and Delay Difficulty Bomb</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1295.md" />
+<meta property="og:title" content="EIP-1295: Modify Ethereum PoW Incentive Structure and Delay Difficulty Bomb" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1295 (EIP-1295): Modify Ethereum PoW Incentive Structure and Delay Difficulty Bomb"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1295 (EIP-1295): Modify Ethereum PoW Incentive Structure and Delay Difficulty Bomb"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1295.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1295 (EIP 1295): Modify Ethereum PoW Incentive Structure and Delay Difficulty Bomb" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1295: Modify Ethereum PoW Incentive Structure and Delay Difficulty Bomb
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/atlanticcrypto">Brian Venturo</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;atlanticcrypto&#x2F;Discussion&#x2F;issues&#x2F;1">https:&#x2F;&#x2F;github.com&#x2F;atlanticcrypto&#x2F;Discussion&#x2F;issues&#x2F;1</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-08-05</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>Network security and overall ecosystem maturity warrants the continued incentivization of Proof of Work participation but may allow for a reduction in ancillary ETH issuance and the delay of the Difficulty Bomb. This EIP proposes a reduction of Uncle and removal of Nephew rewards while delaying the Difficulty Bomb with the Constantinople hard fork.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>Starting with CNSTNTNPL_FORK_BLKNUM the client will calculate the difficulty based on a fake block number suggesting the client that the difficulty bomb is adjusting around 6 million blocks later than previously specified with the Homestead fork. </p>
+<p>Furthermore, Uncle rewards will be adjusted and Nephew rewards will be removed to eliminate excess ancillary ETH issuance. The current ETH block reward of 3 ETH will remain constant.</p>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>Network scalability and security are at the forefront of risks to the Ethereum protocol. With great strides being made towards on and off chain scalability, the existence of an artificial throughput limiting device in the protocol is not warranted. Removing the risk of reducing throughput through the initialization of the Difficulty Bomb is &quot;low-hanging-fruit&quot; to ensure continued operation at a minimum of current throughput through the next major hard fork (scheduled for late 2019).</p>
+<p>The security layer of the Ethereum network is and should remain robust. Incentives for continued operation of the security of the growing ecosystem are paramount. </p>
+<p>At the same time, the ancillary issuance benefits of the Ethereum protocol can be adjusted to reduce the overall issuance profile. Aggressively adjusting Uncle and removing Nephew rewards will reduce the inflationary aspect of ETH issuance, while keeping the current block reward constant at 3 ETH will ensure top line incentives stay in place.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<h4 id="relax-difficulty-with-fake-block-number">Relax Difficulty with Fake Block Number</h4>
+<p>For the purposes of <code>calc_difficulty</code>, simply replace the use of <code>block.number</code>, as used in the exponential ice age component, with the formula:</p>
+<pre style="background-color:#2b303b;">
+<code>fake_block_number = max(0, block.number - 6_000_000) if block.number &gt;= CNSTNTNPL_FORK_BLKNUM else block.number
+</code></pre><h4 id="adjust-uncle-and-nephew-rewards">Adjust Uncle and Nephew rewards</h4>
+<p>If an uncle is included in a block for <code>block.number &gt;= CNSTNTNPL_FORK_BLKNUM</code> such that <code>block.number - uncle.number = k</code>, the uncle reward is</p>
+<pre style="background-color:#2b303b;">
+<code>new_uncle_reward = (3 - k) * new_block_reward / 8
+</code></pre>
+<p>This is the existing pre-Constantinople formula for uncle rewards, adjusted to reward 2 levels of Uncles at a reduced rate.</p>
+<p>The nephew reward for <code>block.number &gt;= CNSTNTNPL_FORK_BLKNUM</code> is</p>
+<pre style="background-color:#2b303b;">
+<code>new_nephew_reward = 0
+</code></pre>
+<p>This is a removal of all rewards for Nephew blocks.</p>
+<h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<p>The security layer of the Ethereum network is and should remain robust. Incentives for continued operation of the growing ecosystem’s security are paramount. </p>
+<p>At the same time, the ancillary issuance benefits of the Ethereum protocol can be adjusted to reduce the overall issuance profile. Aggressively adjusting Uncle and removing Nephew rewards will reduce the inflationary aspect of ETH issuance, while keeping the current block reward constant at 3 ETH will ensure top line incentives stay in place.</p>
+<p>The Difficulty Bomb was instituted as a type of planned obsolescence to force the implementation of network upgrades with regular frequency. With the focus on scalability for the protocol, delaying a mechanism whereby the throughput of the network can be limited artificially, due to any circumstance, is a logical step to ensure continued minimum network operation at the current throughput level. We believe the existence of the Difficulty Bomb has allowed for the inclusion of protocol upgrades in forced hard-forks, and will continue to do so.</p>
+<p>Through August 4th, the 2018 year to date reward issued to Uncle blocks totaled over 635,000 ETH. The average reward per Uncle totals 2.27 ETH. The year to date average Uncle rate is 22.49%. Using the year to date metrics, the ongoing average ETH paid as an Uncle reward per block is 0.51 ETH plus the Uncle inclusion reward of 0.021 ETH (0.09375 ETH * .2249), total Uncle related reward per block being over 0.53 ETH. With total year to date block rewards totaling approximately 3,730,000 ETH, the network has paid an additional 17pct in Uncle rewards. This is issuance that can be reduced while still maintaining the overall integrity and incentivization of network security.</p>
+<p>Reducing the issuance of ETH in rewarding Uncle blocks (forked blocks caused by latency in propagation, a multi-faceted problem) should directly incentivize the investment in technologies and efficiencies to reduce block propagation latency which may lead to a reduction in Network wide Uncle rates, reducing ancillary issuance further.</p>
+<p>Reducing the Uncle rewards from the current specification to the proposed will yield two levels of ancillary ETH issuance for Uncles:</p>
+<p>Level 1 Uncle -&gt; 0.75 ETH</p>
+<p>Level 2 Uncle -&gt; 0.375 ETH</p>
+<p>These levels are sufficient to continue incentivizing decentralized participation, while also providing an immediate economic incentive for the upgrade of the Ethereum node network and its tangential infrastructure.</p>
+<p>We believe that the ETH network has been subsidizing transaction inclusion through the robust Uncle Reward structure since inception. We also believe that a removal of the set subsidy will create a dynamic response mechanism whereby Miners and transaction senders will minimize total costs of transaction inclusion. This dynamic response structure may limit unnecessary layer 1 transaction throughput while providing incentives for layer 2 scaling solutions.</p>
+<p>The Nephew reward structure should be entirely eliminated.</p>
+<p>Due to current market conditions, and the likelihood of a further USD denominated price decline (50%), we believe that any top line reduction to security incentives will put the Ethereum network at undue risk. Unlike the time of the Byzantium hard fork, current USD denominated economics for securing the Ethereum network threaten the participation of the most decentralized Miner community (at home miners), which we believe make up the largest proportion of the overall network hashrate. We believe eliminating this portion of the community will increase centralization and the probability of an organized network attack. </p>
+<p>For a technology so new and with so much potential, we find it extremely irresponsible to increase the likelihood of a network attack by reducing ETH Issuance past this proposal’s level.</p>
+<p>With a reduction to the Uncle and removal of the Nephew reward, ancillary ETH issuance should drop (under normal market conditions, i.e. 22.49% uncle rate) by over 75pct and total ETH issuance from the successful sealing and mining of valid blocks should drop over 10pct.</p>
+<p>Paired with the diffusal of the Difficulty Bomb, this proposal strikes a balance between ensuring status quo network throughput, reducing overall ETH issuance, and continuing top line incentives for investment in infrastructure and efficiencies to continue operating the Ethereum network’s security layer.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<!--All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards compatibility treatise may be rejected outright.-->
+<p>This EIP is not forward compatible and introduces backwards incompatibilities in the difficulty calculation, as well as the block, uncle and nephew reward structure. Therefore, it should be included in a scheduled hardfork at a certain block number. It's suggested to include this EIP in the second Metropolis hard-fork, Constantinople.</p>
+<h2 id="test-cases">Test Cases</h2>
+<!--Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Other EIPs can choose to include links to test cases if applicable.-->
+<p>Test cases shall be created once the specification is to be accepted by the developers or implemented by the clients.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>Forthcoming.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

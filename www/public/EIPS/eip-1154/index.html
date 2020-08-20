@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1154: Oracle Interface</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1154.md" />
+<meta property="og:title" content="EIP-1154: Oracle Interface" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1154 (EIP-1154): Oracle Interface"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1154 (EIP-1154): Oracle Interface"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1154.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1154 (EIP 1154): Oracle Interface" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1154: Oracle Interface
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/cag">Alan Lu</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1161">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1161</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Abandoned
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-06-13</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard interface for oracles.</p>
+<h2 id="abstract">Abstract</h2>
+<p>In order for ethereum smart contracts to interact with off-chain systems, oracles must be used. These oracles report values which are normally off-chain, allowing smart contracts to react to the state of off-chain systems. A distinction and a choice is made between push and pull based oracle systems. Furthermore, a standard interface for oracles is described here, allowing different oracle implementations to be interchangeable.</p>
+<h2 id="motivation">Motivation</h2>
+<p>The Ethereum ecosystem currently has many different oracle implementations available, but they do not provide a unified interface. Smart contract systems would be locked into a single set of oracle implementations, or they would require developers to write adapters/ports specific to the oracle system chosen in a given project.</p>
+<p>Beyond naming differences, there is also the issue of whether or not an oracle report-resolving transaction <em>pushes</em> state changes by calling affected contracts, or changes the oracle state allowing dependent contracts to <em>pull</em> the updated value from the oracle. These differing system semantics could introduce inefficiencies when adapting between them.</p>
+<p>Ultimately, the value in different oracle systems comes from their underlying resolution mechanics, and points where these systems are virtually identical should be standardized.</p>
+<p>These oracles may be used for answering questions about &quot;real-world events&quot;, where each ID can be correlated with a specification of a question and its answers (so most likely for prediction markets, basically).</p>
+<p>Another use case could be for decision-making processes, where the results given by the oracle represent decisions made by the oracle (e.g. futarchies). DAOs may require their use in decision making processes.</p>
+<p>Both the ID and the results are intentionally unstructured so that things like time series data (via splitting the ID) and different sorts of results (like one of a few, any subset of up to 256, or some value in a range with up to 256 bits of granularity) can be represented.</p>
+<h2 id="specification">Specification</h2>
+<dl>
+  <dt>Oracle</dt>
+  <dd>An entity which reports data to the blockchain.</dd>
+<dt>Oracle consumer</dt>
+  <dd>A smart contract which receives data from an oracle.</dd>
+<dt>ID</dt>
+  <dd>A way of indexing the data which an oracle reports. May be derived from or tied to a question for which the data provides the answer.</dd>
+<dt>Result</dt>
+  <dd>Data associated with an id which is reported by an oracle. This data oftentimes will be the answer to a question tied to the id. Other equivalent terms that have been used include: answer, data, outcome.</dd>
+<dt>Report</dt>
+  <dd>A pair (ID, result) which an oracle sends to an oracle consumer.</dd>
+</dl>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface OracleConsumer {
+    function receiveResult(bytes32 id, bytes result) external;
+}
+</span></code></pre>
+<p><code>receiveResult</code> MUST revert if the <code>msg.sender</code> is not an oracle authorized to provide the <code>result</code> for that <code>id</code>.</p>
+<p><code>receiveResult</code> MUST revert if <code>receiveResult</code> has been called with the same <code>id</code> before.</p>
+<p><code>receiveResult</code> MAY revert if the <code>id</code> or <code>result</code> cannot be handled by the consumer.</p>
+<p>Consumers MUST coordinate with oracles to determine how to encode/decode results to and from <code>bytes</code>. For example, <code>abi.encode</code> and <code>abi.decode</code> may be used to implement a codec for results in Solidity. <code>receiveResult</code> SHOULD revert if the consumer receives a unexpected result format from the oracle.</p>
+<p>The oracle can be any Ethereum account.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The specs are currently very similar to what is implemented by ChainLink (which can use any arbitrarily-named callback) and Oraclize (which uses <code>__callback</code>).</p>
+<p>With this spec, the oracle <em>pushes</em> state to the consumer, which must react accordingly to the updated state. An alternate <em>pull</em>-based interface can be prescribed, as follows:</p>
+<h3 id="alternate-pull-based-interface">Alternate Pull-based Interface</h3>
+<p>Here are alternate specs loosely based on Gnosis prediction market contracts v1. Reality Check also exposes a similar endpoint (<code>getFinalAnswer</code>).</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface Oracle {
+    function resultFor(bytes32 id) external view returns (bytes result);
+}
+</span></code></pre>
+<p><code>resultFor</code> MUST revert if the result for an <code>id</code> is not available yet.</p>
+<p><code>resultFor</code> MUST return the same result for an <code>id</code> after that result is available.</p>
+<h3 id="push-vs-pull">Push vs Pull</h3>
+<p>Note that push-based interfaces may be adapted into pull-based interfaces. Simply deploy an oracle consumer which stores the result received and implements <code>resultFor</code> accordingly.</p>
+<p>Similarly, every pull-based system can be adapted into a push-based system: just add a method on the oracle smart contract which takes an oracle consumer address and calls <code>receiveResult</code> on that address.</p>
+<p>In both cases, an additional transaction would have to be performed, so the choice to go with push or pull should be based on the dominant use case for these oracles.</p>
+<p>In the simple case where a single account has the authority to decide the outcome of an oracle question, there is no need to deploy an oracle contract and store the outcome on that oracle contract. Similarly, in the case where the outcome comes down to a vote, existing multisignature wallets can be used as the authorized oracle.</p>
+<h4 id="multiple-oracle-consumers">Multiple Oracle Consumers</h4>
+<p>In the case that many oracle consumers depend on a single oracle result and all these consumers expect the result to be pushed to them, the push and pull adaptations mentioned before may be combined if the pushing oracle cannot be trusted to send the same result to every consumer (in a sense, this forwards the trust to the oracle adaptor implementation).</p>
+<p>In a pull-based system, each of the consumers would have to be called to pull the result from the oracle contract, but in the proposed push-based system, the adapted oracle would have to be called to push the results to each of the consumers.</p>
+<p>Transaction-wise, both systems are roughly equivalent in efficiency in this scenario, but in the push-based system, there's a need for the oracle consumers to store the results again, whereas in the pull-based system, the consumers may continue to refer to the oracle for the results. Although this may be somewhat less efficient, requiring the consumers to store the results can also provide security guarantees, especially with regards to result immutability.</p>
+<h4 id="result-immutability">Result Immutability</h4>
+<p>In both the proposed specification and the alternate specification, results are immutable once they are determined. This is due to the expectation that typical consumers will require results to be immutable in order to determine a resulting state consistently. With the proposed push-based system, the consumer enforces the result immutability requirement, whereas in the alternate pull-based system, either the oracle would have to be trusted to implement the spec correctly and enforce the immutability requirement, or the consumer would also have to handle result immutability.</p>
+<p>For data which mutates over time, the <code>id</code> field may be structured to specify &quot;what&quot; and &quot;when&quot; for the data (using 128 bits to specify &quot;when&quot; is still safe for many millennia).</p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li><a href="https://github.com/levelkdev/tidbit">Tidbit</a> tracks this EIP.</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

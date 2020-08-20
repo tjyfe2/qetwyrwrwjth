@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2003: EVMC modules for implementations of precompiled contracts</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2003.md" />
+<meta property="og:title" content="EIP-2003: EVMC modules for implementations of precompiled contracts" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2003 (EIP-2003): EVMC modules for implementations of precompiled contracts"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2003 (EIP-2003): EVMC modules for implementations of precompiled contracts"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2003.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2003 (EIP 2003): EVMC modules for implementations of precompiled contracts" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2003: EVMC modules for implementations of precompiled contracts
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/chfast">Paweł Bylica</a>,
+        
+    
+        
+        
+            <a href="https://github.com/axic"> Alex Beregszaszi</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;evmc&#x2F;issues&#x2F;259">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;evmc&#x2F;issues&#x2F;259</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Interface</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-05-09</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>1352</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p><a href="https://github.com/ethereum/evmc">EVMC</a> specifies a generic API for Ethereum execution engines.
+This EIP specifies a way of providing implementations of Ethereum precompiled contracts
+using the <a href="https://ethereum.github.io/evmc/vmguide.html">EVMC VM API</a>.</p>
+<h2 id="specification">Specification</h2>
+<p>For the complete <a href="https://github.com/ethereum/evmc">EVMC</a> specification visit the <a href="https://ethereum.github.io/evmc/">EVMC documentation</a> first.
+This EIP is based on and is compatible with EVMC ABI version 6.</p>
+<p>The EVMC module with implementations of precompiled contracts SHOULD:</p>
+<ol>
+<li>
+<p>Advertise the <a href="https://ethereum.github.io/evmc/group__EVMC.html#gga44f9ecb88cf6422a0072936494fd6ac7a43ea2aa7b099a2d67bc53c118ff3683d"><code>EVMC_CAPABILITY_PRECOMPILES</code></a> capability
+in the <a href="https://ethereum.github.io/evmc/structevmc__instance.html#ae63b9ca898aa41cbd1e2fe86ca8f4e1c"><code>get_capabilities()</code></a> method.</p>
+</li>
+<li>
+<p>Implement the <a href="https://ethereum.github.io/evmc/structevmc__instance.html#a0823ebff21f9b0395b157e8c6b14a207"><code>execute()</code></a> method in the following way:</p>
+<ol>
+<li>
+<p>Validate the incoming execution request requirements:</p>
+<ol>
+<li>
+<p>The message kind (<a href="https://ethereum.github.io/evmc/structevmc__message.html#a691cb93e81d6dfd4fd7e2fa3d06a6bfa"><code>evmc_message::kind</code></a>) is a call (<a href="https://ethereum.github.io/evmc/group__EVMC.html#ggab2fa68a92a6828064a61e46060abc634abcf3ae29d9a88ff70b98374fc665694a"><code>EVMC_CALL</code></a>).</p>
+</li>
+<li>
+<p>The call destination address (<a href="https://ethereum.github.io/evmc/structevmc__message.html#a88ecfaa03a85a31c6da36fa043b98cea"><code>evmc_message::destination</code></a>)
+is within the range of precompiled contracts defined by <a href="https://eips.ethereum.org/EIPS/eip-1352">EIP-1352</a>.</p>
+</li>
+<li>
+<p>There is no code provided (the <code>code</code> argument is <code>NULL</code> and <code>code_size</code> argument is <code>0</code>).</p>
+</li>
+</ol>
+<p>If the requirements are not fulfilled, abort execution with the <a href="https://ethereum.github.io/evmc/group__EVMC.html#gga4c0be97f333c050ff45321fcaa34d920a2f3e0d8777f8d974ead27ae2a6eb2005"><code>EVMC_REJECTED</code></a> status code.</p>
+</li>
+<li>
+<p>Check if the call destination address (<a href="https://ethereum.github.io/evmc/structevmc__message.html#a88ecfaa03a85a31c6da36fa043b98cea"><code>evmc_message::destination</code></a>)
+targets existing precompiled contract.
+Consider the EVM revision (<a href="https://ethereum.github.io/evmc/group__EVMC.html#gae5759b1590071966ccf6a505b52a0ef7"><code>evmc_revision</code></a>) requested by
+the <code>rev</code> parameter of <a href="https://ethereum.github.io/evmc/structevmc__instance.html#a0823ebff21f9b0395b157e8c6b14a207"><code>execute()</code></a>.</p>
+<p>If yes, execute as follows:</p>
+<ol>
+<li>
+<p>Inspect the input data (<a href="https://ethereum.github.io/evmc/structevmc__message.html#a1adee3454b105eb29cd659ee0cf65c77"><code>evmc_message::input_data</code></a>, <a href="https://ethereum.github.io/evmc/structevmc__message.html#a2cf1deebd0dbbb20f25ecdfa299f4b5d"><code>evmc_message::input_size</code></a>)
+and calculate the <em>gas cost</em> of the execution.</p>
+</li>
+<li>
+<p>Compute the amount of <em>gas left</em> after execution by
+subtracting the <em>gas cost</em> from the call gas limit (<a href="https://ethereum.github.io/evmc/structevmc__message.html#ae8deff46588584fa27890e74c82db5e7"><code>evmc_message::gas</code></a>).</p>
+</li>
+<li>
+<p>If <em>gas left</em> is negative,
+abort execution with the <a href="https://ethereum.github.io/evmc/group__EVMC.html#gga4c0be97f333c050ff45321fcaa34d920abfc47f75656c996c0b29c0553c00fc18"><code>EVMC_OUT_OF_GAS</code></a> status code.</p>
+</li>
+<li>
+<p>Otherwise,
+execute the code of the precompiled contract,
+return the <a href="https://ethereum.github.io/evmc/group__EVMC.html#gga4c0be97f333c050ff45321fcaa34d920a4bc3069fec2bab2a55355a72b7db68b7"><code>EVMC_SUCCESS</code></a> status code, the output and <em>gas left</em>
+(<a href="https://ethereum.github.io/evmc/structevmc__result.html#a61978e85f9d795a7b9695b9cbf1748d6"><code>evmc_result::output_data</code></a>, <a href="https://ethereum.github.io/evmc/structevmc__result.html#a93bb7419aff492cdef754421c6d74e26"><code>evmc_result::output_size</code></a>, <a href="https://ethereum.github.io/evmc/structevmc__result.html#af8478c93dbcc3cb2876037c5a5afd4c0"><code>evmc_result::gas_left</code></a>).</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Otherwise, emulate execution of empty code by returning
+the <a href="https://ethereum.github.io/evmc/group__EVMC.html#gga4c0be97f333c050ff45321fcaa34d920a4bc3069fec2bab2a55355a72b7db68b7"><code>EVMC_SUCCESS</code></a> status code
+and <em>gas left</em> equal the call gas limit (<a href="https://ethereum.github.io/evmc/structevmc__message.html#ae8deff46588584fa27890e74c82db5e7"><code>evmc_message::gas</code></a>).</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>Precompiled contract implementations are allowed to return two more EVMC error codes:</p>
+<ul>
+<li><a href="https://ethereum.github.io/evmc/group__EVMC.html#gga4c0be97f333c050ff45321fcaa34d920aed5b2a4afa5a47af732569445920a4a9"><code>EVMC_FAILURE</code></a> if the failure was caused due to something other than out of gas (e.g. input validation error)</li>
+<li><a href="https://ethereum.github.io/evmc/group__EVMC.html#gga4c0be97f333c050ff45321fcaa34d920aed708e84d49cc1270e54ec20b0ca0a05"><code>EVMC_REVERT</code></a> if the precompile doesn't want to forfeit all supplied gas (as of May 2019 no such precompile exists)</li>
+</ul>
+<p>The Client is not required to provide the Host interface ([<code>evmc_context</code>] argument of <a href="https://ethereum.github.io/evmc/structevmc__instance.html#a0823ebff21f9b0395b157e8c6b14a207"><code>execute()</code></a> is set to NULL).
+Therefore, the precompiled contracts implementation MUST NOT access the <code>evmc_context</code>.</p>
+<h2 id="rationale">Rationale</h2>
+<p>It is very unlikely that any precompile will need to access or modify a contract state.
+Not requiring the Client to implement the EVMC Host interface removes the big portion of work
+needed for full EVMC integration.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>EVMC provides the <a href="https://ethereum.github.io/evmc/vmtester.html">evmc-vmtester</a> tool for checking compatibility with the EVMC specification.</p>
+<h2 id="implementations">Implementations</h2>
+<ul>
+<li><a href="https://github.com/ethereum/evmc/blob/master/examples/example_precompiles_vm/example_precompiles_vm.cpp">Example of Precompiles VM implementation</a></li>
+<li><a href="https://github.com/ewasm/ewasm-precompiles">ewasm precompiles</a></li>
+<li>Aleth code for precompiles</li>
+<li>Parity code for precompiles</li>
+<li><a href="https://github.com/axic/eip1962-evmc">EIP-1962 implemented as an EVMC precompile module</a></li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/ethereum/evmc">EVMC – Ethereum Client-VM Connector API</a></li>
+<li><a href="https://ethereum.github.io/evmc/">EVMC documentation</a></li>
+<li><a href="https://ethereum.github.io/evmc/vmguide.html">EVMC VM Implementation Guide</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1352">EIP 1352: Specify restricted address range for precompiles/system contracts</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

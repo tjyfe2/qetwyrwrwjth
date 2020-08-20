@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1965: Method to check if a chainID is valid at a specific block Number</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1965.md" />
+<meta property="og:title" content="EIP-1965: Method to check if a chainID is valid at a specific block Number" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1965 (EIP-1965): Method to check if a chainID is valid at a specific block Number"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1965 (EIP-1965): Method to check if a chainID is valid at a specific block Number"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1965.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1965 (EIP 1965): Method to check if a chainID is valid at a specific block Number" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1965: Method to check if a chainID is valid at a specific block Number
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/wighawag">Ronan Sandford</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1965-valid-chainid-for-specific-blocknumber-protect-all-forks&#x2F;3181">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1965-valid-chainid-for-specific-blocknumber-protect-all-forks&#x2F;3181</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-04-20</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>155</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This EIP adds a precompile that returns whether a specific chainID (EIP-155 unique identifier) is valid at a specific blockNumber. ChainID are assumed to be valid up to the blockNumber at which they get replaced by a new chainID.</p>
+<h2 id="motivation">Motivation</h2>
+<p><a href="https://eips.ethereum.org/EIPS/eip-155">EIP-155</a> proposes to use the chain ID to prevent the replay of transactions between different chains. It would be a great benefit to have the same possibility inside smart contracts when handling off-chain message signatures, especially for Layer 2 signature schemes using <a href="https://eips.ethereum.org/EIPS/eip-712">EIP-712</a>.</p>
+<p><a href="https://eips.ethereum.org/EIPS/eip-1344">EIP-1344</a> is attempting to solve this by giving smart contract access to the tip of the chainID history. This is insuficient as such value is changing. Hence why EIP-1344 describes a contract based solution to work around the problem. It would be better to solve it in a simpler, cheaper and safer manner, removing the potential risk of misuse present in EIP-1344. Furthermore EIP-1344 can't protect replay properly for minority-led hardfork as the caching system cannot guarantee accuracy of the blockNumber at which the new chainID has been introduced.</p>
+<p><a href="https://github.com/ethereum/EIPs/pull/1959">EIP-1959</a> solves the issue of EIP-1344 but do not attempt to protect from minority-led hardfork as mentioned in the rationale. We consider this a mistake, since it remove some freedom to fork. We consider that all fork should be given equal oportunities. And while there will always be issues we can't solve for the majority that ignore a particular fork, <strong>users that decide to use both the minority-fork and the majority-chain should be protected from replay without having to wait for the majority chain to update its chainID.</strong></p>
+<h2 id="specification">Specification</h2>
+<p>Adds a new precompile which uses 2 argument : a 32 bytes value that represent the chainID to test and a 32 bytes value representing the blockNumber at which the chainID is tested. It return 0x1  if the chainID is valid at the specific blockNumber, 0x0 otherwise. Note that chainID are considered valid up to the blockNumber at which they are replaced. So they are valid for every blockNumber past their replacement.</p>
+<p>The operation will costs no more than <code>G_blockhash</code> + <code>G_verylow</code> to execute. This could be lower as chainID are only introduced during hardfork.</p>
+<p>The cost of the operation might need to be adjusted later as the number of chainID in the history of the chain grows.</p>
+<p>Note though that the alternative to keep track of old chainID is to implement a smart contract based caching solution as EIP-1344 proposes comes with an overall higher gas cost and exhibit issues for minority-led hardfork (see Rationale section below). As such the gas cost is simply a necessary cost for the feature.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The rationale at EIP-1959 applies here as well too :</p>
+<ul>
+<li>An opcode is better than a caching system for past chainID, It is cheaper, safer and do not include gaps.</li>
+<li>Direct access to the latest chainID is dangerous since it make it easy for contract to use it as a replay protection mechanism while preventing otherwise valid old messages to be valid after a fork that change the chainID. This can have disastrous consequences on users.</li>
+<li>all off-chain messaged signed before a fork should be valid across all side of the fork.</li>
+</ul>
+<p>The only difference is that this current proposal propose a solution to protect hardfork led by a minority.</p>
+<p>To summarize there is 2 possible fork scenario :</p>
+<ol>
+<li>
+<p>The majority decide to make an hardfork but a minority disagree with it (ETC is such example). The fork is planned for block X. If the majority is not taking any action to automate the process of assigning a different chainID for both, the minority has plenty of time to plan for a chainID upgrade to happen at that same block X. Now if they do not do it, their users will face the problem that their messages will be replayable on the majority chain (Note that this is not true the other way around as we assume the majority decided to change the chainID). As such there is no reason that they’ll leave it that way.</p>
+</li>
+<li>
+<p>A minority decide to create an hardfork that the majority disagree with (or simply ignore). Now, the same as above can happen but since we are talking about a minority there is a chance that the majority do not care about the minority. In that case, there would be no incentive for the majority to upgrade the chainID. This means that user of both side of the fork will have the messages meant for the majority chain replayable on the minority-chain (even if this one changed its chainID) unless extra precaution is taken.</p>
+</li>
+</ol>
+<p>The solution is to add the blockNumber representing the time at which the message was signed and use it as an argument to the opcode proposed here. This way, when the minority forks with a new chainID, the previous chainID become invalid from that time onward. So new messages destinated to the majority chain can't be replayed on the minority fork.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>EIP-712 is still in draft but would need to be updated to include the blockNumber as part of the values that wallets need to verify for the protection of their users.</p>
+<p>Since chainID and blockNumber will vary, they should not be part of the domain separator (meant to be generated once) but another part of the message.</p>
+<p>While the pair could be optional for contract that do not care about replays or have other ways to prevent them, if chainID is present, the blockNumber must be present too. And if any of them is present, wallet need to ensure that the chainID is indeed the latest one of the chain being used, while the blockNumber is the latest one at the point of signing. During fork transition, the wallet can use the blockNumber to know which chainID to use.</p>
+<h2 id="references">References</h2>
+<p>This was previously suggested as part of <a href="https://ethereum-magicians.org/t/eip-1959-valid-chainid-opcode/3170">EIP1959 discussion</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1895: Support for an Elliptic Curve Cycle</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1895.md" />
+<meta property="og:title" content="EIP-1895: Support for an Elliptic Curve Cycle" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1895 (EIP-1895): Support for an Elliptic Curve Cycle"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1895 (EIP-1895): Support for an Elliptic Curve Cycle"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1895.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1895 (EIP 1895): Support for an Elliptic Curve Cycle" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1895: Support for an Elliptic Curve Cycle
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:alexandrebelling8@gmail.com">Alexandre Belling</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethresear.ch&#x2F;t&#x2F;reducing-the-verification-cost-of-a-snark-through-hierarchical-aggregation&#x2F;5128">https:&#x2F;&#x2F;ethresear.ch&#x2F;t&#x2F;reducing-the-verification-cost-of-a-snark-through-hierarchical-aggregation&#x2F;5128</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-03-31</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>The EVM currently supports elliptic curves operations for curve <em>alt-bn128</em> thanks to precompiles <code>ecadd</code> and <code>ecmul</code> and <code>ecpairing</code>. The classes MNT4 and 6 contain cycles of curves. Those cycles enable doing operations on one curve inside a SNARK on the other curve (and reversely). This EIP suggests adding support for those curves.</p>
+<h2 id="abstract">Abstract</h2>
+<p>Adds supports for the following operations through precompiles:</p>
+<ul>
+<li><code>ecadd</code> on MNT4</li>
+<li><code>ecmul</code> on MNT4</li>
+<li><code>ecpairing</code> on MNT4</li>
+</ul>
+<h2 id="motivation">Motivation</h2>
+<p>Elliptic curve is the basic block of recursive SNARKs (ie: verifying a SNARK inside a SNARK) and this addresses the issue of scalable zero-knowledge. More generally this addresses partly the scalability issue as SNARKs verification are constant time in the size of the circuit being verified.</p>
+<p>More concretely, today if the EVM has to deal with 1000s of SNARK verification it would take around 1.5 billion gas and would be impractical for Ethereum. Recursive SNARKs for instance make it possible to aggregate multiple proofs into a single one that can be verified like any other SNARK. It results in a massive cost reduction for the verification.</p>
+<p>However, this is impossible using <em>alt-bn128</em> and in my knowledge, the only family of pairing-friendly curves known to produce cycles are MNT4 and MNT6. A complete characterization of the cycles existing between those two families is proposed in <a href="https://arxiv.org/pdf/1803.02067.pdf">On cycles of pairing-friendly elliptic curves
+</a></p>
+<h2 id="specification">Specification</h2>
+<h3 id="the-curve">The curve</h3>
+<p>The proposed cycle has been introduced in <a href="https://eprint.iacr.org/2014/595.pdf">Scalable Zero Knowledge via Cycles of Elliptic Curves</a>.</p>
+<h3 id="mnt4-definition">MNT4 definition</h3>
+<p>The groups <code>G_1</code> and <code>G_2</code> are cyclic groups of prime order :</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">q = 475922286169261325753349249653048451545124878552823515553267735739164647307408490559963137
+</span></code></pre>
+<p><code>G_1</code> is defined over the field <code>F_p</code> of prime order :</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">p = 475922286169261325753349249653048451545124879242694725395555128576210262817955800483758081
+</span></code></pre>
+<p>with generator P:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">P = (
+    60760244141852568949126569781626075788424196370144486719385562369396875346601926534016838,
+    363732850702582978263902770815145784459747722357071843971107674179038674942891694705904306
+)
+</span></code></pre>
+<p>Both p and q can be written in 298 bits.</p>
+<p>The group G_1 is defined on the curve defined by the equation <code>Y² = X³ + aX + b</code> where:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    a = 2
+    b = 423894536526684178289416011533888240029318103673896002803341544124054745019340795360841685
+</span></code></pre>
+<p>The twisted group G_2 is defined over the field <code>F_p^2 = F_p / &lt;&lt;To be completed&gt;&gt;</code></p>
+<p>The twisted group G_2 is defined on the curve defined by the equation <code>Y² = X² + aX + b</code> where :</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    a = 34 + i * 0
+    b = 0 + i * 67372828414711144619833451280373307321534573815811166723479321465776723059456513877937430
+</span></code></pre>
+<p>G_2 generator is generated by :</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    P2 = (
+        438374926219350099854919100077809681842783509163790991847867546339851681564223481322252708 +
+        i * 37620953615500480110935514360923278605464476459712393277679280819942849043649216370485641,
+        37437409008528968268352521034936931842973546441370663118543015118291998305624025037512482 +
+        i * 424621479598893882672393190337420680597584695892317197646113820787463109735345923009077489
+    )
+</span></code></pre><h3 id="the-operations-and-gas-cost">The operations and gas cost</h3>
+<p>The following operations and their gas cost would be implemented</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">MNT_X_ADD = &lt;&lt;To be estimated&gt;&gt;
+MNT_X_MUL = &lt;&lt;To be estimated&gt;&gt;
+MNT_X_PAIRING = &lt;&lt;To be estimated&gt;&gt;
+</span></code></pre>
+<p>Where <code>X</code> is either 4.</p>
+<h3 id="encoding">Encoding</h3>
+<p>The curves points P(X, Y) over F_p are represented in their compressed form C(X, Y):</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    C = X | s
+</span></code></pre>
+<p>where <code>s</code> represents <code>Y</code> as follow:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    |  `s&#39;`  | `Y`                      |
+    |--------|--------------------------|
+    | `0x00` | Point at infinity        |
+    | `0x02` | Solution with `y` even   |
+    | `0x03` | Solution with `y` odd    |
+</span></code></pre>
+<p>Compression operation from affine coordinate is trivial:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    s = 0x02 | (s &amp; 0x01)
+</span></code></pre>
+<p>In the EVM the compressed form allows us to represents curve points with 2 uint256 instead of 3.</p>
+<h3 id="edge-cases">Edge cases</h3>
+<ul>
+<li>Several acceptable representations for the point at infinity</li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<p>The curve has 80 bits of security (whereas MNT6 has 120 bits) which might not be considered enough for critical security level, (for instance transferring several billions), but enough for others. If it turns out this is not enough security for adoption, there is another option : another cycle is being used by Coda but is defined over a 753 bits sized field which might also be prohibitively low (no reference to this curve from Coda's publications found).</p>
+<p>Independently of the cycle chosen, the groups and field elements are represented with integers larger than 256 bits (even for the 80 bits of security), therefore it might be necessary to also add support for larger field size operations.</p>
+<p>We currently don't know more efficient pairing-friendly cycles and don't know if there are. It might be possible to circumvent this problem though by relaxing the constraint that all the curves of the cycle must be pairing friendly). If we had a cycle with only one pairing friendly curve we would still be able to compose proofs by alternating between SNARKs and any other general purpose zero-knowledge cryptosystems.</p>
+<p>Assuming we find a convenient cycle, we don't need to implement support for all the curves it contains, only one. The best choice would be the fastest one as the overall security of the recursive snark do not depends on which curve the verification is made.</p>
+<p>Proper benchmarks will be done in order to make this choice and to price the operations in gas.</p>
+<h2 id="test-cases">Test Cases</h2>
+<!--Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Other EIPs can choose to include links to test cases if applicable.-->
+<h2 id="references">References</h2>
+<ul>
+<li><em>Eli-Ben-Sasson, Alessandro Chiesa, Eran Tromer, Madars Virza, [BCTV14], April 28, 2015, Scalable Zero Knowledge via Cycles of Elliptic Curves : https://eprint.iacr.org/2014/595.pdf</em></li>
+<li><em>Alessandro Chiesa, Lynn Chua, Matthew Weidner, [CCW18], November 5, 2018, On cycles of pairing-friendly elliptic curves : https://arxiv.org/pdf/1803.02067.pdf</em></li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<ul>
+<li><a href="https://github.com/AlexandreBelling/go-boojum">go-boojum</a> : A PoC demo of an application of recursive SNARKs</li>
+<li><a href="https://github.com/scipr-lab/libff">libff</a> : a C++ library for finite fields and elliptic curves</li>
+<li><a href="https://github.com/CodaProtocol/coda">coda</a> : a new cryptocurrency protocol with a lightweight, constant sized blockchain.</li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

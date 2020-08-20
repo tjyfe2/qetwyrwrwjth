@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1681: Temporal Replay Protection</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1681.md" />
+<meta property="og:title" content="EIP-1681: Temporal Replay Protection" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1681 (EIP-1681): Temporal Replay Protection"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1681 (EIP-1681): Temporal Replay Protection"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1681.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1681 (EIP 1681): Temporal Replay Protection" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1681: Temporal Replay Protection
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/holiman">Martin Holst Swende</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;temporal-replay-protection&#x2F;2355">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;temporal-replay-protection&#x2F;2355</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-01-08</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>This EIP proposes adding a 'temporal' replay protection to transactions, in the form of a <code>valid-until</code> timestamp. 
+This EIP is very similar to https://github.com/ethereum/EIPs/pull/599 by Nick Johnson and Konrad Feldmeier, the main difference
+being that this EIP is based on clock-time / walltime instead of block numbers. </p>
+<h2 id="motivation">Motivation</h2>
+<p>There are a couple of different motivators for introducing a timebased transaction validity. </p>
+<ul>
+<li>If any form of dust-account clearing is introduced, e.g. (https://github.com/ethereum/EIPs/issues/168), it will be necessary
+to introduce a replay protection, such as https://github.com/ethereum/EIPs/issues/169 . Having temporal replay protection removes the need
+to change nonce-behaviour in the state, since transactions would not be replayable at a later date than explicitly set by the user. </li>
+<li>In many cases, such as during ICOs, a lot of people want their transactions to either become included soon (within a couple of hours) or not at all. Currently, 
+transactions are queued and may not execute for several days, at a cost for both the user (who ends up paying gas for a failing purchase) and the network, dealing with the large transaction queues.</li>
+<li>Node implementations have no commonly agreed metric for which transactions to keep, discard or propagate. Having a TTL on transactions would make it easier to remove stale transactions from the system. </li>
+</ul>
+<h2 id="specification">Specification</h2>
+<p>The roll-out would be performed in two phases, <code>X</code> (hardfork), and <code>Y</code> (softfork).</p>
+<p>At block <code>X</code>, </p>
+<ul>
+<li>Add an optional field <code>valid-until</code> to the RLP-encoded transaction, defined as a <code>uint64</code> (same as <code>nonce</code>). </li>
+<li>If the field is present in transaction <code>t</code>, then
+<ul>
+<li><code>t</code> is only eligible for inclusion in a block if <code>block.timestamp</code> &lt; <code>t.valid-until</code>. </li>
+</ul>
+</li>
+</ul>
+<p>At block <code>Y</code>, </p>
+<ul>
+<li>Make <code>valid-until</code> mandatory, and consider any transaction without <code>valid-until</code> to be invalid. </li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<h3 id="rationale-for-this-eip">Rationale for this EIP</h3>
+<p>For the dust-account clearing usecase, </p>
+<ul>
+<li>This change is much less invasive in the consensus engine. 
+<ul>
+<li>No need to maintain a consensus-field of 'highest-known-nonce' or cap the number of transactions from a sender in a block. </li>
+<li>Only touches the transaction validation part of the consensus engine</li>
+<li>Other schemas which uses the <code>nonce</code> can have unintended side-effects, 
+<ul>
+<li>such as inability to create contracts at certain addresses.</li>
+<li>more difficult to integrate with offline signers, since more elaborate nonce-schemes requires state access to determine. </li>
+<li>More intricate schemes like <code>highest-nonce</code> are a lot more difficult, since highest-known-nonce will be a consensus-struct that is incremented and possibly reverted during transaction execution, requiring one more journalled field.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="rationale-for-walltime">Rationale for walltime</h3>
+<p>Why use walltime instead of block numbers, as proposed in https://github.com/ethereum/EIPs/pull/599 ? </p>
+<ul>
+<li>The UTC time is generally available in most settings, even on a computer which is offline. This means that even a setup where blockchain information is unavailable, the party signing a transaction can generate a transaction with the desired properties. </li>
+<li>The correlation between time and block number is not fixed; even though a 14s blocktime is 'desired', this varies due to both network hashrate and difficulty bomb progression. </li>
+<li>The block number is even more unreliable as a timestamp for testnets and private networks.</li>
+<li>UTC time is more user-friendly, a user can more easily decide on reasonable end-date for a transaction, rather than a suitalbe number of valid blocks.</li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP means that all software/hardware that creates transactions need to add timestamps to the transactions, or will otherwise be incapable of signing transactions after block <code>Y</code>. Note: this EIP does not introduce any maximum <code>valid-until</code> date, so it would still be possible to create
+transactions with near infinite validity. </p>
+<h2 id="test-cases">Test Cases</h2>
+<p>todo</p>
+<h2 id="implementation">Implementation</h2>
+<p>None yet</p>
+<h2 id="security-considerations">Security considerations</h2>
+<p>The most notable security impact is that pre-signed transactions stored on paper backups, will become invalid as of block <code>Y</code>. There are a couple of cases where this might be used</p>
+<ul>
+<li>Pregenerated onetime 'bootstrap' transactions, e.g. to onboard a user into Ethereum. Instead of giving a user a giftcard with actual ether on it, someone may instead give the person a one-time pregenerated transaction that will only send those ether to the card once the 
+user actively wants to start using it.</li>
+<li>If a user has an offline paper-wallet, he may have pregenerated transactions to send value to e.g. an exchange. This is sometimes done to be able to send ether to an exchange without having to go through all the hoops of bringing the paper wallet back to 'life'. </li>
+</ul>
+<p>Secondary security impacts are that the addition of a timestamp would make the transactions a little bit larger. </p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

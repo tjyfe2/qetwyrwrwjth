@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2335: BLS12-381 Keystore</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2335.md" />
+<meta property="og:title" content="EIP-2335: BLS12-381 Keystore" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2335 (EIP-2335): BLS12-381 Keystore"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2335 (EIP-2335): BLS12-381 Keystore"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2335.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2335 (EIP 2335): BLS12-381 Keystore" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2335: BLS12-381 Keystore
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:carl@ethereum.org">Carl Beekhuizen</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2339">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2339</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-09-30</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>2333, 2334</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A JSON format for the storage and interchange of BLS12-381 private keys.</p>
+<h2 id="abstract">Abstract</h2>
+<p>A keystore is a mechanism for storing private keys. It is a JSON file that encrypts a private key and is the standard for interchanging keys between devices as until a user provides their password, their key is safe.</p>
+<h2 id="a-note-on-purpose">A note on purpose</h2>
+<p>This specification is designed not only to be an Ethereum 2.0 standard, but one that is adopted by the wider community who have adopted the BLS12-381 signature standard. It is therefore important also to consider the needs of the wider industry along with those specific to Ethereum. As a part of these considerations, it is the intention of the author that this standard eventually migrate to a more neutral repository in the future.</p>
+<h2 id="motivation">Motivation</h2>
+<p>The secure storage and exchange of keys is a vital component of the user experience as people are expected to hold their own keys. It allows users to control access to individual keys and their use by applications.</p>
+<p>In Ethereum 1, <a href="https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition">the Web3 Secret Storage Definition</a> fulfills these requirements, however it is not perfectly suitable for these purposes moving forward. Specifically the problems with the existing standard are:</p>
+<ul>
+<li>
+<p><strong>The use of Keccak256.</strong> Eth1 keystores use Keccak for their checksum, a sensible choice considering its usage within Ethereum 1. BLS12-381 <a href="https://tools.ietf.org/html/draft-irtf-cfrg-bls-signature-00">signatures</a>, <a href="https://eips.ethereum.org/EIPS/eip-2333">keys (EIP-2333)</a>, and key-storage are inter-chain standards, the establishment and proliferation of which hinges on them being neutral to all chains, something which Keccak is not.</p>
+</li>
+<li>
+<p><strong>A lack of abstraction.</strong> Eth1 keystores are a result of an iterative design process whereby functionality was added and modified as needed without considering how abstractions could simplify the notion of different properties.</p>
+</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<p>The process of decrypting the secret held within a keystore can be broken down into 3 sub-processes: obtaining the decryption key, verifying the password and decrypting the secret. Each process has its own functions which can be selected from as well as parameters required for the function all of which are specified within the keystore file itself.</p>
+<h3 id="password-requirements">Password requirements</h3>
+<p>The password is a string of arbitrary unicode characters. The password is first converted to its NFKD representation, then the control codes (specified below) are stripped from the password and finally it is UTF-8 encoded.</p>
+<h4 id="control-codes-removal">Control codes removal</h4>
+<p>The C0, C1, and <code>Delete</code> control codes are not valid characters in the password and should therefore be stripped from the password. C0 are the control codes between <code>0x00</code> - <code>0x1F</code> (inclusive) and C1 codes lie between <code>0x80</code> and <code>0x9F</code> (inclusive). <code>Delete</code>, commonly known as &quot;backspace&quot;, is the UTF-8 character <code>7F</code> which must also be stripped. Note that space (<code>Sp</code> UTF-8 <code>0x20</code>) is a valid character in passwords despite it being a pseudo-control character.</p>
+<h3 id="modules">Modules</h3>
+<p>This standard makes use of the notion of a <em>module</em> which serves to represent, in an abstract sense, the different  cryptographic constructions and corresponding parameters for each component of the keystore. The idea being that components can be swapped out without affecting the rest of the specification should the need arise.</p>
+<p>A module is comprised of a <code>function</code>, which defines which cryptographic construct is being used, <code>params</code>, the parameters required by the function, and <code>message</code> the primary input to the function.</p>
+<h3 id="decryption-key">Decryption key</h3>
+<p>The decryption key is an intermediate key which is used both to verify the user-supplied password is correct, as well as for the final secret decryption. This key is simply derived from the password, the <code>function</code>, and the <code>params</code> specified by the<code>kdf</code> module as per the keystore file.</p>
+<table><thead><tr><th>KDF</th><th><code>&quot;function&quot;</code></th><th><code>&quot;params&quot;</code></th><th><code>&quot;message&quot;</code></th><th>Definition</th></tr></thead><tbody>
+<tr><td>PBKDF2-SHA-256</td><td><code>&quot;pbkdf2&quot;</code></td><td><ul><li><code>&quot;c&quot;</code></li><li><code>&quot;dklen&quot;</code></li><li><code>&quot;prf: &quot;hmac-sha256&quot;</code></li><li><code>&quot;salt&quot;</code></li></ul></td><td></td><td><a href="https://www.ietf.org/rfc/rfc2898.txt">RFC 2898</a></td></tr>
+<tr><td>scrypt</td><td><code>&quot;scrypt&quot;</code></td><td><ul><li><code>&quot;dklen&quot;</code></li><li><code>&quot;n&quot;</code></li><li><code>&quot;p&quot;</code></li><li><code>&quot;r&quot;</code></li><li><code>&quot;salt&quot;</code></li></ul></td><td></td><td><a href="https://tools.ietf.org/html/rfc7914">RFC 7914</a></td></tr>
+</tbody></table>
+<h3 id="password-verification">Password verification</h3>
+<p>The password verification verifies step verifies that the password is correct with respect to the <code>checksum.message</code>, <code>cipher.message</code>, and <code>kdf</code>. This is done by appending the <code>cipher.message</code> to the 2nd 16 bytes of the decryption key, obtaining its SHA256 hash and verifying whether it matches the <code>checksum.message</code>.</p>
+<h4 id="inputs">Inputs</h4>
+<ul>
+<li><code>decryption_key</code>, the octet string obtained from decryption key process</li>
+<li><code>cipher_message</code>, the octet string obtained from keystore file from <code>crypto.cipher.message</code></li>
+<li><code>checksum_message</code>, the octet string obtained from keystore file from <code>crypto.checksum.message</code></li>
+</ul>
+<h4 id="outputs">Outputs</h4>
+<ul>
+<li><code>valid_password</code>, a boolean value indicating whether the password is valid</li>
+</ul>
+<h4 id="definitions">Definitions</h4>
+<ul>
+<li><code>a[0:3]</code> returns a slice of <code>a</code> including octets 0, 1, 2</li>
+<li><code>a | b</code> is the concatenation of <code>a</code> with <code>b</code></li>
+</ul>
+<h4 id="procedure">Procedure</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">0. DK_slice = decryption_key[16:32]
+1. pre_image = DK_slice | cipher_message
+2. checksum = SHA256(pre_image)
+3. valid_password = checksum == checksum_message
+4. return valid_password
+</span></code></pre><table><thead><tr><th>Hash</th><th><code>&quot;function&quot;</code></th><th><code>&quot;params&quot;</code></th><th><code>&quot;message&quot;</code></th><th>Definition</th></tr></thead><tbody>
+<tr><td>SHA-256</td><td><code>&quot;sha256&quot;</code></td><td></td><td></td><td><a href="https://tools.ietf.org/html/rfc6234">RFC 6234</a></td></tr>
+</tbody></table>
+<h3 id="secret-decryption">Secret decryption</h3>
+<p>The <code>cipher.function</code> encrypts the secret using the decryption key, thus to decrypt it, the decryption key along with the <code>cipher.function</code> and <code>cipher.params</code> must be used. If the <code>decryption_key</code> is longer than the key size required by the cipher, it is truncated to the correct number of bits. In the case of aes-128-ctr, only the first 16 bytes of the <code>decryption_key</code> are used as the AES key.</p>
+<table><thead><tr><th>Cipher</th><th><code>&quot;function&quot;</code></th><th><code>&quot;params&quot;</code></th><th><code>&quot;message&quot;</code></th><th>Definition</th></tr></thead><tbody>
+<tr><td>AES-128 Counter Mode</td><td><code>&quot;aes-128-ctr&quot;</code></td><td><ul><li><code>&quot;iv&quot;</code></li></ul></td><td></td><td><a href="https://tools.ietf.org/html/rfc3686">RFC 3686</a></td></tr>
+</tbody></table>
+<h2 id="description">Description</h2>
+<p>This field is an optional field to help explain the purpose and identify a particular keystores in a user-friendly manner. While this field can, and should, be used to help distinguish keystores from one-another, the <code>description</code> <strong>is not necessarily unique</strong>.</p>
+<h2 id="pubkey">PubKey</h2>
+<p>The <code>pubkey</code> is the public key associated with the the private key secured within the keystore. It is stored here to improve user experience and security which is achieved by not requiring users to enter their password just to obtain their public keys. This field is required if the secret being stored within the keystore is a private key. The encoding of the <code>pubkey</code> is specified in the in the appropriate signature standard (eg. <a href="https://tools.ietf.org/html/draft-irtf-cfrg-bls-signature-00">BLS12-381 signature standard</a>), but can be seen as a byte-string in the abstract and should be directly compatible with the appropriate signature library.</p>
+<h2 id="path">Path</h2>
+<p>The <code>path</code> indicates where in the key-tree a key originates from. It is a string defined by <a href="https://eips.ethereum.org/EIPS/eip-2334">EIP-2334</a>, if no path is known or the path is not relevant, the empty string, <code>&quot;&quot;</code> indicates this. The <code>path</code> can specify an arbitrary depth within the tree and the deepest node within the tree indicates the depth of the key stored within this file.</p>
+<h2 id="uuid">UUID</h2>
+<p>The <code>uuid</code> provided in the keystore is a randomly generated UUID as specified by <a href="https://tools.ietf.org/html/rfc4122">RFC 4122</a>. It is intended to be used as a 128-bit proxy for referring to a particular set of keys or account.</p>
+<h2 id="version">Version</h2>
+<p>The <code>version</code> is set to <code>4</code>.</p>
+<h2 id="json-schema">JSON schema</h2>
+<p>The keystore, at its core, is constructed with modules which allow for the configuration of the cryptographic constructions used password hashing, password verification and secret decryption. Each module is composed of: <code>function</code>, <code>params</code>, and <code>message</code> which corresponds with which construction is to be used, what the configuration for the construction is, and what the input is.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+    &quot;</span><span style="color:#a3be8c;">$ref</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">#/definitions/Keystore</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">definitions</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">Keystore</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">properties</span><span style="color:#c0c5ce;">&quot;: {
+                &quot;</span><span style="color:#a3be8c;">crypto</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;,
+                    &quot;</span><span style="color:#a3be8c;">properties</span><span style="color:#c0c5ce;">&quot;: {
+                        &quot;</span><span style="color:#a3be8c;">kdf</span><span style="color:#c0c5ce;">&quot;: {
+                            &quot;</span><span style="color:#a3be8c;">$ref</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">#/definitions/Module</span><span style="color:#c0c5ce;">&quot;
+                        },
+                        &quot;</span><span style="color:#a3be8c;">checksum</span><span style="color:#c0c5ce;">&quot;: {
+                            &quot;</span><span style="color:#a3be8c;">$ref</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">#/definitions/Module</span><span style="color:#c0c5ce;">&quot;
+                        },
+                        &quot;</span><span style="color:#a3be8c;">cipher</span><span style="color:#c0c5ce;">&quot;: {
+                            &quot;</span><span style="color:#a3be8c;">$ref</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">#/definitions/Module</span><span style="color:#c0c5ce;">&quot;
+                        }
+                    }
+                },
+                &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;
+                },
+                &quot;</span><span style="color:#a3be8c;">pubkey</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;
+                },
+                &quot;</span><span style="color:#a3be8c;">path</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;
+                },
+                &quot;</span><span style="color:#a3be8c;">uuid</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;,
+                    &quot;</span><span style="color:#a3be8c;">format</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">uuid</span><span style="color:#c0c5ce;">&quot;
+                },
+                &quot;</span><span style="color:#a3be8c;">version</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">integer</span><span style="color:#c0c5ce;">&quot;
+                }
+            },
+            &quot;</span><span style="color:#a3be8c;">required</span><span style="color:#c0c5ce;">&quot;: [
+                &quot;</span><span style="color:#a3be8c;">crypto</span><span style="color:#c0c5ce;">&quot;,
+                &quot;</span><span style="color:#a3be8c;">path</span><span style="color:#c0c5ce;">&quot;,
+                &quot;</span><span style="color:#a3be8c;">uuid</span><span style="color:#c0c5ce;">&quot;,
+                &quot;</span><span style="color:#a3be8c;">version</span><span style="color:#c0c5ce;">&quot;
+            ],
+            &quot;</span><span style="color:#a3be8c;">title</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Keystore</span><span style="color:#c0c5ce;">&quot;
+        },
+        &quot;</span><span style="color:#a3be8c;">Module</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">properties</span><span style="color:#c0c5ce;">&quot;: {
+                &quot;</span><span style="color:#a3be8c;">function</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;
+                },
+                &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">object</span><span style="color:#c0c5ce;">&quot;
+                },
+                &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot;: {
+                    &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">string</span><span style="color:#c0c5ce;">&quot;
+                }
+            },
+            &quot;</span><span style="color:#a3be8c;">required</span><span style="color:#c0c5ce;">&quot;: [
+                &quot;</span><span style="color:#a3be8c;">function</span><span style="color:#c0c5ce;">&quot;,
+                &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot;,
+                &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;
+            ]
+        }
+    }
+}
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>The rationale behind the design of this specification is largely the same as that behind the <a href="https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition">Ethereum 1 keystore definition</a> except for the lack of support for Keccak (explained in <a href="https://eips.ethereum.com/EIPS/eip-2335/#motivation">motivation above</a>) and the notion of modules.</p>
+<p>Modules provide a very useful level of abstraction which allow the Key-Derivation-Function, Checksum, and Cipher to be thought of as instances of the same thing allowing for their substitution with minimal effort.</p>
+<p>The <code>version</code> is set to 4 to prevent collisions with the existing Ethereum keystore standard.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This specification is not backwards compatible with the <a href="https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition">existing keystore standard</a> due to the lack of Keccak256 checksums as explained above. While this format is capable of supporting Keccak checksums via the Checksum module, it would defeat the purpose of this standard to include it as this standard could no longer be considered neutral with respect to other projects in the industry.</p>
+<h2 id="test-cases">Test Cases</h2>
+<h3 id="scrypt-test-vector">Scrypt Test Vector</h3>
+<p>Password <code>&quot;𝔱𝔢𝔰𝔱𝔭𝔞𝔰𝔰𝔴𝔬𝔯𝔡🔑&quot;</code>
+Encoded Password: <code>0x7465737470617373776f7264f09f9491</code>
+Secret <code>0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f</code></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+    &quot;</span><span style="color:#a3be8c;">crypto</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">kdf</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">function</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">scrypt</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {
+                &quot;</span><span style="color:#a3be8c;">dklen</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">,
+                &quot;</span><span style="color:#a3be8c;">n</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">262144</span><span style="color:#c0c5ce;">,
+                &quot;</span><span style="color:#a3be8c;">p</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+                &quot;</span><span style="color:#a3be8c;">r</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">,
+                &quot;</span><span style="color:#a3be8c;">salt</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">d4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3</span><span style="color:#c0c5ce;">&quot;
+            },
+            &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot;: &quot;&quot;
+        },
+        &quot;</span><span style="color:#a3be8c;">checksum</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">function</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">sha256</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {},
+            &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">d2217fe5f3e9a1e34581ef8a78f7c9928e436d36dacc5e846690a5581e8ea484</span><span style="color:#c0c5ce;">&quot;
+        },
+        &quot;</span><span style="color:#a3be8c;">cipher</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">function</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">aes-128-ctr</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {
+                &quot;</span><span style="color:#a3be8c;">iv</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">264daa3f303d7259501c93d997d84fe6</span><span style="color:#c0c5ce;">&quot;
+            },
+            &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">06ae90d55fe0a6e9c5c3bc5b170827b2e5cce3929ed3f116c2811e6366dfe20f</span><span style="color:#c0c5ce;">&quot;
+        }
+    },
+    &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">This is a test keystore that uses scrypt to secure the secret.</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">pubkey</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">9612d7a727c9d0a22e185a1c768478dfe919cada9266988cb32359c11f2b7b27f4ae4040902382ae2910c15e2b420d07</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">path</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">m/12381/60/3141592653/589793238</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">uuid</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">1d85ae20-35c5-4611-98e8-aa14a633906f</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">version</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">4
+</span><span style="color:#c0c5ce;">}
+</span></code></pre><h3 id="pbkdf2-test-vector">PBKDF2 Test Vector</h3>
+<p>Password <code>&quot;𝔱𝔢𝔰𝔱𝔭𝔞𝔰𝔰𝔴𝔬𝔯𝔡🔑&quot;</code>
+Encoded Password: <code>0x7465737470617373776f7264f09f9491</code>
+Secret <code>0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f</code></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+    &quot;</span><span style="color:#a3be8c;">crypto</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">kdf</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">function</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">pbkdf2</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {
+                &quot;</span><span style="color:#a3be8c;">dklen</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">,
+                &quot;</span><span style="color:#a3be8c;">c</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">262144</span><span style="color:#c0c5ce;">,
+                &quot;</span><span style="color:#a3be8c;">prf</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">hmac-sha256</span><span style="color:#c0c5ce;">&quot;,
+                &quot;</span><span style="color:#a3be8c;">salt</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">d4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3</span><span style="color:#c0c5ce;">&quot;
+            },
+            &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot;: &quot;&quot;
+        },
+        &quot;</span><span style="color:#a3be8c;">checksum</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">function</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">sha256</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {},
+            &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">8a9f5d9912ed7e75ea794bc5a89bca5f193721d30868ade6f73043c6ea6febf1</span><span style="color:#c0c5ce;">&quot;
+        },
+        &quot;</span><span style="color:#a3be8c;">cipher</span><span style="color:#c0c5ce;">&quot;: {
+            &quot;</span><span style="color:#a3be8c;">function</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">aes-128-ctr</span><span style="color:#c0c5ce;">&quot;,
+            &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: {
+                &quot;</span><span style="color:#a3be8c;">iv</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">264daa3f303d7259501c93d997d84fe6</span><span style="color:#c0c5ce;">&quot;
+            },
+            &quot;</span><span style="color:#a3be8c;">message</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">cee03fde2af33149775b7223e7845e4fb2c8ae1792e5f99fe9ecf474cc8c16ad</span><span style="color:#c0c5ce;">&quot;
+        }
+    },
+    &quot;</span><span style="color:#a3be8c;">description</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">This is a test keystore that uses PBKDF2 to secure the secret.</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">pubkey</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">9612d7a727c9d0a22e185a1c768478dfe919cada9266988cb32359c11f2b7b27f4ae4040902382ae2910c15e2b420d07</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">path</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">m/12381/60/0/0</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">uuid</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">64625def-3331-4eea-ab6f-782f3ed16a83</span><span style="color:#c0c5ce;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">version</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">4
+</span><span style="color:#c0c5ce;">}
+</span></code></pre><h2 id="implementation">Implementation</h2>
+<p>Implementations exist in the following languages:</p>
+<ul>
+<li><a href="https://github.com/ethereum/eth2.0-deposit-cli">Python3</a></li>
+<li><a href="https://github.com/nodefactoryio/bls-keystore">TypeScript</a></li>
+<li><a href="https://github.com/wealdtech/go-eth2-wallet-encryptor-keystorev4/">Go</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

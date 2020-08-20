@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1985: Sane limits for certain EVM parameters</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1985.md" />
+<meta property="og:title" content="EIP-1985: Sane limits for certain EVM parameters" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1985 (EIP-1985): Sane limits for certain EVM parameters"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1985 (EIP-1985): Sane limits for certain EVM parameters"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1985.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1985 (EIP 1985): Sane limits for certain EVM parameters" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1985: Sane limits for certain EVM parameters
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/axic">Alex Beregszaszi</a>,
+        
+    
+        
+        
+            <a href="https://github.com/chfast"> Paweł Bylica</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1985-sane-limits-for-certain-evm-parameters&#x2F;3224">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1985-sane-limits-for-certain-evm-parameters&#x2F;3224</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-08-01</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>Introduce an explicit value range for certain EVM parameters
+(such as gas limit, block number, block timestamp, size field when returning/copying data within EVM).
+Some of these already have an implicit value range due to various (practical) reasons.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Having such an explicit value range can help in creating compatible client implementations,
+in certain cases it can also offer minor speed improvements,
+and can reduce the effort needed to create consensus critical test cases
+by eliminating unrealistic edge cases.</p>
+<h2 id="specification">Specification</h2>
+<p>If <code>block.number &gt;= {FORK_BLOCK}</code>, the following value ranges are introduced.
+They restrict the results (i.e. values pushed to the stack) of the instructions listed below.</p>
+<ol>
+<li>
+<p><em>gas</em>, <em>gas limit</em>, <em>block gas limit</em>
+is a range between <code>0</code> and <code>0x7fffffffffffffff</code> (<code>2**63 - 1</code>, <code>9223372036854775807</code>).
+It affects the following instructions:</p>
+<ul>
+<li><code>GASLIMIT</code> (<code>0x45</code>),</li>
+<li><code>GAS</code> (<code>0x5a</code>).</li>
+</ul>
+</li>
+<li>
+<p><em>block number</em>, <em>timestamp</em>
+is a range between <code>0</code> and <code>0x7fffffffffffffff</code> (<code>2**63 - 1</code>, <code>9223372036854775807</code>).
+It affects the following instructions:</p>
+<ul>
+<li><code>TIMESTAMP</code> (<code>0x42</code>),</li>
+<li><code>NUMBER</code> (<code>0x43</code>).</li>
+</ul>
+</li>
+<li>
+<p><em>account address</em>
+is a range between <code>0</code> and <code>0xffffffffffffffffffffffffffffffffffffffff</code> (<code>2**160 - 1</code>, <code>1461501637330902918203684832716283019655932542975</code>)
+i.e. the address occupies the 160 low bits of the 256-bit value and the remaining top 96 bits must be zeros.
+It affects the following instructions:</p>
+<ul>
+<li><code>ADDRESS</code> (<code>0x30</code>),</li>
+<li><code>ORIGIN</code> (<code>0x32</code>),</li>
+<li><code>CALLER</code> (<code>0x33</code>),</li>
+<li><code>COINBASE</code> (<code>0x41</code>),</li>
+<li><code>CREATE</code> (<code>0xf0</code>),</li>
+<li><code>CREATE2</code> (<code>0xf5</code>).</li>
+</ul>
+</li>
+<li>
+<p><em>buffer size</em>, <em>code size</em>, <em>memory size</em>
+is a range between <code>0</code> and <code>0xffffffff</code> (<code>2**32 - 1</code>, <code>4294967295</code>).
+It affects the following instructions:</p>
+<ul>
+<li><code>CALLDATASIZE</code> (<code>0x36</code>),</li>
+<li><code>CODESIZE</code> (<code>0x38</code>),</li>
+<li><code>EXTCODESIZE</code> (<code>0x3b</code>),</li>
+<li><code>RETURNDATASIZE</code> (<code>0x3d</code>),</li>
+<li><code>MSIZE</code> (<code>0x59</code>),</li>
+<li><code>PC</code> (<code>0x58</code>).</li>
+</ul>
+</li>
+</ol>
+<h2 id="rationale">Rationale</h2>
+<p>These limits have been:</p>
+<ul>
+<li>proposed by <a href="https://github.com/ethereum/evmc">EVMC</a></li>
+<li>implemented partially by certain clients, such as <a href="https://github.com/ethereum/aleth">Aleth</a>, <a href="https://github.com/ethereum/go-ethereum">geth</a>, <a href="https://github.com/paritytech/parity-ethereum">Parity</a> and <a href="https://github.com/ethereumjs">ethereumjs</a></li>
+<li>allowed by certain test cases in the <a href="https://github.com/ethereum/tests">Ethereum testing suite</a></li>
+<li>and implicitly also allowed by certain assumptions, such as due to gas limits some of these values cannot grow past a certain limit</li>
+</ul>
+<p>Most of the limits proposed in this document have been previously explored and tested in <a href="https://github.com/ethereum/evmc">EVMC</a>.</p>
+<p>Using the <code>2**63 - 1</code> constant to limit some of the ranges:</p>
+<ul>
+<li>allows using signed 64-bit integer type to represent it,
+what helps programming languages not having unsigned types,</li>
+<li>makes arithmetic simpler (e.g. checking out-of-gas conditions is simple as <code>gas_counter &lt; 0</code>).</li>
+</ul>
+<h3 id="timestamp">Timestamp</h3>
+<p>The <a href="https://github.com/ethereum/yellowpaper">Yellow Paper</a> defines the timestamp in block as &quot;A scalar value equal to the reasonable output of Unix’s time() at this block’s inception&quot;.
+IEEE Std 1003.1-2001 (POSIX.1) leaves that definition implementation defined.</p>
+<h3 id="addresses">Addresses</h3>
+<p>The size of addresses is specified in the <a href="https://github.com/ethereum/yellowpaper">Yellow Paper</a> as 20 bytes.
+E.g. the <code>COINBASE</code> instruction is specified to return <em>H</em><sub>c</sub> ∈ 𝔹<sub>20</sub> which has 20 bytes.</p>
+<h3 id="memory-size">Memory size</h3>
+<p>Memory expansion cost is not linear and is determined by the following formula:
+cost = cost_per_word * number_of_words + (number_of_words ^ 2 / 512)</p>
+<p>Expanding to over <code>2^32 - 1</code> bytes would cost <code>35184774742016</code> gas. This number fits into the gas limit imposed above (<code>2 ^ 63 - 1</code>) and would cost around 35184 Ether in a transaction to exhaust, with a 1 GWei gas cost, which can be attained on mainnet.</p>
+<p>However, setting the limit <code>2^32 - 1</code> is beneficial from a VM design perspective and we believe limiting memory should be done via carefully selecting the block gas limit.</p>
+<h3 id="code-size">Code size</h3>
+<p><a href="https://eips.ethereum.org/EIPS/eip-170">EIP-170</a> has implemented a code size limit of 0x6000, however even before that, it was practically impossible to deploy a code blob exceeding <code>2**32 - 1</code> bytes in size.</p>
+<h3 id="comparing-current-implementations">Comparing current implementations</h3>
+<ul>
+<li>Timestamp is implemented as a 64-bit value in <a href="https://github.com/ethereum/aleth">Aleth</a>, <a href="https://github.com/ethereum/go-ethereum">geth</a> and <a href="https://github.com/paritytech/parity-ethereum">Parity</a></li>
+<li>Block gas limit is implemented as a 64-bit in <a href="https://github.com/ethereum/aleth">Aleth</a> and <a href="https://github.com/ethereum/go-ethereum">geth</a></li>
+<li>Memory, buffer and code sizes are implemented as 64-bit values in <a href="https://github.com/ethereum/go-ethereum">geth</a></li>
+</ul>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>All of these limits are already enforced mostly through the block gas limit. Since the out of range case results in a transaction failure, there should not be a change in behaviour.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>TBA</p>
+<h2 id="implementation">Implementation</h2>
+<p>TBA</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/ethereum/EIPs/issues/92">EIP-92</a> proposed the transaction gas limit to be limited at <code>2**63 - 1</code> and had a lengthy discussion about other limits.</li>
+<li><a href="https://github.com/ethereum/EIPs/issues/106">EIP-106</a> proposed the block gas limit to be limited at <code>2**63 - 1</code>.</li>
+</ul>
+<h2 id="todo">TODO</h2>
+<ol>
+<li>Does the gas limit apply to the gas argument for call instructions?</li>
+</ol>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

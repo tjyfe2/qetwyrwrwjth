@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1078: Universal login &amp;#x2F; signup using ENS subdomains</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1078.md" />
+<meta property="og:title" content="EIP-1078: Universal login &amp;#x2F; signup using ENS subdomains" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1078 (EIP-1078): Universal login &amp;#x2F; signup using ENS subdomains"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1078 (EIP-1078): Universal login &amp;#x2F; signup using ENS subdomains"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1078.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1078 (EIP 1078): Universal login &amp;#x2F; signup using ENS subdomains" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1078: Universal login &#x2F; signup using ENS subdomains
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:avsa@ethereum.org">Alex Van de Sande</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;erc1077-and-1078-the-magic-of-executable-signed-messages-to-login-and-do-actions&#x2F;351">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;erc1077-and-1078-the-magic-of-executable-signed-messages-to-login-and-do-actions&#x2F;351</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-05-04</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>191, 681, 725, 1077</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This presents a method to replace the usual signup/login design pattern with a minimal ethereum native scheme, that doesn’t require passwords, backing up private keys nor typing seed phrases. From the user point of view it will be very similar to patterns they’re already used to with second factor authentication (without relying in a central server), but for dapp developers it requires a new way to think about ethereum transactions.</p>
+<h2 id="simple-summary">Simple Summary</h2>
+<p>The unique identifier of the user is a contract which implements both Identity and the Executable Signed Messages ERCs. The user should not need provide this address directly, only a ens name pointing to it. These types of contracts are indirectly controlled by private keys that can sign messages indicating intents, which are then deployed to the contract by a third party (or a decentralized network of deployers).</p>
+<p>In this context, therefore, a device &quot;logging into&quot; an app using an identity, means that the device will generate a private key locally and then request an authorization to add that key as one of the signers of that identity, with a given set of permissions. Since that private key is only used for signing messages, it is not required to hold ether, tokens or assets, and if lost, it can be simply be replaced by a new one – the user's funds are kept on the identity contract.</p>
+<p>In this context, ethereum accounts are used in a manner more similar to auth tokens, rather than unique keys.</p>
+<p>The login process is as follows:</p>
+<h4 id="1-request-a-name-from-the-user">1) Request a name from the user</h4>
+<p>The first step of the process is to request from the user the ENS name that points to their identity. If the user doesn’t have a login set up, the app should–if they have an integrated identity manager–provide an option to provide a subdomain or a name they own.</p>
+<p><strong>UX Note:</strong> there are many ways to provide this interface, the app can ask if they want to signup/login before hand or simply directly ask them to type the name. Note that since it’s trivial to verify if a username exists, your app should adapt to it gracefully and not require the user to type their name twice. If they ask to signup and provide a name that exists then ask them if they want to login using that name, or similarly if they ask to connect to an existing name but type a non-existent name show them a nice alert and ask them if they want to create that name now. Don’t force them to type the same name twice in two different fields.</p>
+<h4 id="2-a-create-a-new-identity">2.a) Create a new identity</h4>
+<p>If the user doesn’t have an identity, the app should provide the option to create one for them. Each app must have one or more domains they control which they can create immediate subdomains on demand. The app therefore will make these actions on the background:</p>
+<ol>
+<li>Generate a private key which it will keep saved locally on the device or browser, the safest way possible.</li>
+<li>Create (or set up) an identity contract which supports both ERC720 and ERC1077</li>
+<li>Register the private key created on step 1 as the <em>only</em> admin key of the contract (the app must not add any app-controlled key, except as recovery option - see 5)</li>
+<li>Register the requested subdomain and transfer its ownership to the contract (while the app controls the main domain and may keep the option to reassign them at will, the ownership of the subdomain itself should belong to the identity, therefore allowing them to transfer it)</li>
+<li>(Optionally) Register a recovery method on the contract, which allows the user to regain access to the contract in case the main key is lost.</li>
+</ol>
+<p>All those steps can be designed to be set up in a single ethereum transaction. Since this step is not free, the app reserves the right to charge for registering users, or require the user to be verified in a sybil resistant manner of the app’s choosing (captcha, device ID registration, proof of work, etc)</p>
+<p>The user shouldn’t be forced to wait for transaction confirmation times. Instead, have an indicator somewhere on the app the shows the progress and then allow the user to interact with your app normally. It’s unlikely that they’ll need the identity in the first few minutes and if something goes wrong (username gets registered at the same time), you can then ask the user for an action.</p>
+<p><strong>Implementation note:</strong> in order to save gas, some of these steps can be done in advance. The app can automatically deploy a small number of contracts when the gas price is low, and set up all their main variables to be 0xFFFFFF...FFFFF. These should be considered ‘vacant’ and when the user registers one, they will get a gas discount for freeing up space on the chain. This has the added benefit of allowing the user a choice in contract address/icon.</p>
+<h4 id="2-b-connect-to-an-existing-identity">2.b) Connect to an existing identity</h4>
+<p>If the user wants to connect with an existing identity, then the first thing the app needs to understand is what level of privilege it’s going to ask for:</p>
+<p><strong>Manager</strong> the higher level, allows the key to initiate or sign transactions that change the identity itself, like adding or removing keys. An app should only require this level if it integrates an identity manager. Depending on how the identity is set up, it might require signature from more keys before these transactions can be deployed.</p>
+<p><strong>Action</strong> this level allows the key to initiate or sign transactions on address other than itself. It can move funds, ether, assets etc. An app should only require this level of privilege if it’s a general purpose wallet or browser for sending ethereum transactions. Depending on how the identity is set up, it might require signature from more keys before these transactions can be deployed.</p>
+<p><strong>Encryption</strong> the lower level has no right to initiate any transactions, but it can be used to represent the user in specific instances or off-chain signed messages. It’s the ideal level of privilege for games, chat or social media apps, as they can be used to sign moves, send messages, etc. If a game requires actual funds (say, to start a game with funds in stake) then it should still use the encryption level, and then require the main wallet/browser of the user to sign messages using the ethereum URI standard.</p>
+<p>Once the desired level is known, the app must take these steps:</p>
+<ol>
+<li><strong>Generate a private key</strong> which it will keep saved locally on the device or browser, the safest way possible.</li>
+<li><strong>Query ens</strong> to figure the existing address of the identity</li>
+<li><strong>Generate the bytecode</strong> for a transaction calling the function <code>addKey(PUBLICKEY,LEVEL)</code>.</li>
+<li><strong>Broadcast a transaction request on a whisper channel</strong> or some other decentralized network of peers. Details on this step require further discussions</li>
+<li><strong>If web3 is available</strong> then attempt calling web3.eth.sendTransaction. This can be automatic or prompted by user action.</li>
+<li><strong>Attempt calling a URI</strong> if the app supports <a href="https://eips.ethereum.org/EIPS/eip-681">URL format for transaction requests EIP</a> then attempt calling this. This can be automatic or prompted by user action.</li>
+<li><strong>Show a QR code</strong>: with an EIP681 formatted URL. That QR code can be clickable to attempt to retry the other options, but it should be done last: if step 1 works, the user should receive a notification on their compatible device and won't need to use the QR code.</li>
+</ol>
+<p>Here's an example of a EIP681 compatible address to add a public key generated locally in the app:</p>
+<p><code>ethereum:bob.example.eth?function=addKey(address='0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef',uint=1)</code></p>
+<p>If adding the new key requires multiple signatures, or if the app receiving that request exclusiveky deals with executable signed messages and has no ether on itself, then it should follow the steps in the next section on how to request transactions.</p>
+<p>As before, the user shouldn’t be forced to wait for transaction confirmation times. Instead, have an indicator somewhere on the app the shows the progress and then allow the user to interact with your app normally.</p>
+<h4 id="3-request-transactions">3) Request transactions</h4>
+<p>After step 2, the end result should be that your app should have the identity address of the user, their main ens name and a private key, whose public account is listed on the identity as one of their keys, with roles being either manager, action or encryption. Now it can start using that information to sign and execute transactions.</p>
+<p><strong>Not all transactions need to be on chain</strong>, actually most common uses of signed messages should be off chain. If you have a chat app, for instance, you can use the local key for signing messages and sending it to the other parties, and they can just query the identity contract to see if that key actually comes from the user. If you have a game with funds at stake, only the first transaction moving funds and setting up the initial game needs to be executed by the identity: at each turn the players can sign a hash of the current state of the board and at the end, the last two plays can be used to determine the winner. Notice that keys can be revoked at any time, so your app should take that in consideration, for instance saving all keys at the start of the game. Keys that only need this lower level of privilege, should be set at level 4 (encryption).</p>
+<p>Once you decided you actually need an on-chain transaction, follow these steps:</p>
+<ol>
+<li><strong>Figure out the TO, FROM, VALUE and DATA</strong>. These are the basics of any ethereum transaction. <code>from</code> is the compatible contract you want the transaction to be deployed from.</li>
+<li><strong>Check the privilege level you need:</strong> if the <code>to</code> and <code>from</code> fields are the same contract, ie, if the transaction requires the identity to act upon itself (for instance, when adding or removing a key) then you need level 1 (management), otherwise it's 2 (action). Verify if the key your app owns correspond to the required level.</li>
+<li><strong>Verify how many keys are required</strong> by calling <code>requiredSignatures(uint level)</code> on the target contract</li>
+<li><strong>Figure out gasLimit</strong>: Estimate the gas cost of the desired transaction, and add a margin (recommended: add 100k gas)</li>
+<li><strong>Figure out gasToken and gasPrice</strong>:  Check the current gas price considering network congestions and the market price of the token the user is going to pay with. Leave gasToken as 0 for ether. Leave gasPrice as 0 if you are deploying it yourself and subsidizing the costs elsewhere.</li>
+<li><strong>Sign an executable signed transaction</strong> by following that standard.</li>
+</ol>
+<p>After having all the signed executable message, we need to deploy it to the chain. If the transaction only requires a single signature, then the app provider can deploy it themselves. Send the transaction to the <code>from</code> address and attempt to call the function <code>executeSigned</code>, using the parameters and signature you just collected.</p>
+<p>If the transaction need to collect more signatures or the app doesn't have a deployable server, the app should follow these steps:</p>
+<ol>
+<li><strong>Broadcast the transaction on a whisper channel</strong> or some other decentralized network of peers. Details on this step require further discussions</li>
+<li><strong>If web3 is available</strong> then attempt calling web3.eth.personal_sign. This can be automatic or prompted by user action.</li>
+<li><strong>Show a QR code</strong>: with the signed transaction and the new data to be signed. That QR code can be clickable to attempt to retry the other options, but it should be done last: if step 1 works, the user should receive a notification on their compatible device and won't need to use the QR code.</li>
+</ol>
+<p>The goal is to keep broadcasting signatures via whisper until a node that is willing to deploy them is able to collect all messages.</p>
+<p>Once you've followed the above steps, watch the transaction pool to any transaction to that address and then take the user to your app. Once you seen the desired transaction, you can stop showing the QRcode and proceed with the app, while keeping some indication that the transaction is in progress. Subscribe to the event <code>ExecutedSigned</code> of the desired contract: once you see the transaction with the nonce, you can call it a success. If you see a different transaction with the same or higher nonce (or timestamp) then you consider the transaction permanently failed and restart the process.</p>
+<h3 id="implementation">Implementation</h3>
+<p>No working examples of this implementation exists, but many developers have expressed interest in adopting it. This section will be edited in the future to reflect that.</p>
+<h3 id="conclusion-and-future-improvements">Conclusion and future improvements</h3>
+<p>This scheme would allow much more lighter apps, that don't require to hold ether, and can keep unlocked private keys on the device to be able to send messages and play games without requesting user prompt every time. More work is needed to standardize common decentralized messaging protocols as well as open source tools for deployment nodes, in order to create a decentralized and reliable layer for message deployment.</p>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=qF2lhJzngto">Universal Logins talk at UX Unconf, Toronto</a></li>
+</ul>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

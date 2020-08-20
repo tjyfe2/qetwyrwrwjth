@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2387: Hardfork Meta: Muir Glacier</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2387.md" />
+<meta property="og:title" content="EIP-2387: Hardfork Meta: Muir Glacier" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2387 (EIP-2387): Hardfork Meta: Muir Glacier"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2387 (EIP-2387): Hardfork Meta: Muir Glacier"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2387.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2387 (EIP 2387): Hardfork Meta: Muir Glacier" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2387: Hardfork Meta: Muir Glacier
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/madeoftin">James Hancock</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;hard-fork-to-address-the-ice-age-eip-2387">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;hard-fork-to-address-the-ice-age-eip-2387</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Final
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Meta</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-11-22</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>1679, 2384</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>This meta-EIP specifies the changes included in the Ethereum hard fork named Muir Glacier. This hard fork addresses the impending Ice Age on Ethereum Mainnet and includes a commitment to solving the problems with the ice age more permanently.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Ethereum achieves a consistent block time due to its' difficulty retargeting algorithm. If a block-time is higher than 20 seconds, it reduces the difficulty, and if a block time is lower than 10 seconds, it increases the difficulty. This mechanism reaches typically an equilibrium of around 13-14 seconds. Included within this mechanism is something we refer to as the Difficulty Bomb or the Ice Age. It artificially adds to the difficulty in such a way that the retargeting mechanism, at some point, can not adapt to the increase, and we see increased block times throughout the network. The ice age increments every 100,000 blocks. It at first is barely noticeable, but once it is visible, there is a drastic effect on block-times in the network.</p>
+<p>The primary problem with the Ice Age is that it is included in the complex mechanism that targets block times, which is an entirely separate in purpose. What is worse is due to being intwined with that algorithm, it is very difficult to simulate or predict its effect on the network. To predict the impact of the ice age, you must both make assumptions about the difficulty of main-net in the future, and predict the effect of changes in difficulty to the impact on the ice age and thus block-times.</p>
+<p>This fork will push back the Iceage as far as far as is reasonable and will give us time to update the Iceage to no longer have these design problems. There are two solutions to consider within that time frame.</p>
+<ul>
+<li>Update the mechanism so that behavior is predictable.</li>
+<li>Remove the Iceage entirely</li>
+</ul>
+<h2 id="specification">Specification</h2>
+<ul>
+<li>Codename: Muir Glacier</li>
+</ul>
+<h3 id="activation">Activation</h3>
+<ul>
+<li><code>Block &gt;= 9,200,000</code> on the Ethereum mainnet</li>
+<li><code>Block &gt;= 7,117,117</code> on the Ropsten testnet</li>
+<li><code>Block &gt;= N/A</code> on the Kovan testnet</li>
+<li><code>Block &gt;= N/A</code> on the Rinkeby testnet</li>
+<li><code>Block &gt;= N/A</code> on the Görli testnet</li>
+</ul>
+<h3 id="included-eips">Included EIPs</h3>
+<ul>
+<li><a href="https://eips.ethereum.org/EIPS/eip-2384">EIP-2384</a>: Istanbul/Berlin Difficulty Bomb Delay</li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<p>I want to address the rationale for the intention of the Iceage and the implementation of the Iceage separately.</p>
+<p><strong>The original intentions of the ice age include:</strong> </p>
+<ul>
+<li>At the time of upgrades, inhibit unintentional growth of the resulting branching forks leading up to Eth 2.0. *</li>
+<li>Encourage a prompt upgrade schedule for the path to Eth 2.0. *</li>
+<li>Forces the community to come back into agreement repeatedly...and it gives whatever portion of the community that wants to a chance to fork off</li>
+<li>Is a check for the Core Devs in the case that a decision is made to freeze the code base of clients without the blessing of the community.</li>
+</ul>
+<p>*Note: None of these effects the Freedom to Fork. They are meant to encourage core-devs and the community to upgrade along with the network and prevent the case where sleeper forks remain dormant only later to be resurrected. The requirement for an active fork is to change a client in a way to respond to the ice age. This is in fact what Ethereum Classic has done.</p>
+<p>This is not meant to be exhaustive, but the ideas above capture much of what has been written on the original intentions and process of creating the fork. Any additions to this list that need to be made, I am happy to include. Regardless, to effectively implement an updated design for the ice age, all of the intentions need to be revisited and clarified as part of any updates. This clarification will give a clear expectation for the community and core developers moving forward.</p>
+<p><strong>The implementation</strong></p>
+<p>The existing implementation of the ice age, while it does work in practice, is unnecessarily complex to model and confusing to communicate to the community. Any updates to the design should be: </p>
+<ul>
+<li>Easy to model the effect on the network</li>
+<li>Easy to predict when it occurs</li>
+</ul>
+<p>This fork would give us time to address the community to understand their priorities better as far as the intentions of the Ice Age, and give time for proposals for better mechanisms to achieve those goals.</p>
+<h3 id="poa-testnets">POA Testnets</h3>
+<p>Muir Glacier never activates on PoA chains – thus will have zero impact on <a href="https://eips.ethereum.org/EIPS/eip-2124">forkid</a>.</p>
+<h3 id="note-on-issuance-reduction">Note on Issuance Reduction</h3>
+<p>Previous Hardforks to address the Ice Age have also included reductions in the block reward from 5 Eth to 3 Eth to 2 Eth, respectively. In this case, there is no change in issuance, and the block reward remains 2 Eth per block.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

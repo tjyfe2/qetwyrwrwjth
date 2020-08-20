@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2525: ENSLogin</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2525.md" />
+<meta property="og:title" content="EIP-2525: ENSLogin" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2525 (EIP-2525): ENSLogin"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2525 (EIP-2525): ENSLogin"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2525.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2525 (EIP 2525): ENSLogin" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2525: ENSLogin
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/amxx">Hadrien Croubois</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;discussion-ens-login&#x2F;3569">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;discussion-ens-login&#x2F;3569</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-02-19</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>137, 634, 1193, 2304</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="1-abstract">1. Abstract</h2>
+<p>This presents a method to improve a universal method of login to the ethereum blockchain, leveraging the metadata storage provided by the ENS. We consider a user to be logged in when we have an <a href="https://eips.ethereum.org/EIPS/eip-1193">EIP 1193</a> provider that can sign transaction and messages on his behalf. This method is inspired by <a href="https://www.youtube.com/watch?v=1LVwWknE-NQ">Alex Van de Sande's work</a> and <a href="https://web3connect.com">Web3Connect</a>. In the future, the approach described here-after should be extended to work with any blockchain.</p>
+<h2 id="2-motivation">2. Motivation</h2>
+<p>Multiple wallet solutions can be used to interact with the Ethereum blockchain. Some (metamask, gnosis, ...) are compatible as they inject a standardized wallet object in the browser without requiring any effort from the Dapp developers, but they require an effort on the user side (user has to install the plugin). Other solutions (Portis, Authereum, Torus, Universal Login, ...) propose a more seamless flow to non-crypto-aware users but require an integration effort from the Dapp developers. Hardware wallet (ledger, trezor, keepkey, ...) also require integration effort from the Dapp developers.</p>
+<p>When Dapps integrate login with multiple solutions, they rely on the user choosing the correct wallet-provider. This could prove increasingly difficult as the number of wallet-provider increases, particularly for novice users. Additionally, if decentralized applications pick and choose only a handful of wallets to support, the current incumbent wallets will have a distinct advantage and new wallets will struggle to find adoption. This will create a less competitive environment and stifle innovation. Rather than relying on the user choosing which wallet-provider to connect with (as does Web3Connect), ENSLogin proposes to use user-owned ENS domain as entry points. Metadata attached to these ENS domains is used to detect which wallet-provider if used by the corresponding account.</p>
+<p>That way, ENSLogin would allow any user to connect to any Dapp with any wallet, using a simple domain as a login.</p>
+<h2 id="3-description">3. Description</h2>
+<h3 id="3-1-overview">3.1. Overview</h3>
+<p>The ENSLogin works as follow:</p>
+<ul>
+<li>Request an ENS domain from the user</li>
+<li>Resolve the ENS domain to retrieve (see <a href="https://eips.ethereum.org/EIPS/eip-20">EIP 137</a>)
+<ul>
+<li>An address (see <a href="https://eips.ethereum.org/EIPS/eip-20">EIP 137</a>)</li>
+<li>A text entry (see <a href="https://eips.ethereum.org/EIPS/eip-634">EIP 634</a>)</li>
+</ul>
+</li>
+<li>Interpret the text entry and download the file it points to</li>
+<li>Evaluate the content of the downloaded file</li>
+<li>Return the corresponding object to the Dapp</li>
+</ul>
+<p>At this point, the app should process like with any web3 provider. Calling the <code>enable()</code> functions should ask the users for wallet specific credentials is needed.</p>
+<p>This workflow is to be implemented by an SDK that Dapp could easily import. The SDK would contain the resolution mechanism and support for both centralized and decentralized storage solution. Wallet-provider specific code should NOT be part of SDK. Wallet-provider specific code should only be present in the external file used to generate the web3 provider.</p>
+<h3 id="3-2-details">3.2. Details</h3>
+<ul>
+<li>
+<p><strong>Text entry resolution:</strong> A pointer to the code needed to instantiate the wallet-provider is recorded using the ENS support for text entries (see <a href="https://eips.ethereum.org/EIPS/eip-634">EIP 634</a>). The corresponding key is <code>enslogin</code> (<strong>subject to change</strong>). If no value is associated with the key <code>enslogin</code> at the targeted domain, we fallback to metadata store on the parent's node with the key <code>enslogin-default</code> (<strong>subject to change</strong>).
+<strong>Example:</strong> for the ens domain <code>username.domain.eth</code>, the resolution would look for (in order):</p>
+<ul>
+<li><code>resolver.at(ens.owner(nodehash(&quot;username.domain.eth&quot;))).text(nodehash(&quot;username.domain.eth&quot;), 'enslogin')</code></li>
+<li><code>resolver.at(ens.owner(nodehash(&quot;domain.eth&quot;))).text(nodehash(&quot;domain.eth&quot;), 'enslogin-default')</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Provider link:</strong> Code for instantiating the wallet-provider must be pointed to in a standardized manner. <strong>This is yet not specified.</strong> The current approach uses a human-readable format <code>scheme://path</code> such as:</p>
+<ul>
+<li><code>ipfs://Qm12345678901234567890123456789012345678901234</code></li>
+<li><code>https://server.com/enslogin-module-someprovider</code></li>
+</ul>
+<p>And adds a suffix depending on the targeted blockchain type (see <a href="https://github.com/satoshilabs/slips/blob/master/slip-0044.md">SLIP 44</a>) and language. Canonical case is a webapp using ethereum so the target would be:</p>
+<ul>
+<li><code>ipfs://Qm12345678901234567890123456789012345678901234/60/js</code></li>
+<li><code>https://server.com/enslogin-module-someprovider/60/js</code></li>
+</ul>
+<p>Note that this suffix mechanism is compatible with http/https as well as IPFS. It is a constraint on the storage layer as some may not be able to do this kind of resolution.</p>
+</li>
+<li>
+<p><strong>Provider instantiation:</strong></p>
+<ul>
+<li>[JAVASCRIPT/ETHEREUM] The file containing the wallet-provider's code should inject a function <code>global.provider: (config) =&gt; Promise&lt;web3provider&gt;</code> that returns a promise to a standardized provider object. For EVM blockchains, the object should follow <a href="https://eips.ethereum.org/EIPS/eip-1193">EIP 1193</a>.</li>
+<li>Other blockchain types/langages should be detailed in the future.</li>
+</ul>
+</li>
+<li>
+<p><strong>Configuration object:</strong> In addition to the username (ENS domain), the Dapp should have the ability to pass a configuration object that could be used by the wallet-provider instantiating function. This configuration should include:</p>
+<ul>
+<li>A body (common to all provider) that specify details about the targeted chain (network name / node, address of the ens entrypoint ...). If any of these are missing, a fallback can be used (mainnet as a default network, bootstrapping an in-browser IPFS node, ...).</li>
+<li>Wallet provider-specific fields (<strong>optional</strong>, starting with one underscore <code>_</code>) can be added to pass additional, wallet-provider specific, parameters / debugging flags.</li>
+<li>SDK specific fields (<strong>optional</strong>, starting with two underscores <code>__</code>) can be used to pass additional arguments.</li>
+</ul>
+<p>Minimal configuration:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+</span><span style="color:#c0c5ce;">	provider: {
+</span><span style="color:#c0c5ce;">		network: &#39;goerli&#39;
+</span><span style="color:#c0c5ce;">	}
+</span><span style="color:#c0c5ce;">}
+</span></code></pre>
+<p>Example of advanced configuration object:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+</span><span style="color:#c0c5ce;">	provider: {
+</span><span style="color:#c0c5ce;">		network: &#39;goerli&#39;,
+</span><span style="color:#c0c5ce;">		ens:     &#39;0x112234455c3a32fd11230c42e7bccd4a84e02010&#39;
+</span><span style="color:#c0c5ce;">	},
+</span><span style="color:#c0c5ce;">	ipfs: {
+</span><span style="color:#c0c5ce;">		host: &#39;ipfs.infura.io&#39;,
+</span><span style="color:#c0c5ce;">		port: 5001,
+</span><span style="color:#c0c5ce;">		protocol: &#39;https&#39;
+</span><span style="color:#c0c5ce;">	},
+</span><span style="color:#c0c5ce;">	_authereum: {...},
+</span><span style="color:#c0c5ce;">	_portis: {...},
+</span><span style="color:#c0c5ce;">	_unilogin: {...},
+</span><span style="color:#c0c5ce;">	_torus: {...},
+</span><span style="color:#c0c5ce;">	__callbacks: {
+</span><span style="color:#c0c5ce;">		resolved: (username, addr, descr) =&gt; {
+</span><span style="color:#c0c5ce;">			console.log(`[CALLBACKS] resolved: ${username} ${addr} ${descr}`);
+</span><span style="color:#c0c5ce;">		},
+</span><span style="color:#c0c5ce;">		loading: (protocol, path) =&gt; {
+</span><span style="color:#c0c5ce;">			console.log(`[CALLBACKS] loading: ${protocol} ${path}`);
+</span><span style="color:#c0c5ce;">		},
+</span><span style="color:#c0c5ce;">		loaded: (protocol, path) =&gt; {
+</span><span style="color:#c0c5ce;">			console.log(`[CALLBACKS] loaded: ${protocol} ${path}`);
+</span><span style="color:#c0c5ce;">		}
+</span><span style="color:#c0c5ce;">	}
+</span><span style="color:#c0c5ce;">}
+</span></code></pre></li>
+</ul>
+<p><strong>TODO</strong> <em>(maybe move that part to section 6.1)</em>:
+Add <a href="https://github.com/satoshilabs/slips/blob/master/slip-0044.md">SLIP 44</a> compliant blockchain description to the config for better multichain support. This will require a additional field <code>ENS network</code> to know which ethereum network to use for resolution when the targeted blockchain/network is not ethereum (could also be used for cross chain resolution on ethereum, for example xDAI login with metadata stored on mainnet)</p>
+<h3 id="3-3-decentralization">3.3. Decentralization</h3>
+<p>Unlike solution like Web3Connect, ENSLogin proposes a modular approach that is decentralized by nature.
+The code needed for a Dapp to use ENSLogin (hereafter referred to as the SDK) only contains lookup mechanism for the ethereum blockchain and the data storages solutions. The solution is limited by the protocols (https / ipfs / ...) that the SDK can interact with. Beyond that, any wallet-provider that follows the expected structure and that is available through one of the supported protocol is automatically compatible with all the Dapps proposing ENSLogin support. There is no need to go through a centralized approval process. Furthermore, deployed SDK do not need to be upgraded to benefit from the latest wallet updates. The only permissioned part of the protocol is in the ENS control of the users over the metadata that describes their wallet-provider implementation. Users could also rely on the fallback mechanism to have the wallet-provider update it for them.</p>
+<h3 id="3-4-incentives">3.4. Incentives</h3>
+<p>We believe ENSLogin's biggest strength is the fact that it aligns the incentives of Dapp developers and wallet-providers to follow this standard.</p>
+<ul>
+<li>A wallet-provider that implements the required file and make them available will ensure the compatibility of its wallet with all Dapps using ENSLogin. This will remove the burden of asking all Dapps to integrate their solutions, which Dapps are unlikely to do until the wallet as strong userbase. Consequently, ENSLogin will improve the competition between wallet-providers and encourage innovation in that space</li>
+<li>A Dapp that uses ENSLogin protocol, either by including the ENSLogin's SDK or by implementing compatible behaviour, will make itself available to all the users of all the compatible wallet. At some point, being compatible with ENSLogin will be the easiest to reach a large user-base.</li>
+<li>ENSLogin should be mostly transparent for the users. Most wallet provider will set up the necessary entries without requiring any effort from the user. Advanced users can take control over the wallet resolution process, which will be simple once the right tooling is available.</li>
+</ul>
+<h3 id="3-5-drawbacks">3.5. Drawbacks</h3>
+<p>While ENSLogin allows dapps to support any wallet for logging in, dapps still must choose which wallets they suggest to users for registration. This can be done through a component like Web3Connect or BlockNative's</p>
+<h2 id="4-prototype">4. Prototype</h2>
+<p><strong>TODO</strong></p>
+<h2 id="5-support-by-the-community">5. Support by the community</h2>
+<h3 id="5-1-adoption">5.1. Adoption</h3>
+<table><thead><tr><th>Name</th><th>Live</th><th>Module</th><th>Assigns ENS names</th><th>support by default</th></tr></thead><tbody>
+<tr><td>Argent</td><td>yes</td><td>no</td><td>yes</td><td>no</td></tr>
+<tr><td>Authereum</td><td>yes</td><td>yes</td><td>yes</td><td>no</td></tr>
+<tr><td>Fortmatic</td><td>yes</td><td>no</td><td>no</td><td>no</td></tr>
+<tr><td>Gnosis Safe</td><td>yes</td><td>yes*</td><td>no</td><td>no</td></tr>
+<tr><td>Ledger</td><td>yes</td><td>beta</td><td>no</td><td>no</td></tr>
+<tr><td>KeepKey</td><td>yes</td><td>no</td><td>no</td><td>no</td></tr>
+<tr><td>Metamask</td><td>yes</td><td>yes</td><td>no</td><td>no</td></tr>
+<tr><td>Opera</td><td>yes</td><td>yes*</td><td>no</td><td>no</td></tr>
+<tr><td>Portis</td><td>yes</td><td>yes</td><td>no</td><td>no</td></tr>
+<tr><td>SquareLink</td><td>yes</td><td>no</td><td>no</td><td>no</td></tr>
+<tr><td>Shipl</td><td>no</td><td>no</td><td>no</td><td>no</td></tr>
+<tr><td>Torus</td><td>yes</td><td>yes</td><td>no</td><td>no</td></tr>
+<tr><td>Trezor</td><td>yes</td><td>no</td><td>no</td><td>no</td></tr>
+<tr><td>UniLogin</td><td>beta</td><td>beta</td><td>yes</td><td>no</td></tr>
+</tbody></table>
+<p>*use the metamask module</p>
+<h2 id="6-possible-evolutions">6. Possible evolutions</h2>
+<h3 id="6-1-multichain-support">6.1. Multichain support</h3>
+<p><strong>TODO</strong></p>
+<h2 id="7-faq">7. FAQ</h2>
+<h3 id="7-1-can-anyone-connect-with-my-login-where-are-my-private-keys-stored">7.1. Can anyone connect with my login? Where are my private keys stored?</h3>
+<p>ENSLogin only has access to what is recorded on the ENS, namely your address and the provider you use. Private key management is a is handled by the provider and is outside ENSLogin's scope. Some might store the key on disk. Other might rely on custodial keys stored on a remote (hopefully secure) server. Others might use a dedicated hardware component to handle signature and never directly have access to the private key.</p>
+<h3 id="7-2-how-do-i-get-an-ens-login">7.2. How do I get an ENS Login?</h3>
+<p><strong>TODO</strong> (this might need a separate ERC)</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2018: Clearable Token</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2018.md" />
+<meta property="og:title" content="EIP-2018: Clearable Token" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2018 (EIP-2018): Clearable Token"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2018 (EIP-2018): Clearable Token"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2018.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2018 (EIP 2018): Clearable Token" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2018: Clearable Token
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:julio@adhara.io">Julio Faura</a>,
+        
+    
+        
+        
+            <a href="mailto:fer@io.builders">Fernando Paris</a>,
+        
+    
+        
+        
+            <a href="mailto:daniel@io.builders">Daniel Lehrner</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2104">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2104</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-04-30</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>1996</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<blockquote>
+<p>&quot;In banking and finance, clearing denotes all activities from the time a commitment is made for a transaction until it is settled.&quot; <a href="https://en.wikipedia.org/wiki/Clearing_(finance)">[1]</a> </p>
+</blockquote>
+<h2 id="actors">Actors</h2>
+<h4 id="clearing-agent">Clearing Agent</h4>
+<p>An account which processes, executes or rejects a clearable transfer.</p>
+<h4 id="operator">Operator</h4>
+<p>An account which has been approved by an account to order clearable transfers on its behalf.</p>
+<h4 id="orderer">Orderer</h4>
+<p>The account which orders a clearable transfer. This can be the account owner itself, or any account, which has been approved as an operator for the account.</p>
+<h2 id="abstract">Abstract</h2>
+<p>The clearing process turns the promise of a transfer into the actual movement of money from one account to another. A clearing agent decides if the transfer can be executed or not. The amount which should be transferred is not deducted from the balance of the payer, but neither is it available for another transfer and therefore ensures, that the execution of the transfer will be successful when it is executed.</p>
+<h2 id="motivation">Motivation</h2>
+<p>A regulated token needs to comply with all the legal requirements, especially <a href="https://en.wikipedia.org/wiki/Know_your_customer">KYC</a> and <a href="https://en.wikipedia.org/wiki/Money_laundering#Anti-money_laundering">AML</a>. Some of these checks may not be able to be done on-chain and therefore a transfer may not be completed in one step. Currently there is no EIP to make such off-chain checks possible. This proposal allows a user to order a transfer, which can be checked by a clearing agent off-chain. Depending on the result of it, the clearing agent will either execute or cancel the transfer. To provide more information why a transfer is cancelled, the clearing agent can add a reason why it is not executed.</p>
+<h2 id="specification">Specification</h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface ClearableToken /* is ERC-1996 */ {
+    enum ClearableTransferStatusCode { Nonexistent, Ordered, InProcess, Executed, Rejected, Cancelled }
+
+    function orderTransfer(string calldata operationId, address to, uint256 value) external returns (bool);
+    function orderTransferFrom(string calldata operationId, address from, address to, uint256 value) external returns (bool);
+    function cancelTransfer(string calldata operationId) external returns (bool);
+    function processClearableTransfer(string calldata operationId) external returns (bool);
+    function executeClearableTransfer(string calldata operationId) external returns (bool);
+    function rejectClearableTransfer(string calldata operationId, string calldata reason) external returns (bool);
+    function retrieveClearableTransferData(string calldata operationId) external view returns (address from, address to, uint256 value, ClearableTransferStatusCode status);
+
+    function authorizeClearableTransferOperator(address operator) external returns (bool);
+    function revokeClearableTransferOperator(address operator) external returns (bool);
+    function isClearableTransferOperatorFor(address operator, address from) external view returns (bool);
+
+    event ClearableTransferOrdered(address indexed orderer, string operationId, address indexed from, address indexed to, uint256 value);
+    event ClearableTransferInProcess(address indexed orderer, string operationId);
+    event ClearableTransferExecuted(address indexed orderer, string operationId);
+    event ClearableTransferRejected(address indexed orderer, string operationId, string reason);
+    event ClearableTransferCancelled(address indexed orderer, string operationId);
+    event AuthorizedClearableTransferOperator(address indexed operator, address indexed account);
+    event RevokedClearableTransferOperator(address indexed operator, address indexed account);
+}
+</span></code></pre><h3 id="functions">Functions</h3>
+<h4 id="ordertransfer">orderTransfer</h4>
+<p>Orders a clearable transfer on behalf of the msg.sender in favor of <code>to</code>. A clearing agent is responsible to either execute or reject the transfer. The function must revert if the operation ID has been used before.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+<tr><td>to</td><td>The address of the payee, to whom the tokens are to be paid if executed</td></tr>
+<tr><td>value</td><td>The amount to be transferred. Must be less or equal than the balance of the payer.</td></tr>
+</tbody></table>
+<h4 id="ordertransferfrom">orderTransferFrom</h4>
+<p>Orders a clearable transfer on behalf of the payer in favor of the <code>to</code>. A clearing agent is responsible to either execute or reject the transfer. The function must revert if the operation ID has been used before.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+<tr><td>from</td><td>The address of the payer, from whom the tokens are to be taken if executed</td></tr>
+<tr><td>to</td><td>The address of the payee, to whom the tokens are to be paid if executed</td></tr>
+<tr><td>value</td><td>The amount to be transferred. Must be less or equal than the balance of the payer.</td></tr>
+</tbody></table>
+<h4 id="canceltransfer">cancelTransfer</h4>
+<p>Cancels the order of a clearable transfer. Only the orderer can cancel their own orders. It must not be successful as soon as the transfer is in status <code>InProcess</code>.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+</tbody></table>
+<h4 id="processclearabletransfer">processClearableTransfer</h4>
+<p>Sets a clearable transfer to status <code>InProcess</code>. Only a clearing agent can successfully execute this action. This status is optional, but without it the orderer can cancel the transfer at any time.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+</tbody></table>
+<h4 id="executeclearabletransfer">executeClearableTransfer</h4>
+<p>Executes a clearable transfer, which means that the tokens are transferred from the payer to the payee. Only a clearing agent can successfully execute this action.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+</tbody></table>
+<h4 id="rejectclearabletransfer">rejectClearableTransfer</h4>
+<p>Rejects a clearable transfer, which means that the amount that is held is available again to the payer and no transfer is done. Only a clearing agent can successfully execute this action.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+<tr><td>reason</td><td>A reason given by the clearing agent why the transfer has been rejected</td></tr>
+</tbody></table>
+<h4 id="retrieveclearabletransferdata">retrieveClearableTransferData</h4>
+<p>Retrieves all the information available for a particular clearable transfer.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+</tbody></table>
+<h4 id="authorizeclearabletransferoperator">authorizeClearableTransferOperator</h4>
+<p>Approves an operator to order transfers on behalf of msg.sender.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operator</td><td>The address to be approved as operator of clearable transfers</td></tr>
+</tbody></table>
+<h4 id="revokeclearabletransferoperator">revokeClearableTransferOperator</h4>
+<p>Revokes the approval to order transfers on behalf of msg.sender.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operator</td><td>The address to be revoked as operator of clearable transfers</td></tr>
+</tbody></table>
+<h4 id="isclearabletransferoperatorfor">isClearableTransferOperatorFor</h4>
+<p>Returns if an operator is approved to order transfers on behalf of <code>from</code>.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operator</td><td>The address to be an operator of clearable transfers</td></tr>
+<tr><td>from</td><td>The address on which the holds would be created</td></tr>
+</tbody></table>
+<h4 id="transfer">transfer</h4>
+<p>It is up to the implementer of the EIP if the <code>transfer</code> function of ERC-20 should always revert or is allowed under certain circumstances.</p>
+<h4 id="transferfrom">transferFrom</h4>
+<p>It is up to the implementer of the EIP if the <code>transferFrom</code> function of ERC-20 should always revert or is allowed under certain circumstances.</p>
+<h3 id="events">Events</h3>
+<h4 id="clearabletransferordered">ClearableTransferOrdered</h4>
+<p>Must be emitted when a clearable transfer is ordered.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the orderer of the transfer</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+<tr><td>from</td><td>The address of the payer, from whom the tokens are to be taken if executed</td></tr>
+<tr><td>to</td><td>The address of the payee, to whom the tokens are to be paid if executed</td></tr>
+<tr><td>value</td><td>The amount to be transferred if executed</td></tr>
+</tbody></table>
+<h4 id="clearabletransferinprocess">ClearableTransferInProcess</h4>
+<p>Must be emitted when a clearable transfer is put in status <code>ÌnProcess</code>.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the orderer of the transfer</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+</tbody></table>
+<h4 id="clearabletransferexecuted">ClearableTransferExecuted</h4>
+<p>Must be emitted when a clearable transfer is executed.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the orderer of the transfer</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+</tbody></table>
+<h4 id="clearabletransferrejected">ClearableTransferRejected</h4>
+<p>Must be emitted when a clearable transfer is rejected.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the orderer of the transfer</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+<tr><td>reason</td><td>A reason given by the clearing agent why the transfer has been rejected</td></tr>
+</tbody></table>
+<h4 id="clearabletransfercancelled">ClearableTransferCancelled</h4>
+<p>Must be emitted when a clearable transfer is cancelled by its orderer.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>orderer</td><td>The address of the orderer of the transfer</td></tr>
+<tr><td>operationId</td><td>The unique ID to identify the clearable transfer</td></tr>
+</tbody></table>
+<h4 id="authorizedclearabletransferoperator">AuthorizedClearableTransferOperator</h4>
+<p>Emitted when an operator has been approved to order transfers on behalf of another account.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operator</td><td>The address which has been approved as operator of clearable transfers</td></tr>
+<tr><td>account</td><td>Address on which behalf transfers will potentially be ordered</td></tr>
+</tbody></table>
+<h4 id="revokedclearabletransferoperator">RevokedClearableTransferOperator</h4>
+<p>Emitted when an operator has been revoked from ordering transfers on behalf of another account.</p>
+<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<tr><td>operator</td><td>The address which has been revoked as operator of clearable transfers</td></tr>
+<tr><td>account</td><td>Address on which behalf transfers could potentially be ordered</td></tr>
+</tbody></table>
+<h2 id="rationale">Rationale</h2>
+<p>This EIP uses <a href="https://eips.ethereum.org/EIPS/eip-1996">EIP-1996</a> to hold the money after a transfer is ordered. A clearing agent, whose implementation is not part of this proposal, acts as a predefined notary to decide if the transfer complies with the rules of the token or not.</p>
+<p>The <code>operationId</code> is a string and not something more gas efficient to allow easy traceability of the hold and allow human readable ids. It is up to the implementer if the string should be stored on-chain or only its hash, as it is enough to identify a hold.</p>
+<p>The <code>operationId</code> is a competitive resource. It is recommended, but not required, that the hold issuers used a unique prefix to avoid collisions.</p>
+<p>While not requiring it, the naming of the functions <code>authorizeClearableTransferOperator</code>, <code>revokeClearableTransferOperator</code> and <code>isClearableTransferOperatorFor</code> follows the naming convention of <a href="https://eips.ethereum.org/EIPS/eip-777">ERC-777</a>.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is fully backwards compatible as its implementation extends the functionality of <a href="https://eips.ethereum.org/EIPS/eip-1996">EIP-1996</a>.</p>
+<h2 id="implementation">Implementation</h2>
+<p>The GitHub repository <a href="https://github.com/IoBuilders/clearable-token">IoBuilders/clearable-token</a> contains the reference implementation.</p>
+<h2 id="contributors">Contributors</h2>
+<p>This proposal has been collaboratively implemented by <a href="https://adhara.io/">adhara.io</a> and <a href="https://io.builders/">io.builders</a>.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+<p>[1] https://en.wikipedia.org/wiki/Clearing_(finance)</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1485: TEthashV1</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1485.md" />
+<meta property="og:title" content="EIP-1485: TEthashV1" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1485 (EIP-1485): TEthashV1"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1485 (EIP-1485): TEthashV1"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1485.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1485 (EIP 1485): TEthashV1" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1485: TEthashV1
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:trustfarm.info@gmail.com">trustfarm</a>,
+        
+    
+        
+        
+            <a href="mailto:cpplover@trustfarm.net">trustfarm</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;anti-eth-asic-mining-eip-1488-pr&#x2F;1807">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;anti-eth-asic-mining-eip-1488-pr&#x2F;1807</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-11-01</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>This EIP modifies ethash in order to break ASIC miners specialized for the current ethash mining algorithm.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This EIP pursue &quot;obsolete current ASIC miners&quot; by modifying PoW algorithm in a very low risk manner and update to latest hash algorithm from deprecated FNV Hash algorithms.</p>
+<p>Following TEthashV1 algorithm suggests safe transition of PoW algorithms and secure the FNV Algorithm in MIX Parts.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Provide original Ethash proof of work verification with minimal set of changes by updating FNV0 algorithm</p>
+<h2 id="specification">Specification</h2>
+<h4 id="1-reference-materials-on-ethash-fnv0">1. Reference materials on ETHASH FNV0</h4>
+<h4 id="where-fnv-applied-on-ethash">Where FNV Applied on ETHASH</h4>
+<ul>
+<li>
+<p>In <a href="https://github.com/ethereum/wiki/wiki/Ethash">ETHASH</a> , FNV Hash is used on</p>
+<ul>
+<li>
+<ol>
+<li>On data aggregation function, MIX parts.</li>
+</ol>
+</li>
+<li>
+<p>Ethash Algorithm </p>
+</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">  Header + Nonce
+</span><span style="color:#c0c5ce;">         |
+</span><span style="color:#c0c5ce;">      Keccak 
+</span><span style="color:#c0c5ce;">         |
+</span><span style="color:#c0c5ce;">    **[MIX 0]**  --&gt; **[DAG Page]**
+</span><span style="color:#c0c5ce;">         |               |
+</span><span style="color:#c0c5ce;">       Mixing         &lt;--|
+</span><span style="color:#c0c5ce;">        ...
+</span><span style="color:#c0c5ce;">         |
+</span><span style="color:#c0c5ce;">    **[Mix 63]**
+</span><span style="color:#c0c5ce;">         |
+</span><span style="color:#c0c5ce;">         |-----&gt; Mix64  [Process] ---&gt; Mix Digest [32B]
+</span></code></pre>
+<ul>
+<li>FNV used in DAG Generation 
+and Mixing for random access or DAG Page.</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-current-applied-ethash-fnv-hash-implementation-is-deprecated-now">2. Current applied Ethash FNV hash implementation is deprecated now.</h4>
+<p><a href="https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function#FNV-0_hash_(deprecated)">FNV-0_hash (deprecated)</a></p>
+<p>It is a simple way of hashing algorithm</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;"> hash = 0
+</span><span style="color:#c0c5ce;"> for each byte_of_data to be hashed
+</span><span style="color:#c0c5ce;"> 	hash = hash × FNV_prime
+</span><span style="color:#c0c5ce;"> 	hash = hash XOR octet_of_data
+</span><span style="color:#c0c5ce;"> return hash
+</span></code></pre>
+<p>When analysed FNV-0 , there's very weak <a href="https://simple.wikipedia.org/wiki/Avalanche_effect">avalanche effect</a>, when hash input changes on 1~2bits. refer <a href="https://github.com/tao-foundation/FNV-Analysis#how-to-test-and-analysis-reference-test-code">FNV-Analysis reference section</a></p>
+<p>We need to research and apply newer FNV hash or short message hash algorithm.</p>
+<h4 id="3-fnv1a-hash-algorithm-description">3. FNV1A hash algorithm description</h4>
+<p>Previous proposed algorithm based on FNV1 <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1355.md">EIP-1355</a></p>
+<p>There's a implementation that looks like &quot;Missing Offset Bias&quot; at <strong>FNV1A</strong>.</p>
+<p>Quotation of <a href="https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function#FNV-1a_hash">original algorithm FNV1A</a></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">use hash offset
+FNV-1a hash
+The FNV-1a hash differs from the FNV-1 hash by only the order in which the multiply and XOR is performed:[8][10]
+
+   hash = FNV_offset_basis
+   for each byte_of_data to be hashed
+   	hash = hash XOR byte_of_data
+   	hash = hash × FNV_prime
+   return hash
+</span></code></pre>
+<p>FNV_offset_basis and computation order change of xor and multiplication Makes one more xor and multiply computation, but more secure hash effects than FNV0. 
+and make dispersion boundary condition (0, even number, ..) by using of Prime Number.</p>
+<h4 id="4-real-implementation-for-fnv1a">4. Real Implementation for FNV1A</h4>
+<p>Consider real computation resources, in TEthashV1 uses hash byte_of_data to 4bytes aligned data.</p>
+<p>In TETHashV1, Adapts fully follow the FNV1A implementation.</p>
+<ul>
+<li>TETHASHV1 FNV1A implementation</li>
+</ul>
+<p>Following are reference implementation of FNV1A adapted in TETHashV1.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;">// Reference Pseudo c/cpp implementation
+
+</span><span style="color:#b48ead;">#define </span><span style="color:#c0c5ce;">FNV_PRIME </span><span style="color:#d08770;">0x01000193</span><span style="color:#b48ead;">U
+#define </span><span style="color:#c0c5ce;">FNV_OFFSET_BASIS  </span><span style="color:#d08770;">0x811c9dc5</span><span style="color:#b48ead;">U
+
+#define </span><span style="color:#8fa1b3;">fnv1a</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">x</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">y</span><span style="color:#c0c5ce;">)         ((((FNV_OFFSET_BASIS^(x))*FNV_PRIME) ^ (y)) * FNV_PRIME)
+</span><span style="color:#b48ead;">#define </span><span style="color:#8fa1b3;">fnv1a_reduce</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">a</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">b</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">c</span><span style="color:#c0c5ce;">,</span><span style="color:#bf616a;">d</span><span style="color:#c0c5ce;">) (</span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(a, b), c), d))
+</span></code></pre>
+<p>Another Byte aligned implementation of FNV1A , call to FNV1c</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">#define </span><span style="color:#c0c5ce;">FNV_PRIME   </span><span style="color:#d08770;">0x01000193</span><span style="color:#b48ead;">U
+#define </span><span style="color:#c0c5ce;">FNV_OFFSET_BASIS  </span><span style="color:#d08770;">0x811c9dc5</span><span style="color:#b48ead;">U
+
+#define </span><span style="color:#8fa1b3;">fnv1i</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">x</span><span style="color:#c0c5ce;">)           (  (( (( ((                                          \
+                                ( ((FNV_OFFSET_BASIS)^( ((x)&gt;&gt;</span><span style="color:#d08770;">24</span><span style="color:#c0c5ce;">)&amp;</span><span style="color:#d08770;">0x000000ff </span><span style="color:#c0c5ce;">)) * FNV_PRIME) \
+                            ^   (((x)&gt;&gt;</span><span style="color:#d08770;">16  </span><span style="color:#c0c5ce;">)&amp;</span><span style="color:#d08770;">0x000000ff</span><span style="color:#c0c5ce;">)) * FNV_PRIME) \
+                            ^   (((x)&gt;&gt;</span><span style="color:#d08770;">8   </span><span style="color:#c0c5ce;">)&amp;</span><span style="color:#d08770;">0x000000ff</span><span style="color:#c0c5ce;">)) * FNV_PRIME) \
+                            ^   (((x)      )&amp;</span><span style="color:#d08770;">0x000000ff</span><span style="color:#c0c5ce;">)) * FNV_PRIME) \
+                            )
+</span><span style="color:#b48ead;">#define </span><span style="color:#8fa1b3;">fnv1c</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">x</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">y</span><span style="color:#c0c5ce;">)            ((</span><span style="color:#bf616a;">fnv1i</span><span style="color:#c0c5ce;">(x) ^ (y)) * FNV_PRIME)
+</span></code></pre><h4 id="5-fnv-analysis">5. <a href="https://github.com/tao-foundation/FNV-Analysis">FNV-Analysis</a></h4>
+<p>FNV Mix Algorithm Analysis for TEthashV1</p>
+<h4 id="how-to-test-and-analysis-reference-test-code">How to test and analysis reference test code.</h4>
+<p>You can compile it with simple in terminal.
+No additional library needs, </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">gcc -o</span><span style="color:#c0c5ce;"> fnvtest fnvcltest.c
+</span></code></pre>
+<p>And You can execute it</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">fnvtest
+
+F(00,00)::VEC(0, 0, ffffffff, 0)::      FNV  :00000000, DF=00000000(00) DS(00000000), FNV1 :00000000, DF=00000000(00) DS(00000000), FNV1a:117697cd, DF=117697cd(17) DS(117697cd), FNV1c:1210d00f, DF=127f8dbf(20) DS(11a1725f),         F___RC=efe1b9c4, DF:efe1b9c4(19) , F1__RC=deb68dfe, DF:deb68dfe(22) , F1A_RC=99bad28b, DF:99bad28b(17) , F1C_RC=e29fa497, DF:e29fa497(18)
+F(00,01)::VEC(0, 1, ffffffff, 0)::      FNV  :00000001, DF=00000001(01) DS(00000001), FNV1 :01000193, DF=01000193(06) DS(01000193), FNV1a:1076963a, DF=010001f7(09) DS(01000193), FNV1c:1110ce7c, DF=03001e73(11) DS(01000193),         F___RC=fefffe6d, DF:111e47a9(14) , F1__RC=d9fd8597, DF:074b0869(12) , F1A_RC=72c287e0, DF:eb78556b(19) , F1C_RC=6b6991ef, DF:89f63578(17)
+F(00,02)::VEC(0, 2, ffffffff, 0)::      FNV  :00000002, DF=00000003(02) DS(00000001), FNV1 :02000326, DF=030002b5(08) DS(01000193), FNV1a:0f7694a7, DF=1f00029d(11) DS(01000193), FNV1c:1410d335, DF=05001d49(09) DS(030004b9),         F___RC=d8fd8404, DF:26027a69(13) , F1__RC=9b16d24c, DF:42eb57db(19) , F1A_RC=c17f0ecb, DF:b3bd892b(18) , F1C_RC=a5be8e78, DF:ced71f97(21)
+F(00,03)::VEC(0, 3, ffffffff, 0)::      FNV  :00000003, DF=00000001(01) DS(00000001), FNV1 :030004b9, DF=0100079f(10) DS(01000193), FNV1a:0e769314, DF=010007b3(09) DS(01000193), FNV1c:1310d1a2, DF=07000297(09) DS(01000193),         F___RC=b2fb099b, DF:6a068d9f(16) , F1__RC=5c301f01, DF:c726cd4d(17) , F1A_RC=94cf402e, DF:55b04ee5(16) , F1C_RC=aea1a025, DF:0b1f2e5d(17)
+F(00,04)::VEC(0, 4, ffffffff, 0)::      FNV  :00000004, DF=00000007(03) DS(00000001), FNV1 :0400064c, DF=070002f5(10) DS(01000193), FNV1a:0d769181, DF=03000295(07) DS(01000193), FNV1c:0e10c9c3, DF=1d001861(09) DS(050007df),         F___RC=8cf88f32, DF:3e0386a9(14) , F1__RC=1d496bb6, DF:417974b7(17) , F1A_RC=89401d59, DF:1d8f5d77(20) , F1C_RC=e4e96c7c, DF:4a48cc59(13)
+F(00,05)::VEC(0, 5, ffffffff, 0)::      FNV  :00000005, DF=00000001(01) DS(00000001), FNV1 :050007df, DF=01000193(06) DS(01000193), FNV1a:0c768fee, DF=01001e6f(11) DS(01000193), FNV1c:0d10c830, DF=030001f3(09) DS(01000193),         F___RC=66f614c9, DF:ea0e9bfb(20) , F1__RC=de62b86b, DF:c32bd3dd(19) , F1A_RC=346e222c, DF:bd2e3f75(21) , F1C_RC=502e5f82, DF:b4c733fe(20)
+F(00,06)::VEC(0, 6, ffffffff, 0)::      FNV  :00000006, DF=00000003(02) DS(00000001), FNV1 :06000972, DF=03000ead(10) DS(01000193), FNV1a:0b768e5b, DF=070001b5(09) DS(01000193), FNV1c:1010cce9, DF=1d0004d9(10) DS(030004b9),         F___RC=40f39a60, DF:26058ea9(13) , F1__RC=9f7c0520, DF:411ebd4b(16) , F1A_RC=b376a527, DF:8718870b(13) , F1C_RC=1241a9a4, DF:426ff626(17)
+F(00,07)::VEC(0, 7, ffffffff, 0)::      FNV  :00000007, DF=00000001(01) DS(00000001), FNV1 :07000b05, DF=01000277(08) DS(01000193), FNV1a:0a768cc8, DF=01000293(06) DS(01000193), FNV1c:0f10cb56, DF=1f0007bf(15) DS(01000193),         F___RC=1af11ff7, DF:5a028597(13) , F1__RC=609551d5, DF:ffe954f5(22) , F1A_RC=14293bea, DF:a75f9ecd(21) , F1C_RC=49d34bba, DF:5b92e21e(16)
+F(00,08)::VEC(0, 8, ffffffff, 0)::      FNV  :00000008, DF=0000000f(04) DS(00000001), FNV1 :08000c98, DF=0f00079d(12) DS(01000193), FNV1a:09768b35, DF=030007fd(12) DS(01000193), FNV1c:1a10dca7, DF=150017f1(12) DS(0b001151),         F___RC=f4eea58e, DF:ee1fba79(21) , F1__RC=21ae9e8a, DF:413bcf5f(19) , F1A_RC=eeebb7a5, DF:fac28c4f(17) , F1C_RC=7da04f47, DF:347304fd(16)
+F(00,09)::VEC(0, 9, ffffffff, 0)::      FNV  :00000009, DF=00000001(01) DS(00000001), FNV1 :09000e2b, DF=010002b3(07) DS(01000193), FNV1a:087689a2, DF=01000297(07) DS(01000193), FNV1c:1910db14, DF=030007b3(10) DS(01000193),         F___RC=ceec2b25, DF:3a028eab(14) , F1__RC=e2c7eb3f, DF:c36975b5(18) , F1A_RC=54e1aef8, DF:ba0a195d(15) , F1C_RC=d425e1af, DF:a985aee8(16)
+F(00,0a)::VEC(0, a, ffffffff, 0)::      FNV  :0000000a, DF=00000003(02) DS(00000001), FNV1 :0a000fbe, DF=03000195(07) DS(01000193), FNV1a:0776880f, DF=0f0001ad(10) DS(01000193), FNV1c:1c10dfcd, DF=050004d9(08) DS(030004b9),         F___RC=a8e9b0bc, DF:66059b99(15) , F1__RC=a3e137f4, DF:4126dccb(15) , F1A_RC=213fcd63, DF:75de639b(20) , F1C_RC=7e1d2751, DF:aa38c6fe(18)
+F(00,0b)::VEC(0, b, ffffffff, 0)::      FNV  :0000000b, DF=00000001(01) DS(00000001), FNV1 :0b001151, DF=01001eef(12) DS(01000193), FNV1a:0676867c, DF=01000e73(09) DS(01000193), FNV1c:1b10de3a, DF=070001f7(11) DS(01000193),         F___RC=82e73653, DF:2a0e86ef(16) , F1__RC=64fa84a9, DF:c71bb35d(19) , F1A_RC=5598ce46, DF:74a70325(14) , F1C_RC=6400c630, DF:1a1de161(14)
+F(00,0c)::VEC(0, c, ffffffff, 0)::      FNV  :0000000c, DF=00000007(03) DS(00000001), FNV1 :0c0012e4, DF=070003b5(10) DS(01000193), FNV1a:057684e9, DF=03000295(07) DS(01000193), FNV1c:1610d65b, DF=0d000861(07) DS(050007df),         F___RC=5ce4bbea, DF:de038db9(17) , F1__RC=2613d15e, DF:42e955f7(18) , F1A_RC=6a220ff1, DF:3fbac1b7(20) , F1C_RC=6e781da4, DF:0a78db94(15)
+F(00,0d)::VEC(0, d, ffffffff, 0)::      FNV  :0000000d, DF=00000001(01) DS(00000001), FNV1 :0d001477, DF=01000693(07) DS(01000193), FNV1a:04768356, DF=010007bf(11) DS(01000193), FNV1c:1510d4c8, DF=03000293(07) DS(01000193),         F___RC=36e24181, DF:6a06fa6b(17) , F1__RC=e72d1e13, DF:c13ecf4d(18) , F1A_RC=168d4944, DF:7caf46b5(19) , F1C_RC=65bbcfa1, DF:0bc3d205(13)
+F(00,0e)::VEC(0, e, ffffffff, 0)::      FNV  :0000000e, DF=00000003(02) DS(00000001), FNV1 :0e00160a, DF=0300027d(09) DS(01000193), FNV1a:037681c3, DF=07000295(08) DS(01000193), FNV1c:1810d981, DF=0d000d49(09) DS(030004b9),         F___RC=10dfc718, DF:263d8699(15) , F1__RC=a8466ac8, DF:4f6b74db(20) , F1A_RC=93e667bf, DF:856b2efb(19) , F1C_RC=76f80ee3, DF:1343c142(11)
+F(00,0f)::VEC(0, f, ffffffff, 0)::      FNV  :0000000f, DF=00000001(01) DS(00000001), FNV1 :0f00179d, DF=01000197(07) DS(01000193), FNV1a:02768030, DF=010001f3(08) DS(01000193), FNV1c:1710d7ee, DF=0f000e6f(13) DS(01000193),         F___RC=eadd4caf, DF:fa028bb7(17) , F1__RC=695fb77d, DF:c119ddb5(17) , F1A_RC=0f485682, DF:9cae313d(17) , F1C_RC=3667e8dc, DF:409fe63f(18)
+F(00,10)::VEC(0, 10, ffffffff, 0)::     FNV  :00000010, DF=0000001f(05) DS(00000001), FNV1 :10001930, DF=1f000ead(13) DS(01000193), FNV1a:01767e9d, DF=0300fead(14) DS(01000193), FNV1c:0210b6df, DF=15006131(09) DS(1500210f),         F___RC=c4dad246, DF:2e079ee9(17) , F1__RC=2a790432, DF:4326b34f(16) , F1A_RC=d10adebd, DF:de42883f(16) , F1C_RC=1ce48e12, DF:2a8366ce(15)
+</span></code></pre>
+<p><code>F(00,01)</code> : is input x,y </p>
+<p><code>VEC(0, 1, ffffffff, 0)</code>  : is <code>fnv_reduce</code> input vector (a,b,c,d)</p>
+<p><code>FNV  :00000001, DF=00000001(01) DS(00000001)</code> : </p>
+<ul>
+<li><code>FNV(00,01)</code> result is 00000001 , </li>
+<li><code>DF</code> : is changed bitcounts, compared with previous outputs, in this case prev[00,00] current[00,01] input is 1bit changed, and output result 1bit changed.</li>
+<li><code>DS</code> : is distances of previous result and current result , ABS(prev_fnvresult,current_fnvresult).</li>
+</ul>
+<p>** Basically, <code>DF</code> is higher is best on hash algorithm.</p>
+<p><code>F___RC=fefffe6d, DF:111e47a9(14)</code> : <code>fnv_reduce = fnv(fnv(fnv(a,b),c),d) </code> result is fefffe6d , and Different Bits counts are <code>14</code> bits.</p>
+<h2 id="rationale">Rationale</h2>
+<p>In case of ethash algorithm, it can't prevent ASIC forever.</p>
+<p>And, current ethash algorithm's FNV function is deprecated.</p>
+<p>So, It needs to be upgraded and it will make current ethash based ASICs obsolete.</p>
+<p>And current TETHASHV1 FNV1A implementation is based on most of ethash , which is verified for a long time.</p>
+<p>Another propose of big differencing the Ethash algorithm need to crypto analysis for a long times and need to GPU code optimization times.</p>
+<p><strong>Verification and Optimization timeline Examples</strong></p>
+<p>original ethminer (2015) -&gt; claymore optimized miner (2016) [1year]</p>
+<p>genoil ethminer (2015) -&gt; ethereum-mining/ethminer (2017) [2year]</p>
+<h2 id="test-results">Test Results::</h2>
+<p>Tethash miner has 2~3% of hashrate degrade on GPU, due to more core computation time.</p>
+<h2 id="copyright">Copyright</h2>
+<p>This work is licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

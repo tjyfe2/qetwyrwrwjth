@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2255: Wallet Permissions System</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2255.md" />
+<meta property="og:title" content="EIP-2255: Wallet Permissions System" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2255 (EIP-2255): Wallet Permissions System"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2255 (EIP-2255): Wallet Permissions System"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2255.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2255 (EIP 2255): Wallet Permissions System" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2255: Wallet Permissions System
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/danfinlay">Dan Finlay</a>,
+        
+    
+        
+        
+            <a href="https://github.com/rekmarks"> Erik Marks</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;web3-login-permissions&#x2F;3583">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;web3-login-permissions&#x2F;3583</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Interface</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-08-22</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>1474</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <p><img src="../assets/eip-2255/permissions.png" alt="Sample prompt screenshot" /></p>
+<!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>A proposed standard interface for restricting and permitting access to security-sensitive methods within a restricted web3 context like a website or &quot;dapp&quot;.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>Web3 JavaScript wallet browsers may implement <code>wallet_getPermissions</code> and <code>wallet_requestPermissions</code>. This provides a standard interface for requesting permissions and checking a domain's current permissions status.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Web3 Wallets are built around the responsibility of mediating the interactions between untrusted applications and a user's keys on their computer, getting appropriate consent from the user.</p>
+<p>Today web3 browsers like MetaMask always prompt on a per-action basis. This provides security at the cost of substantial user friction. We believe that a single permissions request can achieve the same level of security with vastly improved UX.</p>
+<p>The pattern of permissions requests is common around the web, from login with Facebook, Twitter, GitHub, and even Apple, making it a very familiar pattern.</p>
+<p><img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FG7dRV.png&amp;f=1" alt="facebook permissions" /></p>
+<p><img src="https://forum.level1techs.com/uploads/default/original/3X/e/0/e0d20c0faec92acec3e591c957612fd482d9d01a.jpeg" alt="log in with apple" /></p>
+<p>Many web3 applications today begin their sessions with a series of repetitive requests:</p>
+<ul>
+<li>Reveal your wallet address to this site.</li>
+<li>Switch to a preferred network.</li>
+<li>Sign a cryptographic challenge.</li>
+<li>Grant a token allowance to our contract.</li>
+<li>Send a transaction to our contract.</li>
+</ul>
+<p>Many of these (and possibly all), and many more (like decryption), could be generalized into a set of human-readable permissions prompts on the original sign-in screen, and additional permissions could be requested only as needed.</p>
+<p>On the user's end, each of these permissions could be individually rejected (unchecked), or even <em>attenuated</em>, or adjusted to meet the user's terms (for example, a sign-in request could have a user-added expiration date, and a token allowance could be adjusted by the user when it is requested), making the web3 login a sort of user-revisable terms of use.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<p>This proposal adds two new methods to a wallet's web3 provider API:</p>
+<ul>
+<li><code>wallet_getPermissions</code></li>
+<li><code>wallet_requestPermissions</code></li>
+</ul>
+<p>The <code>wallet_getPermissions</code> method is used for getting an array of current permissions (empty by default), while the <code>wallet_requestPermissions</code> method is used for an application to request additional permissions.</p>
+<p>These two methods are used to restrict a few hypothetical &quot;restricted methods&quot;. The first such method we would suggest should be included as part of the standard is <code>eth_accounts</code>.</p>
+<p>In this framework, the permission for a user to reveal their accounts would look like this:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">const </span><span style="color:#bf616a;">response </span><span style="color:#c0c5ce;">= </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">provider</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">send</span><span style="color:#c0c5ce;">({
+  method: &#39;</span><span style="color:#a3be8c;">wallet_requestPermissions</span><span style="color:#c0c5ce;">&#39;,
+  params: [{
+    &#39;</span><span style="color:#a3be8c;">eth_accounts</span><span style="color:#c0c5ce;">&#39;: {},
+  }]
+})
+</span></code></pre>
+<p>If this request was rejected, it would throw an error with a <code>code</code> value equal to <code>4001</code>, per <a href="https://eips.ethereum.org/EIPS/eip-1193">EIP 1193 errors</a>, which the MetaMask team has canonized in a module <a href="https://github.com/metamask/eth-json-rpc-errors">eth-json-rpc-errors</a>.</p>
+<p>If the request is accepted by the user, then subsequent requests to <code>eth_accounts</code> will succeed, and return an accounts array as usual.</p>
+<p>A call to <code>wallet_getPermissions</code> will then return a permissions schema object that describes the current permission.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">const </span><span style="color:#bf616a;">response </span><span style="color:#c0c5ce;">= </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">provider</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">send</span><span style="color:#c0c5ce;">({
+  method: &#39;</span><span style="color:#a3be8c;">wallet_getPermissions</span><span style="color:#c0c5ce;">&#39;
+})
+</span></code></pre>
+<p>Would return a value something like this:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">[
+  {
+    </span><span style="background-color:#bf616a;color:#2b303b;">invoker</span><span style="color:#c0c5ce;">: </span><span style="background-color:#bf616a;color:#2b303b;">&#39;ens</span><span style="color:#c0c5ce;">:</span><span style="color:#65737e;">//your-site.eth&#39;,
+    </span><span style="background-color:#bf616a;color:#2b303b;">parentCapability</span><span style="color:#c0c5ce;">: </span><span style="background-color:#bf616a;color:#2b303b;">&#39;eth_accounts&#39;,</span><span style="color:#c0c5ce;">
+    </span><span style="background-color:#bf616a;color:#2b303b;">caveats</span><span style="color:#c0c5ce;">: [
+      {
+        </span><span style="background-color:#bf616a;color:#2b303b;">type</span><span style="color:#c0c5ce;">: </span><span style="background-color:#bf616a;color:#2b303b;">&#39;filterResponse&#39;,</span><span style="color:#c0c5ce;">
+        </span><span style="background-color:#bf616a;color:#2b303b;">value</span><span style="color:#c0c5ce;">: [&quot;</span><span style="color:#a3be8c;">0x0c54fccd2e384b4bb6f2e405bf5cbc15a017aafb</span><span style="color:#c0c5ce;">&quot;]
+      }
+    ]
+  }
+]
+</span></code></pre>
+<p>Where <code>invoker</code> is a unique domain string used to identify the source of the current dapp. To start, this may include only <code>https</code> prefixes, but <code>ens</code>, <code>swarm</code>, <code>ipfs</code>, and others may all be valid sources in the future.</p>
+<p>The term <code>parentCapability</code> comes from the <a href="https://w3c-ccg.github.io/zcap-ld/">zcap-ld spec</a>, which these permissions objects are based on, and refers to the method that is being permitted.</p>
+<p>The <code>caveats</code> array represents the specific restrictions applied to the permitted method.</p>
+<p>You can see above how internally the user-selected account is transformed into a <a href="https://github.com/MetaMask/json-rpc-capabilities-middleware/blob/master/src/%40types/ocap-ld.d.ts#L28-L33"><code>caveat</code></a>, which is a restriction on the response values, in this case ensuring the page can only be notified of approved accounts. This also means this permissions system is forward-extensible to support logging into a page with multiple accounts.</p>
+<h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<p>While the current model of getting user consent on a per-action basis has high security, there are huge usability gains to be had bo getting more general user consent which can cover broad categories of usage, which can be expressed in a more human-readable way. This pattern has a variety of benefits to offer different functions within a web3 wallet.</p>
+<p>The <code>eth_sendTransaction</code> method itself could be a restricted method (requested by default with the <code>provider.enable()</code> method), and the user could at sign-in time decide whether they wanted to require confirmations, approve all transactions, or only approve transactions to a certain contract, or up to a certain token limit, for example. By restricting this method by default, wallets could prevent sites from spamming the user with popups.</p>
+<p>If <code>eth_call</code> were a restricted method, then random websites would not be able to drain a user's subscription to a hosted provider, making it easier to protect services like Infura against DDoS attacks.</p>
+<p>On-chain actions could be represented as a permission under this model, for example, the permission to send an allowance-setting transaction to a specific token address is virtually equivalent to the approval of that transaction, except the site could choose to only invoke the transaction when it was needed. This could allow a standard interface for applications to request permissions which may require different actions depending on different types of accounts (hot wallets, hardware wallets, cold wallets, contract accounts).</p>
+<p>The <code>requestPermissions</code> method could be expanded to include other options related to the requested permissions, for example, sites could request accounts with specific abilities. For example, a website like an exchange that requires <code>signTypedData_v3</code> (which is not supported by some hardware wallets), might want to specify that requirement, maybe like this:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">provider</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">send</span><span style="color:#c0c5ce;">({
+  method: &#39;</span><span style="color:#a3be8c;">requestPermissions</span><span style="color:#c0c5ce;">&#39;,
+  params: [
+    {
+      &#39;</span><span style="color:#a3be8c;">eth_accounts</span><span style="color:#c0c5ce;">&#39;: {
+        requiredMethods: [&#39;</span><span style="color:#a3be8c;">signTypedData_v3</span><span style="color:#c0c5ce;">&#39;]
+      }
+    }
+  ]
+})
+</span></code></pre>
+<p>That type of API will also be up for discussion on <a href="https://github.com/MetaMask/metamask-extension/issues/6994">The MetaMask repository</a>.</p>
+<p>This would allow the wallet to limit the user's options to valid ones, and allows dapps to ensure selected accounts are compatible with their service, while preserving the user's privacy regarding how they are storing their keys.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>We have <a href="https://github.com/MetaMask/metamask-extension/tree/LoginPerSite">a branch of MetaMask available now</a> which adds these methods via an <a href="https://github.com/MetaMask/json-rpc-engine">rpc-engine</a> middleware called <a href="https://github.com/MetaMask/json-rpc-capabilities-middleware">json-rpc-capabilities-middleware</a> (or often <code>RpcCap</code> internally, for short).</p>
+<p>The latest build of this branch of MetaMask can be downloaded from <a href="https://github.com/MetaMask/metamask-extension/pull/7004">the draft pull request</a> (look for the latest post by <code>@MetaMaskBot</code>). A guide to adding a custom build of MetaMask to Chrome can be found <a href="https://github.com/MetaMask/metamask-extension/blob/develop/docs/add-to-chrome.md">here</a>.</p>
+<p>This branch of MetaMask can be used with <a href="https://metamask.github.io/permissions-adventure/">this sample site</a> (<a href="https://github.com/metamask/permissions-adventure">source</a>), which uses a couple sample permissions for demonstration purposes:</p>
+<ul>
+<li><code>readYourProfile</code>: We have bundled this build with an imaginary concept of a local &quot;profile&quot;, a simple <a href="https://en.wikipedia.org/wiki/Plain_old_Java_object">POJO</a>. Eventually this could be extended to instead expose the user's <a href="https://3box.io/">3box profile</a>.</li>
+<li><code>writeToYourProfile</code>: This permission allows the requesting app to freely update/edit the user's profile.</li>
+<li><code>sendEther</code>: A permission allowing the sending of transactions.</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/0*JE9gDZR7fqo2Ewfw.gif" alt="sample dapp" /></p>
+<p>It is notable that this branch is the first version of MetaMask that allows you to be connected to each site with a different account, which persists on that site, along with any other permissions granted to the site.</p>
+<p>You can get more detailed API and type information <a href="https://github.com/MetaMask/json-rpc-capabilities-middleware#rpc-methods">on the RpcCap repository's readme</a>.</p>
+<p>New hypothetical and proposed permissions can be easily added to <a href="https://github.com/MetaMask/metamask-extension/blob/774d931cb9f16a8f2df8c6deee1dd553b40d5ad5/app/scripts/controllers/permissions.js#L187">the <code>restrictedMethods</code> hash in the MetaMask permissions controller</a> or proposed for discussion on the <a href="https://github.com/MetaMask/wallet-permissions-spec">MetaMask/wallet-permissions-spec</a> repository.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

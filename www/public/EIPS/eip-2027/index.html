@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2027: State Rent C - Net contract size accounting</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2027.md" />
+<meta property="og:title" content="EIP-2027: State Rent C - Net contract size accounting" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2027 (EIP-2027): State Rent C - Net contract size accounting"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2027 (EIP-2027): State Rent C - Net contract size accounting"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2027.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2027 (EIP 2027): State Rent C - Net contract size accounting" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2027: State Rent C - Net contract size accounting
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/AlexeyAkhunov">Alexey Akhunov</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2027-net-contract-size-accounting-change-c-from-state-rent-v3-proposal&#x2F;3275">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2027-net-contract-size-accounting-change-c-from-state-rent-v3-proposal&#x2F;3275</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-05-14</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>Ethereum starts counting the number of storage slots filled and emptied in the contracts. Since the number of pre-existing slots is not currently accounted
+in the state, effectively, only net change in the number of slots is tracked. In the subsequent change, called <em>Gross contract size accounting</em>, the total
+number of storage slots starts being tracked.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>This is part of the State Rent roadmap. This particular change introduces initial, net accounting of the number of the contract storage slots. Though not very
+useful on its own, it makes it possible to introduce gross accounting of the number of storage slots, which is useful for number of things:</p>
+<ol>
+<li>Gas cost of operations suchs as <code>SLOAD</code> and <code>SSTORE</code> will need to be increased to compensate for extra bandwidth consumed by the block proofs. Although in
+the beginning the cost would be fixed, it will later be automatically calibrated depending on the size of the contract <code>SLOAD</code> and <code>SSTORE</code> operate on.</li>
+<li>Snapshot sync protocols, like <em>fast sync</em>, <em>warp sync</em>, <em>firehose</em>, <em>red queen</em>, and perhaps others, will benefit from having the correct size of the
+contract storage present in the state (and therefore being provable via Merkle proofs).</li>
+</ol>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>Ethereum currently does not track the number of contract storage slots at all, and producing such number given the downloaded state cannot be done in
+constant <em>O(1)</em> time.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<p>Each contract (account with <code>codeHash</code> field not equal to 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470, which the hash of the empty code) gets a new uint64 field, called <code>storagesize</code>. On and after block <code>C</code>, the semantics of the operation <code>SSTORE</code> (<code>location</code>, <code>value</code>) changes as follows:</p>
+<ul>
+<li>If previous value of the [<code>location</code>] is 0, and value is not 0, <em>increment</em> <code>storagesize</code> (semantics of <em>increment</em> described below)</li>
+<li>If previous value of the [<code>location</code>] is not 0, and value is 0, <em>decrement</em> <code>storagesize</code> (semantics of <em>decrement</em> described below)</li>
+<li>As with other state changes, changes of <code>storagesize</code> get reverted when the execution frame reverts, i.e. it needs to use the same techniques as storage values, like journalling (in Geth), and substates (in Parity).
+Value of <code>storagesize</code> is not observable from contracts at this point.</li>
+</ul>
+<h3 id="semantics-of-increment-storagesize">Semantics of <em>increment</em> <code>storagesize</code></h3>
+<p>If <code>storagesize</code> is not present, <code>storagesize</code> = <code>HUGE_NUMBER</code> + 1.
+If <code>storagesize</code> is present, <code>storagesize</code> = <code>storagesize</code> + 1.</p>
+<h3 id="semantics-of-decrement-storagesize">Semantics of <em>decrement</em> <code>storagesize</code></h3>
+<p>If <code>storagesize</code> is not present, <code>storagesize</code> = <code>HUGE_NUMBER</code> - 1.
+If <code>storagesize</code> is present, <code>storagesize</code> = <code>storagesize</code> - 1.</p>
+<h3 id="note-of-huge-number">Note of <code>HUGE_NUMBER</code></h3>
+<p>There is a constant <code>HUGE_NUMBER</code>. It needs to be large enough so that no real metrics (contract storage size, number of accounts, number of contracts, total size of code, total size of storage) will never reach that number, and small enough that it fits in an unsigned 64-bit integer.
+Current suggestion is to have <code>HUGE_NUMBER</code> = 2^63, which is binary representation is the a single bit in a 64-bit number.</p>
+<p>The idea is to make it decidable later whether the storagesize was ever incremented/decremented (presence of the field), and whether it has been converted from net to gross (by value being smaller than <code>HUGE_NUMBER/2</code> - because it will not be possible for any contract be larger than 2^62 at the block <code>C</code>).</p>
+<h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<p>A mechanism for estimation of contract storage size has been proposed <a href="https://medium.com/@akhounov/estimation-approximate-of-the-size-of-contracst-in-ethereum-4642fe92d6fe">here</a>. But it does have a big drawback of introducing a lot of complexity into the consensus
+(in the form of estimation algorithm, which has quite a few edge cases to cater for different sizes of the storage).</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<!--All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards compatibility treatise may be rejected outright.-->
+<p>This change is not backwards compatible and requires hard fork to be activated. Since the newly introduced field is not observable, this change does not impact any operations of the existing smart contracts. </p>
+<h2 id="test-cases">Test Cases</h2>
+<!--Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Other EIPs can choose to include links to test cases if applicable.-->
+<p>Tests cases will be generated out of a reference implementation.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>There will be proof of concept implementation to refine and clarify the specification.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

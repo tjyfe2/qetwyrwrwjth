@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2364: eth&amp;#x2F;64: forkid-extended protocol handshake</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2364.md" />
+<meta property="og:title" content="EIP-2364: eth&amp;#x2F;64: forkid-extended protocol handshake" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2364 (EIP-2364): eth&amp;#x2F;64: forkid-extended protocol handshake"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2364 (EIP-2364): eth&amp;#x2F;64: forkid-extended protocol handshake"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2364.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2364 (EIP 2364): eth&amp;#x2F;64: forkid-extended protocol handshake" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2364: eth&#x2F;64: forkid-extended protocol handshake
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:peterke@gmail.com">Péter Szilágyi</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2365">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2365</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Networking</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-11-08</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>2124</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">Abstract</h2>
+<p>The <a href="https://eips.ethereum.org/EIPS/eip-2124"><code>forkid</code> (EIP-2124)</a> was designed to permit two Ethereum nodes to quickly and cheaply decide if they are compatible or not, not only at a genesis/networking level, but also from the perspective of the currently passed network updates (i.e. forks).</p>
+<p><a href="https://eips.ethereum.org/EIPS/eip-2124">EIP-2124</a> only defines how the <code>forkid</code> is calculated and validated, but does not specify how the <code>forkid</code> should be exchanged between peers. This EIP specifies the inclusion of the <code>forkid</code> as a new field in the Ethereum wire protocol (<code>eth</code>) handshake (releasing a new version, <code>eth/64</code>).</p>
+<p>By cross-validating <code>forkid</code> during the handshake, incompatible nodes can disconnect before expensive block exchanges and validations take place (PoW check, EVM execution, state reconstruction). This further prevents peer slots from being taken up by nodes that are incompatible, but have not yet been detected as such.</p>
+<h2 id="motivation">Motivation</h2>
+<p>From a micro perspective, cutting off incompatible nodes from one another ensures that a node only spends its resources on tasks that are genuinely useful to it. The sooner we can decide the remote peer is useless, the less time and processing we expend in vain.</p>
+<p>From a macro perspective, keeping incompatible nodes partitioned from one another ensures that disjoint clusters retain more resources for maintaining their own chain, thus raising the quality of service for all networks globally.</p>
+<h2 id="specification">Specification</h2>
+<p>The specification is tiny since most parts are already specified in EIP-2124. <code>eth/63</code> is not specified as an EIP, but is maintained <a href="https://github.com/ethereum/devp2p/blob/master/caps/eth.md">here</a>.</p>
+<ul>
+<li>Implement <code>forkid</code> generation and validation per <a href="https://eips.ethereum.org/EIPS/eip-2124">EIP-2124</a>.</li>
+<li>Advertise a new <code>eth</code> protocol capability (version) at <code>eth/64</code>.
+<ul>
+<li>The old <code>eth/63</code> protocol should still be kept alive side-by-side, until <code>eth/64</code> is sufficiently adopted by implementors.</li>
+</ul>
+</li>
+<li>Redefine <code>Status (0x00)</code> for <code>eth/64</code> to add a trailing <code>forkid</code> field:
+<ul>
+<li>Old packet: <code>[protocolVersion, networkId, td, bestHash, genesisHash]</code></li>
+<li>New packet: <code>[protocolVersion, networkId, td, bestHash, genesisHash, forkid]</code>,
+where <code>forkid</code> is <code>[forkHash: [4]byte, forkNext: uint64]</code> (fields per <a href="https://eips.ethereum.org/EIPS/eip-2124">EIP-2124</a> ).</li>
+</ul>
+</li>
+</ul>
+<p>Whenever two peers connect using the <code>eth/64</code> protocol, the updated <code>Status</code> message must be sent as the protocol handshake, and each peer must validate the remote <code>forkid</code>, disconnecting at a detected incompatibility.</p>
+<h2 id="rationale">Rationale</h2>
+<h5 id="eip-2124-mentions-advertising-the-forkid-in-the-discovery-protocol-too-how-does-that-compare-to-advertising-in-the-eth-protocol-why-is-the-redundancy-needed">EIP-2124 mentions advertising the <code>forkid</code> in the discovery protocol too. How does that compare to advertising in the <code>eth</code> protocol? Why is the redundancy needed?</h5>
+<p>Advertising and validating the <code>forkid</code> in the discovery protocol is a more optimal solution, as it can help avoid the cost of setting up the TCP connection and cryptographic RLPx stream, only to be torn down if <code>eth/64</code> rejects it.</p>
+<p>Compared to the <code>eth</code> protocol however, discovery is a bit fuzzy. The goal there is to suggest potential peers, not to be fool-proof. Information may be outdated, nodes may have changed or disappeared. Discovery can do a rough filtering, but more precision is still needed afterwards.</p>
+<p>Additionally, <code>forkid</code> validation via the discovery protocol requires ENR implementation (<a href="https://eips.ethereum.org/EIPS/eip-778">EIP-778</a>) and ENR extension support (<a href="https://eips.ethereum.org/EIPS/eip-868">EIP-868</a>), which is not mandated by the Ethereum network currently. Lastly, the discovery protocol is just one way to find peers, but systems that cannot use UDP or that rely on other mechanism (e.g. DNS discovery (<a href="https://eips.ethereum.org/EIPS/eip-1459">EIP-1459</a>)) still need a way to filter connections.</p>
+<h5 id="the-forkid-implicitly-contains-the-genesis-hash-checksummed-into-the-fork-hash-field-why-doesn-t-this-proposal-remove-the-genesishash-field-from-the-eth-handshake">The <code>forkid</code> implicitly contains the genesis hash checksummed into the <code>FORK_HASH</code> field. Why doesn't this proposal remove the <code>genesisHash</code> field from the <code>eth</code> handshake?</h5>
+<p>Originally this EIP did remove it as redundant data, since filtering based on the <code>forkid</code> is a superset of filtering based on genesis hash. The reason for backing out of that decision was that the genesis hash may be useful for other things too, not just connection filtering (network crawlers use it currently to split nodes across networks).</p>
+<p>Although the <code>forkid</code> will hopefully take over all the roles of the genesis hash currently in use, there's no reason to be overly aggressive in deduplicating data. It's fine to keep both side-by-side for now, and remove in a future version when 3rd party infrastructures switch over.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP extends the <code>eth</code> protocol handshake in a backwards incompatible way and requires rolling out a new version, <code>eth/64</code>. However, <code>devp2p</code> supports running multiple versions of the same wire protocol side-by-side, so rolling out <code>eth/64</code> does not require client coordination, since non-updated clients can keep using <code>eth/63</code>.</p>
+<p>This EIP does not change the consensus engine, thus does <em>not</em> require a hard fork.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>For calculating and validating fork IDs, see test cases in <a href="https://eips.ethereum.org/EIPS/eip-2124">EIP-2124</a>.</p>
+<p>Testing proper advertising and validation at the networking level will require a <a href="https://github.com/ethereum/hive">hive</a> test.</p>
+<h2 id="implementation">Implementation</h2>
+<p>Geth: https://github.com/ethereum/go-ethereum/pull/20140</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-902: Token Validation</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-902.md" />
+<meta property="og:title" content="EIP-902: Token Validation" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 902 (EIP-902): Token Validation"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 902 (EIP-902): Token Validation"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-902.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 902 (EIP 902): Token Validation" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-902: Token Validation
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/expede">Brooklyn Zelenka</a>,
+        
+    
+        
+        
+            <a href="https://github.com/carchrae"> Tom Carchrae</a>,
+        
+    
+        
+        
+            <a href="https://github.com/naumenkogs"> Gleb Naumenko</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;update-on-erc902-validated-token&#x2F;1639">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;update-on-erc902-validated-token&#x2F;1639</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-02-14</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>1066</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h1 id="simple-summary">Simple Summary</h1>
+<p>A protocol for services providing token ownership and transfer validation.</p>
+<h1 id="abstract">Abstract</h1>
+<p>This standard provides a registry contract method for authorizing token transfers. By nature, this covers both initially issuing tokens to users (ie: transfer from contract to owner), transferring tokens between users, and token spends.</p>
+<h1 id="motivation">Motivation</h1>
+<p>The tokenization of assets has wide application, not least of which is financial instruments such as securities and security tokens. Most jurisdictions have placed legal constraints on what may be traded, and who can hold such tokens which are regarded as securities. Broadly this includes KYC and AML validation, but may also include time-based spend limits, total volume of transactions, and so on.</p>
+<p>Regulators and sanctioned third-party compliance agencies need some way to link off-chain compliance information such as identity and residency to an on-chain service. The application of this design is broader than legal regulation, encompassing all manner of business logic permissions for the creation, management, and trading of tokens.</p>
+<p>Rather than each token maintaining its own whitelist (or other mechanism), it is preferable to share on-chain resources, rules, lists, and so on. There is also a desire to aggregate data and rules spread across multiple validators, or to apply complex behaviours (ex. switching logic, gates, state machines) to apply distributed data to an application.</p>
+<h1 id="specification">Specification</h1>
+<h2 id="tokenvalidator"><code>TokenValidator</code></h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface TokenValidator {
+    function check(
+        address _token,
+        address _subject
+    ) public returns(byte statusCode)
+
+    function check(
+        address _token,
+        address _from,
+        address _to,
+        uint256 _amount
+    ) public returns (byte statusCode)
+}
+</span></code></pre><h3 id="methods">Methods</h3>
+<h4 id="check-2"><code>check</code>/2</h4>
+<p><code>function check(address _token, address _subject) public returns (byte _resultCode)</code></p>
+<blockquote>
+<p>parameters</p>
+<ul>
+<li><code>_token</code>: the token under review</li>
+<li><code>_subject</code>: the user or contract to check</li>
+</ul>
+<p><em>returns</em> an ERC1066 status code</p>
+</blockquote>
+<h4 id="check-4"><code>check</code>/4</h4>
+<p><code>function check(address token, address from, address to, uint256 amount) public returns (byte resultCode)</code></p>
+<blockquote>
+<p>parameters</p>
+<ul>
+<li><code>_token</code>: the token under review</li>
+<li><code>_from</code>: in the case of a transfer, who is relinquishing token ownership</li>
+<li><code>_to</code>: in the case of a transfer, who is accepting token ownership</li>
+<li><code>_amount</code>: The number of tokens being transferred</li>
+</ul>
+<p><em>returns</em> an ERC1066 status code</p>
+</blockquote>
+<h2 id="validatedtoken"><code>ValidatedToken</code></h2>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">interface ValidatedToken {
+    event Validation(
+        address indexed subject,
+        byte   indexed result
+    )
+
+    event Validation(
+        address indexed from,
+        address indexed to,
+        uint256 value,
+        byte   indexed statusCode
+    )
+}
+</span></code></pre><h3 id="events">Events</h3>
+<h4 id="validation-2"><code>Validation</code>/2</h4>
+<p><code>event Validation(address indexed subject, byte indexed resultCode)</code></p>
+<p>This event MUST be fired on return from a call to a <code>TokenValidator.check/2</code>.</p>
+<blockquote>
+<p>parameters</p>
+<ul>
+<li><code>subject</code>: the user or contract that was checked</li>
+<li><code>statusCode</code>: an ERC1066 status code</li>
+</ul>
+</blockquote>
+<h4 id="validation-4"><code>Validation</code>/4</h4>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">event Validation(
+    address indexed from,
+    address indexed to,
+    uint256 amount,
+    byte   indexed statusCode
+)
+</span></code></pre>
+<p>This event MUST be fired on return from a call to a <code>TokenValidator.check/4</code>.</p>
+<blockquote>
+<p>parameters</p>
+<ul>
+<li><code>from</code>: in the case of a transfer, who is relinquishing token ownership</li>
+<li><code>to</code>: in the case of a transfer, who is accepting token ownership</li>
+<li><code>amount</code>: The number of tokens being transferred</li>
+<li><code>statusCode</code>: an ERC1066 status code</li>
+</ul>
+</blockquote>
+<h1 id="rationale">Rationale</h1>
+<p>This proposal includes a financial permissions system on top of any financial token. This design is not a general roles/permission system. In any system, the more you know about the context where a function will be called, the more powerful your function can be. By restricting ourselves to token transfers (ex. ERC20 or EIP-777), we can make assumptions about the use cases our validators will need to handle, and can make the API both small, useful, and extensible.</p>
+<p>The events are fired by the calling token. Since <code>Validator</code>s may aggregate or delegate to other <code>Validator</code>s, it would generate a lot of useless events were it the
+<code>Validator</code>'s responsibility. This is also the reason why we include the <code>token</code> in the <code>call/4</code> arguments: a <code>Validator</code> cannot rely on <code>msg.sender</code> to determine the token that the call is concerning.</p>
+<p>We have also seen a similar design from <a href="https://github.com/harborhq/r-token">R-Token</a> that uses an additional field: <code>spender</code>. While there are potential use cases for this, it's not widely used enough to justify passing a dummy value along with every call. Instead, such a call would look more like this:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function approve(address spender, uint amount) public returns (bool success) {
+    if (validator.check(this, msg.sender, spender, amount) == okStatusCode) {
+        allowed[msg.sender][spender] = amount;
+        Approval(msg.sender, spender, amount);
+        return true;
+    } else {
+        return false;
+    }
+}
+</span></code></pre>
+<p>A second <code>check/2</code> function is also required, that is more general-purpose, and does not specify a transfer amount or recipient. This is intended for general checks, such as checking roles (admin, owner, &amp;c), or if a user is on a simple whitelist.</p>
+<p>We have left the decision to make associated <code>Validator</code> addresses public, private, or hardcoded up to the implementer. The proposed design does not include a centralized registry. It also does not include an interface for a <code>Validated</code> contract. A token may require one or many <code>Validator</code>s for different purposes, requiring different validations for different, or just a single <code>Validator</code>. The potential use cases are too varied to provide a single unified set of methods. We have provided a set of example contracts <a href="https://github.com/Finhaven/ValidatedToken/">here</a> that may be inherited from for common use cases.</p>
+<p>The status codes in the <code>byte</code> returns are unspecified. Any status code scheme may be used, though a general status code proposal is fortcoming.</p>
+<p>By only defining the validation check, this standard is widely compatible with ERC-20, EIP-721, EIP-777, future token standards, centralized and decentralized exchanges, and so on.</p>
+<h1 id="implementation">Implementation</h1>
+<p><a href="https://github.com/expede/validated-token/">Reference implementation</a></p>
+<h1 id="copyright">Copyright</h1>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

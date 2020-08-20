@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1057: ProgPoW, a Programmatic Proof-of-Work</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1057.md" />
+<meta property="og:title" content="EIP-1057: ProgPoW, a Programmatic Proof-of-Work" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1057 (EIP-1057): ProgPoW, a Programmatic Proof-of-Work"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1057 (EIP-1057): ProgPoW, a Programmatic Proof-of-Work"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1057.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1057 (EIP 1057): ProgPoW, a Programmatic Proof-of-Work" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1057: ProgPoW, a Programmatic Proof-of-Work
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:greg@colvin.org">Greg Colvin</a>,
+        
+    
+        
+        
+            <a href="https://github.com/AndreaLanfranchi"> Andrea Lanfranchi</a>,
+        
+    
+        
+        
+            <a href="https://github.com/bitsbetrippin"> Michael Carter</a>,
+        
+    
+        
+        
+            <a href="mailto:ifdefelse@protonmail.com">IfDefElse</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-progpow-a-programmatic-proof-of-work&#x2F;272">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-progpow-a-programmatic-proof-of-work&#x2F;272</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Accepted
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-05-02</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A new Proof-of-Work algorithm to replace Ethash that utilizes almost all parts of commodity GPUs.</p>
+<p>We <strong>Do Not</strong> recommend that this Proposal be deployed at this time.  Rather it is being offered in the spirit of <a href="https://ethereum-magicians.org/t/a-progpow-compromise-pre-proposal/4057">Ben DiFrancesco's compromise</a> which for our purposes we state simply as,</p>
+<ul>
+<li>This Proposal <strong>is not</strong> being proposed for deployment in any planned hardfork.</li>
+<li>This Proposal should be fully implemented and tested across major clients.</li>
+<li>Clients implementing this Proposal should be deployed and maintained on a testnet.</li>
+</ul>
+<p>This leaves open the possibility and threat of future deployment.</p>
+<h2 id="abstract">Abstract</h2>
+<p>ProgPoW is a proof-of-work algorithm designed to close the efficiency gap available to specialized ASICs. It utilizes almost all parts of commodity hardware (GPUs), and comes pre-tuned for the most common hardware utilized in the Ethereum network.</p>
+<p>This document presents an overview of the algorithm and examines what it means to be “ASIC-resistant.” Next, we compare existing PoW designs by analyzing how each algorithm executes in hardware. Finally, we present the detailed implementation by walking through the code.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Ever since the first bitcoin mining ASIC was released, many new Proof of Work algorithms have been created with the intention of being “ASIC-resistant”. The goal of “ASIC-resistance” is to resist the centralization of PoW mining power such that these coins couldn’t be so easily manipulated by a few players.</p>
+<p>Ethereum's approach is to incentivize a geographically-distributed community of miners with a low barrier to entry on commodity hardware.  As stated in the Yellow Paper:</p>
+<blockquote>
+<p>11.5. Mining Proof-of-Work. The mining proof-ofwork (PoW) exists as a cryptographically secure nonce that proves beyond reasonable doubt that a particular amount of computation has been expended in the determination of some token value n. It is utilised to enforce the blockchain security by giving meaning and credence to the notion of difficulty (and, by extension, total difficulty). However, since mining new blocks comes with an attached reward, the proof-of-work not only functions as a method of securing confidence that the blockchain will remain canonical into the future, but also as a wealth distribution mechanism.</p>
+</blockquote>
+<blockquote>
+<p>For both reasons, there are two important goals of the proof-of-work function; firstly, it should be as accessible as possible to as many people as possible. The requirement of, or reward from, specialised and uncommon hardware should be minimised. This makes the distribution model as open as possible, and, ideally, makes the act of mining a simple swap from electricity to Ether at roughly the same rate for anyone around the world.</p>
+</blockquote>
+<blockquote>
+<p>Secondly, it should not be possible to make super-linear profits, and especially not so with a high initial barrier. Such a mechanism allows a well-funded adversary to gain a troublesome amount of the network’s total mining power and as such gives them a super-linear reward (thus skewing distribution in their favour) as well as reducing the network security...</p>
+</blockquote>
+<blockquote>
+<p>... While ASICs exist for a proof-of-work function, both goals are
+placed in jeopardy.</p>
+</blockquote>
+<p>It is from these premises that Ethash was designed.</p>
+<blockquote>
+<p>Two directions exist for ASIC resistance; firstly make it sequential memory-hard, i.e. engineer the function such that the determination of the nonce requires a lot of memory and bandwidth such that the memory cannot be used in parallel to discover multiple nonces simultaneously. The second is to make the type of computation it would need to do general-purpose; the meaning of “specialised hardware” for a general-purpose task set is, naturally, general purpose hardware and as such commodity desktop computers are likely to be pretty close to “specialised hardware” for the task. For Ethereum 1.0 we have chosen the first path.</p>
+</blockquote>
+<p>5 years of experience with the Ethereum blockchain have demonstrated the success of our approach.  This success cannot be taken for granted.</p>
+<ul>
+<li>11 years of experience with PoW Blockchains have shown a centralization in hardware development, resulting in a <a href="https://www.asicminervalue.com/">few companies</a> controlling the lifecycle of new hardware, limited distribution and multiple incidents of leverage &amp; contention ((citations))</li>
+<li>new ASICs for Ethash are providing higher efficiency than GPUs ((cite device specs))</li>
+<li>the existing Ethereum network is now circa 40% <a href="https://www.overleaf.com/project/5e222c2cac8911000178b239">secured by E3 devices</a>.</li>
+<li>new devices are coming online with ((cite even better specs))</li>
+</ul>
+<p>ProgPow restores Ethash' ASIC-resistance by extending Etash with a GPU-specific approach to the second path.</p>
+<h3 id="progpow-overview">ProgPoW Overview</h3>
+<p>The design goal of ProgPoW is to have the algorithm’s requirements match what is available on commodity GPUs:  If the algorithm were to be implemented on a custom ASIC there should be little opportunity for efficiency gains compared to a commodity GPU.</p>
+<p>The main elements of the algorithm are:</p>
+<ul>
+<li>Changes keccak_f1600 (with 64-bit words) to keccak_f800 (with 32-bit words) to reduce impact on total power</li>
+<li>Increases mix state.</li>
+<li>Adds a random sequence of math in the main loop.</li>
+<li>Adds reads from a small, low-latency cache that supports random addresses.</li>
+<li>Increases the DRAM read from 128 bytes to 256 bytes.</li>
+<li>((cite adjustments from 0.9.1 -&gt; 0.9.2 -&gt; 0.9.3 -&gt; 0.9.4))</li>
+</ul>
+<p>The random sequence changes every <code>PROGPOW_PERIOD</code> (about 2 to 12 minutes depending on the configured value).  When mining source code is generated for the random sequence and compiled on the host CPU.  The GPU will execute the compiled code where what math to perform and what mix state to use are already resolved.</p>
+<p>While a custom ASIC to implement this algorithm is still possible, the efficiency gains available are minimal.  The majority of a commodity GPU is required to support the above elements. The only optimizations available are:</p>
+<ul>
+<li>Remove the graphics pipeline (displays, geometry engines, texturing, etc)</li>
+<li>Remove floating point math</li>
+<li>A few ISA tweaks, like instructions that exactly match the merge() function</li>
+</ul>
+<p>These would result in minimal, roughly 1.1-1.2x, efficiency gains.  This is much less than the 2x for Ethash or 50x for Cryptonight.</p>
+<h3 id="rationale-for-pow-on-commodity-hardware">Rationale for PoW on Commodity Hardware</h3>
+<p>With the growth of large mining pools, the control of hashing power has been delegated to the top few pools to provide a steadier economic return for small miners. While some have made the argument that large centralized pools defeats the purpose of “ASIC resistance,” it’s important to note that ASIC based coins are even more centralized for several reasons.</p>
+<ol>
+<li>No natural distribution: There isn’t an economic purpose for ultra-specialized hardware outside of mining and thus no reason for most people to have it.</li>
+<li>No reserve group: Thus, there’s no reserve pool of hardware or reserve pool of interested parties to jump in when coin price is volatile and attractive for manipulation.</li>
+<li>High barrier to entry: Initial miners are those rich enough to invest capital and ecological resources on the unknown experiment a new coin may be. Thus, initial coin distribution through mining will be very limited causing centralized economic bias.</li>
+<li>Delegated centralization vs implementation centralization: While pool centralization is delegated, hardware monoculture is not: only the limiter buyers of this hardware can participate so there isn’t even the possibility of divesting control on short notice.</li>
+<li>No obvious decentralization of control even with decentralized mining: Once large custom ASIC makers get into the game, designing back-doored hardware is trivial. ASIC makers have no incentive to be transparent or fair in market participation.</li>
+</ol>
+<p>While the goal of “ASIC resistance” is valuable, the entire concept of “ASIC resistance” is a bit of a fallacy.  CPUs and GPUs are themselves ASICs.  Any algorithm that can run on a commodity ASIC (a CPU or GPU) by definition can have a customized ASIC created for it with slightly less functionality. Some algorithms are intentionally made to be  “ASIC friendly” - where an ASIC implementation is drastically more efficient than the same algorithm running on general purpose hardware. The protection that this offers when the coin is unknown also makes it an attractive target for a dedicate mining ASIC company as soon as it becomes useful.</p>
+<p>Therefore, ASIC resistance is: the efficiency difference of specialized hardware versus hardware that has a wider adoption and applicability.  A smaller efficiency difference between custom vs general hardware mean higher resistance and a better algorithm. This efficiency difference is the proper metric to use when comparing the quality of PoW algorithms.  Efficiency could mean absolute performance, performance per watt, or performance per dollar - they are all highly correlated.  If a single entity creates and controls an ASIC that is drastically more efficient, they can gain 51% of the network hashrate and possibly stage an attack.</p>
+<h3 id="review-of-existing-pow-algorithms">Review of Existing PoW Algorithms</h3>
+<h4 id="sha256">SHA256</h4>
+<ul>
+<li>Potential ASIC efficiency gain ~ 1000X</li>
+</ul>
+<p>The SHA algorithm is a sequence of simple math operations - additions, logical ops, and rotates.</p>
+<p>To process a single op on a CPU or GPU requires fetching and decoding an instruction, reading data from a register file, executing the instruction, and then writing the result back to a register file.  This takes significant time and power.</p>
+<p>A single op implemented in an ASIC takes a handful of transistors and wires.  This means every individual op takes negligible power, area, or time.  A hashing core is built by laying out the sequence of required ops.</p>
+<p>The hashing core can execute the required sequence of ops in much less time, and using less power or area, than doing the same sequence on a CPU or GPU.  A bitcoin ASIC consists of a number of identical hashing cores and some minimal off-chip communication.</p>
+<h4 id="scrypt-and-neoscrypt">Scrypt and NeoScrypt</h4>
+<ul>
+<li>Potential ASIC efficiency gain ~ 1000X</li>
+</ul>
+<p>Scrypt and NeoScrypt are similar to SHA in the arithmetic and bitwise operations used. Unfortunately, popular coins such as Litecoin only use a scratchpad size between 32kb and 128kb for their PoW mining algorithm. This scratch pad is small enough to trivially fit on an ASIC next to the math core. The implementation of the math core would be very similar to SHA, with similar efficiency gains.</p>
+<h4 id="x11-and-x16r">X11 and X16R</h4>
+<ul>
+<li>Potential ASIC efficiency gain ~ 1000X</li>
+</ul>
+<p>X11 (and similar X##) require an ASIC that has 11 unique hashing cores pipelined in a fixed sequence.  Each individual hashing core would have similar efficiency to an individual SHA core, so the overall design will have the same efficiency gains.</p>
+<p>X16R requires the multiple hashing cores to interact through a simple sequencing state machine. Each individual core will have similar efficiency gains and the sequencing logic will take minimal power, area, or time.</p>
+<p>The Baikal BK-X is an existing ASIC with multiple hashing cores and a programmable sequencer.  It has been upgraded to enable new algorithms that sequence the hashes in different orders.</p>
+<h4 id="equihash">Equihash</h4>
+<ul>
+<li>Potential ASIC efficiency gain ~ 100X</li>
+</ul>
+<p>The ~150mb of state is large but possible on an ASIC. The binning, sorting, and comparing of bit strings could be implemented on an ASIC at extremely high speed.</p>
+<h4 id="cuckoo-cycle">Cuckoo Cycle</h4>
+<ul>
+<li>Potential ASIC efficiency gain ~ 100X</li>
+</ul>
+<p>The amount of state required on-chip is not clear as there are Time/Memory Tradeoff attacks. A specialized graph traversal core would have similar efficiency gains to a SHA compute core.</p>
+<h4 id="cryptonight">CryptoNight</h4>
+<ul>
+<li>Potential ASIC efficiency gain ~ 50X</li>
+</ul>
+<p>Compared to Scrypt, CryptoNight does much less compute and requires a full 2mb of scratch pad (there is no known Time/Memory Tradeoff attack).  The large scratch pad will dominate the ASIC implementation and limit the number of hashing cores, limiting the absolute performance of the ASIC.  An ASIC will consist almost entirely of just on-die SRAM.</p>
+<h4 id="ethash">Ethash</h4>
+<ul>
+<li>Potential ASIC efficiency gain ~ 2X</li>
+</ul>
+<p>Ethash requires external memory due to the large size of the DAG.  However that is all that it requires - there is minimal compute that is done on the result loaded from memory.  As a result a custom ASIC could remove most of the complexity, and power, of a GPU and be just a memory interface connected to a small compute engine.</p>
+<h2 id="specification">Specification</h2>
+<p>The DAG is generated exactly as in Ethash.  All the parameters (ephoch length, DAG size, etc) are unchanged.  See the original <a href="https://github.com/ethereum/wiki/wiki/Ethash">Ethash</a> spec for details on generating the DAG.</p>
+<p>ProgPoW can be tuned using the following parameters.  The proposed settings have been tuned for a range of existing, commodity GPUs:</p>
+<ul>
+<li><code>PROGPOW_PERIOD</code>: Number of blocks before changing the random program</li>
+<li><code>PROGPOW_LANES</code>: The number of parallel lanes that coordinate to calculate a single hash instance</li>
+<li><code>PROGPOW_REGS</code>: The register file usage size</li>
+<li><code>PROGPOW_DAG_LOADS</code>: Number of uint32 loads from the DAG per lane</li>
+<li><code>PROGPOW_CACHE_BYTES</code>: The size of the cache</li>
+<li><code>PROGPOW_CNT_DAG</code>: The number of DAG accesses, defined as the outer loop of the algorithm (64 is the same as ethash)</li>
+<li><code>PROGPOW_CNT_CACHE</code>: The number of cache accesses per loop</li>
+<li><code>PROGPOW_CNT_MATH</code>: The number of math operations per loop</li>
+</ul>
+<p>The value of these parameters has been tweaked between version 0.9.2 (live on the gangnum testnet) and 0.9.3 (proposed for Ethereum adoption).  See <a href="https://medium.com/@ifdefelse/progpow-progress-da5bb31a651b">this medium post</a> for details.</p>
+<table><thead><tr><th>Parameter</th><th>0.9.2</th><th>0.9.3</th></tr></thead><tbody>
+<tr><td><code>PROGPOW_PERIOD</code></td><td><code>50</code></td><td><code>10</code></td></tr>
+<tr><td><code>PROGPOW_LANES</code></td><td><code>16</code></td><td><code>16</code></td></tr>
+<tr><td><code>PROGPOW_REGS</code></td><td><code>32</code></td><td><code>32</code></td></tr>
+<tr><td><code>PROGPOW_DAG_LOADS</code></td><td><code>4</code></td><td><code>4</code></td></tr>
+<tr><td><code>PROGPOW_CACHE_BYTES</code></td><td><code>16x1024</code></td><td><code>16x1024</code></td></tr>
+<tr><td><code>PROGPOW_CNT_DAG</code></td><td><code>64</code></td><td><code>64</code></td></tr>
+<tr><td><code>PROGPOW_CNT_CACHE</code></td><td><code>12</code></td><td><code>11</code></td></tr>
+<tr><td><code>PROGPOW_CNT_MATH</code></td><td><code>20</code></td><td><code>18</code></td></tr>
+</tbody></table>
+<p>The random program changes every <code>PROGPOW_PERIOD</code> blocks  to ensure the hardware executing the algorithm is fully programmable.  If the program only changed every DAG epoch (roughly 5 days) certain miners could have time to develop hand-optimized versions of the random sequence, giving them an undue advantage.</p>
+<p>Sample code is written in C++, this should be kept in mind when evaluating the code in the specification.</p>
+<p>All numerics are computed using unsigned 32 bit integers.  Any overflows are trimmed off before proceeding to the next computation.  Languages that use numerics not fixed to bit lengths (such as Python and JavaScript) or that only use signed integers (such as Java) will need to keep their languages' quirks in mind.  The extensive use of 32 bit data values aligns with modern GPUs internal data architectures.</p>
+<p>ProgPoW uses a 32-bit variant of <strong>FNV1a</strong> for merging data. The existing Ethash uses a similar variant of FNV1 for merging, but FNV1a provides better distribution properties.</p>
+<p>Test vectors can be found <a href="../assets/eip-1057/test-vectors.md#fnv1a">in the test vectors file</a>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">const </span><span style="color:#c0c5ce;">uint32_t FNV_PRIME = </span><span style="color:#d08770;">0x1000193</span><span style="color:#c0c5ce;">;
+</span><span style="color:#b48ead;">const </span><span style="color:#c0c5ce;">uint32_t FNV_OFFSET_BASIS = </span><span style="color:#d08770;">0x811c9dc5</span><span style="color:#c0c5ce;">;
+
+uint32_t </span><span style="color:#8fa1b3;">fnv1a</span><span style="color:#c0c5ce;">(uint32_t </span><span style="color:#bf616a;">h</span><span style="color:#c0c5ce;">, uint32_t </span><span style="color:#bf616a;">d</span><span style="color:#c0c5ce;">)
+{
+    </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">(h ^ d) * FNV_PRIME;
+}
+</span></code></pre>
+<p>ProgPow uses <a href="https://en.wikipedia.org/wiki/KISS_(algorithm)">KISS99</a> for random number generation. This is the simplest (fewest instruction) random generator that passes the TestU01 statistical test suite.  A more complex random number generator like Mersenne Twister can be efficiently implemented on a specialized ASIC, providing an opportunity for efficiency gains.</p>
+<p>Test vectors can be found <a href="../assets/eip-1057/test-vectors.md#kiss99">in the test vectors file</a>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">typedef struct </span><span style="color:#c0c5ce;">{
+    uint32_t z, w, jsr, jcong;
+} kiss99_t;
+
+</span><span style="color:#65737e;">// KISS99 is simple, fast, and passes the TestU01 suite
+// https://en.wikipedia.org/wiki/KISS_(algorithm)
+// http://www.cse.yorku.ca/~oz/marsaglia-rng.html
+</span><span style="color:#c0c5ce;">uint32_t </span><span style="color:#8fa1b3;">kiss99</span><span style="color:#c0c5ce;">(kiss99_t &amp;</span><span style="color:#bf616a;">st</span><span style="color:#c0c5ce;">)
+{
+    st.</span><span style="color:#bf616a;">z </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">36969 </span><span style="color:#c0c5ce;">* (st.</span><span style="color:#bf616a;">z </span><span style="color:#c0c5ce;">&amp; </span><span style="color:#d08770;">65535</span><span style="color:#c0c5ce;">) + (st.</span><span style="color:#bf616a;">z </span><span style="color:#c0c5ce;">&gt;&gt; </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">);
+    st.</span><span style="color:#bf616a;">w </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">18000 </span><span style="color:#c0c5ce;">* (st.</span><span style="color:#bf616a;">w </span><span style="color:#c0c5ce;">&amp; </span><span style="color:#d08770;">65535</span><span style="color:#c0c5ce;">) + (st.</span><span style="color:#bf616a;">w </span><span style="color:#c0c5ce;">&gt;&gt; </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">);
+    uint32_t MWC = ((st.</span><span style="color:#bf616a;">z </span><span style="color:#c0c5ce;">&lt;&lt; </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">) + st.</span><span style="color:#bf616a;">w</span><span style="color:#c0c5ce;">);
+    st.</span><span style="color:#bf616a;">jsr </span><span style="color:#c0c5ce;">^= (st.</span><span style="color:#bf616a;">jsr </span><span style="color:#c0c5ce;">&lt;&lt; </span><span style="color:#d08770;">17</span><span style="color:#c0c5ce;">);
+    st.</span><span style="color:#bf616a;">jsr </span><span style="color:#c0c5ce;">^= (st.</span><span style="color:#bf616a;">jsr </span><span style="color:#c0c5ce;">&gt;&gt; </span><span style="color:#d08770;">13</span><span style="color:#c0c5ce;">);
+    st.</span><span style="color:#bf616a;">jsr </span><span style="color:#c0c5ce;">^= (st.</span><span style="color:#bf616a;">jsr </span><span style="color:#c0c5ce;">&lt;&lt; </span><span style="color:#d08770;">5</span><span style="color:#c0c5ce;">);
+    st.</span><span style="color:#bf616a;">jcong </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">69069 </span><span style="color:#c0c5ce;">* st.</span><span style="color:#bf616a;">jcong </span><span style="color:#c0c5ce;">+ </span><span style="color:#d08770;">1234567</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">((MWC^st.</span><span style="color:#bf616a;">jcong</span><span style="color:#c0c5ce;">) + st.</span><span style="color:#bf616a;">jsr</span><span style="color:#c0c5ce;">);
+}
+</span></code></pre>
+<p>The <code>fill_mix</code> function populates an array of <code>int32</code> values used by each lane in the hash calculations.</p>
+<p>Test vectors can be found <a href="../assets/eip-1057/test-vectors.md#fill_mix">in the test vectors file</a>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">fill_mix</span><span style="color:#c0c5ce;">(
+    uint64_t </span><span style="color:#bf616a;">hash_seed</span><span style="color:#c0c5ce;">,
+    uint32_t </span><span style="color:#bf616a;">lane_id</span><span style="color:#c0c5ce;">,
+    uint32_t </span><span style="color:#bf616a;">mix</span><span style="color:#c0c5ce;">[PROGPOW_REGS]
+)
+{
+    </span><span style="color:#65737e;">// Use FNV to expand the per-warp seed to per-lane
+    // Use KISS to expand the per-lane seed to fill mix
+</span><span style="color:#c0c5ce;">    kiss99_t st;
+    st.</span><span style="color:#bf616a;">z </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(FNV_OFFSET_BASIS, seed);
+    st.</span><span style="color:#bf616a;">w </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(st.</span><span style="color:#bf616a;">z</span><span style="color:#c0c5ce;">, seed &gt;&gt; </span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">);
+    st.</span><span style="color:#bf616a;">jsr </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(st.</span><span style="color:#bf616a;">w</span><span style="color:#c0c5ce;">, lane_id);
+    st.</span><span style="color:#bf616a;">jcong </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(st.</span><span style="color:#bf616a;">jsr</span><span style="color:#c0c5ce;">, lane_id);
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; PROGPOW_REGS; i++)
+            mix[i] = </span><span style="color:#bf616a;">kiss99</span><span style="color:#c0c5ce;">(st);
+}
+</span></code></pre>
+<p>Like Ethash Keccak is used to seed the sequence per-nonce and to produce the final result.  The keccak-f800 variant is used as the 32-bit word size matches the native word size of modern GPUs.  The implementation is a variant of SHAKE with width=800, bitrate=576, capacity=224, output=256, and no padding.  The result of keccak is treated as a 256-bit big-endian number - that is result byte 0 is the MSB of the value.</p>
+<p>As with Ethash the input and output of the keccak function are fixed and relatively small.  This means only a single &quot;absorb&quot; and &quot;squeeze&quot; phase are required.  For a pseudo-code imenentation of the <code>keccak_f800_round</code> function see the <code>Round[b](A,RC)</code> function in the &quot;Pseudo-code description of the permutations&quot; section of the <a href="https://keccak.team/keccak_specs_summary.html">official Keccak specs</a>.</p>
+<p>Test vectors can be found <a href="../assets/eip-1057/test-vectors.md#keccak_f800_progpow">in the test vectors file</a>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">hash32_t </span><span style="color:#8fa1b3;">keccak_f800_progpow</span><span style="color:#c0c5ce;">(hash32_t </span><span style="color:#bf616a;">header</span><span style="color:#c0c5ce;">, uint64_t </span><span style="color:#bf616a;">seed</span><span style="color:#c0c5ce;">, hash32_t </span><span style="color:#bf616a;">digest</span><span style="color:#c0c5ce;">)
+{
+    uint32_t st[</span><span style="color:#d08770;">25</span><span style="color:#c0c5ce;">];
+
+    </span><span style="color:#65737e;">// Initialization
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; </span><span style="color:#d08770;">25</span><span style="color:#c0c5ce;">; i++)
+        st[i] = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">;
+
+    </span><span style="color:#65737e;">// Absorb phase for fixed 18 words of input
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; </span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">; i++)
+        st[i] = header.</span><span style="color:#bf616a;">uint32s</span><span style="color:#c0c5ce;">[i];
+    st[</span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">] = seed;
+    st[</span><span style="color:#d08770;">9</span><span style="color:#c0c5ce;">] = seed &gt;&gt; </span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; </span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">; i++)
+        st[</span><span style="color:#d08770;">10</span><span style="color:#c0c5ce;">+i] = digest.</span><span style="color:#bf616a;">uint32s</span><span style="color:#c0c5ce;">[i];
+
+    </span><span style="color:#65737e;">// keccak_f800 call for the single absorb pass
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> r = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; r &lt; </span><span style="color:#d08770;">22</span><span style="color:#c0c5ce;">; r++)
+        </span><span style="color:#bf616a;">keccak_f800_round</span><span style="color:#c0c5ce;">(st, r);
+
+    </span><span style="color:#65737e;">// Squeeze phase for fixed 8 words of output
+</span><span style="color:#c0c5ce;">    hash32_t ret;
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i=</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i&lt;</span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">; i++)
+        ret.</span><span style="color:#bf616a;">uint32s</span><span style="color:#c0c5ce;">[i] = st[i];
+
+    </span><span style="color:#b48ead;">return</span><span style="color:#c0c5ce;"> ret;
+}
+</span></code></pre>
+<p>The inner loop uses FNV and KISS99 to generate a random sequence from the <code>prog_seed</code>.  This random sequence determines which mix state is accessed and what random math is performed.</p>
+<p>Since the <code>prog_seed</code> changes only once per <code>PROGPOW_PERIOD</code> it is expected that while mining <code>progPowLoop</code> will be evaluated on the CPU to generate source code for that period's sequence.  The source code will be compiled on the CPU before running on the GPU.</p>
+<p>Test vectors can be found <a href="../assets/eip-1057/test-vectors.md#progpowinit">in the test vectors file</a>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">kiss99_t </span><span style="color:#8fa1b3;">progPowInit</span><span style="color:#c0c5ce;">(uint64_t </span><span style="color:#bf616a;">prog_seed</span><span style="color:#c0c5ce;">, </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">mix_seq_dst</span><span style="color:#c0c5ce;">[PROGPOW_REGS], </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">mix_seq_src</span><span style="color:#c0c5ce;">[PROGPOW_REGS])
+{
+    kiss99_t prog_rnd;
+    prog_rnd.</span><span style="color:#bf616a;">z </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(FNV_OFFSET_BASIS, prog_seed);
+    prog_rnd.</span><span style="color:#bf616a;">w </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(prog_rnd.</span><span style="color:#bf616a;">z</span><span style="color:#c0c5ce;">, prog_seed &gt;&gt; </span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">);
+    prog_rnd.</span><span style="color:#bf616a;">jsr </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(prog_rnd.</span><span style="color:#bf616a;">w</span><span style="color:#c0c5ce;">, prog_seed);
+    prog_rnd.</span><span style="color:#bf616a;">jcong </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(prog_rnd.</span><span style="color:#bf616a;">jsr</span><span style="color:#c0c5ce;">, prog_seed &gt;&gt; </span><span style="color:#d08770;">32</span><span style="color:#c0c5ce;">);
+    </span><span style="color:#65737e;">// Create a random sequence of mix destinations for merge() and mix sources for cache reads
+    // guarantees every destination merged once
+    // guarantees no duplicate cache reads, which could be optimized away
+    // Uses Fisher-Yates shuffle
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; PROGPOW_REGS; i++)
+    {
+        mix_seq_dst[i] = i;
+        mix_seq_src[i] = i;
+    }
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = PROGPOW_REGS - </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">; i &gt; </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i--)
+    {
+        </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> j;
+        j = </span><span style="color:#bf616a;">kiss99</span><span style="color:#c0c5ce;">(prog_rnd) % (i + </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">swap</span><span style="color:#c0c5ce;">(mix_seq_dst[i], mix_seq_dst[j]);
+        j = </span><span style="color:#bf616a;">kiss99</span><span style="color:#c0c5ce;">(prog_rnd) % (i + </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+        </span><span style="color:#bf616a;">swap</span><span style="color:#c0c5ce;">(mix_seq_src[i], mix_seq_src[j]);
+    }
+    </span><span style="color:#b48ead;">return</span><span style="color:#c0c5ce;"> prog_rnd;
+}
+</span></code></pre>
+<p>The math operations that merges values into the mix data are ones chosen to maintain entropy.</p>
+<p>Test vectors can be found <a href="../assets/eip-1057/test-vectors.md#math">in the test vectors file</a>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;">// Merge new data from b into the value in a
+// Assuming A has high entropy only do ops that retain entropy
+// even if B is low entropy
+// (IE don&#39;t do A&amp;B)
+</span><span style="color:#c0c5ce;">uint32_t </span><span style="color:#8fa1b3;">merge</span><span style="color:#c0c5ce;">(uint32_t </span><span style="color:#bf616a;">a</span><span style="color:#c0c5ce;">, uint32_t </span><span style="color:#bf616a;">b</span><span style="color:#c0c5ce;">, uint32_t </span><span style="color:#bf616a;">r</span><span style="color:#c0c5ce;">)
+{
+    </span><span style="color:#b48ead;">switch </span><span style="color:#c0c5ce;">(r % </span><span style="color:#d08770;">4</span><span style="color:#c0c5ce;">)
+    {
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">(a * </span><span style="color:#d08770;">33</span><span style="color:#c0c5ce;">) + b;
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">(a ^ b) * </span><span style="color:#d08770;">33</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#65737e;">// prevent rotate by 0 which is a NOP
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">ROTL32</span><span style="color:#c0c5ce;">(a, ((r &gt;&gt; </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">) % </span><span style="color:#d08770;">31</span><span style="color:#c0c5ce;">) + </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">) ^ b;
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">ROTR32</span><span style="color:#c0c5ce;">(a, ((r &gt;&gt; </span><span style="color:#d08770;">16</span><span style="color:#c0c5ce;">) % </span><span style="color:#d08770;">31</span><span style="color:#c0c5ce;">) + </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">) ^ b;
+    }
+}
+</span></code></pre>
+<p>The math operations chosen for the random math are ones that are easy to implement in CUDA and OpenCL, the two main programming languages for commodity GPUs. The <a href="https://www.khronos.org/registry/OpenCL/sdk/1.1/docs/man/xhtml/mul_hi.html">mul_hi</a>, <a href="https://www.khronos.org/registry/OpenCL/sdk/2.0/docs/man/xhtml/integerMax.html">min</a>, <a href="https://www.khronos.org/registry/OpenCL/sdk/1.1/docs/man/xhtml/clz.html">clz</a>, and <a href="https://www.khronos.org/registry/OpenCL/sdk/2.0/docs/man/xhtml/popcount.html">popcount</a> functions match the corresponding OpenCL functions.  ROTL32 matches the OpenCL <a href="https://www.khronos.org/registry/OpenCL/sdk/1.0/docs/man/xhtml/rotate.html">rotate</a> function.  ROTR32 is rotate right, which is equivalent to <code>rotate(i, 32-v)</code>.</p>
+<p>Test vectors can be found <a href="../assets/eip-1057/test-vectors.md#math">in the test vectors file</a>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;">// Random math between two input values
+</span><span style="color:#c0c5ce;">uint32_t </span><span style="color:#8fa1b3;">math</span><span style="color:#c0c5ce;">(uint32_t </span><span style="color:#bf616a;">a</span><span style="color:#c0c5ce;">, uint32_t </span><span style="color:#bf616a;">b</span><span style="color:#c0c5ce;">, uint32_t </span><span style="color:#bf616a;">r</span><span style="color:#c0c5ce;">)
+{
+    </span><span style="color:#b48ead;">switch </span><span style="color:#c0c5ce;">(r % </span><span style="color:#d08770;">11</span><span style="color:#c0c5ce;">)
+    {
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return</span><span style="color:#c0c5ce;"> a + b;
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return</span><span style="color:#c0c5ce;"> a * b;
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">mul_hi</span><span style="color:#c0c5ce;">(a, b);
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">min</span><span style="color:#c0c5ce;">(a, b);
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">4</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">ROTL32</span><span style="color:#c0c5ce;">(a, b);
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">5</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">ROTR32</span><span style="color:#c0c5ce;">(a, b);
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">6</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return</span><span style="color:#c0c5ce;"> a &amp; b;
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">7</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return</span><span style="color:#c0c5ce;"> a | b;
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return</span><span style="color:#c0c5ce;"> a ^ b;
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">9</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">clz</span><span style="color:#c0c5ce;">(a) + </span><span style="color:#bf616a;">clz</span><span style="color:#c0c5ce;">(b);
+    </span><span style="color:#b48ead;">case </span><span style="color:#d08770;">10</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">popcount</span><span style="color:#c0c5ce;">(a) + </span><span style="color:#bf616a;">popcount</span><span style="color:#c0c5ce;">(b);
+    }
+}
+</span></code></pre>
+<p>The flow of the inner loop is:</p>
+<ul>
+<li>Lane <code>(loop % LANES)</code> is chosen as the leader for that loop iteration</li>
+<li>The leader's <code>mix[0]</code> value modulo the number of 256-byte DAG entries is is used to select where to read from the full DAG</li>
+<li>Each lane reads <code>DAG_LOADS</code> sequential words, using <code>(lane ^ loop) % LANES</code> as the starting offset within the entry.</li>
+<li>The random sequence of math and cache accesses is performed</li>
+<li>The DAG data read at the start of the loop is merged at the end of the loop</li>
+</ul>
+<p><code>prog_seed</code> and <code>loop</code> come from the outer loop, corresponding to the current program seed (which is block_number/PROGPOW_PERIOD) and the loop iteration number.  <code>mix</code> is the state array, initially filled by <code>fill_mix</code>. <code>dag</code> is the bytes of the Ethash DAG grouped into 32 bit unsigned ints in litte-endian format.  On little-endian architectures this is just a normal int32 pointer to the existing DAG.</p>
+<p><code>DAG_BYTES</code> is set to the number of bytes in the current DAG, which is generated identically to the existing Ethash algorithm.</p>
+<p>Test vectors can be found <a href="../assets/eip-1057/test-vectors.md#progpowloop">in the test vectors file</a>.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">progPowLoop</span><span style="color:#c0c5ce;">(
+    </span><span style="color:#b48ead;">const </span><span style="color:#c0c5ce;">uint64_t </span><span style="color:#bf616a;">prog_seed</span><span style="color:#c0c5ce;">,
+    </span><span style="color:#b48ead;">const </span><span style="color:#c0c5ce;">uint32_t </span><span style="color:#bf616a;">loop</span><span style="color:#c0c5ce;">,
+    uint32_t </span><span style="color:#bf616a;">mix</span><span style="color:#c0c5ce;">[PROGPOW_LANES][PROGPOW_REGS],
+    </span><span style="color:#b48ead;">const </span><span style="color:#c0c5ce;">uint32_t *</span><span style="color:#bf616a;">dag</span><span style="color:#c0c5ce;">)
+{
+    </span><span style="color:#65737e;">// dag_entry holds the 256 bytes of data loaded from the DAG
+    </span><span style="color:#c0c5ce;">uint32_t dag_entry[PROGPOW_LANES][PROGPOW_DAG_LOADS];
+    </span><span style="color:#65737e;">// On each loop iteration rotate which lane is the source of the DAG address.
+    // The source lane&#39;s mix[0] value is used to ensure the last loop&#39;s DAG data feeds into this loop&#39;s address.
+    // dag_addr_base is which 256-byte entry within the DAG will be accessed
+    </span><span style="color:#c0c5ce;">uint32_t dag_addr_base = mix[loop%PROGPOW_LANES][</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">] %
+        (DAG_BYTES / (PROGPOW_LANES*PROGPOW_DAG_LOADS*sizeof(uint32_t)));
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> l = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; l &lt; PROGPOW_LANES; l++)
+    {
+        </span><span style="color:#65737e;">// Lanes access DAG_LOADS sequential words from the dag entry
+        // Shuffle which portion of the entry each lane accesses each iteration by XORing lane and loop.
+        // This prevents multi-chip ASICs from each storing just a portion of the DAG
+        </span><span style="color:#c0c5ce;">size_t dag_addr_lane = dag_addr_base * PROGPOW_LANES + (l ^ loop) % PROGPOW_LANES;
+        </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; PROGPOW_DAG_LOADS; i++)
+            dag_entry[l][i] = dag[dag_addr_lane * PROGPOW_DAG_LOADS + i];
+    }
+
+    </span><span style="color:#65737e;">// Initialize the program seed and sequences
+    // When mining these are evaluated on the CPU and compiled away
+    </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> mix_seq_dst[PROGPOW_REGS];
+    </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> mix_seq_src[PROGPOW_REGS];
+    </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> mix_seq_dst_cnt = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">;
+    </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> mix_seq_src_cnt = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">;
+    kiss99_t prog_rnd = </span><span style="color:#bf616a;">progPowInit</span><span style="color:#c0c5ce;">(prog_seed, mix_seq_dst, mix_seq_src);
+
+    </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> max_i = </span><span style="color:#bf616a;">max</span><span style="color:#c0c5ce;">(PROGPOW_CNT_CACHE, PROGPOW_CNT_MATH);
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; max_i; i++)
+    {
+        </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">(i &lt; PROGPOW_CNT_CACHE)
+        {
+            </span><span style="color:#65737e;">// Cached memory access
+            // lanes access random 32-bit locations within the first portion of the DAG
+            </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> src = mix_seq_src[(mix_seq_src_cnt++)%PROGPOW_REGS];
+            </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> dst = mix_seq_dst[(mix_seq_dst_cnt++)%PROGPOW_REGS];
+            </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> sel = </span><span style="color:#bf616a;">kiss99</span><span style="color:#c0c5ce;">(prog_rnd);
+            </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> l = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; l &lt; PROGPOW_LANES; l++)
+            {
+                uint32_t offset = mix[l][src] % (PROGPOW_CACHE_BYTES/sizeof(uint32_t));
+                mix[l][dst] = </span><span style="color:#bf616a;">merge</span><span style="color:#c0c5ce;">(mix[l][dst], dag[offset], sel);
+            }
+        }
+        </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">(i &lt; PROGPOW_CNT_MATH)
+        {
+            </span><span style="color:#65737e;">// Random Math
+            // Generate 2 unique sources
+            </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> src_rnd = </span><span style="color:#bf616a;">kiss99</span><span style="color:#c0c5ce;">(prog_rnd) % (PROGPOW_REGS * (PROGPOW_REGS-</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">));
+            </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> src1 = src_rnd % PROGPOW_REGS; </span><span style="color:#65737e;">// 0 &lt;= src1 &lt; PROGPOW_REGS
+            </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> src2 = src_rnd / PROGPOW_REGS; </span><span style="color:#65737e;">// 0 &lt;= src2 &lt; PROGPOW_REGS - 1
+            </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">(src2 &gt;= src1) ++src2; </span><span style="color:#65737e;">// src2 is now any reg other than src1
+            </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> sel1 = </span><span style="color:#bf616a;">kiss99</span><span style="color:#c0c5ce;">(prog_rnd);
+            </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> dst  = mix_seq_dst[(mix_seq_dst_cnt++)%PROGPOW_REGS];
+            </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> sel2 = </span><span style="color:#bf616a;">kiss99</span><span style="color:#c0c5ce;">(prog_rnd);
+            </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> l = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; l &lt; PROGPOW_LANES; l++)
+            {
+                uint32_t data = </span><span style="color:#bf616a;">math</span><span style="color:#c0c5ce;">(mix[l][src1], mix[l][src2], sel1);
+                mix[l][dst] = </span><span style="color:#bf616a;">merge</span><span style="color:#c0c5ce;">(mix[l][dst], data, sel2);
+            }
+        }
+    }
+    </span><span style="color:#65737e;">// Consume the global load data at the very end of the loop to allow full latency hiding
+    // Always merge into mix[0] to feed the offset calculation
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; PROGPOW_DAG_LOADS; i++)
+    {
+        </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> dst = (i==</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">) ? </span><span style="color:#d08770;">0 </span><span style="color:#c0c5ce;">: mix_seq_dst[(mix_seq_dst_cnt++)%PROGPOW_REGS];
+        </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> sel = </span><span style="color:#bf616a;">kiss99</span><span style="color:#c0c5ce;">(prog_rnd);
+        </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> l = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; l &lt; PROGPOW_LANES; l++)
+            mix[l][dst] = </span><span style="color:#bf616a;">merge</span><span style="color:#c0c5ce;">(mix[l][dst], dag_entry[l][i], sel);
+    }
+}
+</span></code></pre>
+<p>The flow of the overall algorithm is:</p>
+<ul>
+<li>A keccak hash of the header + nonce to create a seed</li>
+<li>Use the seed to generate initial mix data</li>
+<li>Loop multiple times, each time hashing random loads and random math into the mix data</li>
+<li>Hash all the mix data into a single 256-bit value</li>
+<li>A final keccak hash is computed</li>
+<li>When mining this final value is compared against a <code>hash32_t</code> target</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">hash32_t </span><span style="color:#8fa1b3;">progPowHash</span><span style="color:#c0c5ce;">(
+    </span><span style="color:#b48ead;">const </span><span style="color:#c0c5ce;">uint64_t </span><span style="color:#bf616a;">prog_seed</span><span style="color:#c0c5ce;">, </span><span style="color:#65737e;">// value is (block_number/PROGPOW_PERIOD)
+    </span><span style="color:#b48ead;">const </span><span style="color:#c0c5ce;">uint64_t </span><span style="color:#bf616a;">nonce</span><span style="color:#c0c5ce;">,
+    </span><span style="color:#b48ead;">const</span><span style="color:#c0c5ce;"> hash32_t </span><span style="color:#bf616a;">header</span><span style="color:#c0c5ce;">,
+    </span><span style="color:#b48ead;">const </span><span style="color:#c0c5ce;">uint32_t *dag </span><span style="color:#65737e;">// gigabyte DAG located in framebuffer - the first portion gets cached
+</span><span style="color:#c0c5ce;">)
+{
+    uint32_t mix[PROGPOW_LANES][PROGPOW_REGS];
+    hash32_t digest;
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; </span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">; i++)
+        digest.</span><span style="color:#bf616a;">uint32s</span><span style="color:#c0c5ce;">[i] = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">;
+
+    </span><span style="color:#65737e;">// keccak(header..nonce)
+</span><span style="color:#c0c5ce;">    hash32_t seed_256 = </span><span style="color:#bf616a;">keccak_f800_progpow</span><span style="color:#c0c5ce;">(header, nonce, digest);
+    </span><span style="color:#65737e;">// endian swap so byte 0 of the hash is the MSB of the value
+    </span><span style="color:#c0c5ce;">uint64_t seed = </span><span style="color:#bf616a;">bswap</span><span style="color:#c0c5ce;">(seed_256[</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">]) &lt;&lt; </span><span style="color:#d08770;">32 </span><span style="color:#c0c5ce;">| </span><span style="color:#bf616a;">bswap</span><span style="color:#c0c5ce;">(seed_256[</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">]);
+
+    </span><span style="color:#65737e;">// initialize mix for all lanes
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> l = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; l &lt; PROGPOW_LANES; l++)
+        </span><span style="color:#bf616a;">fill_mix</span><span style="color:#c0c5ce;">(seed, l, mix[l]);
+
+    </span><span style="color:#65737e;">// execute the randomly generated inner loop
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; PROGPOW_CNT_DAG; i++)
+        </span><span style="color:#bf616a;">progPowLoop</span><span style="color:#c0c5ce;">(prog_seed, i, mix, dag);
+
+    </span><span style="color:#65737e;">// Reduce mix data to a per-lane 32-bit digest
+    </span><span style="color:#c0c5ce;">uint32_t digest_lane[PROGPOW_LANES];
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> l = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; l &lt; PROGPOW_LANES; l++)
+    {
+        digest_lane[l] = FNV_OFFSET_BASIS
+        </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; PROGPOW_REGS; i++)
+            digest_lane[l] = </span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(digest_lane[l], mix[l][i]);
+    }
+    </span><span style="color:#65737e;">// Reduce all lanes to a single 256-bit digest
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; </span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">; i++)
+        digest.</span><span style="color:#bf616a;">uint32s</span><span style="color:#c0c5ce;">[i] = FNV_OFFSET_BASIS;
+    </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> l = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; l &lt; PROGPOW_LANES; l++)
+        digest.</span><span style="color:#bf616a;">uint32s</span><span style="color:#c0c5ce;">[l%</span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">] = </span><span style="color:#bf616a;">fnv1a</span><span style="color:#c0c5ce;">(digest.</span><span style="color:#bf616a;">uint32s</span><span style="color:#c0c5ce;">[l%</span><span style="color:#d08770;">8</span><span style="color:#c0c5ce;">], digest_lane[l])
+
+    </span><span style="color:#65737e;">// keccak(header .. keccak(header..nonce) .. digest);
+    </span><span style="color:#bf616a;">keccak_f800_progpow</span><span style="color:#c0c5ce;">(header, seed, digest);
+}
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>((T.B.D.  Review audits))</p>
+<p>ProgPoW utilizes almost all parts of a commodity GPU, excluding:</p>
+<ul>
+<li>The graphics pipeline (displays, geometry engines, texturing, etc);</li>
+<li>Floating point math.</li>
+</ul>
+<p>Making use of either of these would have significant portability issues between commodity hardware vendors, and across programming languages.</p>
+<p>Since the GPU is almost fully utilized, there’s little opportunity  for specialized ASICs to gain efficiency. Removing both the graphics pipeline and floating point math could provide up to 1.2x gains in efficiency, compared to the 2x gains possible in Ethash, and 50x gains possible for CryptoNight.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This algorithm is not backwards compatible with the existing Ethash, and will require a fork for adoption. Furthermore, the network hashrate will halve since twice as much memory is loaded per hash.</p>
+<h2 id="test-cases">Test Cases</h2>
+<h3 id="progpow-0-9-2">progpow 0.9.2</h3>
+<p>The algorithm run on block 30,000 produces the following digest and result:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">header ffeeddccbbaa9988776655443322110000112233445566778899aabbccddeeff
+nonce 123456789abcdef0
+
+digest: 11f19805c58ab46610ff9c719dcf0a5f18fa2f1605798eef770c47219274767d
+result: 5b7ccd472dbefdd95b895cac8ece67ff0deb5a6bd2ecc6e162383d00c3728ece
+</span></code></pre>
+<p>Additional test vectors can be found <a href="../assets/eip-1057/test-vectors.md#progpowhash">in the test vectors file</a>.</p>
+<h3 id="progpow-0-9-3">progpow 0.9.3</h3>
+<p><a href="https://github.com/ethereum/EIPs/blob/ad4e73f239d53d72a21cfd8fdc89dc81eb9d2688/assets/eip-1057/test-vectors-0.9.3.json">Machine-readable test vectors</a></p>
+<p>Additional test vectors can be found <a href="../assets/eip-1057/test-vectors.md#progpowhash">in the test vectors file</a>.</p>
+<h3 id="progpow-0-9-4">progpow 0.9.4</h3>
+<p><a href="https://github.com/ethereum/EIPs/blob/ad4e73f239d53d72a21cfd8fdc89dc81eb9d2688/assets/eip-1057/test-vectors-0.9.4.json">Machine-readable test vectors</a> ((T.B.D.))</p>
+<h2 id="implementation">Implementation</h2>
+<p>We <strong>Do Not</strong> recommend that this Proposal be deployed at this time.  Rather it is being offered in the spirit of <a href="https://ethereum-magicians.org/t/a-progpow-compromise-pre-proposal/4057">Ben DiFrancesco's compromise</a> which for our purposes we state simply as,</p>
+<ul>
+<li>This Proposal <strong>is not</strong> being proposed for deployment in any planned hardfork.</li>
+<li>This Proposal should be fully implemented and tested across major clients.</li>
+<li>Clients implementing this Proposal should be deployed and maintained on a testnet.</li>
+</ul>
+<p>This leaves open the possibility and threat of future deployment.  Some of the authors are engaged in work to <a href="https://www.overleaf.com/project/5e222c2cac8911000178b239">track what devices are mining our network</a>.  These and other efforts can provide information relevant to possible deployment.</p>
+<h3 id="clients">Clients</h3>
+<table><thead><tr><th></th><th>Languages</th><th>0.9.3</th><th>0.9.4</th></tr></thead><tbody>
+<tr><td>Aleth</td><td>C++</td><td></td><td></td></tr>
+<tr><td>Besu</td><td>Java</td><td>Ready</td><td></td></tr>
+<tr><td>EthereumJ</td><td>Java</td><td>Ready</td><td>Developing</td></tr>
+<tr><td>EthereumJS</td><td>Javascript</td><td>Ready</td><td>Developing</td></tr>
+<tr><td>Etherwall</td><td>C++</td><td></td><td></td></tr>
+<tr><td>Geth</td><td>Go</td><td>Ready</td><td>Developing</td></tr>
+<tr><td><em>IfThenElse</em></td><td>C++</td><td>Ready</td><td>Ready</td></tr>
+<tr><td>Mana</td><td>Elixer</td><td></td><td></td></tr>
+<tr><td>Nethermind</td><td>C#</td><td>Ready</td><td></td></tr>
+<tr><td>OpenEtheum</td><td>Rust</td><td>Ready</td><td></td></tr>
+<tr><td>Trinity</td><td>Python</td><td>Ready</td><td>Developing</td></tr>
+</tbody></table>
+<h3 id="exchanges">Exchanges</h3>
+<table><thead><tr><th></th><th>Support</th><th>0.9.4</th><th>0.9.4</th></tr></thead><tbody>
+<tr><td>Biki</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Bilaxi</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Binance</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>BitMart</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>BitZ</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Coinbase</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>DCcoin</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Digfinex</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Etherflyer</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Flatbtc</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Folgory</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>HitBTC</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Hotbit</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Lbank</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>MXC</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Nobi</td><td>Yes</td><td>Ready</td><td></td></tr>
+</tbody></table>
+<h3 id="pools">Pools</h3>
+<table><thead><tr><th></th><th>Support</th><th>0.9.4</th><th>0.9.4</th></tr></thead><tbody>
+<tr><td>2Miners</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>antpool</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>beepool</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Ethermine</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>F2Pool</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>firepool</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>gpumine</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>hiveon</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>huobipool</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>matppool</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>miningpoolhub</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Noanopool</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>pool.btc.com</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>poolin</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Sparkpool</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>Spiderpool</td><td>Yes</td><td>Ready</td><td></td></tr>
+<tr><td>xnpopol</td><td>Yes</td><td>Ready</td><td></td></tr>
+</tbody></table>
+<h2 id="license-and-copyright">License and Copyright</h2>
+<p>The ProgPoW algorithm and this specification are a new work.  Copyright and related rights are waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+<p>The reference ProgPoW mining implementation located at <a href="https://github.com/ifdefelse/ProgPOW">ProgPOW</a> is a derivative of ethminer so retains the GPL license.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

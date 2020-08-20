@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2481: eth&amp;#x2F;66: request identifier</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2481.md" />
+<meta property="og:title" content="EIP-2481: eth&amp;#x2F;66: request identifier" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2481 (EIP-2481): eth&amp;#x2F;66: request identifier"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2481 (EIP-2481): eth&amp;#x2F;66: request identifier"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2481.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2481 (EIP 2481): eth&amp;#x2F;66: request identifier" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2481: eth&#x2F;66: request identifier
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:christoph@ethereum.org">Christoph Burgdorf</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2482">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;2482</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Networking</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2020-01-17</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>2464</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <!--You can leave these HTML comments in your merged EIP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new EIPs. Note that an EIP number will be assigned by an editor. When opening a pull request to submit your EIP, please use an abbreviated title in the filename, `eip-draft_title_abbrev.md`. The title should be 44 characters or less.-->
+<h2 id="simple-summary">Simple Summary</h2>
+<!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
+<p>This document proposes a way to increase the efficiency of the <code>eth</code> networking protocol while at the same time reducing complexity in Ethereum node implementations. It does so by introducing a request id to all requests which their corresponding responses must include.</p>
+<h2 id="abstract">Abstract</h2>
+<!--A short (~200 word) description of the technical issue being addressed.-->
+<p>The <code>eth</code> protocol defines various request and response commands that are used to exchange data between Ethereum nodes. For example, to ask a peer node for a specific set of headers, a node sends it the <a href="https://github.com/ethereum/devp2p/blob/master/caps/eth.md#getblockheaders-0x03"><code>GetBlockHeaders</code></a> command.</p>
+<p><em>Citing from the <a href="https://github.com/ethereum/devp2p/blob/master/caps/eth.md#getblockheaders-0x03"><code>GetBlockHeaders</code> spec definition</a>:</em></p>
+<blockquote>
+<p><code>[block: {P, B_32}, maxHeaders: P, skip: P, reverse: P in {0, 1}]</code></p>
+</blockquote>
+<blockquote>
+<p>Require peer to return a <code>BlockHeaders</code> message. Reply must contain a number of block
+headers, of rising number when <code>reverse</code> is <code>0</code>, falling when <code>1</code>, <code>skip</code> blocks apart,
+beginning at block <code>block</code> (denoted by either number or hash) in the canonical chain, and
+with at most <code>maxHeaders</code> items.</p>
+</blockquote>
+<p>The node that receives the <code>GetBlockHeaders</code> command should answer it with the <a href="https://github.com/ethereum/devp2p/blob/master/caps/eth.md#blockheaders-0x04"><code>BlockHeaders</code></a> response command accordingly.</p>
+<p><em>Citing from the <a href="https://github.com/ethereum/devp2p/blob/master/caps/eth.md#blockheaders-0x04"><code>BlockHeaders</code> spec definition</a>:</em> </p>
+<blockquote>
+<p><code>[blockHeader_0, blockHeader_1, ...]</code></p>
+</blockquote>
+<blockquote>
+<p>Reply to <code>GetBlockHeaders</code>. The items in the list (following the message ID) are block
+headers in the format described in the main Ethereum specification, previously asked for
+in a GetBlockHeaders message. This may validly contain no block headers if none of the
+requested block headers were found. The number of headers that can be requested in a
+single message may be subject to implementation-defined limits.</p>
+</blockquote>
+<p>Let's consider a client making many simultaneous requests for <code>GetBlockHeaders</code> to one of its peers. By nature it can not be guaranteed that the expected responses arrive in the same order as they were sent. For the client to associate the incoming responses to the correct requests it has to loop through all pending requests trying to match it with the incoming response based on its contents.</p>
+<p>This can be particular tricky for responses that are ambiguous such as empty responses.</p>
+<p>This EIP proposes to change the <code>GetBlockHeaders</code> and the <code>BlockHeaders</code> command to include a <code>request_id</code> as shown below.</p>
+<ul>
+<li><code>GetBlockHeaders (0x03)</code>
+<ul>
+<li><strong>Current (eth/65):</strong> <code>[block: {P, B_32}, maxHeaders: P, skip: P, reverse: P in {0, 1}]</code></li>
+<li><strong>Then (eth/66)</strong>: <code>[request_id: P, [block: {P, B_32}, maxHeaders: P, skip: P, reverse: P in {0, 1}]]</code></li>
+</ul>
+</li>
+<li><code>BlockHeaders (0x04)</code>
+<ul>
+<li><strong>Current (eth/65):</strong> <code>[blockHeader_0, blockHeader_1, ...]</code></li>
+<li><strong>Then (eth/66)</strong>: <code>[request_id: P, [blockHeader_0, blockHeader_1, ...]]</code></li>
+</ul>
+</li>
+</ul>
+<p>The <code>request_id</code> is a 64-bit integer set by the client when it makes the request. On the responding side, the exact same <code>request_id</code> from the incoming request is put back into the response object.</p>
+<p>This change allows the requesting client to match incoming responses <strong>directly</strong> back to their pending requests without going through all of the pending requests to check if they might match based on the response data.</p>
+<p>The selected request/response pair serves as an example for many similar request/response pairs in the <code>eth</code> networking protocol.</p>
+<h2 id="motivation">Motivation</h2>
+<!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
+<p>The lack of request identifiers in the request / response paris of the <code>eth</code> protocol puts unnecessary burden of code complexity into every Ethereum client. It also makes the communication slightly less efficient. Another argument can be made that the addition of request identifiers makes the protocol more aligned with the <code>les</code> protocol which <strong>does</strong> already defines request identifiers for each request / response pair.</p>
+<h2 id="specification">Specification</h2>
+<!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
+<p>Change the following message types in the <code>eth</code> protocol:</p>
+<ul>
+<li><code>GetBlockHeaders (0x03)</code>
+<ul>
+<li><strong>Current (eth/65):</strong> <code>[block: {P, B_32}, maxHeaders: P, skip: P, reverse: P in {0, 1}]</code></li>
+<li><strong>Then (eth/66)</strong>: <code>[request_id: P, [block: {P, B_32}, maxHeaders: P, skip: P, reverse: P in {0, 1}]]</code></li>
+</ul>
+</li>
+<li><code>BlockHeaders (0x04)</code>
+<ul>
+<li><strong>Current (eth/65):</strong> <code>[blockHeader_0, blockHeader_1, ...]</code></li>
+<li><strong>Then (eth/66)</strong>: <code>[request_id: P, [blockHeader_0, blockHeader_1, ...]]</code></li>
+</ul>
+</li>
+<li><code>GetBlockBodies (0x05)</code>
+<ul>
+<li><strong>Current (eth/65):</strong> <code>[hash_0: B_32, hash_1: B_32, ...]</code></li>
+<li><strong>Then (eth/66)</strong>: <code>[request_id: P, [hash_0: B_32, hash_1: B_32, ...]]</code></li>
+</ul>
+</li>
+<li><code>GetPooledTransactions (0x09)</code>:
+<ul>
+<li><strong>Current (eth/65)</strong><code>[hash_0: B_32, hash_1: B_32, ...]</code></li>
+<li><strong>Then (eth/66)</strong><code>[request_id: P, [hash_0: B_32, hash_1: B_32, ...]]</code></li>
+</ul>
+</li>
+<li><code>PooledTransactions (0x0a)</code>:
+<ul>
+<li><strong>Current (eth/65)</strong><code>[[nonce: P, receivingAddress: B_20, value: P, ...], ...]</code></li>
+<li><strong>Then (eth/66)</strong><code>[request_id: P, [[nonce: P, receivingAddress: B_20, value: P, ...], ...]]</code></li>
+</ul>
+</li>
+<li><code>BlockBodies (0x06)</code>
+<ul>
+<li><strong>Current (eth/65):</strong> <code>[hash_0: B_32, hash_1: B_32, ...]</code></li>
+<li><strong>Then (eth/66)</strong>: <code>[request_id: P, [hash_0: B_32, hash_1: B_32, ...]]</code></li>
+</ul>
+</li>
+<li><code>GetNodeData (0x0d)</code>
+<ul>
+<li><strong>Current (eth/65):</strong> <code>[hash_0: B_32, hash_1: B_32, ...]</code></li>
+<li><strong>Then (eth/66)</strong>: <code>[request_id: P, [hash_0: B_32, hash_1: B_32, ...]]</code></li>
+</ul>
+</li>
+<li><code>NodeData (0x0e)</code>
+<ul>
+<li><strong>Current (eth/65):</strong> <code>[value_0: B, value_1: B, ...]</code></li>
+<li><strong>Then (eth/66)</strong>: <code>[request_id: P, [value_0: B, value_1: B, ...]]</code></li>
+</ul>
+</li>
+<li><code>GetReceipts (0x0f)</code>
+<ul>
+<li><strong>Current (eth/65):</strong> <code>[blockHash_0: B_32, blockHash_1: B_32, ...]</code></li>
+<li><strong>Then (eth/66)</strong>: <code>[request_id: P, [blockHash_0: B_32, blockHash_1: B_32, ...]]</code></li>
+</ul>
+</li>
+<li><code>Receipts (0x10)</code>
+<ul>
+<li><strong>Current (eth/65):</strong> <code>[[receipt_0, receipt_1], ...]</code></li>
+<li><strong>Then (eth/66)</strong>: <code>[request_id: P, [[receipt_0, receipt_1], ...]]</code></li>
+</ul>
+</li>
+</ul>
+<p>To elaborate, each command is altered in the following way:</p>
+<ol>
+<li>Create a list with the <code>request_id</code> being the first element.</li>
+<li>Make the second element the list that defines the whole command in the current scheme.</li>
+</ol>
+<p>This is consistent with the request / response pairs in the <code>les</code> protocol.</p>
+<p>The <code>request_id</code> has the following characteristics:</p>
+<ul>
+<li>64 bit integer</li>
+<li>Doesn't need to be sequential (can be random)</li>
+<li>Does allow duplicates</li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
+<p><strong>Q: The efficiency gains might encourage clients to flood their peers with too many simultaneous requests</strong></p>
+<p>Peers can always throttle or disconnect if they don't feel treated well. This is the same as today.</p>
+<p><strong>Q: If <code>les</code> already defines the commands like this, why not just use the <code>les</code> protocol?</strong></p>
+<p>In practice, peers that serve the <code>les</code> protocol are much harder to find in the network. The reasons for this are varied but might boil down to client defaults, immature implementations or missing incentives.</p>
+<p><strong>Q: Networking works today, isn't this just adding bloat?</strong></p>
+<p>This is adding a single integer per command while at the same time reducing code complexity and improving networking efficiency. The addition seems justified.</p>
+<p><strong>Q: Why not demand request ids to be sequential?</strong></p>
+<p>Assuming request ids start always to count from <code>0</code> upon connection, things will become messy when
+connections are lost and clients reconnect and start over with the same request ids that they had used
+in the previous session.</p>
+<p><strong>Q: Why allow duplicate request ids?</strong></p>
+<p>The main benefit is flexibility and simplicity on the implementation side. Clients could decide to share
+the same ids across multiple different request types since they are naturally separated anyway. Clients
+could even decide to not rely on request ids at all, therefore using the same constant request id across
+all requests.</p>
+<p><strong>Q: Why choose a 64-bit integer for the request ids</strong></p>
+<p>64-bit integer were chosen to keep compatibility with the <code>les</code> protocol.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<!--All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards compatibility treatise may be rejected outright.-->
+<p>This EIP extends the <code>eth</code> protocol in a backwards incompatible way and requires rolling out a new version, <code>eth/66</code>. However, <code>devp2p</code> supports running multiple versions of the same wire protocol side-by-side, so rolling out <code>eth/66</code> does not require client coordination, since non-updated clients can keep using <code>eth/65</code>.</p>
+<p>This EIP does not change the consensus engine, thus does <em>not</em> require a hard fork.</p>
+<h2 id="implementation">Implementation</h2>
+<!--The implementations must be completed before any EIP is given status "Final", but it need not be completed before the EIP is accepted. While there is merit to the approach of reaching consensus on the specification and rationale before writing code, the principle of "rough consensus and running code" is still useful when it comes to resolving many discussions of API details.-->
+<p>Trinity has a <a href="https://github.com/ethereum/trinity/pull/1672">draft PR</a> with an implementation.</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<!--All EIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life cycle of the proposal. E.g. include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. EIP submissions missing the "Security Considerations" section will be rejected. An EIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.-->
+<p>None</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

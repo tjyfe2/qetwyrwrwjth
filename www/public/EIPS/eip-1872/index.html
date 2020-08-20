@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1872: Ethereum Network Upgrade Windows</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1872.md" />
+<meta property="og:title" content="EIP-1872: Ethereum Network Upgrade Windows" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1872 (EIP-1872): Ethereum Network Upgrade Windows"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1872 (EIP-1872): Ethereum Network Upgrade Windows"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1872.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1872 (EIP 1872): Ethereum Network Upgrade Windows" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1872: Ethereum Network Upgrade Windows
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/shemnon">Danno Ferrin</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1872-ethereum-network-upgrade-windows&#x2F;2993">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-1872-ethereum-network-upgrade-windows&#x2F;2993</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Meta</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2018-03-25</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A proposal to define a limited number of annual time windows in which network
+upgrades (aka hard forks) should be performed within. Policies for scheduling
+network upgrades outside these windows are also described.</p>
+<h2 id="abstract">Abstract</h2>
+<p>Four different weeks, spaced roughly evenly throughout the year, are targeted
+for network upgrades to be launched. Regular network upgrades should announce
+their intention to launch in a particular window early in their process and
+choose a block number four to six weeks prior to that window. If a network
+upgrade is cancelled then it would be rescheduled for the next window. Not all
+windows will be used. Priority upgrades outside the roadmap may be scheduled in
+the third week of any month, but such use is discouraged. Critical upgrades are
+scheduled as needed.</p>
+<h2 id="motivation">Motivation</h2>
+<p>The aim of this EIP is to provide some level of regularity and predictability to
+the Ethereum network upgrade/hard fork process. This will allow service
+providers such as exchanges and node operators a predictable framework to
+schedule activities around. This also provides a framework to regularize the
+delivery of network upgrades.</p>
+<h2 id="specification">Specification</h2>
+<p>Scheduling is defined for three categories of network upgrades. First are
+<code>Roadmap</code> network upgrades that include deliberate protocol improvements. Next
+are <code>Priority</code> network updates, where there are technical reasons that
+necessitate a prompt protocol change but these reasons do not present a systemic
+risk to the protocol or the ecosystem. Finally, <code>Critical</code> network upgrades are
+to address issues that present a systemic risk to the protocol or the ecosystem.</p>
+<h3 id="roadmap-network-upgrades">Roadmap Network Upgrades</h3>
+<p>Roadmap network upgrades are network upgrades that are deliberate and measured
+to improve the protocol and ecosystem. Historical examples are Homestead,
+Byzantium, and Constantinople.</p>
+<p>Roadmap network upgrades should be scheduled in one of four windows: the week
+with the third Wednesday in January, April, July, and October. When initiating a
+network upgrade or early in the planning process a particular window should be
+targeted.</p>
+<blockquote>
+<p><strong>Note to reviewers:</strong> The months and week chosen are to provide an initial
+recommendation and are easily modifiable prior to final call. They thread the
+needle between many third quarter and fourth quarter holidays.</p>
+</blockquote>
+<p>Implementors are expected to have software for a Roadmap network upgrade ready
+two to four weeks prior to the upgrade. Hence a block number for the network
+upgrade should be chosen four to six weeks prior to the network upgrade window.
+Scheduling details such as whether this choice is made prior to or after testnet
+deployment are out of scope of this EIP.</p>
+<p>Depending on the release cadence of Roadmap network upgrades some windows will
+not be used. For example if a six month release cadence is chosen a roadmap
+upgrade would not occur in adjacent upgrade windows. Hence for a six month
+cadence if a roadmap upgrade occurred in April then the July window would not be
+used for network upgrades.</p>
+<p>If a planned roadmap upgrade needs to be rescheduled then strong consideration
+should be given to rescheduling the upgrade for the next window in three months
+time. For the case of a six month cadence this may cause releases to be in
+adjacent release windows. For a three month cadence the next network upgrade
+would be merged with the current upgrade or the next network upgrade would be
+delayed.</p>
+<p>To be compatible with the scheduled release windows the cadence of the Roadmap
+Network Upgrades should be a multiple of three months. Whether it is three, six,
+nine, or more month cadence is out of scope of this EIP.</p>
+<h3 id="priority-network-upgrades">Priority Network Upgrades</h3>
+<p>Priority network upgrades are reserved for upgrades that require more urgency
+than a roadmap network upgrade yet do not present a systemic risk to the network
+or the ecosystem. To date there have been no examples of a priority upgrade.
+Possible examples may include roadmap upgrades that need to occur in multiple
+upgrades or for security risks that have a existing mitigation in place that
+would be better served by a network upgrade. Another possible reason may be to
+defuse the difficulty bomb due to postponed roadmap upgrades.</p>
+<p>Priority network upgrades are best launched in unused roadmap launch windows,
+namely the third week of January, April, July, and October. If necessary they
+may be launched in the third week of any month, but strong consideration and
+preference should be given to unused roadmap launch windows.</p>
+<p>Priority network upgrades should be announced and a block chosen far enough in
+advance so major clients implementors can release software with the needed block
+number in a timely fashion. These releases should occur at least a week before
+the launch window. Hence priority launch windows should be chosen two to four
+weeks in advance.</p>
+<h3 id="critical-network-upgrades">Critical Network Upgrades</h3>
+<p>Critical network upgrades are network upgrades that are designed to address
+systemic risks to the protocol or to the ecosystem. Historical examples include
+Dao Fork, Tangerine Whistle, and Spurious Dragon.</p>
+<p>This EIP provides neither guidance nor restrictions to the development and
+deployment of these emergency hard forks. These upgrades are typically launched
+promptly after a solution to the systemic risk is agreed upon between the client
+implementors.</p>
+<p>It is recommended that such upgrades perform the minimum amount of changes
+needed to address the issues that caused the need for the Critical network
+upgrade and that other changes be integrated into subsequent Priority and
+Roadmap network upgrades.</p>
+<h3 id="network-upgrade-block-number-choice">Network Upgrade Block Number Choice</h3>
+<p>When choosing an activation block the number can be used to communicate the role
+of a particular network in the Ethereum Ecosystem. Networks that serve as a
+value store or are otherwise production grade have different stability concerns
+than networks that serve as technology demonstration or are explicitly
+designated for testing.</p>
+<p>To date all Mainnet activation blocks have ended in three or more zeros,
+including Critical Network Upgrades. Ropsten and Kovan initially started with
+three zeros but switched to palindromic numbers. Rinkeby has always had
+palindromic activation blocks. Goerli has yet to perform a network upgrade.</p>
+<p>To continue this pattern network upgrade activation block numbers for mainnet
+deployments and production grade networks should chose a number whose base 10
+representation ends with three or more zeros.</p>
+<p>For testnet and testing or development grades network operators are encouraged
+to choose a block activation number that is a palindrome in base 10.</p>
+<p>Block numbers for Roadmap and Priority network upgrades should be chosen so that
+it is forecast to occur relatively close to Wednesday at 12:00 UTC+0 during the
+launch window. This should result in an actual block production occurring
+sometime between Monday and Friday of the chosen week.</p>
+<h2 id="rationale">Rationale</h2>
+<p>The rationale for defining launch windows is to give business running Ethereum
+infrastructure a predictable schedule for when upgrades may or may not occur.
+Knowing when a upgrade is not going to occur gives the businesses a clear time
+frame within which to perform internal upgrades free from external changes. It
+also provides a timetable for developers and IT professionals to schedule time
+off against.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>Except for the specific launch windows the previous network upgrades would have
+complied with these policies. Homestead, Byzantium, and Constantinople would
+have been Roadmap Network Upgrades. There were no Priority Network Upgrades,
+although Spurious Dragon would have been a good candidate. Dao Fork was a
+Critical Network Upgrade in response to TheDao. Tangerine Whistle and Spurious
+Dragon were critical upgrades in response to the Shanghai Spam Attacks.
+Constantinople Fix (as it is termed in the reference tests) was in response to
+the EIP-1283 security issues.</p>
+<p>If this policy were in place prior to Constantinople then the initial 2018
+launch would likely have been bumped to the next window after the Ropsten
+testnet consensus failures. The EIP-1283 issues likely would have resulted in an
+out of window upgrade because of the impact of the difficulty bomb.</p>
+<!-- ## Test Cases -->
+<!-- no test cases are relevant for this EIP -->
+<h2 id="implementation">Implementation</h2>
+<p>The windows in this EIP are expected to start after the Istanbul Network
+upgrade, which is the next planned Roadmap upgrade. Istanbul is currently slated
+for mainnet launch on 2019-10-16, which is compatible with the schedule in this
+EIP.</p>
+<p>The Roadmap Upgrade windows starting with Istanbul would be as follows:</p>
+<table><thead><tr><th>Block Target</th><th>Launch Week Range</th></tr></thead><tbody>
+<tr><td>2019-10-16</td><td>2019-10-14 to 2019-10-18</td></tr>
+<tr><td>2020-01-15</td><td>2020-01-13 to 2020-01-17</td></tr>
+<tr><td>2020-04-15</td><td>2020-04-13 to 2020-04-17</td></tr>
+<tr><td>2020-07-15</td><td>2020-07-13 to 2020-07-17</td></tr>
+<tr><td>2020-10-21</td><td>2020-10-19 to 2020-10-23</td></tr>
+<tr><td>2021-01-20</td><td>2021-01-18 to 2021-01-22</td></tr>
+<tr><td>2021-04-21</td><td>2021-04-19 to 2021-04-23</td></tr>
+<tr><td>2021-07-21</td><td>2021-07-19 to 2021-07-23</td></tr>
+<tr><td>2021-10-20</td><td>2021-10-18 to 2021-10-22</td></tr>
+<tr><td>2022-01-19</td><td>2022-01-17 to 2022-01-21</td></tr>
+<tr><td>2022-04-20</td><td>2022-04-18 to 2022-04-22</td></tr>
+<tr><td>2022-07-20</td><td>2022-07-18 to 2022-07-22</td></tr>
+<tr><td>2022-10-19</td><td>2022-10-17 to 2022-10-21</td></tr>
+</tbody></table>
+<p>The Priority windows through next year, excluding Roadmap windows, are as
+follows:</p>
+<table><thead><tr><th>Block Target</th><th>Launch Week Range</th></tr></thead><tbody>
+<tr><td>2019-11-20</td><td>2019-11-18 to 2019-11-22</td></tr>
+<tr><td>2019-12-18</td><td>2019-12-16 to 2019-12-20</td></tr>
+<tr><td>2020-02-19</td><td>2020-02-17 to 2020-02-21</td></tr>
+<tr><td>2020-03-18</td><td>2020-03-16 to 2020-03-20</td></tr>
+<tr><td>2020-05-20</td><td>2020-05-18 to 2020-05-22</td></tr>
+<tr><td>2020-06-17</td><td>2020-06-15 to 2020-06-19</td></tr>
+<tr><td>2020-08-19</td><td>2020-08-18 to 2020-08-21</td></tr>
+<tr><td>2020-09-16</td><td>2020-09-14 to 2020-09-18</td></tr>
+<tr><td>2020-11-18</td><td>2020-11-16 to 2020-11-20</td></tr>
+<tr><td>2020-12-16</td><td>2020-12-14 to 2020-12-18</td></tr>
+</tbody></table>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via
+<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

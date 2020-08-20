@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-2256: wallet_getOwnedAssets JSON-RPC Method</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2256.md" />
+<meta property="og:title" content="EIP-2256: wallet_getOwnedAssets JSON-RPC Method" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 2256 (EIP-2256): wallet_getOwnedAssets JSON-RPC Method"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 2256 (EIP-2256): wallet_getOwnedAssets JSON-RPC Method"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-2256.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 2256 (EIP 2256): wallet_getOwnedAssets JSON-RPC Method" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-2256: wallet_getOwnedAssets JSON-RPC Method
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/loredanacirstea">Loredana Cirstea</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2256-add-wallet-getownedassets-json-rpc-method&#x2F;3600">https:&#x2F;&#x2F;ethereum-magicians.org&#x2F;t&#x2F;eip-2256-add-wallet-getownedassets-json-rpc-method&#x2F;3600</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Interface</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-08-29</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>55, 155, 1474</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>This is a proposal for a new JSON-RPC call for retrieving from a wallet a selection of owned assets by an Ethereum address, with the user's permission.</p>
+<h2 id="abstract">Abstract</h2>
+<p>There is no standardized way for a dApp to request a list of owned assets from a user. Now, each dApp needs to keep a list of all the popular or existing assets and check the user's balance against the blockchain, for each of these assets. This leads to duplicated effort across dApps. It also leads to the user being presented with asset options that the user does not care about, from various, unwanted airdrops.</p>
+<h2 id="motivation">Motivation</h2>
+<p>There are financial dApps that require a list of owned assets from a user, for various purposes - calculating taxes, selecting customized payment options, etc. Each of these dApps are now forced to keep a list of popular assets (smart contract addresses, ABIs) and retrieve the user's data from the blockchain, for each asset. This leads to effort duplication and nonoptimal UX where the user is presented with either more or less asset options than the user would like - various airdrops, incomplete list of assets kept by the dApp.</p>
+<p>This list of owned assets can be retrieved from the wallet used by the user. The wallet can allow the user to manage only the assets that the user is interested in. Therefore, a new JSON-RPC method is proposed: <code>wallet_getOwnedAssets</code>. This method is complementary to <a href="https://eips.ethereum.org/EIPS/eip-747">EIP-747</a>, which proposes a way for sites to suggest users new assets to watch on their wallet.</p>
+<h2 id="specification">Specification</h2>
+<p>New JSON-RPC method to be added to web3 browsers: <code>wallet_getOwnedAssets</code>. This method is for dApp-wallet communication and only targets the assets that have already been whitelisted by the wallet, for the user account.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li>type <code>address</code>, Ethereum address that owns the assets</li>
+<li>options object, optional:
+<ul>
+<li><code>chainId</code> - type <code>uint</code>, chain id respecting <a href="https://eips.ethereum.org/EIPS/eip-155">EIP-155</a>; optional</li>
+<li><code>limit</code> - type <code>uint</code>, the maximum number of owned assets expected by the dApp to be returned; optional</li>
+<li><code>types</code> - type <code>string[]</code>, array of asset interface identifiers such as <code>['ERC20', 'ERC721']</code>; optional</li>
+<li><code>justification</code> - type <code>string</code>, human-readable text provided by the dApp, explaining the intended purpose of this request; optional but recommended</li>
+</ul>
+</li>
+</ul>
+<p><strong>Result:</strong></p>
+<ul>
+<li>array with asset records:
+<ul>
+<li><code>address</code> - type <code>address</code>, Ethereum checksummed address</li>
+<li><code>chainId</code> - type <code>uint</code>, identifier for the chain on which the assets are deployed</li>
+<li><code>type</code> - type <code>string</code>, asset interface ERC identifier; e.g. <code>ERC20</code>; optional - <a href="https://eips.ethereum.org/EIPS/eip-1820">EIP-1820</a> could be used</li>
+<li><code>options</code> - an object with asset-specific fields; <code>ERC20</code> tokens example:
+<ul>
+<li><code>name</code> - type <code>string</code>, token name; optional if the token does not implement it</li>
+<li><code>symbol</code> - type <code>string</code>, token symbol; optional if the token does not implement it</li>
+<li><code>icon</code>- type <code>base64</code>, token icon; optional</li>
+<li><code>balance</code> - type <code>uint</code>, the number of tokens that the user owns, in the smallest token denomination</li>
+<li><code>decimals</code> - type <code>uint</code>, the number of decimals implemented by the token; optional</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="examples">Examples</h3>
+<p><strong>1) A request to return all of the user's owned assets:</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;:</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">wallet_getOwnedAssets</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: [
+    &quot;</span><span style="color:#a3be8c;">0x3333333333333333333333333333333333333333</span><span style="color:#c0c5ce;">&quot;,
+    {
+      &quot;</span><span style="color:#a3be8c;">justification</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">The dApp needs to know about all your assets in order to calculate your taxes properly.</span><span style="color:#c0c5ce;">&quot;
+    }
+  ]
+}
+</span></code></pre>
+<p>Result:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;:</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot;: [
+    {
+      &quot;</span><span style="color:#a3be8c;">address</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x0000000000000000000000000000000000000001</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">chainId</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">ERC20</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">options</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">TokenA</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">symbol</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">TKA</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">icon</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">balance</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1000000000000</span><span style="color:#c0c5ce;">,
+        &quot;</span><span style="color:#a3be8c;">decimals</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">18
+      </span><span style="color:#c0c5ce;">}
+    },
+    {
+      &quot;</span><span style="color:#a3be8c;">address</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x0000000000000000000000000000000000000002</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">chainId</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">ERC20</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">options</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">TokenB</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">symbol</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">TKB</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">icon</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">balance</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">2000000000000</span><span style="color:#c0c5ce;">,
+        &quot;</span><span style="color:#a3be8c;">decimals</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">18
+      </span><span style="color:#c0c5ce;">}
+    },
+    {
+      &quot;</span><span style="color:#a3be8c;">address</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x0000000000000000000000000000000000000003</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">chainId</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">42</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">ERC721</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">options</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">TokenC</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">symbol</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">TKC</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">icon</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">balance</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">10
+      </span><span style="color:#c0c5ce;">}
+    },
+  ]
+}
+</span></code></pre>
+<p><strong>2) A request to return one <code>ERC20</code> owned asset, deployed on <code>chainId</code> 1:</strong></p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;:</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">method</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">wallet_getOwnedAssets</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">params</span><span style="color:#c0c5ce;">&quot;: [
+    &quot;</span><span style="color:#a3be8c;">0x3333333333333333333333333333333333333333</span><span style="color:#c0c5ce;">&quot;,
+    {
+      &quot;</span><span style="color:#a3be8c;">chainId</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">limit</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">types</span><span style="color:#c0c5ce;">&quot;: [&quot;</span><span style="color:#a3be8c;">ERC20</span><span style="color:#c0c5ce;">&quot;],
+      &quot;</span><span style="color:#a3be8c;">justification</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">Select your token of choice, in order to pay for our services.</span><span style="color:#c0c5ce;">&quot;
+    }
+  ]
+}
+</span></code></pre>
+<p>Result:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+  &quot;</span><span style="color:#a3be8c;">id</span><span style="color:#c0c5ce;">&quot;:</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+  &quot;</span><span style="color:#a3be8c;">jsonrpc</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#c0c5ce;">&quot;,
+  &quot;</span><span style="color:#a3be8c;">result</span><span style="color:#c0c5ce;">&quot;: [
+    {
+      &quot;</span><span style="color:#a3be8c;">address</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">0x0000000000000000000000000000000000000001</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">chainId</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">,
+      &quot;</span><span style="color:#a3be8c;">type</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">ERC20</span><span style="color:#c0c5ce;">&quot;,
+      &quot;</span><span style="color:#a3be8c;">options</span><span style="color:#c0c5ce;">&quot;: {
+        &quot;</span><span style="color:#a3be8c;">name</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">TokenA</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">symbol</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">TKA</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">icon</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==</span><span style="color:#c0c5ce;">&quot;,
+        &quot;</span><span style="color:#a3be8c;">balance</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">1000000000000</span><span style="color:#c0c5ce;">,
+        &quot;</span><span style="color:#a3be8c;">decimals</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#d08770;">18
+      </span><span style="color:#c0c5ce;">}
+    }
+  ]
+}
+</span></code></pre><h3 id="ui-best-practices">UI Best Practices</h3>
+<p>The wallet should display a UI to the user, showing the request.
+The user can:</p>
+<ul>
+<li>accept the request, in which case the dApp receives all the requested assets</li>
+<li>reject the request</li>
+<li>amend the request by lowering the number of owned assets returned to the dApp</li>
+</ul>
+<p>If all owned assets are requested, the total number of owned assets will be shown to the user. The user can also choose to select the assets that will be returned to the dApp, amending the request.</p>
+<p>If a selection is requested, the user will select from the list of owned assets.</p>
+<p>As an optimization, wallets can keep a list of frequently used assets by the user, and show that list first, with the option of expanding that list with owned assets that the user uses less frequently.</p>
+<h2 id="rationale">Rationale</h2>
+<p>In order to avoid duplication of effort for dApps that require keeping a list of all or popular assets and to provide optimal UX, the <code>wallet_getOwnedAssets</code> JSON-RPC method is proposed.</p>
+<p>The <code>chainId</code> and <code>types</code> optional parameters enable dApps to provide options in order to restrict the selection list that the user will be presented with by the wallet, in accordance with the dApp's functionality. The <code>limit</code> parameter enables the dApp to tell the user an upper limit of accounts that the user can select. It remains to be seen if a lower bound should also be provided. At the moment, this lower bound can be considered as being <code>1</code>.</p>
+<p>The <code>options</code> response field provides the dApp with asset-specific options, enabling better UX through using the same visual and text identifiers that the wallet uses, making it easier for the user to understand the dApp's UI.</p>
+<p>The <code>address</code>, <code>type</code> response fields provide enough information about the asset, enabling dApps to provide additional asset-specific functionality.</p>
+<p>The <code>balance</code> response field is an optimization, allowing dApps to show the user's balance without querying the blockchain. Usually, this information is already public.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>Not relevant, as this is a new method.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>To be done.</p>
+<h2 id="implementation">Implementation</h2>
+<p>To be done.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-1921: dType Functions Extension</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1921.md" />
+<meta property="og:title" content="EIP-1921: dType Functions Extension" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 1921 (EIP-1921): dType Functions Extension"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 1921 (EIP-1921): dType Functions Extension"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-1921.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 1921 (EIP 1921): dType Functions Extension" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-1921: dType Functions Extension
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="https://github.com/loredanacirstea">Loredana Cirstea</a>,
+        
+    
+        
+        
+            <a href="https://github.com/ctzurcanu"> Christian Tzurcanu</a>
+        
+    
+</td>
+        </tr>
+
+        
+          <tr>
+              <th>Discussions-To</th>
+              <td><a href="https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1921">https:&#x2F;&#x2F;github.com&#x2F;ethereum&#x2F;EIPs&#x2F;issues&#x2F;1921</a></td>
+          </tr>
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>ERC</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2019-04-06</td>
+        </tr>
+
+        
+
+        
+          <tr>
+              <th>Requires</th>
+              <td>1900</td>
+          </tr>
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>In the context of dType, the Decentralized Type System described in <a href="https://eips.ethereum.org/EIPS/eip-1900">EIP-1900</a>, we are proposing to add support for registering functions (with a preference for <code>pure</code> and <code>view</code>) in the dType Registry.</p>
+<h2 id="abstract">Abstract</h2>
+<p>This proposal is part of a series of EIPs focused on expanding the concept of a Decentralized Type System, as explained in <a href="https://eips.ethereum.org/EIPS/eip-1900">EIP-1900</a>.
+The current EIP specifies the data definitions and interfaces needed to support registering individual smart contract functions, as entries in the dType Registry.</p>
+<h2 id="motivation">Motivation</h2>
+<p>In order to evolve the EVM into a Singleton Operating System, we need a way to register, find and address contract functions that we want to run in an automated way.
+This implies having access to all the data needed to run the function inside the EVM.</p>
+<p>Aside from the above motivation, there are also near future benefits for this proposal. Having a globally available, non-custodial functions registry, will democratize the development of tools, such as those targeting: blockchain data analysis (e.g. block explorers), smart contract IDEs, security analysis of smart contracts.</p>
+<p>Registering new smart contract functions can be done through the same consensus mechanism as <a href="https://eips.ethereum.org/EIPS/eip-1900">EIP-1900</a> mentions, in order to avoid burdening the chain state with redundant or improper records.</p>
+<h2 id="specification">Specification</h2>
+<p>This specification targets <code>pure</code> and <code>view</code> functions.</p>
+<p>For each function, we can store:</p>
+<ul>
+<li><code>name</code> - type <code>string</code> unique function name, as defined in EIP-1900; required</li>
+<li><code>types</code> - the type data and label of each input, as defined in EIP-1900; required</li>
+<li><code>outputs</code> - the type data and label of each output; required</li>
+<li><code>contractAddress</code> - type <code>address</code> - smart contract where the function resides, as defined in EIP-1900; optional for interfaces</li>
+<li><code>source</code> - type <code>bytes32</code> - reference to an external file containing the function source code, as defined in EIP-1900; optional</li>
+</ul>
+<p>Therefore, this proposal adds <code>outputs</code> to the EIP-1900 type registration definition.</p>
+<p>An example of a function registration object for the dType registry is:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">{
+    &quot;name&quot;: &quot;setStaked&quot;,
+    &quot;types&quot;: [
+        {&quot;name&quot;: &quot;TypeA&quot;, &quot;label&quot;: &quot;typeA&quot;, &quot;relation&quot;:0, &quot;dimensions&quot;:[]}
+    ],
+    &quot;typeChoice&quot;: 4,
+    &quot;contractAddress&quot;: &lt;address of the deployed smart contract where the function is defined&gt;,
+    &quot;source&quot;: &lt;bytes32 hash for referencing source files&gt;,
+    &quot;outputs&quot;: [
+        {&quot;name&quot;: &quot;TypeB&quot;, &quot;label&quot;: &quot;typeB&quot;, &quot;relation&quot;:0, &quot;dimensions&quot;:[]}
+    ]
+}
+</span></code></pre>
+<p>The above object will be passed to <code>&lt;dType registry&gt;.insert({...})</code></p>
+<p>An additional <code>setOutputs</code> function is proposed for the dType registry:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function setOutputs(
+    bytes32 identifier,
+    dTypes[] memory outputs
+)
+    public
+</span></code></pre>
+<ul>
+<li><code>identifier</code> - type <code>bytes32</code>, the type's identifier, as defined in EIP-1900</li>
+<li><code>outputs</code> - type <code>dTypes</code>, as defined in EIP-1900</li>
+</ul>
+<h3 id="implementation-suggestions">Implementation Suggestions</h3>
+<p>In the dType registry implementation, <code>outputs</code> can be stored in a <code>mapping</code>:</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">mapping(bytes32 =&gt; dTypes[]) public outputs;
+</span></code></pre><h2 id="rationale">Rationale</h2>
+<p>The suggestion to treat each <code>pure</code> or <code>view</code> function as a separate entity instead of having a contract-based approach allows us to:</p>
+<ul>
+<li>have a global context of readily available functions</li>
+<li>scale designs through functional programming patterns rather than contract-encapsulated logic (which can be successfully used to scale development efforts independently)</li>
+<li>bidirectionally connect functions with the types they use, making automation easier</li>
+<li>cherry-pick functions from already deployed contracts if the other contract functions do not pass community consensus</li>
+<li>have scope-restricted improvements - instead of redeploying entire contracts, we can just redeploy the new function versions that we want to be added to the registry</li>
+<li>enable fine-grained auditing of individual functions, for the common good</li>
+<li>enable testing directly on a production chain, without state side-effects</li>
+</ul>
+<p>The proposal to store the minimum ABI information on-chain, for each function, allows us to:</p>
+<ul>
+<li>enable on-chain automation (e.g. function chaining and composition)</li>
+<li>be backward compatible in case the function signature format changes (e.g. from <code>bytes4</code> to <code>bytes32</code>): multiple signature calculation functions can be registered with dType. Examples:</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">function getSignatureBytes4(bytes32 identifier)
+    view
+    public
+    returns (bytes4 signature)
+
+function getSignatureBytes32(bytes32 identifier)
+    view
+    public
+    returns (bytes32 signature)
+</span></code></pre>
+<ul>
+<li><code>identifier</code> - the type's identifier, as defined in EIP-1900</li>
+<li><code>signature</code> - the function's signature</li>
+</ul>
+<p>Concerns about this design might be:</p>
+<ul>
+<li>redundancy of storing <code>contractAddress</code> for each function that is part of the same contract</li>
+</ul>
+<p>We think that state/storage cost will be compensated through DRYness across the chain, due to reusing types and functions that have already been registered and are now easy to find. Other state/storage cost calculations will be added once the specification and implementation are closer to be finalized.</p>
+<p>Note that the input and output types are based on types that have already been registered. This lowers the amount of ABI information needed to be stored for each function and enables developers to aggregate and find functions that use the same types for their I/O. This can be a powerful tool for interoperability and smart contract composition.</p>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This proposal does not affect extant Ethereum standards or implementations. Registering functions for existing contract deployments should be fully supported.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>Will be added.</p>
+<h2 id="implementation">Implementation</h2>
+<p>In-work implementation examples can be found at https://github.com/pipeos-one/dType.
+This proposal will be updated with an appropriate implementation when consensus is reached on the specifications.</p>
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https:&#x2F;&#x2F;eips.ethereum.com&#x2F;minima.css">
+
+        <!-- opengraph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.com" />
+        <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ethereum" />
+
+        <script type="application/ld+json">
+            {
+              "@type": "WebSite",
+              "url": "https:&#x2F;&#x2F;eips.ethereum.com",
+              "name": "Ethereum Improvement Proposals",
+              "description": "Description",
+              "@context": "https://schema.org"
+            }
+        </script>
+
+        
+
+        
+
+<title>EIP-616: SIMD Operations for the EVM</title>
+<link rel="canonical" href="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-616.md" />
+<meta property="og:title" content="EIP-616: SIMD Operations for the EVM" />
+<meta
+    name="description"
+    content="Details on Ethereum Improvement Proposal 616 (EIP-616): SIMD Operations for the EVM"
+/>
+<meta
+    property="og:description"
+    content="Details on Ethereum Improvement Proposal 616 (EIP-616): SIMD Operations for the EVM"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;eips.ethereum.comEIPS&#x2F;eip-616.md" />
+<meta name="twitter:description" content="Details on Ethereum Improvement Proposal 616 (EIP 616): SIMD Operations for the EVM" />
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="https:&#x2F;&#x2F;eips.ethereum.com">Ethereum Improvement Proposals</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+
+                    <div class="trigger">
+                        
+                            <a class="page-link" href="&#x2F;all">All</a>
+                        
+                            <a class="page-link" href="&#x2F;core">Core</a>
+                        
+                            <a class="page-link" href="&#x2F;networking">Networking</a>
+                        
+                            <a class="page-link" href="&#x2F;interface">Interface</a>
+                        
+                            <a class="page-link" href="&#x2F;erc">ERC</a>
+                        
+                            <a class="page-link" href="&#x2F;meta">Meta</a>
+                        
+                            <a class="page-link" href="&#x2F;informational">Informational</a>
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper">
+                
+<div class="home">
+    <h1 class="page-heading">
+        EIP-616: SIMD Operations for the EVM
+        <a href=""><svg role="img" aria-label="Source" xmlns="https://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><title>Source</title><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg></a>
+    </h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <td>
+    
+        
+        
+            <a href="mailto:greg@colvin.org">Greg Colvin</a>
+        
+    
+</td>
+        </tr>
+
+        
+
+        <tr>
+            <th>Status</th>
+            <td>
+                Draft
+                
+            </td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td>Standards Track</td>
+        </tr>
+
+        
+          <tr>
+              <th>Category</th>
+              <td>Core</td>
+          </tr>
+        
+
+        <tr>
+            <th>Created</th>
+            <td>2017-04-25</td>
+        </tr>
+
+        
+
+        
+
+        
+
+        
+
+        
+  </table>
+
+  
+    <h2 id="abstract">ABSTRACT</h2>
+<p>A proposal to provide Single Instruction Multiple Data types and operations for the Ethereum Virtual Machine, making full use of the 256-bit wide EVM stack items, and offering substantial performance gains for both vector and scalar operations.</p>
+<h2 id="motivation">MOTIVATION</h2>
+<p>Most all modern CPUs include SIMD hardware that operates on wide registers of data, applying a Single Instruction to Multiple Data lanes in parallel, where lanes divide a register into a vector of scalar elements of equal size.  This model is an excellent fit for the wide stack items of the EVM, offering substantial performance boosts for operations that can be expressed as parallel operations on vectors of scalars.  For some examples, a brief literature search finds SIMD speedups of</p>
+<ul>
+<li>up to 7X for <a href="http://keccak.noekeon.org/sw_performance.html">SHA-512</a></li>
+<li>4X for <a href="https://link.springer.com/chapter/10.1007/3-540-45439-X_16">elliptic curve scalar multiplication</a></li>
+<li>3X to 4X for <a href="https://github.com/minio/blake2b-simd">BLAKE2b</a></li>
+<li>up to 3X for <a href="https://software.intel.com/en-us/articles/improving-openssl-performance">OpenSSL</a></li>
+<li>2X to 3X for <a href="http://ieee-hpec.org/2013/index_htm_files/24-Simd-acceleration-Pabbuleti-2886999.pdf">elliptic curve modular multiplication</a></li>
+<li>1.7X to 1.9X for <a href="https://github.com/minio/sha256-simd">SHA-256</a></li>
+<li>1.3X for <a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.738.1218&amp;rep=rep1&amp;type=pdf">RSA encryption</a></li>
+</ul>
+<h2 id="specification">SPECIFICATION</h2>
+<h3 id="encoding">Encoding</h3>
+<p>We propose a simple encoding of SIMD operations as extended two-byte codes.  The first byte is the opcode, and the second byte is the SIMD type: scalar type, lane width, and number of elements.</p>
+<table><thead><tr><th>N bits</th><th>Field</th></tr></thead><tbody>
+<tr><td>8</td><td>opcode</td></tr>
+<tr><td>1</td><td>scalar type: 0 = unsigned integer, 1 = IEEE float</td></tr>
+<tr><td>1</td><td>reserved: 0</td></tr>
+<tr><td>2</td><td>lane width: log base 2 of the number of bytes, as an MSB first integer</td></tr>
+<tr><td>1</td><td>reserved: 0</td></tr>
+<tr><td>3</td><td>element count: log base 2 of the number of lanes, as an MSB first integer</td></tr>
+</tbody></table>
+<p>Thus we can specify SIMD types with unsigned integer lanes from 8 to 64 bits in vectors of 32 to 2 lanes, respectively.  Floating point lanes however support only 32- and 64-bit IEEE floating point.  And a type of <em>0x7F</em> represents a normal 256-bit EVM integer.</p>
+<p><em>Note that when the element count is one the operation is on one scalar, so this specification also provides for native operations on single scalars of native sizes.</em></p>
+<p><em>Note that floating point operations are <strong>not</strong> proposed for inclusion in the initial release, but we considered it important to reserve code space for possible future expansion.</em></p>
+<h3 id="semantics">Semantics</h3>
+<p>We define the following extended versions of the EVM's arithmetic, logic, and comparison operations.  As with the normal versions, they consume their arguments from the stack and place their results on the stack, except that their arguments are vectors rather than scalars.</p>
+<table><thead><tr><th>lo\hi</th><th>B</th><th>C</th></tr></thead><tbody>
+<tr><td>0</td><td></td><td>XLT</td></tr>
+<tr><td>1</td><td>XADD</td><td>XGT</td></tr>
+<tr><td>2</td><td>XMUL</td><td>XSLT</td></tr>
+<tr><td>3</td><td>XSUB</td><td>XSGT</td></tr>
+<tr><td>4</td><td>XDIV</td><td>XEQ</td></tr>
+<tr><td>5</td><td>XSDIV</td><td>XISZERO</td></tr>
+<tr><td>6</td><td>XMOD</td><td>XAND</td></tr>
+<tr><td>7</td><td>XSMOD</td><td>XOR</td></tr>
+<tr><td>8</td><td></td><td>XXOR</td></tr>
+<tr><td>9</td><td></td><td>XNOT</td></tr>
+<tr><td>A</td><td></td><td>XINDEX</td></tr>
+<tr><td>B</td><td></td><td>XSHL</td></tr>
+<tr><td>C</td><td></td><td>XSHR</td></tr>
+<tr><td>D</td><td></td><td>XSAR</td></tr>
+<tr><td>E</td><td>XCAST</td><td>XROL</td></tr>
+<tr><td>F</td><td>XSHUFFLE</td><td>XROR</td></tr>
+</tbody></table>
+<p>Except for XSHUFFLE, XCAST, and XINDEX all the extended operations on unsigned integer values have the same semantics as the corresponding operations for codes 01 through 1F, except that the modulus varies by scalar type and the operations are applied pair-wise to the elements of the source operands to compute the destination elements.  <em>The source operands must have the same element type and number of elements.</em>  E.g.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">PUSH uint8[1, 2, 3]
+PUSH uint8[4, 5, 6]
+XADD
+</span></code></pre>
+<p>leaves</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">uint8[5, 7, 9]
+</span></code></pre>
+<p>on the stack.</p>
+<p>XSHUFFLE takes two vectors on the stack: a vector to permute and a permutation mask.  E.g.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">PUSH uint64[4, 5, 6, 0]
+PUSH uint8[2, 0, 1, 3]
+SHUFFLE
+</span></code></pre>
+<p>leaves</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">uint64[6, 4, 5 , 0]
+</span></code></pre>
+<p>on the stack. The mask must have integral type, and the same number of elements as the source vector.</p>
+<p>The second byte of the XCAST opcode is applied to the item on the stack to create a new vector of the specified type.  Elements are converted according to the usual C conventions, missing elements are set to zero, and extra elements are discarded.  If the stack item is not a vector it is converted to a vector by taking its bits least-significant-bit first and copying them into the corresponding bits of each element, least-significant-element first.  Again, excess data is truncated and missing data is 0-filled.  Vectors are converted to 256-bit EVM integers via the reverse process., with elements that are floating point NANs normalized to all bits on.</p>
+<p><em>Note that MLOAD and MSTORE are valid only on 256-bit EVM integers.  For SIMD vectors an XCAST is needed after a load and before a store to convert vectors to and from 256-bit integers.</em></p>
+<p>XINDEX has the same semantics as BYTE, except that individual elements of the vector are indexed.</p>
+<p>Floating point values follow IEEE 754 semantics.  Since those are not defined for shifting and rotating those operations are defined here as having no effect.</p>
+<p>Extended operations other than XSHUFFLE and XCAST are only valid on vectors of the same SIMD type.  This can be validated at contract creation time, or else checked at runtime.</p>
+<h3 id="subroutines">Subroutines</h3>
+<p>If <a href="https://github.com/ethereum/EIPs/pull/187">EIP 187</a> is accepted a type-safe syntax for declaring subroutines taking vector arguments will be needed.</p>
+<ul>
+<li><code>BEGINSUBX n_args, arg_types... n_results, result_types...</code>
+marks the <strong>single</strong> entry to a subroutine.  <code>n_args</code> items are taken off of the stack at entry to, and <code>n_results</code> items are placed on the stack at return from the subroutine. <code>n_args</code> and <code>n_results</code> are given as one immediate byte each.  The <code>arg_types</code> and <code>result_types</code> are given in the same encoding as second byte of the SIMD opcodes, and must match the values on the stack.  The bytecode for a subroutine ends at the next <code>BEGINSUB</code>, <code>BEGINSUBX</code> or <code>BEGINDATA</code> instruction or at the end of the bytecode.</li>
+</ul>
+<h2 id="rationale">RATIONALE</h2>
+<p>Currently, the lowest common denominator for SIMD hardware (e.g. Intel SSE2 and ARM Neon) is 16-byte registers supporting integer lanes of 1, 2, 4, and 8 bytes, and floating point lanes of 4 and 8 bytes.  More recent SIMD hardware (e.g. Intel AVX) supports 32-byte registers, and EVM stack items are also 32 bytes wide.  The limits above derive from these numbers, assuring that EVM code is within the bounds of available hardware - and the reserved bits provide room for growth.</p>
+<p>For most modern languages (including Rust, Python, Go, Java, and C++) compilers can do a good job of generating SIMD code for parallelizable loops, and/or there are intrinsics or libraries available for explicit access to SIMD hardware.  So a portable software implementation will likely provide good use of the hardware on most platforms, and intrinsics or libraries can be used as available and needed.  Thus we can expect these operations to take about the same (or for 256-bit vectors on 128-bit hardware up to twice) the time to execute regardless of element size or number of elements.</p>
+<h3 id="gas">Gas</h3>
+<p>One motivation for these operations, besides taking full advantage of the hardware, is assigning lower gas costs for operations on smaller scalars.</p>
+<p>On a machine with 64-bit registers the standard algorithms from Knuth's <a href="https://library.aceondo.net/ebooks/Computer_Science/algorithm-the_art_of_computer_programming-knuth.pdf">Art of Computer Programming</a> require 32-bit digits, using the upper half of a register for overflows, so for 256-bit values N=8 digits are needed, and for 64-bit values N=2 digits are needed.  The cycle counts for these algorithms are:</p>
+<table><thead><tr><th>operation</th><th>cycles</th><th>N = 2</th><th>N = 4</th><th>N = 8</th></tr></thead><tbody>
+<tr><td>add</td><td>10 <em>N</em> + 6</td><td>26</td><td>46</td><td>86</td></tr>
+<tr><td>subtract</td><td>12 <em>N</em> + 3</td><td>27</td><td>51</td><td>99</td></tr>
+<tr><td>multiply</td><td>28 <em>N</em>**2 + 11 <em>N</em> + 3</td><td>137</td><td>495</td><td>1883</td></tr>
+<tr><td>divide</td><td>15 <em>N</em>**2 + 119 <em>N</em> + 111</td><td>409</td><td>827</td><td>2023</td></tr>
+</tbody></table>
+<p>The remaining operations are of about the same complexity as addition and subtraction, or less. Given that JUMPDEST is a no-op, and is assigned a gas price of 1, this can be taken as the overhead of the interpreter.  All of the arithmetic operations are assigned the same gas price of 5, for a remaining runtime of 4.  The interpreter loop itself takes about 6 to 8 C instructions, so ADD and SUB are reasonably priced, but MUL is some 5 to 21 times slower than ADD or SUB, and DIV is some 15 to 23 times slower, so they are clearly mispriced.</p>
+<p>By comparison, on most <a href="https://software.intel.com/sites/landingpage/IntrinsicsGuide">Intel</a> and <a href="https://developer.arm.com/docs/100166/latest/programmers-model/instruction-set-summary/table-of-processor-instructions">ARM</a> SIMD units instructions take approximately the following cycle counts, independent of register width.</p>
+<table><thead><tr><th>operation</th><th>Intel cycles</th><th>ARM cycles</th><th>gas</th></tr></thead><tbody>
+<tr><td>add</td><td>.5</td><td>1</td><td>1</td></tr>
+<tr><td>subtract</td><td>.5</td><td>1</td><td>1</td></tr>
+<tr><td>multiply</td><td>2</td><td>1</td><td>1</td></tr>
+<tr><td>divide</td><td>10</td><td>12</td><td>2</td></tr>
+</tbody></table>
+<p>Since all but the divide operation take fewer cycles than the interpreter overhead they are assigned the minimal cost of 1.  Division takes slightly more, and is assigned a cost of 2.</p>
+
+
+
+            </div>
+        </main>
+
+
+        <footer class="site-footer h-card">
+            <div class="wrapper">
+                <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+                <div class="footer-col-wrapper">
+                    <div class="footer-col footer-col-1">
+                        <ul class="contact-list">
+                            <li class="p-name">
+                                
+                                GitHub User
+                                
+                            </li>
+                            <li>
+                                <a class="u-email" href="mailto:your-email@domain.com">
+                                  your-email@domain.com
+                                </a>
+                              </li>
+                            </ul>
+                    </div>
+                    <div class="footer-col footer-col-3">
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
